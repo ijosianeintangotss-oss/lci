@@ -139,6 +139,17 @@ app.put('/api/quotes/:id/status', async (req, res) => {
 // Serve uploaded files (unchanged)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+app.post('/api/messages', async (req, res) => {
+  try {
+    const newMessage = new Message(req.body);
+    await newMessage.save();
+    res.status(200).json({ message: 'Message sent successfully' });
+  } catch (error) {
+    console.error('Message submission error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
