@@ -467,6 +467,7 @@ function About() {
           Join the many organizations that trust LCI for their language needs.
         </p>
         <Link
+        
           to="/quote"
           style={styles.primaryButton}
           onMouseEnter={handleButtonHover}
