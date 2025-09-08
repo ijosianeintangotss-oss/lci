@@ -498,7 +498,7 @@ function AdminTranslationDashboard() {
 
   const updateQuoteStatus = async (id, newStatus) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/quotes/${id}/status`, {
+      const response = await fetch(`https://lcirwanda-backend01.onrender.com/api/quotes/${id}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
