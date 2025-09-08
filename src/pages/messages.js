@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 function AdminTranslationDashboard() {
   const [quotes, setQuotes] = useState([]);
+  const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,6 +13,7 @@ function AdminTranslationDashboard() {
   const [sortOrder, setSortOrder] = useState('desc');
   const [selectedQuote, setSelectedQuote] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [activeTab, setActiveTab] = useState('quotes');
 
   // Stats state
   const [stats, setStats] = useState({
@@ -288,59 +290,6 @@ function AdminTranslationDashboard() {
       borderBottom: '1px solid #e2e8f0',
       fontSize: '14px'
     },
-    clientName: {
-      fontWeight: '500',
-      color: '#1a202c',
-      margin: 0
-    },
-    clientEmail: {
-      color: '#718096',
-      fontSize: '14px',
-      margin: '2px 0 0 0'
-    },
-    clientPhone: {
-      color: '#718096',
-      fontSize: '14px',
-      margin: '2px 0 0 0'
-    },
-    serviceMain: {
-      color: '#1a202c',
-      margin: 0
-    },
-    serviceDoc: {
-      color: '#718096',
-      fontSize: '14px',
-      margin: '2px 0 0 0'
-    },
-    languageContainer: {
-      display: 'flex',
-      alignItems: 'center'
-    },
-    languageArrow: {
-      margin: '0 8px',
-      color: '#718096'
-    },
-    statusSelect: {
-      fontSize: '12px',
-      padding: '4px 8px',
-      borderRadius: '16px',
-      border: '1px solid',
-      fontWeight: '500',
-      cursor: 'pointer'
-    },
-    urgencyRow: {
-      transition: 'background-color 0.2s'
-    },
-    viewButton: {
-      color: '#3182ce',
-      textDecoration: 'none',
-      fontSize: '14px',
-      fontWeight: '500',
-      cursor: 'pointer',
-      border: 'none',
-      background: 'none',
-      padding: 0
-    },
     modal: {
       position: 'fixed',
       top: 0,
@@ -468,7 +417,7 @@ function AdminTranslationDashboard() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('https://lcirwanda-backend01.onrender.com/api/quotes');
+      const response = await fetch('http://localhost:5000/api/messages');
       if (!response.ok) {
         throw new Error('Failed to fetch quotes');
       }
@@ -492,13 +441,44 @@ function AdminTranslationDashboard() {
     }
   }, []);
 
+  const fetchMessages = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await fetch('http://localhost:5000/api/messages');
+      if (!response.ok) {
+        throw new Error(`Failed to fetch messages: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      console.log('Messages data:', data); // Log the response for debugging
+      setMessages(data.map(msg => ({
+        name: 'messages',
+        documents: data.length,
+        logicalDataSize: '162B', // Placeholder, adjust based on actual data
+        avgDocumentSize: '162B', // Placeholder, adjust based on actual data
+        storageSize: '20KB', // Placeholder, adjust based on actual data
+        indexes: 1, // Placeholder, adjust based on actual data
+        indexSize: '20KB' // Placeholder, adjust based on actual data
+      })));
+    } catch (err) {
+      console.error('Error fetching messages:', err); // Log the error for debugging
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
-    fetchQuotes();
-  }, [fetchQuotes]);
+    if (activeTab === 'quotes') {
+      fetchQuotes();
+    } else if (activeTab === 'messages') {
+      fetchMessages();
+    }
+  }, [activeTab, fetchQuotes, fetchMessages]);
 
   const updateQuoteStatus = async (id, newStatus) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/quotes/${id}/status`, {
+      const response = await fetch(`http://localhost:5000/api/messages/${id}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -593,7 +573,7 @@ function AdminTranslationDashboard() {
       <div style={styles.loadingContainer}>
         <div style={styles.loadingContent}>
           <div style={styles.spinner}></div>
-          <p style={styles.loadingText}>Loading translation requests...</p>
+          <p style={styles.loadingText}>Loading {activeTab === 'quotes' ? 'translation requests...' : 'messages...'}</p>
         </div>
       </div>
     );
@@ -612,20 +592,21 @@ function AdminTranslationDashboard() {
           href="/admin-quotes"
           style={{
             ...styles.sidebarLink,
-            ...(window.location.pathname === '/AdminQuotes' ? styles.sidebarLinkActive : {})
+            ...(activeTab === 'quotes' ? styles.sidebarLinkActive : {})
           }}
           onMouseEnter={(e) => {
-            if (window.location.pathname !== '/AdminQuotes') {
+            if (activeTab !== 'quotes') {
               e.target.style.backgroundColor = styles.sidebarLinkHover.backgroundColor;
               e.target.style.color = styles.sidebarLinkHover.color;
             }
           }}
           onMouseLeave={(e) => {
-            if (window.location.pathname !== '/AdminQuotes') {
+            if (activeTab !== 'quotes') {
               e.target.style.backgroundColor = 'transparent';
               e.target.style.color = '#a0aec0';
             }
           }}
+          onClick={() => setActiveTab('quotes')}
         >
           📋 Quotes
         </a>
@@ -633,20 +614,21 @@ function AdminTranslationDashboard() {
           href="/messages"
           style={{
             ...styles.sidebarLink,
-            ...(window.location.pathname === '/messages' ? styles.sidebarLinkActive : {})
+            ...(activeTab === 'messages' ? styles.sidebarLinkActive : {})
           }}
           onMouseEnter={(e) => {
-            if (window.location.pathname !== '/messages') {
+            if (activeTab !== 'messages') {
               e.target.style.backgroundColor = styles.sidebarLinkHover.backgroundColor;
               e.target.style.color = styles.sidebarLinkHover.color;
             }
           }}
           onMouseLeave={(e) => {
-            if (window.location.pathname !== '/messages') {
+            if (activeTab !== 'messages') {
               e.target.style.backgroundColor = 'transparent';
               e.target.style.color = '#a0aec0';
             }
           }}
+          onClick={() => setActiveTab('messages')}
         >
           💬 Messages
         </a>
@@ -657,13 +639,13 @@ function AdminTranslationDashboard() {
         <header style={styles.header}>
           <div style={styles.headerContent}>
             <div>
-              <h1 style={styles.title}>Translation Request Dashboard</h1>
-              <p style={styles.subtitle}>Manage and track all quote requests</p>
+              <h1 style={styles.title}>{activeTab === 'quotes' ? 'Message Dashboard' : 'Messages Dashboard'}</h1>
+              <p style={styles.subtitle}>{activeTab === 'quotes' ? 'Manage and track all quote requests' : 'View all messages'}</p>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
               <button 
                 style={styles.refreshButton}
-                onClick={fetchQuotes}
+                onClick={activeTab === 'quotes' ? fetchQuotes : fetchMessages}
                 onMouseEnter={(e) => e.target.style.backgroundColor = '#2563eb'}
                 onMouseLeave={(e) => e.target.style.backgroundColor = '#3182ce'}
               >
@@ -682,226 +664,272 @@ function AdminTranslationDashboard() {
         </header>
 
         <div style={styles.mainContent}>
-          {/* Stats */}
-          <div style={styles.statsGrid}>
-            <div style={styles.statCard}>
-              <div style={{...styles.statIcon, backgroundColor: '#dbeafe'}}>📋</div>
-              <div>
-                <p style={styles.statLabel}>Total Requests</p>
-                <p style={{...styles.statValue, color: '#1a202c'}}>{stats.total}</p>
-              </div>
-            </div>
-            <div style={styles.statCard}>
-              <div style={{...styles.statIcon, backgroundColor: '#fef3c7'}}>⏳</div>
-              <div>
-                <p style={styles.statLabel}>Pending</p>
-                <p style={{...styles.statValue, color: '#d97706'}}>{stats.pending}</p>
-              </div>
-            </div>
-            <div style={styles.statCard}>
-              <div style={{...styles.statIcon, backgroundColor: '#dbeafe'}}>🔄</div>
-              <div>
-                <p style={styles.statLabel}>In Progress</p>
-                <p style={{...styles.statValue, color: '#2563eb'}}>{stats.inProgress}</p>
-              </div>
-            </div>
-            <div style={styles.statCard}>
-              <div style={{...styles.statIcon, backgroundColor: '#d1fae5'}}>✅</div>
-              <div>
-                <p style={styles.statLabel}>Completed</p>
-                <p style={{...styles.statValue, color: '#059669'}}>{stats.completed}</p>
-              </div>
-            </div>
-            <div style={styles.statCard}>
-              <div style={{...styles.statIcon, backgroundColor: '#e0e7ff'}}>📅</div>
-              <div>
-                <p style={styles.statLabel}>Today's Requests</p>
-                <p style={{...styles.statValue, color: '#4f46e5'}}>{stats.todayRequests}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Filters */}
-          <div style={styles.filtersCard}>
-            <div style={styles.filtersGrid}>
-              <div style={styles.filterGroup}>
-                <label style={styles.label}>Search Client</label>
-                <input
-                  style={styles.input}
-                  type="text"
-                  placeholder="Search by name or email..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
-                  onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
-                />
-              </div>
-              <div style={styles.filterGroup}>
-                <label style={styles.label}>Status Filter</label>
-                <select 
-                  style={styles.select}
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                >
-                  <option value="all">All Statuses</option>
-                  <option value="pending">Pending</option>
-                  <option value="inProgress">In Progress</option>
-                  <option value="completed">Completed</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
-              </div>
-              <div style={styles.filterGroup}>
-                <label style={styles.label}>Service Filter</label>
-                <select 
-                  style={styles.select}
-                  value={serviceFilter}
-                  onChange={(e) => setServiceFilter(e.target.value)}
-                >
-                  <option value="all">All Services</option>
-                  <option value="Translation">Translation</option>
-                  <option value="Interpretation">Interpretation</option>
-                  <option value="Localization">Localization</option>
-                </select>
-              </div>
-              <div style={styles.filterGroup}>
-                <label style={styles.label}>Sort By</label>
-                <div style={styles.sortContainer}>
-                  <button 
-                    style={{
-                      ...styles.sortButton,
-                      backgroundColor: sortBy === 'submittedAt' ? '#dbeafe' : 'white'
-                    }}
-                    onClick={() => handleSort('submittedAt')}
-                  >
-                    Date {sortBy === 'submittedAt' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
-                  </button>
-                  <button 
-                    style={{
-                      ...styles.sortButton,
-                      backgroundColor: sortBy === 'fullName' ? '#dbeafe' : 'white'
-                    }}
-                    onClick={() => handleSort('fullName')}
-                  >
-                    Name {sortBy === 'fullName' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
-                  </button>
-                  <button 
-                    style={{
-                      ...styles.sortButton,
-                      backgroundColor: sortBy === 'service' ? '#dbeafe' : 'white'
-                    }}
-                    onClick={() => handleSort('service')}
-                  >
-                    Service {sortBy === 'service' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
-                  </button>
+          {activeTab === 'quotes' ? (
+            <>
+              {/* Stats */}
+              <div style={styles.statsGrid}>
+                <div style={styles.statCard}>
+                  <div style={{...styles.statIcon, backgroundColor: '#dbeafe'}}>📋</div>
+                  <div>
+                    <p style={styles.statLabel}>Total Requests</p>
+                    <p style={{...styles.statValue, color: '#1a202c'}}>{stats.total}</p>
+                  </div>
+                </div>
+                <div style={styles.statCard}>
+                  <div style={{...styles.statIcon, backgroundColor: '#fef3c7'}}>⏳</div>
+                  <div>
+                    <p style={styles.statLabel}>Pending</p>
+                    <p style={{...styles.statValue, color: '#d97706'}}>{stats.pending}</p>
+                  </div>
+                </div>
+                <div style={styles.statCard}>
+                  <div style={{...styles.statIcon, backgroundColor: '#dbeafe'}}>🔄</div>
+                  <div>
+                    <p style={styles.statLabel}>In Progress</p>
+                    <p style={{...styles.statValue, color: '#2563eb'}}>{stats.inProgress}</p>
+                  </div>
+                </div>
+                <div style={styles.statCard}>
+                  <div style={{...styles.statIcon, backgroundColor: '#d1fae5'}}>✅</div>
+                  <div>
+                    <p style={styles.statLabel}>Completed</p>
+                    <p style={{...styles.statValue, color: '#059669'}}>{stats.completed}</p>
+                  </div>
+                </div>
+                <div style={styles.statCard}>
+                  <div style={{...styles.statIcon, backgroundColor: '#e0e7ff'}}>📅</div>
+                  <div>
+                    <p style={styles.statLabel}>Today's Requests</p>
+                    <p style={{...styles.statValue, color: '#4f46e5'}}>{stats.todayRequests}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* Error Display */}
-          {error && (
-            <div style={styles.errorCard}>
-              <span style={styles.errorIcon}>⚠️</span>
-              <div>
-                <h3 style={styles.errorTitle}>Error</h3>
-                <p style={styles.errorMessage}>{error}</p>
+              {/* Filters */}
+              <div style={styles.filtersCard}>
+                <div style={styles.filtersGrid}>
+                  <div style={styles.filterGroup}>
+                    <label style={styles.label}>Search Client</label>
+                    <input
+                      style={styles.input}
+                      type="text"
+                      placeholder="Search by name or email..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+                      onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
+                    />
+                  </div>
+                  <div style={styles.filterGroup}>
+                    <label style={styles.label}>Status Filter</label>
+                    <select 
+                      style={styles.select}
+                      value={statusFilter}
+                      onChange={(e) => setStatusFilter(e.target.value)}
+                    >
+                      <option value="all">All Statuses</option>
+                      <option value="pending">Pending</option>
+                      <option value="inProgress">In Progress</option>
+                      <option value="completed">Completed</option>
+                      <option value="cancelled">Cancelled</option>
+                    </select>
+                  </div>
+                  <div style={styles.filterGroup}>
+                    <label style={styles.label}>Service Filter</label>
+                    <select 
+                      style={styles.select}
+                      value={serviceFilter}
+                      onChange={(e) => setServiceFilter(e.target.value)}
+                    >
+                      <option value="all">All Services</option>
+                      <option value="Translation">Translation</option>
+                      <option value="Interpretation">Interpretation</option>
+                      <option value="Localization">Localization</option>
+                    </select>
+                  </div>
+                  <div style={styles.filterGroup}>
+                    <label style={styles.label}>Sort By</label>
+                    <div style={styles.sortContainer}>
+                      <button 
+                        style={{
+                          ...styles.sortButton,
+                          backgroundColor: sortBy === 'submittedAt' ? '#dbeafe' : 'white'
+                        }}
+                        onClick={() => handleSort('submittedAt')}
+                      >
+                        Date {sortBy === 'submittedAt' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                      </button>
+                      <button 
+                        style={{
+                          ...styles.sortButton,
+                          backgroundColor: sortBy === 'fullName' ? '#dbeafe' : 'white'
+                        }}
+                        onClick={() => handleSort('fullName')}
+                      >
+                        Name {sortBy === 'fullName' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                      </button>
+                      <button 
+                        style={{
+                          ...styles.sortButton,
+                          backgroundColor: sortBy === 'service' ? '#dbeafe' : 'white'
+                        }}
+                        onClick={() => handleSort('service')}
+                      >
+                        Service {sortBy === 'service' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          )}
 
-          {/* Quotes Table */}
-          {sortedQuotes.length === 0 ? (
-            <div style={styles.emptyState}>
-              <span style={styles.emptyIcon}>📋</span>
-              <h3 style={styles.emptyTitle}>No translation requests found</h3>
-              <p style={styles.emptyText}>Requests will appear here when customers submit quote forms.</p>
-            </div>
-          ) : (
-            <div style={styles.tableCard}>
-              <div style={styles.tableContainer}>
-                <table style={styles.table}>
-                  <thead style={styles.tableHeader}>
-                    <tr>
-                      <th style={styles.th}>Client Full Names</th>
-                      {/* <th style={styles.th}>Service</th> */}
-                      <th style={styles.th}>Languages</th>
-                      <th style={styles.th}>Urgency</th>
-                      <th style={styles.th}>Status</th>
-                      <th style={styles.th}>Submitted</th>
-                      <th style={styles.th}>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {sortedQuotes.map((quote, index) => {
-                      const urgencyStyles = getUrgencyStyles(quote.turnaround);
-                      const statusStyles = getStatusStyles(quote.status || 'pending');
+              {/* Error Display */}
+              {error && (
+                <div style={styles.errorCard}>
+                  <span style={styles.errorIcon}>⚠️</span>
+                  <div>
+                    <h3 style={styles.errorTitle}>Error</h3>
+                    <p style={styles.errorMessage}>{error}</p>
+                  </div>
+                </div>
+              )}
 
-                      return (
-                        <tr 
-                          key={quote.id || index} 
-                          style={{...styles.urgencyRow, ...urgencyStyles}}
-                          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f7fafc'}
-                          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = urgencyStyles.backgroundColor}
-                        >
-                          <td style={styles.td}>
-                            <div>
-                              <p style={styles.clientName}>{quote.fullName || 'N/A'}</p>
-                              <p style={styles.clientEmail}>{quote.email || 'N/A'}</p>
-                              {quote.phone && <p style={styles.clientPhone}>{quote.phone}</p>}
-                            </div>
-                          </td>
-                          <td style={styles.td}>
-                            <p style={styles.serviceMain}>{quote.service || 'N/A'}</p>
-                            <p style={styles.serviceDoc}>{quote.documentType || 'N/A'}</p>
-                          </td>
-                          <td style={styles.td}>
-                            <div style={styles.languageContainer}>
-                              <span>{quote.sourceLanguage || 'N/A'}</span>
-                              <span style={styles.languageArrow}>→</span>
-                              <span>{quote.targetLanguage || 'N/A'}</span>
-                            </div>
-                          </td>
-                          <td style={styles.td}>
-                            <p style={styles.serviceMain}>{quote.turnaround || 'N/A'}</p>
-                            {quote.wordCount && (
-                              <p style={styles.serviceDoc}>{quote.wordCount} words</p>
-                            )}
-                          </td>
-                          <td style={styles.td}>
-                            <select
-                              value={quote.status || 'pending'}
-                              onChange={(e) => updateQuoteStatus(quote.id, e.target.value)}
-                              style={{...styles.statusSelect, ...statusStyles}}
-                            >
-                              <option value="pending">Pending</option>
-                              <option value="inProgress">In Progress</option>
-                              <option value="completed">Completed</option>
-                              <option value="cancelled">Cancelled</option>
-                            </select>
-                          </td>
-                          <td style={styles.td}>
-                            {formatDate(quote.submittedAt)}
-                          </td>
-                          <td style={styles.td}>
-                            <button
-                              style={styles.viewButton}
-                              onClick={() => {
-                                setSelectedQuote(quote);
-                                setShowModal(true);
-                              }}
-                              onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
-                              onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
-                            >
-                              View Details
-                            </button>
-                          </td>
+              {/* Quotes Table */}
+              {sortedQuotes.length === 0 ? (
+                <div style={styles.emptyState}>
+                  <span style={styles.emptyIcon}>📋</span>
+                  <h3 style={styles.emptyTitle}>No translation requests found</h3>
+                  <p style={styles.emptyText}>Requests will appear here when customers submit quote forms.</p>
+                </div>
+              ) : (
+                <div style={styles.tableCard}>
+                  <div style={styles.tableContainer}>
+                    <table style={styles.table}>
+                      <thead style={styles.tableHeader}>
+                        <tr>
+                          <th style={styles.th}>Client FullName</th>
+                          <th style={styles.th}>Email</th>
+                          <th style={styles.th}>Subject</th>
+                          <th style={styles.th}>Message</th>    
+                          {/* <th style={styles.th}>Status</th>
+                          <th style={styles.th}>Submitted</th>
+                          <th style={styles.th}>Actions</th> */}
                         </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                      </thead>
+                      <tbody>
+                        {sortedQuotes.map((quote, index) => {
+                          const urgencyStyles = getUrgencyStyles(quote.turnaround);
+                          const statusStyles = getStatusStyles(quote.status || 'pending');
+
+                          return (
+                            <tr 
+                              key={quote.id || index} 
+                              style={{...styles.urgencyRow, ...urgencyStyles}}
+                              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f7fafc'}
+                              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = urgencyStyles.backgroundColor}
+                            >
+                              <td style={styles.td}>
+                                <div>
+                                  <p style={styles.clientName}>{quote.fullName || 'N/A'}</p>
+                                  <p style={styles.clientEmail}>{quote.email || 'N/A'}</p>
+                                  {quote.phone && <p style={styles.clientPhone}>{quote.phone}</p>}
+                                </div>
+                              </td>
+                              <td style={styles.td}>
+                                <p style={styles.serviceMain}>{quote.service || 'N/A'}</p>
+                                <p style={styles.serviceDoc}>{quote.documentType || 'N/A'}</p>
+                              </td>
+                              <td style={styles.td}>
+                                <div style={styles.languageContainer}>
+                                  <span>{quote.sourceLanguage || 'N/A'}</span>
+                                  <span style={styles.languageArrow}>→</span>
+                                  <span>{quote.targetLanguage || 'N/A'}</span>
+                                </div>
+                              </td>
+                              <td style={styles.td}>
+                                <p style={styles.serviceMain}>{quote.turnaround || 'N/A'}</p>
+                                {quote.wordCount && (
+                                  <p style={styles.serviceDoc}>{quote.wordCount} words</p>
+                                )}
+                              </td>
+                              <td style={styles.td}>
+                                <select
+                                  value={quote.status || 'pending'}
+                                  onChange={(e) => updateQuoteStatus(quote.id, e.target.value)}
+                                  style={{...styles.statusSelect, ...statusStyles}}
+                                >
+                                  <option value="pending">Pending</option>
+                                  <option value="inProgress">In Progress</option>
+                                  <option value="completed">Completed</option>
+                                  <option value="cancelled">Cancelled</option>
+                                </select>
+                              </td>
+                              <td style={styles.td}>
+                                {formatDate(quote.submittedAt)}
+                              </td>
+                              <td style={styles.td}>
+                                <button
+                                  style={styles.viewButton}
+                                  onClick={() => {
+                                    setSelectedQuote(quote);
+                                    setShowModal(true);
+                                  }}
+                                  onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+                                  onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+                                >
+                                  View Details
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              {/* Messages Table */}
+              {messages.length === 0 ? (
+                <div style={styles.emptyState}>
+                  <span style={styles.emptyIcon}>💬</span>
+                  <h3 style={styles.emptyTitle}>No messages found</h3>
+                  <p style={styles.emptyText}>Messages will appear here when customers submit messages.</p>
+                </div>
+              ) : (
+                <div style={styles.tableCard}>
+                  <div style={styles.tableContainer}>
+                    <table style={styles.table}>
+                      <thead style={styles.tableHeader}>
+                        <tr>
+                          <th style={styles.th}>Collection Name</th>
+                          <th style={styles.th}>Documents</th>
+                          <th style={styles.th}>Logical Data Size</th>
+                          <th style={styles.th}>Avg Document Size</th>
+                          <th style={styles.th}>Storage Size</th>
+                          <th style={styles.th}>Indexes</th>
+                          <th style={styles.th}>Index Size</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {messages.map((msg, index) => (
+                          <tr key={index} style={{...styles.urgencyRow}}>
+                            <td style={styles.td}>{msg.name}</td>
+                            <td style={styles.td}>{msg.documents}</td>
+                            <td style={styles.td}>{msg.logicalDataSize}</td>
+                            <td style={styles.td}>{msg.avgDocumentSize}</td>
+                            <td style={styles.td}>{msg.storageSize}</td>
+                            <td style={styles.td}>{msg.indexes}</td>
+                            <td style={styles.td}>{msg.indexSize}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
 
@@ -937,18 +965,18 @@ function AdminTranslationDashboard() {
                   </div>
                   
                   <div style={styles.modalSection}>
-                    <h4 style={styles.modalSectionTitle}>Service Details</h4>
+                    {/* <h4 style={styles.modalSectionTitle}>Service Details</h4> */}
                     <p style={styles.modalText}>
-                      <span style={styles.modalLabel}>Service:</span> {selectedQuote.service}
+                      {/* <span style={styles.modalLabel}>Service:</span> {selectedQuote.service} */}
                     </p>
                     <p style={styles.modalText}>
-                      <span style={styles.modalLabel}>Document Type:</span> {selectedQuote.documentType}
+                      {/* <span style={styles.modalLabel}>Document Type:</span> {selectedQuote.documentType} */}
                     </p>
                     <p style={styles.modalText}>
-                      <span style={styles.modalLabel}>Languages:</span> {selectedQuote.sourceLanguage} → {selectedQuote.targetLanguage}
+                      {/* <span style={styles.modalLabel}>Languages:</span> {selectedQuote.sourceLanguage} → {selectedQuote.targetLanguage} */}
                     </p>
                     <p style={styles.modalText}>
-                      <span style={styles.modalLabel}>Turnaround:</span> {selectedQuote.turnaround}
+                      {/* <span style={styles.modalLabel}>Turnaround:</span> {selectedQuote.turnaround} */}
                     </p>
                     {selectedQuote.wordCount && (
                       <p style={styles.modalText}>
@@ -960,7 +988,7 @@ function AdminTranslationDashboard() {
                 
                 <div>
                   <div style={styles.modalSection}>
-                    <h4 style={styles.modalSectionTitle}>Files</h4>
+                    {/* <h4 style={styles.modalSectionTitle}>Files</h4> */}
                     {selectedQuote.files && selectedQuote.files.length > 0 ? (
                       <ul style={{margin: 0, paddingLeft: '20px'}}>
                         {selectedQuote.files.map((file, idx) => (
@@ -982,10 +1010,10 @@ function AdminTranslationDashboard() {
                   </div>
                   
                   <div style={styles.modalSection}>
-                    <h4 style={styles.modalSectionTitle}>Payment Screenshot</h4>
+                    {/* <h4 style={styles.modalSectionTitle}>Payment Screenshot</h4> */}
                     {selectedQuote.paymentScreenshot ? (
                       <a
-                        href={`http://localhost:5000${selectedQuote.paymentScreenshot}`}
+                        href={`https://lcirwanda-backend01.onrender.com${selectedQuote.paymentScreenshot}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={styles.fileLink}
@@ -998,10 +1026,10 @@ function AdminTranslationDashboard() {
                   </div>
                   
                   <div style={styles.modalSection}>
-                    <h4 style={styles.modalSectionTitle}>Additional Requirements</h4>
-                    <p style={{...styles.modalText, color: '#4b5563'}}>
-                      {selectedQuote.additionalRequirements || 'None specified'}
-                    </p>
+                    {/* <h4 style={styles.modalSectionTitle}>Additional Requirements</h4> */}
+                    {/* <p style={{...styles.modalText, color: '#4b5563'}}> */}
+                      {/* {selectedQuote.additionalRequirements || 'None specified'} */}
+                    {/* </p> */}
                   </div>
                 </div>
               </div>

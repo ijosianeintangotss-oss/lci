@@ -778,13 +778,13 @@ function Services() {
             Let's bring your multilingual vision to life.
           </p>
           <Link
-            to="/contact"
+            to="/quote"
             style={styles.primaryButton}
             onMouseEnter={handleButtonHover}
             onMouseLeave={handleButtonLeave}
           >
             <span style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-              Get Your Free Quote Today ⭐
+              Get Your Quote Today ⭐
             </span>
           </Link>
         </div>

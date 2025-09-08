@@ -16,7 +16,7 @@ function Admin() {
 
   const fetchQuotes = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/quotes');
+      const response = await fetch('https://lcirwanda-backend01.onrender.com/api/quotes');
       const data = await response.json();
       setQuotes(data);
       setLoading(false);
@@ -66,7 +66,7 @@ function Admin() {
               <td style={{ padding: '1rem', border: '1px solid #e5e7eb' }}>{quote.additionalRequirements}</td>
               <td style={{ padding: '1rem', border: '1px solid #e5e7eb' }}>
                 {quote.files.map((file, index) => (
-                  <a key={index} href={`http://localhost:5000/${file}`} download target="_blank" rel="noopener noreferrer">
+                  <a key={index} href={`https://lcirwanda-backend01.onrender.com/${file}`} download target="_blank" rel="noopener noreferrer">
                     File {index + 1}<br />
                   </a>
                 ))}

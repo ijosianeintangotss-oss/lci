@@ -105,17 +105,17 @@ function Home() {
   const paymentMethods = [
     {
       title: "MTN Mobile Money",
-      description: "Pay securely using your MTN Mobile Money account. Quick and convenient for local clients.",
+      description: "Pay securely using your MTN Mobile Money account. Dial *182*1*1# to make a payment to our registered number: +250788518720.",
       image: mobileMoney
     },
     {
       title: "Visa Card",
-      description: "Secure international payments with your Visa credit or debit card.",
+      description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
       image: visaCard
     },
     {
       title: "Master Card",
-      description: "Secure international payments with your MasterCard credit or debit card.",
+      description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
       image: masterCard
     }
   ];
@@ -508,13 +508,13 @@ function Home() {
             </p>
             <div style={styles.buttonContainer}>
               <Link
-                to="/contact"
+                to="/quote"
                 style={styles.primaryButton}
                 onMouseEnter={handleButtonHover}
                 onMouseLeave={handleButtonLeave}
               >
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  Request a Free Quote <span style={{ color: '#f08b18', filter: 'hue-rotate(0deg) saturate(1) brightness(1)' }}>⭐</span>
+                  Request Quote <span style={{ color: '#f08b18', filter: 'hue-rotate(0deg) saturate(1) brightness(1)' }}>⭐</span>
                 </span>
               </Link>
               <a
@@ -645,7 +645,14 @@ function Home() {
         </p>
         <div style={styles.paymentGrid}>
           {paymentMethods.map((method, index) => (
-            <div key={index} style={styles.paymentCard}>
+            <div
+              key={index}
+              style={{
+                ...styles.paymentCard,
+                opacity: method.title !== "MTN Mobile Money" ? 0.6 : 1,
+                pointerEvents: method.title !== "MTN Mobile Money" ? 'none' : 'auto',
+              }}
+            >
               <img src={method.image} alt={method.title} style={styles.paymentImage} />
               <h3 style={styles.serviceTitle}>{method.title}</h3>
               <p style={styles.serviceDescription}>{method.description}</p>
@@ -668,13 +675,13 @@ function Home() {
         </p>
         <div style={styles.ctaButtons}>
           <Link
-            to="/contact"
+            to="/quote"
             style={styles.primaryButton}
             onMouseEnter={handleButtonHover}
             onMouseLeave={handleButtonLeave}
           >
             <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              Get Free Quote <span style={{ color: '#f08b18', filter: 'hue-rotate(0deg) saturate(1) brightness(1)' }}>⭐</span>
+              Get Quote <span style={{ color: '#f08b18', filter: 'hue-rotate(0deg) saturate(1) brightness(1)' }}>⭐</span>
             </span>
           </Link>
           <Link

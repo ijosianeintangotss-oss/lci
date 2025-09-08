@@ -1,6 +1,6 @@
 // src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -10,22 +10,40 @@ import Training from './pages/Training';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import AdminQuotes from './pages/AdminQuotes';
+import Quote from './pages/Quote';
+import Login from './pages/Login';
+import Messages from './pages/messages'; // Use a different name for messages
 import './App.css';
+
+// PublicLayout component to wrap Header and Footer around public routes
+const PublicLayout = () => (
+  <>
+    <Header />
+    <Outlet /> {/* This renders the child route components */}
+    <Footer />
+  </>
+);
 
 function App() {
   return (
     <Router>
-      <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/training" element={<Training />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/contact" element={<Contact />} />
+        {/* Public routes with Header and Footer */}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/training" element={<Training />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/quote" element={<Quote />} />
+        </Route>
+
+        {/* Admin/Login routes without Header and Footer */}
+        <Route path="/login" element={<Login />} />
         <Route path="/admin-quotes" element={<AdminQuotes />} />
+        <Route path="/messages" element={<Messages />} /> {/* Fixed */}
       </Routes>
-      <Footer />
     </Router>
   );
 }

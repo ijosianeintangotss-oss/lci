@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import mobileMoney from '../assets/mobile money.png';
+import visaCard from '../assets/visa card.png';
+import masterCard from '../assets/master card.png';
 
 function Contact() {
   const [isVisible, setIsVisible] = useState(false);
@@ -118,6 +121,24 @@ function Contact() {
       icon: "📧",
       action: "Send Email",
       link: "mailto:lcirwanda@gmail.com"
+    }
+  ];
+
+  const paymentMethods = [
+    {
+      title: "MTN Mobile Money",
+      description: "Pay securely using your MTN Mobile Money account. Dial *182*1*1*0788518720*Amount# to make a payment to our registered number: +250788518720.",
+      image: mobileMoney
+    },
+    {
+      title: "Visa",
+      description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
+      image: visaCard
+    },
+    {
+      title: "MasterCard",
+      description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
+      image: masterCard
     }
   ];
 
@@ -244,7 +265,7 @@ function Contact() {
       files.forEach(file => submitData.append('files', file));
       if (paymentScreenshot) submitData.append('paymentScreenshot', paymentScreenshot);
 
-      const response = await fetch('https://lci-rwanda.onrender.com/api/quotes', {
+      const response = await fetch('https://lcirwanda-backend01.onrender.com/api/quotes', {
         method: 'POST',
         body: submitData,
       });
@@ -298,7 +319,7 @@ function Contact() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('https://lci-rwanda.onrender.com/api/messages', {
+      const response = await fetch('https://lcirwanda-backend01.onrender.com/api/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -689,7 +710,13 @@ function Contact() {
       borderTop: '2px solid white',
       borderRadius: '50%',
       animation: 'spin 1s linear infinite'
-    }
+    },
+    paymentImage: {
+      width: '100px',
+      height: '50px',
+      objectFit: 'contain',
+      marginBottom: '1.5rem',
+    },
   };
 
   const handleMouseEnter = (index) => {
@@ -802,7 +829,6 @@ function Contact() {
 
           {activeSection === 'quote' && (
             <>
-       
               <h2 style={styles.sectionTitle}>Get a Detailed Quote</h2>
               <p style={styles.sectionSubtitle}>
                 Upload your documents and get a professional quote within 2-4 hours. Our advanced form makes it easy to specify your exact requirements.
@@ -855,7 +881,7 @@ function Contact() {
                   </div>
                   
                   <div style={styles.formGroup}>
-                    <label style={styles.label} htmlFor="service">Service Required *</label>
+                    <label style={styles.label} htmlFor="service">Service Type *</label>
                     <select 
                       style={styles.select}
                       id="service" 
@@ -960,6 +986,7 @@ function Contact() {
 
                   <div style={styles.formGroup}>
                     <label style={styles.label}>Upload Payment Screenshot *</label>
+                    <label style={styles.label}>Dial *182*1*1*0788518720*Amount#</label>
                     <div
                       style={styles.fileUpload1}
                       onClick={() => !isSubmitting && document.getElementById('paymentScreenshotInput').click()}
@@ -1082,7 +1109,7 @@ function Contact() {
                       Submitting...
                     </>
                   ) : (
-                    'Get Quote - Delivered in 2-4 Hours'
+                    'Get Quote'
                   )}
                 </button>
               </form>
@@ -1303,34 +1330,6 @@ function Contact() {
         </div>
       </section>
 
-      {/* Security and Trust Section */}
-      <section style={styles.section}>
-        <div style={{
-          background: 'linear-gradient(135deg, #ecfdf5, #d1fae5)',
-          borderRadius: '20px',
-          padding: '3rem',
-          border: '2px solid #10b981',
-          textAlign: 'center'
-        }}>
-          <h2 style={{...styles.sectionTitle, color: '#065f46'}}>🔐 Security & Trust</h2>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: '2rem',
-            marginTop: '2rem'
-          }}>
-            <div style={{...styles.contactCard, border: '2px solid #10b981'}}>
-              <h4 style={{fontSize: '1.2rem', color: '#065f46', marginBottom: '1rem'}}>🔒 Encrypted Storage</h4>
-              <p style={{color: '#047857'}}>Your documents are protected with enterprise-grade encryption</p>
-            </div>
-            <div style={{...styles.contactCard, border: '2px solid #10b981'}}>
-              <h4 style={{fontSize: '1.2rem', color: '#065f46', marginBottom: '1rem'}}>✅ Quality Assured</h4>
-              <p style={{color: '#047857'}}>Multi-stage review process: Translator → Editor → Proofreader</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Payment Methods Section */}
       <section style={styles.section}>
         <div style={{
@@ -1341,36 +1340,27 @@ function Contact() {
         }}>
           <h2 style={styles.sectionTitle}>💳 Secure Payment Options</h2>
           <p style={styles.sectionSubtitle}>
-            We accept multiple payment methods for your convenience.
+            We offer convenient and secure payment options for your translation and localization services.
           </p>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
             gap: '2rem'
           }}>
-            <div style={styles.contactCard}>
-              <div style={{fontSize: '2.5rem', color: '#ff8c00', marginBottom: '1rem'}}>
-                💸
+            {paymentMethods.map((method, index) => (
+              <div
+                key={index}
+                style={{
+                  ...styles.contactCard,
+                  opacity: method.title !== "MTN Mobile Money" ? 0.6 : 1,
+                  pointerEvents: method.title !== "MTN Mobile Money" ? 'none' : 'auto',
+                }}
+              >
+                <img src={method.image} alt={method.title} style={styles.paymentImage} />
+                <h4 style={{fontSize: '1.2rem', color: '#1e3a8a', marginBottom: '0.5rem'}}>{method.title}</h4>
+                <p style={{color: '#4b5563', fontSize: '0.9rem'}}>{method.description}</p>
               </div>
-              <h4 style={{fontSize: '1.2rem', color: '#1e3a8a', marginBottom: '0.5rem'}}>MTN Mobile Money</h4>
-              <p style={{color: '#4b5563', fontSize: '0.9rem'}}>Quick and convenient for local clients</p>
-            </div>
-
-            <div style={styles.contactCard}>
-              <div style={{fontSize: '2.5rem', color: '#ff8c00', marginBottom: '1rem'}}>
-                💳
-              </div>
-              <h4 style={{fontSize: '1.2rem', color: '#1e3a8a', marginBottom: '0.5rem'}}>Visa</h4>
-              <p style={{color: '#4b5563', fontSize: '0.9rem'}}>Secure international payments</p>
-            </div>
-
-            <div style={styles.contactCard}>
-              <div style={{fontSize: '2.5rem', color: '#ff8c00', marginBottom: '1rem'}}>
-                💳
-              </div>
-              <h4 style={{fontSize: '1.2rem', color: '#1e3a8a', marginBottom: '0.5rem'}}>MasterCard</h4>
-              <p style={{color: '#4b5563', fontSize: '0.9rem'}}>Secure international payments</p>
-            </div>
+            ))}
           </div>
 
           <div style={{textAlign: 'center', marginTop: '2rem'}}>

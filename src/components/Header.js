@@ -23,7 +23,8 @@ function Header() {
     { path: '/services', label: 'Services', icon: '🌐' },
     { path: '/training', label: 'Training', icon: '🎓' },
     { path: '/blog', label: 'Blog', icon: '📝' },
-    { path: '/contact', label: 'Contact', icon: '📞' }
+    { path: '/contact', label: 'Contact', icon: '📞' },
+    { path: '/quote', label: 'Quote', icon: '⭐' }
   ];
 
   // const languages = [
@@ -334,14 +335,14 @@ function Header() {
             </div> */}
 
             {/* CTA Button - Desktop */}
-            <Link to="/contact" style={{textDecoration: 'none', display: window.innerWidth >= 768 ? 'block' : 'none'}}>
+            <Link to="/login" style={{textDecoration: 'none', display: window.innerWidth >= 768 ? 'block' : 'none'}}> {/* Updated to /login */}
               <button 
                 style={styles.ctaButton}
                 onMouseEnter={handleButtonHover}
                 onMouseLeave={handleButtonLeave}
               >
                 <span>⭐</span>
-                Request a Quote
+                Login
               </button>
             </Link>
 
