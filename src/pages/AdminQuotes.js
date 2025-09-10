@@ -966,7 +966,7 @@ function AdminTranslationDashboard() {
                         {selectedQuote.files.map((file, idx) => (
                           <li key={idx} style={{margin: '8px 0'}}>
                             <a
-                              href={`http://localhost:5000${file}`}
+                              href={`https://lcirwanda-backend001.onrender.com${file}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               style={styles.fileLink}
@@ -985,7 +985,7 @@ function AdminTranslationDashboard() {
                     <h4 style={styles.modalSectionTitle}>Payment Screenshot</h4>
                     {selectedQuote.paymentScreenshot ? (
                       <a
-                        href={`http://localhost:5000${selectedQuote.paymentScreenshot}`}
+                        href={`https://lcirwanda-backend001.onrender.com${selectedQuote.paymentScreenshot}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={styles.fileLink}

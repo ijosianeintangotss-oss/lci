@@ -417,7 +417,7 @@ function AdminTranslationDashboard() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('http://localhost:5000/api/messages');
+      const response = await fetch('https://lcirwanda-backend001.onrender.com/api/messages');
       if (!response.ok) {
         throw new Error('Failed to fetch quotes');
       }
@@ -445,7 +445,7 @@ function AdminTranslationDashboard() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('http://localhost:5000/api/messages');
+      const response = await fetch('https://lcirwanda-backend001.onrender.com/api/messages');
       if (!response.ok) {
         throw new Error(`Failed to fetch messages: ${response.status} ${response.statusText}`);
       }
@@ -478,7 +478,7 @@ function AdminTranslationDashboard() {
 
   const updateQuoteStatus = async (id, newStatus) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/messages/${id}/status`, {
+      const response = await fetch(`https://lcirwanda-backend001.onrender.com/api/messages/${id}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -994,7 +994,7 @@ function AdminTranslationDashboard() {
                         {selectedQuote.files.map((file, idx) => (
                           <li key={idx} style={{margin: '8px 0'}}>
                             <a
-                              href={`http://localhost:5000${file}`}
+                              href={`https://lcirwanda-backend001.onrender.com${file}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               style={styles.fileLink}
