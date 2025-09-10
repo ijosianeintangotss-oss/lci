@@ -17,6 +17,17 @@ function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const navItems = [
     { path: '/', label: 'Home', icon: '🏠' },
     { path: '/about', label: 'About', icon: '👥' },
@@ -24,14 +35,8 @@ function Header() {
     { path: '/training', label: 'Training', icon: '🎓' },
     { path: '/blog', label: 'Blog', icon: '📝' },
     { path: '/contact', label: 'Contact', icon: '📞' },
-    { path: '/quote', label: 'Quote', icon: '⭐' }
+    { path: '/quote', label: 'Quote', icon: '⭐' },
   ];
-
-  // const languages = [
-  //   { code: 'EN', flag: '🇺🇸', label: 'English' },
-  //   { code: 'FR', flag: '🇫🇷', label: 'Français' },
-  //   { code: 'RW', flag: '🇷🇼', label: 'Kinyarwanda' }
-  // ];
 
   const styles = {
     header: {
@@ -47,133 +52,114 @@ function Header() {
       borderBottom: isScrolled 
         ? '2px solid rgba(255, 140, 0, 0.3)' 
         : '2px solid rgba(255, 140, 0, 0.1)',
-      padding: isScrolled ? '0.5rem 2rem' : '1rem 2rem',
+      padding: isScrolled ? '0.5rem 1rem' : '1rem 1rem',
       transition: 'all 0.3s ease',
       boxShadow: isScrolled 
         ? '0 4px 20px rgba(30, 58, 138, 0.1)' 
-        : '0 2px 10px rgba(30, 58, 138, 0.05)'
+        : '0 2px 10px rgba(30, 58, 138, 0.05)',
     },
     container: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'flex-start',
+      justifyContent: 'space-between',
       maxWidth: '1400px',
       margin: '0 auto',
-      gap: '3rem'
+      gap: '1rem',
+      flexWrap: 'wrap',
     },
     logoSection: {
       display: 'flex',
       alignItems: 'center',
-      gap: '1rem',
+      gap: '0.5rem',
       cursor: 'pointer',
-      transition: 'transform 0.3s ease'
+      transition: 'transform 0.3s ease',
     },
     logo: {
-      height: isScrolled ? '45px' : '55px',
+      height: isScrolled ? '40px' : '50px',
       width: 'auto',
       transition: 'all 0.3s ease',
-      filter: 'drop-shadow(2px 2px 4px rgba(30, 58, 138, 0.1))'
+      filter: 'drop-shadow(2px 2px 4px rgba(30, 58, 138, 0.1))',
     },
     tagline: {
-      fontSize: '0.9rem',
-      color: '#ffffffff',
+      fontSize: '0.8rem',
+      color: '#1e3a8a',
       fontWeight: '600',
       fontStyle: 'italic',
       display: isScrolled ? 'none' : 'block',
-      transition: 'all 0.3s ease'
+      transition: 'all 0.3s ease',
     },
     nav: {
       display: 'flex',
       alignItems: 'center',
       gap: '0.5rem',
-      flex: 1
+      flex: 1,
+      justifyContent: 'center',
     },
     navList: {
       display: 'flex',
       listStyle: 'none',
       margin: 0,
       padding: 0,
-      gap: '0.5rem'
+      gap: '0.3rem',
+      flexWrap: 'wrap',
     },
     navItem: {
-      position: 'relative'
+      position: 'relative',
     },
     navLink: {
       display: 'flex',
       alignItems: 'center',
-      gap: '0.5rem',
-      padding: '0.8rem 1.2rem',
+      gap: '0.4rem',
+      padding: '0.6rem 1rem',
       textDecoration: 'none',
       color: '#1e3a8a',
       fontWeight: '600',
-      fontSize: '0.95rem',
-      borderRadius: '25px',
+      fontSize: '0.9rem',
+      borderRadius: '20px',
       transition: 'all 0.3s ease',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
     },
     activeNavLink: {
       background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
       color: 'white',
-      boxShadow: '0 4px 15px rgba(255, 140, 0, 0.3)'
+      boxShadow: '0 4px 15px rgba(255, 140, 0, 0.3)',
     },
     hoveredNavLink: {
       background: 'linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(30, 58, 138, 0.1))',
       transform: 'translateY(-2px)',
-      boxShadow: '0 4px 12px rgba(30, 58, 138, 0.2)'
+      boxShadow: '0 4px 12px rgba(30, 58, 138, 0.2)',
     },
     rightSection: {
       display: 'flex',
       alignItems: 'center',
-      gap: '1.5rem',
-      marginLeft: 'auto'
+      gap: '1rem',
     },
-    // languageSelector: {
-    //   position: 'relative',
-    //   display: 'inline-block'
-    // },
-    // languageSelect: {
-    //   padding: '0.6rem 1rem',
-    //   border: '2px solid #e5e7eb',
-    //   borderRadius: '20px',
-    //   background: 'white',
-    //   color: '#1e3a8a',
-    //   fontSize: '0.9rem',
-    //   fontWeight: '600',
-    //   cursor: 'pointer',
-    //   transition: 'all 0.3s ease',
-    //   appearance: 'none',
-    //   paddingRight: '2.5rem',
-    //   backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff8c00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e")`,
-    //   backgroundRepeat: 'no-repeat',
-    //   backgroundPosition: 'right 0.7rem center',
-    //   backgroundSize: '1rem'
-    // },
     ctaButton: {
       background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
       color: 'white',
       border: 'none',
-      padding: '0.8rem 1.8rem',
-      borderRadius: '25px',
-      fontSize: '0.95rem',
+      padding: '0.6rem 1.5rem',
+      borderRadius: '20px',
+      fontSize: '0.9rem',
       fontWeight: '600',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
       boxShadow: '0 4px 15px rgba(255, 140, 0, 0.3)',
       display: 'flex',
       alignItems: 'center',
-      gap: '0.5rem'
+      gap: '0.4rem',
     },
     mobileMenuButton: {
       display: 'none',
       background: 'none',
       border: '2px solid #ff8c00',
-      padding: '0.5rem',
+      padding: '0.4rem',
       borderRadius: '8px',
       cursor: 'pointer',
-      fontSize: '1.2rem',
+      fontSize: '1.1rem',
       color: '#ff8c00',
-      transition: 'all 0.3s ease'
+      transition: 'all 0.3s ease',
     },
     mobileMenu: {
       position: 'absolute',
@@ -184,10 +170,10 @@ function Header() {
       backdropFilter: 'blur(10px)',
       border: '2px solid rgba(255, 140, 0, 0.2)',
       borderTop: 'none',
-      borderRadius: '0 0 20px 20px',
+      borderRadius: '0 0 15px 15px',
       padding: '1rem',
       display: isMobileMenuOpen ? 'block' : 'none',
-      boxShadow: '0 8px 25px rgba(30, 58, 138, 0.15)'
+      boxShadow: '0 8px 25px rgba(30, 58, 138, 0.15)',
     },
     mobileNavList: {
       listStyle: 'none',
@@ -195,44 +181,32 @@ function Header() {
       margin: 0,
       display: 'flex',
       flexDirection: 'column',
-      gap: '0.5rem'
+      gap: '0.5rem',
     },
     mobileNavLink: {
       display: 'flex',
       alignItems: 'center',
-      gap: '0.8rem',
-      padding: '1rem',
+      gap: '0.6rem',
+      padding: '0.8rem',
       textDecoration: 'none',
       color: '#1e3a8a',
       fontWeight: '600',
-      borderRadius: '15px',
+      borderRadius: '12px',
       transition: 'all 0.3s ease',
-      background: 'rgba(255, 255, 255, 0.5)'
+      background: 'rgba(255, 255, 255, 0.5)',
     },
     mobileDivider: {
       height: '1px',
       background: 'linear-gradient(90deg, transparent, #ff8c00, transparent)',
-      margin: '1rem 0'
+      margin: '0.8rem 0',
     },
     mobileActions: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '0.8rem',
-      marginTop: '1rem'
-    }
+      gap: '0.6rem',
+      marginTop: '0.8rem',
+    },
   };
-
-  // Media queries using JavaScript
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const handleMouseEnter = (index) => {
     setHoveredItem(index);
@@ -265,31 +239,36 @@ function Header() {
       <header style={styles.header}>
         <div style={styles.container}>
           {/* Logo Section */}
-          <Link to="/" style={{textDecoration: 'none'}}>
-            <div 
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <div
               style={styles.logoSection}
               onMouseEnter={handleLogoHover}
               onMouseLeave={handleLogoLeave}
             >
               <img src={logo} alt="LCI Logo" style={styles.logo} />
               <div>
-                <div style={{
-                  fontSize: '1.1rem',
-                  fontWeight: 'bold',
-                  color: '#ffffffff',
-                  lineHeight: '1.2'
-                }}>
+                <div
+                  style={{
+                    fontSize: '1rem',
+                    fontWeight: 'bold',
+                    color: '#1e3a8a',
+                    lineHeight: '1.2',
+                  }}
+                >
                   LCI Rwanda
                 </div>
-                <div style={styles.tagline}>
-                  Translate. Localize. Connect.
-                </div>
+                <div style={styles.tagline}>Translate. Localize. Connect.</div>
               </div>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav style={{...styles.nav, display: window.innerWidth >= 768 ? 'flex' : 'none'}}>
+          <nav
+            style={{
+              ...styles.nav,
+              display: window.innerWidth >= 768 ? 'flex' : 'none',
+            }}
+          >
             <ul style={styles.navList}>
               {navItems.map((item, index) => (
                 <li key={index} style={styles.navItem}>
@@ -297,13 +276,18 @@ function Header() {
                     to={item.path}
                     style={{
                       ...styles.navLink,
-                      ...(location.pathname === item.path ? styles.activeNavLink : {}),
-                      ...(hoveredItem === index && location.pathname !== item.path ? styles.hoveredNavLink : {})
+                      ...(location.pathname === item.path
+                        ? styles.activeNavLink
+                        : {}),
+                      ...(hoveredItem === index &&
+                      location.pathname !== item.path
+                        ? styles.hoveredNavLink
+                        : {}),
                     }}
                     onMouseEnter={() => handleMouseEnter(index)}
                     onMouseLeave={handleMouseLeave}
                   >
-                    <span style={{fontSize: '0.9rem'}}>{item.icon}</span>
+                    <span style={{ fontSize: '0.8rem' }}>{item.icon}</span>
                     {item.label}
                   </Link>
                 </li>
@@ -313,30 +297,15 @@ function Header() {
 
           {/* Right Section */}
           <div style={styles.rightSection}>
-            {/* Language Selector */}
-            {/* <div style={styles.languageSelector}>
-              <select 
-                style={styles.languageSelect}
-                onMouseEnter={(e) => {
-                  e.target.style.borderColor = '#ff8c00';
-                  e.target.style.boxShadow = '0 2px 8px rgba(255, 140, 0, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.borderColor = '#e5e7eb';
-                  e.target.style.boxShadow = 'none';
-                }}
-              >
-                {languages.map((lang, index) => (
-                  <option key={index} value={lang.code}>
-                    {lang.flag} {lang.code}
-                  </option>
-                ))}
-              </select>
-            </div> */}
-
-            {/* CTA Button - Desktop */}
-            <Link to="/login" style={{textDecoration: 'none', display: window.innerWidth >= 768 ? 'block' : 'none'}}> {/* Updated to /login */}
-              <button 
+            {/* Login Button - Desktop */}
+            <Link
+              to="/login"
+              style={{
+                textDecoration: 'none',
+                display: window.innerWidth >= 768 ? 'block' : 'none',
+              }}
+            >
+              <button
                 style={styles.ctaButton}
                 onMouseEnter={handleButtonHover}
                 onMouseLeave={handleButtonLeave}
@@ -347,12 +316,12 @@ function Header() {
             </Link>
 
             {/* Mobile Menu Button */}
-            <button 
+            <button
               style={{
                 ...styles.mobileMenuButton,
                 display: window.innerWidth < 768 ? 'block' : 'none',
                 background: isMobileMenuOpen ? '#ff8c00' : 'none',
-                color: isMobileMenuOpen ? 'white' : '#ff8c00'
+                color: isMobileMenuOpen ? 'white' : '#ff8c00',
               }}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               onMouseEnter={(e) => {
@@ -382,15 +351,19 @@ function Header() {
                   to={item.path}
                   style={{
                     ...styles.mobileNavLink,
-                    ...(location.pathname === item.path ? {
-                      background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
-                      color: 'white'
-                    } : {})
+                    ...(location.pathname === item.path
+                      ? {
+                          background:
+                            'linear-gradient(135deg, #ff8c00, #1e3a8a)',
+                          color: 'white',
+                        }
+                      : {}),
                   }}
                   onClick={() => setIsMobileMenuOpen(false)}
                   onMouseEnter={(e) => {
                     if (location.pathname !== item.path) {
-                      e.target.style.background = 'linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(30, 58, 138, 0.1))';
+                      e.target.style.background =
+                        'linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(30, 58, 138, 0.1))';
                       e.target.style.transform = 'translateX(5px)';
                     }
                   }}
@@ -401,25 +374,69 @@ function Header() {
                     }
                   }}
                 >
-                  <span style={{fontSize: '1.2rem'}}>{item.icon}</span>
+                  <span style={{ fontSize: '1rem' }}>{item.icon}</span>
                   {item.label}
                   {location.pathname === item.path && (
-                    <span style={{marginLeft: 'auto', fontSize: '0.8rem'}}>●</span>
+                    <span style={{ marginLeft: 'auto', fontSize: '0.7rem' }}>
+                      ●
+                    </span>
                   )}
                 </Link>
               </li>
             ))}
+            {/* Login Button - Mobile */}
+            <li>
+              <Link
+                to="/login"
+                style={{
+                  ...styles.mobileNavLink,
+                  ...(location.pathname === '/login'
+                    ? {
+                        background:
+                          'linear-gradient(135deg, #ff8c00, #1e3a8a)',
+                        color: 'white',
+                      }
+                    : {}),
+                }}
+                onClick={() => setIsMobileMenuOpen(false)}
+                onMouseEnter={(e) => {
+                  if (location.pathname !== '/login') {
+                    e.target.style.background =
+                      'linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(30, 58, 138, 0.1))';
+                    e.target.style.transform = 'translateX(5px)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (location.pathname !== '/login') {
+                    e.target.style.background = 'rgba(255, 255, 255, 0.5)';
+                    e.target.style.transform = 'translateX(0)';
+                  }
+                }}
+              >
+                <span style={{ fontSize: '1rem' }}>⭐</span>
+                Login
+                {location.pathname === '/login' && (
+                  <span style={{ marginLeft: 'auto', fontSize: '0.7rem' }}>
+                    ●
+                  </span>
+                )}
+              </Link>
+            </li>
           </ul>
 
           <div style={styles.mobileDivider}></div>
 
           <div style={styles.mobileActions}>
-            <Link to="/contact" style={{textDecoration: 'none'}} onClick={() => setIsMobileMenuOpen(false)}>
-              <button 
+            <Link
+              to="/contact"
+              style={{ textDecoration: 'none' }}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <button
                 style={{
                   ...styles.ctaButton,
                   width: '100%',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
                 }}
                 onMouseEnter={handleButtonHover}
                 onMouseLeave={handleButtonLeave}
@@ -428,29 +445,32 @@ function Header() {
                 Request a Quote
               </button>
             </Link>
-            
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              gap: '1rem',
-              marginTop: '0.5rem'
-            }}>
-              <a 
-                href="https://wa.me/250788518720" 
-                target="_blank" 
+
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '0.8rem',
+                marginTop: '0.5rem',
+                flexWrap: 'wrap',
+              }}
+            >
+              <a
+                href="https://wa.me/250788518720"
+                target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  padding: '0.5rem 1rem',
+                  padding: '0.4rem 0.8rem',
                   background: '#10b981',
                   color: 'white',
                   textDecoration: 'none',
-                  borderRadius: '15px',
-                  fontSize: '0.9rem',
+                  borderRadius: '12px',
+                  fontSize: '0.85rem',
                   fontWeight: '600',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.3rem',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
                 }}
                 onMouseEnter={(e) => {
                   e.target.style.transform = 'scale(1.05)';
@@ -461,20 +481,20 @@ function Header() {
               >
                 📱 WhatsApp
               </a>
-              <a 
+              <a
                 href="tel:+250788518720"
                 style={{
-                  padding: '0.5rem 1rem',
+                  padding: '0.4rem 0.8rem',
                   background: '#3b82f6',
                   color: 'white',
                   textDecoration: 'none',
-                  borderRadius: '15px',
-                  fontSize: '0.9rem',
+                  borderRadius: '12px',
+                  fontSize: '0.85rem',
                   fontWeight: '600',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.3rem',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
                 }}
                 onMouseEnter={(e) => {
                   e.target.style.transform = 'scale(1.05)';
@@ -489,9 +509,14 @@ function Header() {
           </div>
         </div>
       </header>
-      
+
       {/* Spacer to prevent content from hiding behind fixed header */}
-      <div style={{height: isScrolled ? '80px' : '100px', transition: 'height 0.3s ease'}}></div>
+      <div
+        style={{
+          height: isScrolled ? '70px' : '90px',
+          transition: 'height 0.3s ease',
+        }}
+      ></div>
     </>
   );
 }
