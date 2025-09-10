@@ -468,7 +468,7 @@ function AdminTranslationDashboard() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('https://lcirwanda-backend01.onrender.com/api/quotes');
+      const response = await fetch('https://lcirwanda-backend001.onrender.com/api/quotes');
       if (!response.ok) {
         throw new Error('Failed to fetch quotes');
       }
@@ -498,7 +498,7 @@ function AdminTranslationDashboard() {
 
   const updateQuoteStatus = async (id, newStatus) => {
     try {
-      const response = await fetch(`https://lcirwanda-backend01.onrender.com/api/quotes/${id}/status`, {
+      const response = await fetch(`https://lcirwanda-backend001.onrender.com/api/quotes/${id}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

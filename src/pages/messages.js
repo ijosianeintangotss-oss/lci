@@ -1013,7 +1013,7 @@ function AdminTranslationDashboard() {
                     {/* <h4 style={styles.modalSectionTitle}>Payment Screenshot</h4> */}
                     {selectedQuote.paymentScreenshot ? (
                       <a
-                        href={`https://lcirwanda-backend01.onrender.com${selectedQuote.paymentScreenshot}`}
+                        href={`https://lcirwanda-backend001.onrender.com${selectedQuote.paymentScreenshot}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={styles.fileLink}

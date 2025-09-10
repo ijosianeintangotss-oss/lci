@@ -265,7 +265,7 @@ function Contact() {
       files.forEach(file => submitData.append('files', file));
       if (paymentScreenshot) submitData.append('paymentScreenshot', paymentScreenshot);
 
-      const response = await fetch('https://lcirwanda-backend01.onrender.com/api/quotes', {
+      const response = await fetch('https://lcirwanda-backend001.onrender.com/api/quotes', {
         method: 'POST',
         body: submitData,
       });
@@ -319,7 +319,7 @@ function Contact() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('https://lcirwanda-backend01.onrender.com/api/messages', {
+      const response = await fetch('https://lcirwanda-backend001.onrender.com/api/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
