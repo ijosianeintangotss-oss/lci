@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import mobileMoney from '../assets/mobile money.png';
 import visaCard from '../assets/visa card.png';
 import masterCard from '../assets/master card.png';
-import heroImage from '../assets/WelcometoLCI.png';
+import heroImage from '../assets/Afteranimatingpicture.mp4';
+import whatsappIcon from '../assets/whatsapp-icon.png'; // Add this import for the WhatsApp icon image
 
 function Home() {
   const [isVisible, setIsVisible] = useState(false);
@@ -30,12 +31,12 @@ function Home() {
     {
       title: "Website & Software Localization",
       description: "Adapt your content for local markets with cultural sensitivity, seamless UX, and multilingual interface accuracy.",
-      icon: "🎯"
+      icon: "💻"
     },
     {
       title: "Certified Document Translation",
       description: "We provide accepted translations for embassies, universities, immigration, and government documentation—certified and notarized upon request.",
-      icon: "🛡️"
+      icon: "📜"
     },
     {
       title: "Audio & Video Transcription",
@@ -45,27 +46,27 @@ function Home() {
     {
       title: "Proofreading, Editing & Back-Translation",
       description: "We refine grammar, structure, tone, and clarity—perfect for publication and professional use.",
-      icon: "✅"
+      icon: "🖋️"
     },
     {
       title: "CV & Application Support",
       description: "We refine your CVs, resumes, cover letters, and personal statements to boost your success in job markets and admissions.",
-      icon: "👥"
+      icon: "📄"
     },
     {
       title: "Machine Translation Post-Editing (MTPE)",
       description: "We transform raw AI-generated text into clear, accurate, culturally relevant communication with our expert linguists.",
-      icon: "⚡"
+      icon: "⚙️"
     },
     {
       title: "Glossaries & Language Resources",
       description: "We create bilingual glossaries, field-specific term banks, and custom language tools to support consistency in all your communications.",
-      icon: "🏆"
+      icon: "📚"
     },
     {
       title: "Back-Translation & Quality Assurance",
       description: "We ensure accuracy, clarity, and risk-free delivery in sensitive sectors like health, law, and development with independent back-translation.",
-      icon: "🔒"
+      icon: "🔍"
     },
     {
       title: "AI Translation Services",
@@ -88,12 +89,12 @@ function Home() {
     {
       title: "Native Linguists",
       description: "All our translators are native speakers with subject-matter expertise",
-      icon: "👥"
+      icon: "🗣️"
     },
     {
       title: "Tech-Enabled Workflow",
       description: "We use advanced tools and quality assurance processes for consistent results",
-      icon: "⚡"
+      icon: "🛠️"
     },
     {
       title: "Trusted Across Africa & Globally",
@@ -134,7 +135,9 @@ function Home() {
       padding: '2rem',
       position: 'relative',
       overflow: 'hidden',
-      background: 'linear-gradient(135deg, #ff8c00 0%, #1e3a8a 50%, #ff8c00 100%)',
+      background: '#f1eee5ff',
+      borderRadius: '20px',
+      border: '2px solid #de800dff',
       opacity: isVisible ? 1 : 0,
       transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
       transition: 'all 1s ease-out',
@@ -148,11 +151,11 @@ function Home() {
       gap: '2rem',
       flexWrap: 'nowrap',
     },
-    heroImage: {
+    heroVideo: {
       width: isMobile ? '100%' : '45%',
       maxWidth: isMobile ? '100%' : '500px',
       height: 'auto',
-      objectFit: 'contain',
+      objectFit: 'cover',
       borderRadius: '10px',
       margin: isMobile ? '0 auto' : '0',
     },
@@ -167,21 +170,21 @@ function Home() {
     heroTitle: {
       fontSize: isMobile ? '2.5rem' : '3.5rem',
       fontWeight: 'bold',
-      color: 'white',
+      color: '#0a1d51ff',
       marginBottom: '1.5rem',
       lineHeight: '1.2',
       textAlign: isMobile ? 'center' : 'left',
     },
     heroSubtitle: {
       fontSize: isMobile ? '1.5rem' : '1.8rem',
-      color: '#fbbf24',
+      color: '#0a1d51ff',
       marginBottom: '1rem',
       fontWeight: '300',
       textAlign: isMobile ? 'center' : 'left',
     },
     heroDescription: {
       fontSize: isMobile ? '1rem' : '1.2rem',
-      color: '#f3f4f6',
+      color: '#0a1d51ff',
       marginBottom: '2rem',
       lineHeight: '1.6',
       maxWidth: '900px',
@@ -195,11 +198,11 @@ function Home() {
       flexWrap: 'wrap',
     },
     primaryButton: {
-      background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
-      color: 'white',
+      background: '#f1eee5ff',
+      color: '#0a1d51ff',
       padding: '1rem 2rem',
-      borderRadius: '50px',
-      border: 'none',
+      borderRadius: '20px',
+      border: '2px solid #de800dff',
       fontSize: '1.1rem',
       fontWeight: '600',
       cursor: 'pointer',
@@ -209,11 +212,11 @@ function Home() {
       textDecoration: 'none',
     },
     whatsappButton: {
-      backgroundColor: '#10b981',
-      color: 'white',
+      backgroundColor: '#e4ece9ff',
+      color: '#0a1d51ff',
       padding: '1rem 2rem',
-      borderRadius: '50px',
-      border: 'none',
+      borderRadius: '20px',
+      border: '2px solid #de800dff',
       fontSize: '1.1rem',
       fontWeight: '600',
       cursor: 'pointer',
@@ -226,18 +229,18 @@ function Home() {
       padding: '6rem 2rem',
       maxWidth: '1400px',
       margin: '0 auto',
-      background: '#ffffff',
+      background: '#f1eee5ff',
     },
     sectionTitle: {
       fontSize: '3rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
+      color: '#0a1d51ff',
       textAlign: 'center',
       marginBottom: '1.5rem',
     },
     sectionSubtitle: {
       fontSize: '1.3rem',
-      color: '#6b7280',
+      color: '#0a1d51ff',
       textAlign: 'center',
       marginBottom: '4rem',
       maxWidth: '800px',
@@ -249,30 +252,30 @@ function Home() {
       gap: '2rem',
     },
     serviceCard: {
-      background: '#ffffff',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       padding: '2rem',
-      border: '2px solid #f3f4f6',
+      border: '2px solid #de800dff',
       cursor: 'pointer',
       transform: hoveredCard === null ? 'scale(1)' : 'scale(1)',
       transition: 'all 0.5s ease',
       boxShadow: '0 8px 32px rgba(255, 140, 0, 0.1)',
     },
     serviceIcon: {
-      fontSize: '3rem',
+      fontSize: '2rem', // Reduced size for smaller icons
       marginBottom: '1.5rem',
       display: 'block',
-      color: '#f08b18',
+      color: '#de800dff',
       filter: 'hue-rotate(0deg) saturate(1) brightness(1)',
     },
     serviceTitle: {
       fontSize: '1.3rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
+      color: '#0a1d51ff',
       marginBottom: '1rem',
     },
     serviceDescription: {
-      color: '#4b5563',
+      color: '#0a1d51ff',
       lineHeight: '1.6',
     },
     whyChooseGrid: {
@@ -284,28 +287,28 @@ function Home() {
       textAlign: 'center',
     },
     whyChooseIcon: {
-      fontSize: '4rem',
+      fontSize: '2.5rem', // Reduced size for smaller icons
       marginBottom: '1.5rem',
-      color: '#f08b18',
+      color: '#de800dff',
       filter: 'hue-rotate(0deg) saturate(1) brightness(1)',
     },
     whyChooseTitle: {
       fontSize: '1.5rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
+      color: '#0a1d51ff',
       marginBottom: '1rem',
     },
     whyChooseDescription: {
-      color: '#4b5563',
+      color: '#0a1d51ff',
       fontSize: '1.1rem',
       lineHeight: '1.6',
     },
     excellenceSection: {
-      background: 'linear-gradient(135deg, #fff7ed, #fef3c7)',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       padding: '4rem 2rem',
       textAlign: 'center',
-      border: '2px solid #ff8c00',
+      border: '2px solid #de800dff',
     },
     excellenceGrid: {
       display: 'grid',
@@ -314,17 +317,17 @@ function Home() {
       marginBottom: '3rem',
     },
     excellenceCard: {
-      background: '#ffffff',
+      background: '#f1eee5ff',
       borderRadius: '15px',
       padding: '2rem',
-      border: '2px solid #ff8c00',
+      border: '2px solid #de800dff',
       boxShadow: '0 8px 25px rgba(255, 140, 0, 0.1)',
     },
     testimonial: {
-      background: 'linear-gradient(135deg, #1e3a8a, #ff8c00)',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       padding: '3rem',
-      border: '2px solid #ff8c00',
+      border: '2px solid #de800dff',
       textAlign: 'center',
       marginTop: '2rem',
     },
@@ -336,12 +339,12 @@ function Home() {
     },
     star: {
       fontSize: '1.5rem',
-      color: '#f08b18',
+      color: '#de800dff',
       filter: 'hue-rotate(0deg) saturate(1) brightness(1)',
     },
     quote: {
       fontSize: '1.5rem',
-      color: 'white',
+      color: '#0a1d51ff',
       fontStyle: 'italic',
       marginBottom: '1.5rem',
       lineHeight: '1.6',
@@ -357,10 +360,10 @@ function Home() {
       marginBottom: '3rem',
     },
     paymentCard: {
-      background: '#ffffff',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       padding: '2rem',
-      border: '2px solid #f3f4f6',
+      border: '2px solid #de800dff',
       boxShadow: '0 8px 25px rgba(30, 58, 138, 0.1)',
       display: 'flex',
       flexDirection: 'column',
@@ -379,14 +382,14 @@ function Home() {
       gap: '0.5rem',
       background: 'rgba(16, 185, 129, 0.2)',
       border: '1px solid rgba(16, 185, 129, 0.3)',
-      borderRadius: '50px',
+      borderRadius: '20px',
       padding: '1rem 2rem',
-      color: '#6ee7b7',
+      color: '#0a1d51ff',
       fontWeight: '600',
     },
     securityBadgeIcon: {
       fontSize: '1.5rem',
-      color: '#f08b18',
+      color: '#de800dff',
       filter: 'hue-rotate(0deg) saturate(1) brightness(1)',
     },
     ctaSection: {
@@ -396,12 +399,12 @@ function Home() {
     ctaTitle: {
       fontSize: '3.5rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
+      color: '#0a1d51ff',
       marginBottom: '2rem',
     },
     ctaDescription: {
       fontSize: '1.3rem',
-      color: '#4b5563',
+      color: '#0a1d51ff',
       marginBottom: '3rem',
       lineHeight: '1.6',
     },
@@ -412,11 +415,11 @@ function Home() {
       flexWrap: 'wrap',
     },
     secondaryButton: {
-      border: '2px solid #ff8c00',
+      border: '2px solid #de800dff',
       background: 'transparent',
-      color: '#ff8c00',
+      color: '#0a1d51ff',
       padding: '1rem 2rem',
-      borderRadius: '50px',
+      borderRadius: '20px',
       fontSize: '1.1rem',
       fontWeight: '600',
       cursor: 'pointer',
@@ -425,26 +428,28 @@ function Home() {
     },
     subscribeSection: {
       padding: '4rem 2rem',
-      background: 'linear-gradient(135deg, #f8fafc, #e2e8f0)',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       margin: '2rem auto',
       maxWidth: '1400px',
       textAlign: 'center',
+      border: '2px solid #de800dff',
     },
     subscribeInput: {
       padding: '0.75rem 1rem',
-      borderRadius: '25px',
-      border: '1px solid #d1d5db',
+      borderRadius: '20px',
+      border: '1px solid #de800dff',
       fontSize: '1rem',
       width: '250px',
       marginRight: '1rem',
+      color: '#0a1d51ff',
     },
     subscribeButton: {
-      background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
-      color: 'white',
+      background: '#f1eee5ff',
+      color: '#0a1d51ff',
       padding: '0.75rem 1.5rem',
-      borderRadius: '25px',
-      border: 'none',
+      borderRadius: '20px',
+      border: '2px solid #de800dff',
       fontSize: '1rem',
       fontWeight: '600',
       cursor: 'pointer',
@@ -495,7 +500,15 @@ function Home() {
       {/* Hero Section */}
       <section style={styles.heroSection}>
         <div style={styles.heroContainer}>
-          <img src={heroImage} alt="Hero Image" style={styles.heroImage} />
+          <video 
+            src={heroImage} 
+            alt="Hero Video" 
+            style={styles.heroVideo}
+            controls
+            autoPlay 
+            loop
+            playsInline
+          />
           <div style={styles.heroContent}>
             <h1 style={styles.heroTitle}>
               Your Trusted Translation & Localization Experts
@@ -510,11 +523,19 @@ function Home() {
               <Link
                 to="/quote"
                 style={styles.primaryButton}
-                onMouseEnter={handleButtonHover}
-                onMouseLeave={handleButtonLeave}
+                onMouseEnter={(e) => {
+                  e.target.style.background = '#de800dff';
+                  e.target.style.color = 'white';
+                  e.target.style.transform = 'scale(1.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = '#f1eee5ff';
+                  e.target.style.color = '#0a1d51ff';
+                  e.target.style.transform = 'scale(1)';
+                }}
               >
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  Request Quote <span style={{ color: '#f08b18', filter: 'hue-rotate(0deg) saturate(1) brightness(1)' }}>⭐</span>
+                  Request Quote <span style={{ color: '#de800dff', filter: 'hue-rotate(0deg) saturate(1) brightness(1)' }}>⭐</span>
                 </span>
               </Link>
               <a
@@ -526,7 +547,7 @@ function Home() {
                 onMouseLeave={handleButtonLeave}
               >
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ color: '#f08b18', filter: 'hue-rotate(0deg) saturate(1) brightness(1)' }}>📞</span> Chat on WhatsApp
+                  <img src={whatsappIcon} alt="WhatsApp" style={{ width: '20px', height: '20px' }} /> Chat on WhatsApp
                 </span>
               </a>
             </div>
@@ -547,8 +568,8 @@ function Home() {
               style={{
                 ...styles.serviceCard,
                 transform: hoveredCard === index ? 'scale(1.05)' : 'scale(1)',
-                background: hoveredCard === index ? 'rgba(240, 139, 24, 0.1)' : '#ffffff',
-                borderColor: hoveredCard === index ? '#f08b18' : '#f3f4f6',
+                background: hoveredCard === index ? 'rgba(222, 128, 13, 0.1)' : '#f1eee5ff',
+                borderColor: hoveredCard === index ? '#de800dff' : '#de800dff',
               }}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
@@ -565,10 +586,11 @@ function Home() {
       <section
         style={{
           ...styles.section,
-          background: 'linear-gradient(135deg, #f0f9ff, #dbeafe)',
+          background: '#f1eee5ff',
           padding: '6rem 2rem',
           borderRadius: '20px',
           margin: '2rem auto',
+          border: '2px solid #de800dff',
         }}
       >
         <h2 style={styles.sectionTitle}>Why Choose LCI?</h2>
@@ -595,22 +617,22 @@ function Home() {
           </p>
           <div style={styles.excellenceGrid}>
             <div style={styles.excellenceCard}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1e3a8a', marginBottom: '1rem' }}>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#0a1d51ff', marginBottom: '1rem' }}>
                 Mentorship & Training
               </h3>
-              <p style={{ color: '#4b5563' }}>For Rwandan translators and language professionals</p>
+              <p style={{ color: '#0a1d51ff' }}>For Rwandan translators and language professionals</p>
             </div>
             <div style={styles.excellenceCard}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1e3a8a', marginBottom: '1rem' }}>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#0a1d51ff', marginBottom: '1rem' }}>
                 Native-Language Expertise
               </h3>
-              <p style={{ color: '#4b5563' }}>Industry precision with cultural understanding</p>
+              <p style={{ color: '#0a1d51ff' }}>Industry precision with cultural understanding</p>
             </div>
             <div style={styles.excellenceCard}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1e3a8a', marginBottom: '1rem' }}>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#0a1d51ff', marginBottom: '1rem' }}>
                 Multi-Stage Quality Control
               </h3>
-              <p style={{ color: '#4b5563' }}>Rigorous review processes for perfect results</p>
+              <p style={{ color: '#0a1d51ff' }}>Rigorous review processes for perfect results</p>
             </div>
           </div>
           <div style={styles.testimonial}>
@@ -633,10 +655,11 @@ function Home() {
       <section
         style={{
           ...styles.section,
-          background: 'linear-gradient(135deg, #f8fafc, #e2e8f0)',
+          background: '#f1eee5ff',
           borderRadius: '20px',
           margin: '2rem auto',
           padding: '6rem 2rem',
+          border: '2px solid #de800dff',
         }}
       >
         <h2 style={styles.sectionTitle}>Payment Methods We Accept</h2>
@@ -677,24 +700,32 @@ function Home() {
           <Link
             to="/quote"
             style={styles.primaryButton}
-            onMouseEnter={handleButtonHover}
-            onMouseLeave={handleButtonLeave}
+            onMouseEnter={(e) => {
+              e.target.style.background = '#de800dff';
+              e.target.style.color = 'white';
+              e.target.style.transform = 'scale(1.05)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = '#f1eee5ff';
+              e.target.style.color = '#0a1d51ff';
+              e.target.style.transform = 'scale(1)';
+            }}
           >
             <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              Get Quote <span style={{ color: '#f08b18', filter: 'hue-rotate(0deg) saturate(1) brightness(1)' }}>⭐</span>
+              Get Quote <span style={{ color: '#de800dff', filter: 'hue-rotate(0deg) saturate(1) brightness(1)' }}>⭐</span>
             </span>
           </Link>
           <Link
             to="/about"
             style={styles.secondaryButton}
             onMouseEnter={(e) => {
-              e.target.style.background = '#f08b18';
+              e.target.style.background = '#de800dff';
               e.target.style.color = 'white';
               e.target.style.transform = 'scale(1.05)';
             }}
             onMouseLeave={(e) => {
               e.target.style.background = 'transparent';
-              e.target.style.color = '#f08b18';
+              e.target.style.color = '#0a1d51ff';
               e.target.style.transform = 'scale(1)';
             }}
           >
@@ -720,7 +751,7 @@ function Home() {
           />
           <button type="submit" style={styles.subscribeButton}>
             <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              Subscribe <span style={{ color: '#f08b18', filter: 'hue-rotate(0deg) saturate(1) brightness(1)' }}>✉️</span>
+              Subscribe <span style={{ color: '#de800dff', filter: 'hue-rotate(0deg) saturate(1) brightness(1)' }}>✉️</span>
             </span>
           </button>
         </form>

@@ -119,7 +119,7 @@ function AdminTranslationDashboard() {
       overflow: 'hidden',
     },
     activeNavLink: {
-      background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
+      background: 'linear-gradient(135deg, #ff8c00, #ff8c00)',
       color: 'white',
       boxShadow: '0 4px 15px rgba(255, 140, 0, 0.3)',
     },
@@ -134,7 +134,7 @@ function AdminTranslationDashboard() {
       gap: '1rem',
     },
     ctaButton: {
-      background: '#ef4444', // Matches original logoutButton color
+      background: '#d27b10ff', // Matches original logoutButton color
       color: 'white',
       border: 'none',
       padding: '0.6rem 1.5rem',
@@ -792,7 +792,7 @@ function AdminTranslationDashboard() {
             >
               <img src={logo} alt="LCI Logo" style={styles.logo} />
               <div>
-                <div
+                {/* <div
                   style={{
                     fontSize: '1rem',
                     fontWeight: 'bold',
@@ -801,8 +801,8 @@ function AdminTranslationDashboard() {
                   }}
                 >
                   LCI Rwanda
-                </div>
-                <div style={styles.tagline}>Translate. Localize. Connect.</div>
+                </div> */}
+                {/* <div style={styles.tagline}>Translate. Localize. Connect.</div> */}
               </div>
             </div>
           </Link>
@@ -844,7 +844,7 @@ function AdminTranslationDashboard() {
           {/* Right Section */}
           <div style={styles.rightSection}>
             {/* Refresh Button - Desktop */}
-            <button
+            {/* <button
               style={{
                 ...styles.ctaButton,
                 backgroundColor: '#3182ce', // Matches original refreshButton
@@ -865,7 +865,7 @@ function AdminTranslationDashboard() {
             >
               <span>🔄</span>
               Refresh
-            </button>
+            </button> */}
             {/* Logout Button - Desktop */}
             <button
               style={{
@@ -918,7 +918,7 @@ function AdminTranslationDashboard() {
                     ...(activeTab === item.label.toLowerCase()
                       ? {
                           background:
-                            'linear-gradient(135deg, #ff8c00, #1e3a8a)',
+                            'linear-gradient(135deg, #ff8c00, #ff8c00)',
                           color: 'white',
                         }
                       : {}),

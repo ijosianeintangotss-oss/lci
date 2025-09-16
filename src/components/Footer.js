@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import whatsappIcon from '../assets/whatsapp-icon.png';
+import linkedinIcon from '../assets/LinkedIn-icon.png';
+import twitterIcon from '../assets/X-icon.png';
+import facebookIcon from '../assets/facebook-icon.jpg';
+import instagramIcon from '../assets/instagram-icon.png';
 
 function Footer() {
   const [hoveredSocial, setHoveredSocial] = useState(null);
@@ -10,21 +15,21 @@ function Footer() {
   const [message, setMessage] = useState(''); // State for subscription feedback
 
   const quickLinks = [
-    { path: '/', label: 'Home', icon: '🏠' },
-    { path: '/about', label: 'About Us', icon: '👥' },
-    { path: '/services', label: 'Services', icon: '🌐' },
-    { path: '/training', label: 'Training', icon: '🎓' },
-    { path: '/blog', label: 'Blog', icon: '📝' },
-    { path: '/contact', label: 'Contact', icon: '📞' }
+    { path: '/', label: 'Home', icon: '' },
+    { path: '/about', label: 'About Us', icon: '' },
+    { path: '/services', label: 'Services', icon: '' },
+    { path: '/training', label: 'Training', icon: '' },
+    { path: '/blog', label: 'Blog', icon: '' },
+    { path: '/contact', label: 'Contact', icon: '' }
   ];
 
   const services = [
-    { label: 'Document Translation', icon: '📄' },
-    { label: 'Website Localization', icon: '🌍' },
-    { label: 'Technical Translation', icon: '⚙️' },
-    { label: 'Legal Translation', icon: '⚖️' },
-    { label: 'Medical Translation', icon: '🏥' },
-    { label: 'Language Training', icon: '🎯' }
+    { label: 'Document Translation', icon: '' },
+    { label: 'Website Localization', icon: '' },
+    { label: 'Technical Translation', icon: '' },
+    { label: 'Legal Translation', icon: '' },
+    { label: 'Medical Translation', icon: '' },
+    { label: 'Language Training', icon: '' }
   ];
 
   const languages = [
@@ -39,37 +44,42 @@ function Footer() {
     {
       name: 'WhatsApp',
       url: 'https://wa.me/250788518720',
-      icon: '📱',
+      icon: '',
       color: '#10b981',
-      hoverColor: '#059669'
+      hoverColor: '#059669',
+      image: whatsappIcon
     },
     {
       name: 'LinkedIn',
       url: 'https://www.linkedin.com/in/language-computing-international-498050369/',
-      icon: '💼',
+      icon: '',
       color: '#0077b5',
-      hoverColor: '#005885'
+      hoverColor: '#005885',
+      image: linkedinIcon
     },
     {
       name: 'Twitter',
       url: 'https://x.com/LCITranslations',
-      icon: '🐦',
+      icon: '',
       color: '#1da1f2',
-      hoverColor: '#0d8bd9'
+      hoverColor: '#0d8bd9',
+      image: twitterIcon
     },
     {
       name: 'Facebook',
       url: 'https://www.facebook.com/profile.php?id=61577012938010&__tn__=-UC',
-      icon: '📘',
+      icon: '',
       color: '#4267b2',
-      hoverColor: '#365899'
+      hoverColor: '#365899',
+      image: facebookIcon
     },
     {
       name: 'Instagram',
       url: 'https://www.instagram.com/lcitranslations/',
-      icon: '📸',
+      icon: '',
       color: '#e4405f',
-      hoverColor: '#d62a4a'
+      hoverColor: '#d62a4a',
+      image: instagramIcon
     }
   ];
 
@@ -121,7 +131,7 @@ function Footer() {
 
   const styles = {
     footer: {
-      background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #ff8c00 100%)',
+      background: '#0a1d51ff',
       color: 'white',
       position: 'relative',
       overflow: 'hidden'
@@ -600,7 +610,15 @@ function Footer() {
                 onMouseLeave={() => setHoveredSocial(null)}
               >
                 <span style={{fontSize: '1.1rem'}}>{social.icon}</span>
-                {social.name}
+                <img 
+                  src={social.image} 
+                  alt={social.name} 
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                    objectFit: 'contain'
+                  }}
+                />
               </a>
             ))}
           </div>
@@ -615,7 +633,7 @@ function Footer() {
             }}
             onMouseEnter={() => setHoveredLink('privacy')}
             onMouseLeave={() => setHoveredLink(null)}>
-              Privacy Policy
+              {/* Privacy Policy */}
             </a>
             <a href="/terms-of-service" style={{
               ...styles.legalLink,
@@ -623,7 +641,7 @@ function Footer() {
             }}
             onMouseEnter={() => setHoveredLink('terms')}
             onMouseLeave={() => setHoveredLink(null)}>
-              Terms of Service
+              {/* Terms of Service */}
             </a>
             <a href="/sitemap" style={{
               ...styles.legalLink,
@@ -631,7 +649,7 @@ function Footer() {
             }}
             onMouseEnter={() => setHoveredLink('sitemap')}
             onMouseLeave={() => setHoveredLink(null)}>
-              Sitemap
+              {/* Sitemap */}
             </a>
           </div>
           
@@ -639,7 +657,7 @@ function Footer() {
             © 2025 Language Computing International Rwanda. All rights reserved. 
             <br />
             <span style={{fontSize: '0.8rem', marginTop: '0.5rem', display: 'inline-block'}}>
-              Proudly serving East Africa with excellence in translation and localization services.
+              {/* Proudly serving East Africa with excellence in translation and localization services. */}
             </span>
           </div>
         </div>

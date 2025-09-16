@@ -29,12 +29,13 @@ function AdminTranslationDashboard() {
   });
 
   const navItems = [
-    { path: '/admin-quotes', label: 'Quotes', icon: '📋' },
-    { path: '/messages', label: 'Messages', icon: '💬' },
+    { path: '/', label: 'Dashboard', icon: '' }, // New Dashboard button
+    { path: '/admin-quotes', label: 'Quotes', icon: '' },
+    // { path: '/messages', label: 'Messages', icon: '' },
+    { path: '/logout', label: 'Logout', icon: '', onClick: () => navigate('/'), className: 'logoutBtn' },
   ];
 
   const styles = {
-    // Header Styles (adapted from previous Header component)
     header: {
       position: 'fixed',
       top: 0,
@@ -46,8 +47,8 @@ function AdminTranslationDashboard() {
         : 'rgba(255, 255, 255, 0.98)',
       backdropFilter: 'blur(10px)',
       borderBottom: isScrolled
-        ? '2px solid rgba(255, 140, 0, 0.3)'
-        : '2px solid rgba(255, 140, 0, 0.1)',
+        ? '2px solid rgba(229, 133, 17, 0.3)'
+        : '2px solid rgba(229, 133, 17, 0.1)',
       padding: isScrolled ? '0.5rem 1rem' : '1rem 1rem',
       transition: 'all 0.3s ease',
       boxShadow: isScrolled
@@ -66,7 +67,8 @@ function AdminTranslationDashboard() {
     logoSection: {
       display: 'flex',
       alignItems: 'center',
-      gap: '0.5rem',
+      marginRight: '10rem',
+      gap: '1rem',
       cursor: 'pointer',
       transition: 'transform 0.3s ease',
     },
@@ -89,7 +91,7 @@ function AdminTranslationDashboard() {
       alignItems: 'center',
       gap: '0.5rem',
       flex: 1,
-      justifyContent: 'center',
+      justifyContent: 'space-between',
     },
     navList: {
       display: 'flex',
@@ -98,6 +100,10 @@ function AdminTranslationDashboard() {
       padding: 0,
       gap: '0.3rem',
       flexWrap: 'wrap',
+      alignItems: 'center',
+    },
+    logoutBtn: {
+      marginLeft: 'auto',
     },
     navItem: {
       position: 'relative',
@@ -117,44 +123,24 @@ function AdminTranslationDashboard() {
       overflow: 'hidden',
     },
     activeNavLink: {
-      background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
+      background: '#e58511ff',
       color: 'white',
-      boxShadow: '0 4px 15px rgba(255, 140, 0, 0.3)',
+      boxShadow: '0 4px 15px rgba(229, 133, 17, 0.3)',
     },
     hoveredNavLink: {
-      background: 'linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(30, 58, 138, 0.1))',
+      background: 'rgba(229, 133, 17, 0.1)',
       transform: 'translateY(-2px)',
       boxShadow: '0 4px 12px rgba(30, 58, 138, 0.2)',
-    },
-    rightSection: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '1rem',
-    },
-    ctaButton: {
-      background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
-      color: 'white',
-      border: 'none',
-      padding: '0.6rem 1.5rem',
-      borderRadius: '20px',
-      fontSize: '0.9rem',
-      fontWeight: '600',
-      cursor: 'pointer',
-      transition: 'all 0.3s ease',
-      boxShadow: '0 4px 15px rgba(255, 140, 0, 0.3)',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.4rem',
     },
     mobileMenuButton: {
       display: 'none',
       background: 'none',
-      border: '2px solid #ff8c00',
+      border: '2px solid #e58511ff',
       padding: '0.4rem',
       borderRadius: '8px',
       cursor: 'pointer',
       fontSize: '1.1rem',
-      color: '#ff8c00',
+      color: '#e58511ff',
       transition: 'all 0.3s ease',
     },
     mobileMenu: {
@@ -164,7 +150,7 @@ function AdminTranslationDashboard() {
       right: 0,
       background: 'rgba(255, 255, 255, 0.98)',
       backdropFilter: 'blur(10px)',
-      border: '2px solid rgba(255, 140, 0, 0.2)',
+      border: '2px solid rgba(229, 133, 17, 0.2)',
       borderTop: 'none',
       borderRadius: '0 0 15px 15px',
       padding: '1rem',
@@ -193,19 +179,12 @@ function AdminTranslationDashboard() {
     },
     mobileDivider: {
       height: '1px',
-      background: 'linear-gradient(90deg, transparent, #ff8c00, transparent)',
+      background: '#e58511ff',
       margin: '0.8rem 0',
     },
-    mobileActions: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '0.6rem',
-      marginTop: '0.8rem',
-    },
-    // Dashboard Styles (original)
     contentContainer: {
       flex: 1,
-      marginTop: isScrolled ? '70px' : '90px', // Adjusted for header height
+      marginTop: isScrolled ? '70px' : '90px',
     },
     dashboardHeader: {
       backgroundColor: 'white',
@@ -235,20 +214,6 @@ function AdminTranslationDashboard() {
     },
     refreshButton: {
       backgroundColor: '#3182ce',
-      color: 'white',
-      padding: '10px 16px',
-      border: 'none',
-      borderRadius: '8px',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-      fontSize: '14px',
-      fontWeight: '500',
-      transition: 'background-color 0.2s',
-    },
-    logoutButton: {
-      backgroundColor: '#ef4444',
       color: 'white',
       padding: '10px 16px',
       border: 'none',
@@ -752,10 +717,6 @@ function AdminTranslationDashboard() {
     });
   };
 
-  const handleLogout = () => {
-    navigate('/');
-  };
-
   const handleMouseEnter = (index) => {
     setHoveredItem(index);
   };
@@ -766,12 +727,12 @@ function AdminTranslationDashboard() {
 
   const handleButtonHover = (e) => {
     e.target.style.transform = 'translateY(-2px) scale(1.05)';
-    e.target.style.boxShadow = '0 6px 20px rgba(255, 140, 0, 0.4)';
+    e.target.style.boxShadow = '0 6px 20px rgba(229, 133, 17, 0.4)';
   };
 
   const handleButtonLeave = (e) => {
     e.target.style.transform = 'translateY(0) scale(1)';
-    e.target.style.boxShadow = '0 4px 15px rgba(255, 140, 0, 0.3)';
+    e.target.style.boxShadow = '0 4px 15px rgba(229, 133, 17, 0.3)';
   };
 
   const handleLogoHover = (e) => {
@@ -815,9 +776,9 @@ function AdminTranslationDashboard() {
                     lineHeight: '1.2',
                   }}
                 >
-                  LCI Rwanda
+                  {/* LCI Rwanda */}
                 </div>
-                <div style={styles.tagline}>Translate. Localize. Connect.</div>
+                {/* <div style={styles.tagline}>Translate. Localize. Connect.</div> */}
               </div>
             </div>
           </Link>
@@ -831,71 +792,78 @@ function AdminTranslationDashboard() {
           >
             <ul style={styles.navList}>
               {navItems.map((item, index) => (
-                <li key={index} style={styles.navItem}>
-                  <Link
-                    to={item.path}
-                    style={{
-                      ...styles.navLink,
-                      ...(window.location.pathname === item.path
-                        ? styles.activeNavLink
-                        : {}),
-                      ...(hoveredItem === index &&
-                      window.location.pathname !== item.path
-                        ? styles.hoveredNavLink
-                        : {}),
-                    }}
-                    onMouseEnter={() => handleMouseEnter(index)}
-                    onMouseLeave={handleMouseLeave}
-                  >
-                    <span style={{ fontSize: '0.8rem' }}>{item.icon}</span>
-                    {item.label}
-                  </Link>
+                <li key={index} style={{ ...styles.navItem, ...(item.className === 'logoutBtn' ? styles.logoutBtn : {}) }}>
+                  {item.path === '/logout' ? (
+                    <button
+                      style={{
+                        ...styles.navLink,
+                        ...(window.location.pathname === item.path
+                          ? styles.activeNavLink
+                          : {}),
+                        ...(hoveredItem === index &&
+                        window.location.pathname !== item.path
+                          ? styles.hoveredNavLink
+                          : {}),
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                      }}
+                      onClick={item.onClick}
+                      onMouseEnter={() => handleMouseEnter(index)}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      <span style={{ fontSize: '0.8rem' }}>{item.icon}</span>
+                      {item.label}
+                    </button>
+                  ) : (
+                    <Link
+                      to={item.path}
+                      style={{
+                        ...styles.navLink,
+                        ...(window.location.pathname === item.path
+                          ? styles.activeNavLink
+                          : {}),
+                        ...(hoveredItem === index &&
+                        window.location.pathname !== item.path
+                          ? styles.hoveredNavLink
+                          : {}),
+                      }}
+                      onMouseEnter={() => handleMouseEnter(index)}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      <span style={{ fontSize: '0.8rem' }}>{item.icon}</span>
+                      {item.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
           </nav>
 
-          {/* Right Section */}
-          <div style={styles.rightSection}>
-            {/* Logout Button - Desktop */}
-            <button
-              style={{
-                ...styles.ctaButton,
-                display: window.innerWidth >= 768 ? 'flex' : 'none',
-              }}
-              onClick={handleLogout}
-              onMouseEnter={handleButtonHover}
-              onMouseLeave={handleButtonLeave}
-            >
-              <span>🚪</span>
-              Logout
-            </button>
-
-            {/* Mobile Menu Button */}
-            <button
-              style={{
-                ...styles.mobileMenuButton,
-                display: window.innerWidth < 768 ? 'block' : 'none',
-                background: isMobileMenuOpen ? '#ff8c00' : 'none',
-                color: isMobileMenuOpen ? 'white' : '#ff8c00',
-              }}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              onMouseEnter={(e) => {
-                if (!isMobileMenuOpen) {
-                  e.target.style.background = '#ff8c00';
-                  e.target.style.color = 'white';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!isMobileMenuOpen) {
-                  e.target.style.background = 'none';
-                  e.target.style.color = '#ff8c00';
-                }
-              }}
-            >
-              {isMobileMenuOpen ? '✕' : '☰'}
-            </button>
-          </div>
+          {/* Mobile Menu Button */}
+          <button
+            style={{
+              ...styles.mobileMenuButton,
+              display: window.innerWidth < 768 ? 'block' : 'none',
+              background: isMobileMenuOpen ? '#e58511ff' : 'none',
+              color: isMobileMenuOpen ? 'white' : '#e58511ff',
+            }}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onMouseEnter={(e) => {
+              if (!isMobileMenuOpen) {
+                e.target.style.background = '#e58511ff';
+                e.target.style.color = 'white';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!isMobileMenuOpen) {
+                e.target.style.background = 'none';
+                e.target.style.color = '#e58511ff';
+              }
+            }}
+          >
+            {isMobileMenuOpen ? '✕' : '☰'}
+          </button>
         </div>
 
         {/* Mobile Menu */}
@@ -903,80 +871,81 @@ function AdminTranslationDashboard() {
           <ul style={styles.mobileNavList}>
             {navItems.map((item, index) => (
               <li key={index}>
-                <Link
-                  to={item.path}
-                  style={{
-                    ...styles.mobileNavLink,
-                    ...(window.location.pathname === item.path
-                      ? {
-                          background:
-                            'linear-gradient(135deg, #ff8c00, #1e3a8a)',
-                          color: 'white',
-                        }
-                      : {}),
-                  }}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  onMouseEnter={(e) => {
-                    if (window.location.pathname !== item.path) {
-                      e.target.style.background =
-                        'linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(30, 58, 138, 0.1))';
-                      e.target.style.transform = 'translateX(5px)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (window.location.pathname !== item.path) {
-                      e.target.style.background = 'rgba(255, 255, 255, 0.5)';
-                      e.target.style.transform = 'translateX(0)';
-                    }
-                  }}
-                >
-                  <span style={{ fontSize: '1rem' }}>{item.icon}</span>
-                  {item.label}
-                  {window.location.pathname === item.path && (
-                    <span style={{ marginLeft: 'auto', fontSize: '0.7rem' }}>
-                      ●
-                    </span>
-                  )}
-                </Link>
+                {item.path === '/logout' ? (
+                  <button
+                    style={{
+                      ...styles.mobileNavLink,
+                      ...(window.location.pathname === item.path
+                        ? {
+                            background: '#e58511ff',
+                            color: 'white',
+                          }
+                        : {}),
+                      width: '100%',
+                      textAlign: 'left',
+                    }}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      item.onClick();
+                    }}
+                    onMouseEnter={(e) => {
+                      if (window.location.pathname !== item.path) {
+                        e.target.style.background = 'rgba(229, 133, 17, 0.1)';
+                        e.target.style.transform = 'translateX(5px)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (window.location.pathname !== item.path) {
+                        e.target.style.background = 'rgba(255, 255, 255, 0.5)';
+                        e.target.style.transform = 'translateX(0)';
+                      }
+                    }}
+                  >
+                    <span style={{ fontSize: '1rem' }}>{item.icon}</span>
+                    {item.label}
+                    {window.location.pathname === item.path && (
+                      <span style={{ marginLeft: 'auto', fontSize: '0.7rem' }}>
+                        ●
+                      </span>
+                    )}
+                  </button>
+                ) : (
+                  <Link
+                    to={item.path}
+                    style={{
+                      ...styles.mobileNavLink,
+                      ...(window.location.pathname === item.path
+                        ? {
+                            background: '#e58511ff',
+                            color: 'white',
+                          }
+                        : {}),
+                    }}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    onMouseEnter={(e) => {
+                      if (window.location.pathname !== item.path) {
+                        e.target.style.background = 'rgba(229, 133, 17, 0.1)';
+                        e.target.style.transform = 'translateX(5px)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (window.location.pathname !== item.path) {
+                        e.target.style.background = 'rgba(255, 255, 255, 0.5)';
+                        e.target.style.transform = 'translateX(0)';
+                      }
+                    }}
+                  >
+                    <span style={{ fontSize: '1rem' }}>{item.icon}</span>
+                    {item.label}
+                    {window.location.pathname === item.path && (
+                      <span style={{ marginLeft: 'auto', fontSize: '0.7rem' }}>
+                        ●
+                      </span>
+                    )}
+                  </Link>
+                )}
               </li>
             ))}
-            {/* Logout Button - Mobile */}
-            <li>
-              <button
-                style={{
-                  ...styles.mobileNavLink,
-                  width: '100%',
-                  textAlign: 'left',
-                  ...(window.location.pathname === '/logout'
-                    ? {
-                        background:
-                          'linear-gradient(135deg, #ff8c00, #1e3a8a)',
-                        color: 'white',
-                      }
-                    : {}),
-                }}
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  handleLogout();
-                }}
-                onMouseEnter={(e) => {
-                  if (window.location.pathname !== '/logout') {
-                    e.target.style.background =
-                      'linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(30, 58, 138, 0.1))';
-                    e.target.style.transform = 'translateX(5px)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (window.location.pathname !== '/logout') {
-                    e.target.style.background = 'rgba(255, 255, 255, 0.5)';
-                    e.target.style.transform = 'translateX(0)';
-                  }
-                }}
-              >
-                <span style={{ fontSize: '1rem' }}>🚪</span>
-                Logout
-              </button>
-            </li>
           </ul>
         </div>
       </header>

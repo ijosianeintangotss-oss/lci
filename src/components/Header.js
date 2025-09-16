@@ -29,13 +29,13 @@ function Header() {
   }, []);
 
   const navItems = [
-    { path: '/', label: 'Home', icon: '🏠' },
-    { path: '/about', label: 'About', icon: '👥' },
-    { path: '/services', label: 'Services', icon: '🌐' },
-    { path: '/training', label: 'Training', icon: '🎓' },
-    { path: '/blog', label: 'Blog', icon: '📝' },
-    { path: '/contact', label: 'Contact', icon: '📞' },
-    { path: '/quote', label: 'Quote', icon: '⭐' },
+    { path: '/', label: 'Home', icon: '' },
+    { path: '/about', label: 'About', icon: '' },
+    { path: '/services', label: 'Services', icon: '' },
+    { path: '/training', label: 'Training', icon: '' },
+    { path: '/blog', label: 'Blog', icon: '' },
+    { path: '/contact', label: 'Contact', icon: '' },
+    { path: '/quote', label: 'Quote', icon: '' },
   ];
 
   const styles = {
@@ -46,8 +46,8 @@ function Header() {
       right: 0,
       zIndex: 1000,
       background: isScrolled 
-        ? 'rgba(255, 255, 255, 0.95)' 
-        : 'rgba(255, 255, 255, 0.98)',
+        ? 'rgba(247, 247, 242, 0.95)' 
+        : 'rgba(247, 247, 242, 0.95)',
       backdropFilter: 'blur(10px)',
       borderBottom: isScrolled 
         ? '2px solid rgba(255, 140, 0, 0.3)' 
@@ -63,9 +63,12 @@ function Header() {
       alignItems: 'center',
       justifyContent: 'space-between',
       maxWidth: '1400px',
+      width: '90%', // Use percentage for responsive width
       margin: '0 auto',
-      gap: '1rem',
+      gap: '0.5rem', // Reduced gap for smaller screens
       flexWrap: 'wrap',
+      paddingLeft: '0.5rem',
+      paddingRight: '0.5rem',
     },
     logoSection: {
       display: 'flex',
@@ -73,16 +76,17 @@ function Header() {
       gap: '0.5rem',
       cursor: 'pointer',
       transition: 'transform 0.3s ease',
+      marginLeft: '0', // Ensure logo stays on the left
     },
     logo: {
-      height: isScrolled ? '40px' : '50px',
+      height: isScrolled ? 'clamp(30px, 5vw, 40px)' : 'clamp(40px, 6vw, 50px)', // Responsive logo size
       width: 'auto',
       transition: 'all 0.3s ease',
       filter: 'drop-shadow(2px 2px 4px rgba(30, 58, 138, 0.1))',
     },
     tagline: {
-      fontSize: '0.8rem',
-      color: '#1e3a8a',
+      fontSize: 'clamp(0.7rem, 2vw, 0.8rem)', // Responsive font size
+      color: '#0a1d51ff',
       fontWeight: '600',
       fontStyle: 'italic',
       display: isScrolled ? 'none' : 'block',
@@ -112,16 +116,16 @@ function Header() {
       gap: '0.4rem',
       padding: '0.6rem 1rem',
       textDecoration: 'none',
-      color: '#1e3a8a',
+      color: '#0a1d51ff',
       fontWeight: '600',
-      fontSize: '0.9rem',
+      fontSize: 'clamp(0.8rem, 2vw, 0.9rem)', // Responsive font size
       borderRadius: '20px',
       transition: 'all 0.3s ease',
       position: 'relative',
       overflow: 'hidden',
     },
     activeNavLink: {
-      background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
+      background: 'linear-gradient(135deg, #de800dff)',
       color: 'white',
       boxShadow: '0 4px 15px rgba(255, 140, 0, 0.3)',
     },
@@ -133,15 +137,15 @@ function Header() {
     rightSection: {
       display: 'flex',
       alignItems: 'center',
-      gap: '1rem',
+      gap: '0.5rem', // Reduced gap for smaller screens
     },
     ctaButton: {
-      background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
+      background: 'linear-gradient(135deg, #de800dff)',
       color: 'white',
       border: 'none',
-      padding: '0.6rem 1.5rem',
+      padding: '0.6rem 1rem', // Slightly reduced padding
       borderRadius: '20px',
-      fontSize: '0.9rem',
+      fontSize: 'clamp(0.8rem, 2vw, 0.9rem)', // Responsive font size
       fontWeight: '600',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
@@ -153,12 +157,12 @@ function Header() {
     mobileMenuButton: {
       display: 'none',
       background: 'none',
-      border: '2px solid #ff8c00',
+      border: '2px solid #de800dff',
       padding: '0.4rem',
       borderRadius: '8px',
       cursor: 'pointer',
       fontSize: '1.1rem',
-      color: '#ff8c00',
+      color: '#de800dff',
       transition: 'all 0.3s ease',
     },
     mobileMenu: {
@@ -189,15 +193,16 @@ function Header() {
       gap: '0.6rem',
       padding: '0.8rem',
       textDecoration: 'none',
-      color: '#1e3a8a',
+      color: '#0a1d51ff',
       fontWeight: '600',
+      fontSize: 'clamp(0.9rem, 2.5vw, 1rem)', // Responsive font size
       borderRadius: '12px',
       transition: 'all 0.3s ease',
       background: 'rgba(255, 255, 255, 0.5)',
     },
     mobileDivider: {
       height: '1px',
-      background: 'linear-gradient(90deg, transparent, #ff8c00, transparent)',
+      background: 'linear-gradient(90deg, transparent, #de800dff, transparent)',
       margin: '0.8rem 0',
     },
     mobileActions: {
@@ -249,15 +254,15 @@ function Header() {
               <div>
                 <div
                   style={{
-                    fontSize: '1rem',
+                    fontSize: 'clamp(0.9rem, 2.5vw, 1rem)', // Responsive font size
                     fontWeight: 'bold',
-                    color: '#1e3a8a',
+                    color: '#0a1d51ff',
                     lineHeight: '1.2',
                   }}
                 >
-                  LCI Rwanda
+                  {/* LCI Rwanda */}
                 </div>
-                <div style={styles.tagline}>Translate. Localize. Connect.</div>
+                {/* <div style={styles.tagline}>Translate. Localize. Connect.</div> */}
               </div>
             </div>
           </Link>
@@ -310,7 +315,7 @@ function Header() {
                 onMouseEnter={handleButtonHover}
                 onMouseLeave={handleButtonLeave}
               >
-                <span>⭐</span>
+                {/* <span>⭐</span> */}
                 Login
               </button>
             </Link>
@@ -320,20 +325,20 @@ function Header() {
               style={{
                 ...styles.mobileMenuButton,
                 display: window.innerWidth < 768 ? 'block' : 'none',
-                background: isMobileMenuOpen ? '#ff8c00' : 'none',
-                color: isMobileMenuOpen ? 'white' : '#ff8c00',
+                background: isMobileMenuOpen ? '#de800dff' : 'none',
+                color: isMobileMenuOpen ? 'white' : '#de800dff',
               }}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               onMouseEnter={(e) => {
                 if (!isMobileMenuOpen) {
-                  e.target.style.background = '#ff8c00';
+                  e.target.style.background = '#de800dff';
                   e.target.style.color = 'white';
                 }
               }}
               onMouseLeave={(e) => {
                 if (!isMobileMenuOpen) {
                   e.target.style.background = 'none';
-                  e.target.style.color = '#ff8c00';
+                  e.target.style.color = '#de800dff';
                 }
               }}
             >
@@ -354,7 +359,7 @@ function Header() {
                     ...(location.pathname === item.path
                       ? {
                           background:
-                            'linear-gradient(135deg, #ff8c00, #1e3a8a)',
+                            'linear-gradient(135deg, #de800dff, )',
                           color: 'white',
                         }
                       : {}),
@@ -393,7 +398,7 @@ function Header() {
                   ...(location.pathname === '/login'
                     ? {
                         background:
-                          'linear-gradient(135deg, #ff8c00, #1e3a8a)',
+                          'linear-gradient(135deg, #e58511ff, )',
                         color: 'white',
                       }
                     : {}),
@@ -465,7 +470,7 @@ function Header() {
                   color: 'white',
                   textDecoration: 'none',
                   borderRadius: '12px',
-                  fontSize: '0.85rem',
+                  fontSize: 'clamp(0.8rem, 2vw, 0.85rem)', // Responsive font size
                   fontWeight: '600',
                   display: 'flex',
                   alignItems: 'center',
@@ -479,7 +484,7 @@ function Header() {
                   e.target.style.transform = 'scale(1)';
                 }}
               >
-                📱 WhatsApp
+                WhatsApp
               </a>
               <a
                 href="tel:+250788518720"
@@ -489,7 +494,7 @@ function Header() {
                   color: 'white',
                   textDecoration: 'none',
                   borderRadius: '12px',
-                  fontSize: '0.85rem',
+                  fontSize: 'clamp(0.8rem, 2vw, 0.85rem)', // Responsive font size
                   fontWeight: '600',
                   display: 'flex',
                   alignItems: 'center',
@@ -503,7 +508,7 @@ function Header() {
                   e.target.style.transform = 'scale(1)';
                 }}
               >
-                📞 Call
+                Call
               </a>
             </div>
           </div>
@@ -513,7 +518,7 @@ function Header() {
       {/* Spacer to prevent content from hiding behind fixed header */}
       <div
         style={{
-          height: isScrolled ? '70px' : '90px',
+          height: isScrolled ? 'clamp(60px, 10vw, 70px)' : 'clamp(80px, 12vw, 90px)', // Responsive spacer height
           transition: 'height 0.3s ease',
         }}
       ></div>

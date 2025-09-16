@@ -5,9 +5,15 @@ function Services() {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredCard, setHoveredCard] = useState(null);
   const [activeService, setActiveService] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     setIsVisible(true);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const services = [
@@ -16,7 +22,7 @@ function Services() {
       title: "Translation and Interpretation Services",
       tagline: "Fluent. Accurate. Native-quality.",
       icon: "🌐",
-      description: "We translate documents in English, French, Kinyarwanda, Kiswahili, Kirundi, and more with precision and contextual understanding. Our multi-stage review process—handled by native-speaking translators, editors, and proofreaders—ensures accurate, culturally appropriate translations. We also provide professional interpretation services—both simultaneous and consecutive—for conferences, legal proceedings, training sessions, field interviews, and community outreach.",
+      description: "We provide precise translations and professional interpretation in multiple languages, ensuring cultural accuracy and quality for diverse events and settings.",
       keyFeatures: [
         "Native-speaking translators only",
         "Multi-stage review process",
@@ -35,7 +41,7 @@ function Services() {
       id: 2,
       title: "Website & Software Localization",
       tagline: "Global Content, Local Impact.",
-      icon: "🎯",
+      icon: "💻",
       description: "Localization isn't just translation—it's adaptation. Adapt your website, software, or app for specific regions and languages with LCI's cultural and linguistic expertise.",
       keyFeatures: [
         "UI/UX translation",
@@ -56,7 +62,7 @@ function Services() {
       id: 3,
       title: "Certified Document Translation",
       tagline: "Certified. Accepted by Embassies, Universities, and Institutions.",
-      icon: "🛡️",
+      icon: "📜",
       description: "Need certified translations for legal, academic use, or for immigration and visa application? We translate marriage certificates, birth records, court rulings, diplomas, and more. Certified and notarized services available on request.",
       keyFeatures: [
         "Legally recognized certifications",
@@ -76,7 +82,7 @@ function Services() {
       id: 4,
       title: "Audio & Video Transcription",
       tagline: "From Sound or Video to Transcript.",
-      icon: "🎵",
+      icon: "🎧",
       description: "We offer fast, accurate transcription in formats like MP3, MP4, WAV, WMA, and WMV with optional time stamps and translation.",
       keyFeatures: [
         "Multiple audio/video formats",
@@ -95,7 +101,7 @@ function Services() {
       id: 5,
       title: "Proofreading & Editing",
       tagline: "Polish Your Message. Boost Your Impact.",
-      icon: "✅",
+      icon: "🖋️",
       description: "We refine grammar, structure, tone, and clarity—perfect for publication and professional use.",
       keyFeatures: [
         "Grammar and style correction",
@@ -114,7 +120,7 @@ function Services() {
       id: 6,
       title: "CV & Application Support",
       tagline: "Stand Out with Confidence.",
-      icon: "👥",
+      icon: "🎯",
       description: "We help you present your best self to employers and universities—with polished CVs and compelling personal statements.",
       keyFeatures: [
         "Professional CV editing",
@@ -134,7 +140,7 @@ function Services() {
       id: 7,
       title: "Machine Translation Post-Editing (MTPE)",
       tagline: "Speed Meets Accuracy—with a Human Touch.",
-      icon: "⚡",
+      icon: "⚙️",
       description: "MTPE bridges the gap between fast, affordable machine translation and the precision of human language experts. At LCI, we enhance raw MT output with expert linguists who ensure clarity, cultural relevance, and error-free communication.",
       keyFeatures: [
         "Full post-editing (accuracy, tone, clarity)",
@@ -175,7 +181,7 @@ function Services() {
       id: 9,
       title: "Back-Translation & Quality Assurance",
       tagline: "Accuracy You Can Trust.",
-      icon: "🔒",
+      icon: "🔁",
       description: "Back-Translation is a quality assurance process where a translated document is independently retranslated back into the source language. In medical, legal, and donor-funded work, accuracy isn't a luxury—it's a necessity.",
       keyFeatures: [
         "Independent back-translation",
@@ -238,7 +244,7 @@ function Services() {
       id: 12,
       title: "Content Creation",
       tagline: "Powerful Stories. Locally Told.",
-      icon: "✍️",
+      icon: "📝",
       description: "Professional, SEO-optimized content in multiple languages—tailored for web, print, and multimedia—to help you inform, inspire, and connect across cultures.",
       keyFeatures: [
         "Multilingual blog writing and translation",
@@ -291,149 +297,159 @@ function Services() {
   const styles = {
     container: {
       minHeight: '100vh',
-      background: '#ffffff',
-      fontFamily: 'Arial, sans-serif'
+      background: '#ffffff ',
+      fontFamily: 'Arial, sans-serif',
     },
     heroSection: {
-      minHeight: '60vh',
+      minHeight: '50vh',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '4rem 2rem',
+      padding: '2rem',
       position: 'relative',
       overflow: 'hidden',
-      background: 'linear-gradient(135deg, #ff8c00 0%, #1e3a8a 50%, #ff8c00 100%)',
+      background: '#f1eee5ff',
+      borderRadius: '20px',
+      border: '2px solid #de800dff',
       opacity: isVisible ? 1 : 0,
       transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
-      transition: 'all 1s ease-out'
+      transition: 'all 1s ease-out',
     },
     heroContent: {
-      textAlign: 'center',
+      textAlign: isMobile ? 'center' : 'left',
       maxWidth: '1000px',
       zIndex: 10,
-      position: 'relative'
+      position: 'relative',
+      padding: isMobile ? '0' : '0 1rem',
     },
     heroTitle: {
-      fontSize: '3.5rem',
+      fontSize: isMobile ? '2.5rem' : '3.5rem',
       fontWeight: 'bold',
-      color: 'white',
+      color: '#0a1d51ff',
       marginBottom: '1.5rem',
-      lineHeight: '1.2'
+      lineHeight: '1.2',
+      textAlign: isMobile ? 'center' : 'left',
     },
     heroSubtitle: {
-      fontSize: '1.8rem',
-      color: '#fbbf24',
-      marginBottom: '1rem',
-      fontWeight: '300'
+      fontSize: isMobile ? '1rem' : '1.2rem',
+      color: '#0a1d51ff',
+      marginBottom: '2rem',
+      lineHeight: '1.6',
+      maxWidth: '900px',
+      margin: isMobile ? '0 auto 2rem' : '0 0 2rem',
+      textAlign: isMobile ? 'center' : 'left',
     },
     section: {
-      padding: '6rem 2rem',
+      padding: '9rem 2rem',
       maxWidth: '1400px',
-      margin: '0 auto'
+      margin: '0 auto',
+      background: '#f1eee5ff',
+      borderRadius: '20px',
+      border: '2px solid #de800dff',
     },
     sectionTitle: {
       fontSize: '3rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
+      color: '#0a1d51ff',
       textAlign: 'center',
-      marginBottom: '1.5rem'
+      marginBottom: '1.5rem',
     },
     sectionSubtitle: {
       fontSize: '1.3rem',
-      color: '#6b7280',
+      color: '#0a1d51ff',
       textAlign: 'center',
       marginBottom: '4rem',
       maxWidth: '800px',
-      margin: '0 auto 4rem'
+      margin: '0 auto 4rem',
     },
     servicesGrid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-      gap: '2.5rem',
-      marginBottom: '4rem'
+      gap: '2rem',
+      marginBottom: '4rem',
     },
     serviceCard: {
-      background: '#ffffff',
+      background: '#f1eee5ff',
       borderRadius: '20px',
-      padding: '2.5rem',
-      border: '2px solid #f3f4f6',
+      padding: '2rem',
+      border: '2px solid #de800dff',
       cursor: 'pointer',
-      transform: hoveredCard === null ? 'scale(1)' : 'scale(1)',
       transition: 'all 0.5s ease',
       boxShadow: '0 8px 32px rgba(255, 140, 0, 0.1)',
-      position: 'relative'
+      position: 'relative',
     },
     serviceHeader: {
       display: 'flex',
       alignItems: 'flex-start',
       gap: '1.5rem',
-      marginBottom: '1.5rem'
+      marginBottom: '1.5rem',
     },
     serviceIcon: {
-      fontSize: '3rem',
-      flexShrink: 0
+      fontSize: '1.5rem', // Reduced size for smaller icons
+      marginBottom: '1.5rem',
+      display: 'block',
+      color: '#de800dff',
     },
     serviceHeaderText: {
-      flex: 1
+      flex: 1,
     },
     serviceTitle: {
-      fontSize: '1.5rem',
+      fontSize: '1.3rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
-      marginBottom: '0.5rem',
-      lineHeight: '1.3'
+      color: '#0a1d51ff',
+      marginBottom: '1rem',
     },
     serviceTagline: {
       fontSize: '1rem',
-      color: '#ff8c00',
+      color: '#de800dff',
       fontWeight: '600',
-      fontStyle: 'italic'
+      fontStyle: 'italic',
     },
     serviceDescription: {
-      color: '#4b5563',
+      color: '#0a1d51ff',
       lineHeight: '1.6',
-      marginBottom: '2rem'
+      marginBottom: '2rem',
     },
     featuresSection: {
-      marginBottom: '1.5rem'
+      marginBottom: '1.5rem',
     },
     featuresTitle: {
-      fontSize: '1.1rem',
+      fontSize: '1.3rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
-      marginBottom: '1rem'
+      color: '#0a1d51ff',
+      marginBottom: '1rem',
     },
     featuresList: {
       listStyle: 'none',
       padding: 0,
-      margin: 0
+      margin: 0,
     },
     featureItem: {
       padding: '0.5rem 0',
-      color: '#4b5563',
+      color: '#0a1d51ff',
       display: 'flex',
       alignItems: 'center',
-      gap: '0.5rem'
+      gap: '0.5rem',
     },
     useCasesGrid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-      gap: '0.5rem'
+      gap: '0.5rem',
     },
     useCaseItem: {
-      background: '#f0f9ff',
+      background: '#f1eee5ff',
       padding: '0.5rem 1rem',
       borderRadius: '20px',
       fontSize: '0.9rem',
-      color: '#1e3a8a',
+      color: '#0a1d51ff',
       textAlign: 'center',
-      border: '1px solid #bfdbfe'
+      border: '2px solid #de800dff',
     },
     expandButton: {
       position: 'absolute',
       top: '1rem',
       right: '1rem',
-      background: '#ff8c00',
+      background: '#de800dff',
       color: 'white',
       border: 'none',
       borderRadius: '50%',
@@ -444,34 +460,35 @@ function Services() {
       alignItems: 'center',
       justifyContent: 'center',
       fontSize: '1.2rem',
-      transition: 'all 0.3s ease'
+      transition: 'all 0.3s ease',
     },
     qualitySection: {
-      background: 'linear-gradient(135deg, #fff7ed, #fef3c7)',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       padding: '4rem 2rem',
-      margin: '4rem 0',
-      border: '2px solid #ff8c00'
+      margin: '2rem auto',
+      maxWidth: '1400px',
+      border: '2px solid #de800dff',
     },
     qualityGrid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-      gap: '2rem'
+      gap: '2rem',
     },
     qualityStep: {
       textAlign: 'center',
-      background: '#ffffff',
+      background: '#f1eee5ff',
       borderRadius: '15px',
       padding: '2rem',
-      border: '2px solid #ff8c00',
-      position: 'relative'
+      border: '2px solid #de800dff',
+      position: 'relative',
     },
     stepNumber: {
       position: 'absolute',
       top: '-15px',
       left: '50%',
       transform: 'translateX(-50%)',
-      background: '#ff8c00',
+      background: '#de800dff',
       color: 'white',
       width: '30px',
       height: '30px',
@@ -479,116 +496,126 @@ function Services() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     },
     stepTitle: {
       fontSize: '1.3rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
+      color: '#0a1d51ff',
       marginBottom: '1rem',
-      marginTop: '1rem'
+      marginTop: '1rem',
     },
     stepDescription: {
-      color: '#4b5563',
-      fontSize: '1rem'
+      color: '#0a1d51ff',
+      fontSize: '1rem',
     },
     languagesSection: {
-      background: 'linear-gradient(135deg, #f0f9ff, #dbeafe)',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       padding: '4rem 2rem',
-      margin: '4rem 0'
+      margin: '2rem auto',
+      maxWidth: '1400px',
+      border: '2px solid #de800dff',
     },
     languagesGrid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-      gap: '2rem'
+      gap: '2rem',
     },
     languageCard: {
-      background: '#ffffff',
+      background: '#f1eee5ff',
       borderRadius: '15px',
       padding: '2rem',
       textAlign: 'center',
-      border: '2px solid #1e3a8a',
-      boxShadow: '0 4px 15px rgba(30, 58, 138, 0.1)'
+      border: '2px solid #de800dff',
+      boxShadow: '0 8px 25px rgba(255, 140, 0, 0.1)',
     },
     languageFlag: {
       fontSize: '3rem',
-      marginBottom: '1rem'
+      marginBottom: '1rem',
     },
     languageCode: {
       fontSize: '1.2rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
-      marginBottom: '0.5rem'
+      color: '#0a1d51ff',
+      marginBottom: '0.5rem',
     },
     languageName: {
-      color: '#6b7280',
-      fontSize: '1rem'
+      color: '#0a1d51ff',
+      fontSize: '1rem',
     },
     confidentialitySection: {
-      background: 'linear-gradient(135deg, #1e3a8a, #ff8c00)',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       padding: '4rem 2rem',
       textAlign: 'center',
-      margin: '4rem 0',
-      color: 'white'
+      margin: '2rem auto',
+      maxWidth: '1400px',
+      border: '2px solid #de800dff',
     },
     confidentialityTitle: {
       fontSize: '2.5rem',
       fontWeight: 'bold',
-      marginBottom: '2rem'
+      color: '#0a1d51ff',
+      marginBottom: '2rem',
     },
     confidentialityDescription: {
       fontSize: '1.2rem',
+      color: '#0a1d51ff',
       marginBottom: '2rem',
-      lineHeight: '1.6'
+      lineHeight: '1.6',
     },
     confidentialityFeatures: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
       gap: '2rem',
-      marginTop: '3rem'
+      marginTop: '3rem',
     },
     confidentialityFeature: {
       display: 'flex',
       alignItems: 'center',
       gap: '1rem',
-      fontSize: '1.1rem'
+      fontSize: '1.1rem',
+      color: '#0a1d51ff',
     },
     ctaSection: {
       textAlign: 'center',
       padding: '6rem 2rem',
-      background: 'linear-gradient(135deg, #f8fafc, #e2e8f0)',
+      background: '#f1eee5ff',
       borderRadius: '20px',
-      margin: '4rem auto'
+      margin: '2rem auto',
+      maxWidth: '1200px',
+      border: '2px solid #de800dff',
     },
     ctaTitle: {
-      fontSize: '3rem',
+      fontSize: '3.5rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
-      marginBottom: '2rem'
+      color: '#0a1d51ff',
+      marginBottom: '2rem',
     },
     ctaDescription: {
       fontSize: '1.3rem',
-      color: '#4b5563',
+      color: '#0a1d51ff',
       marginBottom: '3rem',
-      lineHeight: '1.6'
+      lineHeight: '1.6',
     },
     primaryButton: {
-      background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
-      color: 'white',
-      padding: '1rem 2rem',
-      borderRadius: '50px',
-      border: 'none',
-      fontSize: '1.1rem',
-      fontWeight: '600',
+      background: '#f1eee5ff',
+      color: '#0a1d51ff',
+      padding: '1rem 2.5rem',
+      borderRadius: '25px',
+      border: '2px solid #de800dff',
+      fontSize: '1.2rem',
+      fontWeight: '700',
       cursor: 'pointer',
-      boxShadow: '0 10px 25px rgba(255, 140, 0, 0.3)',
+      boxShadow: '0 12px 30px rgba(255, 140, 0, 0.4)',
       transform: 'scale(1)',
       transition: 'all 0.3s ease',
       textDecoration: 'none',
-      display: 'inline-block'
-    }
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
   };
 
   const handleMouseEnter = (index) => {
@@ -605,10 +632,14 @@ function Services() {
 
   const handleButtonHover = (e) => {
     e.target.style.transform = 'scale(1.05)';
+    e.target.style.background = '#de800dff';
+    e.target.style.color = 'white';
   };
 
   const handleButtonLeave = (e) => {
     e.target.style.transform = 'scale(1)';
+    e.target.style.background = '#f1eee5ff';
+    e.target.style.color = '#0a1d51ff';
   };
 
   return (
@@ -633,9 +664,8 @@ function Services() {
               key={service.id}
               style={{
                 ...styles.serviceCard,
-                transform: hoveredCard === index ? 'scale(1.02)' : 'scale(1)',
-                borderColor: hoveredCard === index ? '#ff8c00' : '#f3f4f6',
-                boxShadow: hoveredCard === index ? '0 15px 40px rgba(255, 140, 0, 0.2)' : '0 8px 32px rgba(255, 140, 0, 0.1)'
+                transform: hoveredCard === index ? 'scale(1.05)' : 'scale(1)',
+                background: hoveredCard === index ? 'rgba(222, 128, 13, 0.1)' : '#f1eee5ff',
               }}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
@@ -643,7 +673,7 @@ function Services() {
               <button
                 style={{
                   ...styles.expandButton,
-                  transform: activeService === service.id ? 'rotate(45deg)' : 'rotate(0deg)'
+                  transform: activeService === service.id ? 'rotate(45deg)' : 'rotate(0deg)',
                 }}
                 onClick={() => handleExpandService(service.id)}
               >
@@ -667,7 +697,7 @@ function Services() {
                     <ul style={styles.featuresList}>
                       {service.keyFeatures.map((feature, idx) => (
                         <li key={idx} style={styles.featureItem}>
-                          <span style={{color: '#10b981'}}>•</span>
+                          <span style={{ color: '#de800dff' }}>•</span>
                           {feature}
                         </li>
                       ))}
@@ -707,7 +737,7 @@ function Services() {
               </div>
             ))}
           </div>
-          <p style={{textAlign: 'center', marginTop: '2rem', fontSize: '1.1rem', color: '#4b5563'}}>
+          <p style={{ textAlign: 'center', marginTop: '2rem', fontSize: '1.1rem', color: '#0a1d51ff' }}>
             We only work with experienced linguists who translate into their native language and have subject-matter expertise.
           </p>
         </div>
@@ -729,7 +759,7 @@ function Services() {
               </div>
             ))}
           </div>
-          <p style={{textAlign: 'center', marginTop: '2rem', fontSize: '1.1rem', color: '#4b5563'}}>
+          <p style={{ textAlign: 'center', marginTop: '2rem', fontSize: '1.1rem', color: '#0a1d51ff' }}>
             Need another language? Contact us to discuss your requirements.
           </p>
         </div>
@@ -747,23 +777,23 @@ function Services() {
           </p>
           <div style={styles.confidentialityFeatures}>
             <div style={styles.confidentialityFeature}>
-              <span>✅</span>
+              <span style={{ color: '#de800dff' }}></span>
               <span>Strict internal privacy protocols</span>
             </div>
             <div style={styles.confidentialityFeature}>
-              <span>✅</span>
+              <span style={{ color: '#de800dff' }}></span>
               <span>NDA signing available upon request</span>
             </div>
             <div style={styles.confidentialityFeature}>
-              <span>✅</span>
+              <span style={{ color: '#de800dff' }}></span>
               <span>Secure file handling and data storage</span>
             </div>
             <div style={styles.confidentialityFeature}>
-              <span>✅</span>
+              <span style={{ color: '#de800dff' }}></span>
               <span>Access restricted to authorized linguists only</span>
             </div>
           </div>
-          <p style={{marginTop: '2rem', fontSize: '1.2rem', fontWeight: '600'}}>
+          <p style={{ marginTop: '2rem', fontSize: '1.2rem', fontWeight: '600', color: '#0a1d51ff' }}>
             🛡️ Confidentiality isn't an option. It's our standard.
           </p>
         </div>
@@ -783,8 +813,8 @@ function Services() {
             onMouseEnter={handleButtonHover}
             onMouseLeave={handleButtonLeave}
           >
-            <span style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-              Get Your Quote Today ⭐
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              Get Your Quote Today <span style={{ color: '#de800dff' }}>✨</span>
             </span>
           </Link>
         </div>

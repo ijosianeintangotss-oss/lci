@@ -101,28 +101,28 @@ function Contact() {
   ];
 
   const quickActions = [
-    {
-      title: "WhatsApp Chat",
-      description: "Get instant responses to your questions. Chat with us directly on WhatsApp.",
-      icon: "📱",
-      action: "Start WhatsApp Chat",
-      link: "https://wa.me/250788518720"
-    },
-    {
-      title: "Schedule a Call",
-      description: "Prefer to talk? Call us during business hours for immediate assistance.",
-      icon: "📞",
-      action: "Call Now",
-      link: "tel:+250788518720"
-    },
-    {
-      title: "Email Directly",
-      description: "Send us an email with your project details for a detailed quote.",
-      icon: "📧",
-      action: "Send Email",
-      link: "mailto:lcirwanda@gmail.com"
-    }
-  ];
+  {
+    title: "WhatsApp Chat",
+    description: "Get instant responses to your questions. Chat with us directly on WhatsApp.",
+    image: "../assets/whatsapp-icon.png", // Replace with your actual image path
+    action: "Start WhatsApp Chat",
+    link: "https://wa.me/250788518720"
+  },
+  {
+    title: "Schedule a Call",
+    description: "Prefer to talk? Call us during business hours for immediate assistance.",
+    image: "../assets/call.png", // Replace with your actual image path
+    action: "Call Now",
+    link: "tel:+250788518720"
+  },
+  {
+    title: "Email Directly",
+    description: "Send us an email with your project details for a detailed quote.",
+    image: "../assets/email.png", // Replace with your actual image path
+    action: "Send Email",
+    link: "mailto:lcirwanda@gmail.com"
+  }
+];
 
   const paymentMethods = [
     {
@@ -359,14 +359,15 @@ function Contact() {
       fontFamily: 'Arial, sans-serif'
     },
     heroSection: {
-      minHeight: '60vh',
+      minHeight: '30vh',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       padding: '4rem 2rem',
       position: 'relative',
       overflow: 'hidden',
-      background: 'linear-gradient(135deg, #ff8c00 0%, #1e3a8a 50%, #ff8c00 100%)',
+      backgroundColor: '#ffffff  ',
+      // background: 'linear-gradient(135deg, #ff8c00 0%, #1e3a8a 50%, #ff8c00 100%)',
       opacity: isVisible ? 1 : 0,
       transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
       transition: 'all 1s ease-out'
@@ -380,13 +381,13 @@ function Contact() {
     heroTitle: {
       fontSize: '3.5rem',
       fontWeight: 'bold',
-      color: 'white',
+      color: '#0a1d51ff',
       marginBottom: '1.5rem',
       lineHeight: '1.2'
     },
     heroDescription: {
       fontSize: '1.3rem',
-      color: '#f3f4f6',
+      color: '#0a1d51ff',
       marginBottom: '2rem',
       lineHeight: '1.6',
       maxWidth: '800px',
@@ -400,7 +401,7 @@ function Contact() {
     sectionTitle: {
       fontSize: '2.5rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
+      color: '#0f2460ff',
       textAlign: 'center',
       marginBottom: '1rem'
     },
@@ -413,7 +414,9 @@ function Contact() {
       margin: '0 auto 3rem'
     },
     contactInfoSection: {
-      background: 'linear-gradient(135deg, #f0f9ff, #dbeafe)',
+
+      // background: 'linear-gradient(135deg, #f0f9ff, #dbeafe)',
+      background: '#ffffff  ',
       borderRadius: '20px',
       padding: '3rem',
       margin: '2rem 0',
@@ -435,7 +438,7 @@ function Contact() {
     contactCardTitle: {
       fontSize: '1.5rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
+      color: '#0f2460ff',
       marginBottom: '1rem'
     },
     contactDetails: {
@@ -559,7 +562,8 @@ function Contact() {
       cursor: 'pointer'
     },
     submitButton: {
-      background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
+      // background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
+      background: ' #d27b10ff',
       color: 'white',
       padding: '1rem 3rem',
       borderRadius: '50px',
@@ -623,7 +627,8 @@ function Contact() {
       transition: 'all 0.3s ease'
     },
     faqSection: {
-      background: 'linear-gradient(135deg, #fff7ed, #fef3c7)',
+      backgroundColor: '#f1eee5ff',
+      // background: 'linear-gradient(135deg, #fff7ed, #fef3c7)',
       borderRadius: '20px',
       padding: '3rem',
       margin: '2rem 0',
@@ -654,24 +659,26 @@ function Contact() {
     ctaSection: {
       textAlign: 'center',
       padding: '4rem 2rem',
-      background: 'linear-gradient(135deg, #1e3a8a, #ff8c00)',
+      backgroundColor: '#f1eee5ff',
+      // background: 'linear-gradient(135deg, #1e3a8a, #ff8c00)',
       borderRadius: '20px',
       margin: '2rem 0'
     },
     ctaTitle: {
       fontSize: '2.5rem',
       fontWeight: 'bold',
-      color: 'white',
+      color: '#0f2460ff',
       marginBottom: '1rem'
     },
     ctaDescription: {
       fontSize: '1.2rem',
-      color: '#f3f4f6',
+      color: '#0a1d51ff',
       marginBottom: '2rem',
       lineHeight: '1.6'
     },
     ctaButton: {
-      background: 'linear-gradient(135deg, #fbbf24, #f59e0b)',
+      // background: 'linear-gradient(135deg, #fbbf24, #f59e0b)',
+      backgroundColor: '#d27b10ff',
       color: '#1e3a8a',
       padding: '1rem 3rem',
       borderRadius: '50px',
@@ -786,10 +793,10 @@ function Contact() {
             </div>
             
             <div style={styles.contactCard}>
-              <h3 style={styles.contactCardTitle}>📞 Contact Us</h3>
+              <h3 style={styles.contactCardTitle}>Contact Us</h3>
               <div style={styles.contactDetails}>
                 📧 <strong>Email:</strong> lcirwanda@gmail.com<br />
-                📱 <strong>Call / WhatsApp:</strong> +250 788 518 720<br />
+                📞  <strong>Call / WhatsApp:</strong> +250 788 518 720<br />
                 📍 <strong>Location:</strong> Kigali, Rwanda<br />
                 🌐 <strong>Services:</strong> Remote & On-site Available<br /><br />
                 💬 <strong>Need urgent support after hours?</strong><br />
@@ -803,8 +810,6 @@ function Contact() {
       {/* Quote and Message Forms */}
       <section style={styles.section}>
         <div style={styles.formSection}>
-          {error && <div style={styles.errorMessage}>{error}</div>}
-          {success && <div style={styles.successMessage}>{success}</div>}
           
           <div style={styles.tabContainer}>
             <button 
@@ -881,7 +886,7 @@ function Contact() {
                   </div>
                   
                   <div style={styles.formGroup}>
-                    <label style={styles.label} htmlFor="service">Service Type *</label>
+                    <label style={styles.label} htmlFor="service">Service Required *</label>
                     <select 
                       style={styles.select}
                       id="service" 
@@ -986,7 +991,7 @@ function Contact() {
 
                   <div style={styles.formGroup}>
                     <label style={styles.label}>Upload Payment Screenshot *</label>
-                    <label style={styles.label}>Dial *182*1*1*0788518720*Amount#</label>
+                    <label style={styles.label}>Dial *182*1*1*0788518720*Amount# *</label>
                     <div
                       style={styles.fileUpload1}
                       onClick={() => !isSubmitting && document.getElementById('paymentScreenshotInput').click()}
@@ -1093,6 +1098,9 @@ function Contact() {
                   ></textarea>
                 </div>
 
+                {error && <div style={styles.errorMessage}>{error}</div>}
+                {success && <div style={styles.successMessage}>{success}</div>}
+
                 <button 
                   type="submit" 
                   style={{
@@ -1185,7 +1193,10 @@ function Contact() {
                   ></textarea>
                 </div>
 
-                <div style={{background: '#f0f9ff', padding: '1.5rem', borderRadius: '10px', marginBottom: '2rem', border: '1px solid #dbeafe'}}>
+                {error && <div style={styles.errorMessage}>{error}</div>}
+                {success && <div style={styles.successMessage}>{success}</div>}
+
+                <div style={{background: '#f1eee5ff', padding: '1.5rem', borderRadius: '10px', marginBottom: '2rem', border: '1px solid #dbeafe'}}>
                   <h4 style={{color: '#1e3a8a', marginBottom: '1rem'}}>💡 Tips for Faster Quotes:</h4>
                   <ul style={{color: '#4b5563', lineHeight: '1.6', paddingLeft: '1.5rem'}}>
                     <li>Mention source and target languages</li>
@@ -1258,14 +1269,15 @@ function Contact() {
       {/* Client Portal Section */}
       <section style={styles.section}>
         <div style={{
-          background: 'linear-gradient(135deg, #f8fafc, #e2e8f0)',
+          // background: 'linear-gradient(135deg, #f8fafc, #e2e8f0)',
+          backgroundColor: '#f1eee5ff',
           borderRadius: '20px',
           padding: '4rem 2rem',
-          border: '2px solid #1e3a8a',
+          border: '2px solid #de800dff',
           textAlign: 'center'
         }}>
           <h2 style={styles.sectionTitle}>🗂️ Client Portal</h2>
-          <h3 style={{fontSize: '2rem', color: '#ff8c00', marginBottom: '1rem'}}>Your Central Hub for Multilingual Projects</h3>
+          <h3 style={{fontSize: '2rem', color: '#d27b10ff', marginBottom: '1rem'}}>Your Central Hub for Multilingual Projects</h3>
           <p style={{fontSize: '1.8rem', fontWeight: 'bold', color: '#1e3a8a', marginBottom: '1.5rem'}}>
             🌍 Translate. Track. Trust.
           </p>
@@ -1333,10 +1345,11 @@ function Contact() {
       {/* Payment Methods Section */}
       <section style={styles.section}>
         <div style={{
-          background: 'linear-gradient(135deg, #fef7ff, #fae8ff)',
+          // background: 'linear-gradient(135deg, #fef7ff, #fae8ff)',
+          backgroundColor: '#f1eee5ff',
           borderRadius: '20px',
           padding: '3rem',
-          border: '2px solid #a855f7'
+          border: '2px solid #de800dff'
         }}>
           <h2 style={styles.sectionTitle}>💳 Secure Payment Options</h2>
           <p style={styles.sectionSubtitle}>
@@ -1421,7 +1434,7 @@ function Contact() {
               onClick={() => setActiveSection('quote')}
             >
               <span style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-                🚀 Get Free Quote Now
+                 Get Free Quote Now
               </span>
             </button>
             <a href="https://wa.me/250788518720" target="_blank" rel="noopener noreferrer">
@@ -1434,7 +1447,7 @@ function Contact() {
                 onMouseLeave={handleButtonLeave}
               >
                 <span style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-                  💬 Chat on WhatsApp
+                  Chat on WhatsApp
                 </span>
               </button>
             </a>
@@ -1447,12 +1460,12 @@ function Contact() {
             borderRadius: '15px',
             border: '1px solid rgba(255, 255, 255, 0.3)'
           }}>
-            <h3 style={{color: 'white', marginBottom: '1rem'}}>✨ Why Choose LCI?</h3>
+            <h3 style={{color: '#1e3a8a', marginBottom: '1rem'}}>✨ Why Choose LCI?</h3>
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
               gap: '1rem',
-              color: '#f3f4f6',
+              color: '#1e3a8a',
               fontSize: '0.9rem'
             }}>
               <div>✅ Native linguists with expertise</div>

@@ -45,7 +45,7 @@ function Blog() {
       title: 'Inside Software Localization: From English to Kinyarwanda',
       description: 'Understanding the technical aspects of software localization and the importance of context in translation.',
       date: 'July 10, 2025',
-      image: '💻'
+      image: ''
     },
     {
       category: 'Localization Insights',
@@ -53,7 +53,7 @@ function Blog() {
       title: 'How Kinyarwanda UI Strings Can Make or Break Your App in Rwanda',
       description: 'How proper localization can make or break user experience in mobile applications.',
       date: 'July 8, 2025',
-      image: '📱'
+      image: ''
     },
     {
       category: 'Careers',
@@ -61,7 +61,7 @@ function Blog() {
       title: 'Bridging Global Communication—One Language at a Time',
       description: 'How we help businesses and professionals connect across cultures with precision and care.',
       date: 'July 6, 2025',
-      image: '🌍'
+      image: ''
     },
     {
       category: 'Careers',
@@ -69,7 +69,7 @@ function Blog() {
       title: 'Empowering the Next Generation of Language Experts',
       description: 'Building the next generation of African language professionals through training and mentorship.',
       date: 'July 3, 2025',
-      image: '🎓'
+      image: ''
     },
     {
       category: 'Digital Strategy',
@@ -77,7 +77,7 @@ function Blog() {
       title: 'Are You Building or Just Posting?',
       description: 'The importance of strategic thinking in digital content creation and business building.',
       date: 'June 28, 2025',
-      image: '📈'
+      image: ''
     },
     {
       category: 'Translation Tips',
@@ -85,7 +85,7 @@ function Blog() {
       title: 'Ready to Go Global? We\'re Here to Help You Speak the World\'s Languages!',
       description: 'How we help your message resonate across different languages and cultures.',
       date: 'June 25, 2025',
-      image: '🌐'
+      image: ''
     },
     {
       category: 'Translation Tips',
@@ -93,7 +93,7 @@ function Blog() {
       title: 'Our Story -- Language Computing International (LCI)',
       description: 'Your trusted partner in professional translation, localization & language solutions.',
       date: 'June 20, 2025',
-      image: '📖'
+      image: ''
     },
     {
       category: 'General',
@@ -101,7 +101,7 @@ function Blog() {
       title: 'Welcome to Language Computing International (LCI)!',
       description: 'Welcome to our growing network of language professionals and business leaders across Africa and beyond.',
       date: 'June 15, 2025',
-      image: '👋'
+      image: ''
     },
     {
       category: 'General',
@@ -109,7 +109,7 @@ function Blog() {
       title: 'Welcome to LCI -- Multilingual Translation & Localization Services!',
       description: 'Your trusted partner in professional translation, localization, and multilingual communication.',
       date: 'June 10, 2025',
-      image: '🎯'
+      image: ''
     }
   ];
 
@@ -123,21 +123,23 @@ function Blog() {
   const styles = {
     container: {
       minHeight: '100vh',
-      background: '#ffffff',
-      fontFamily: 'Arial, sans-serif'
+      background: '#ffffff ',
+      fontFamily: 'Arial, sans-serif',
     },
     heroSection: {
-      minHeight: '80vh',
+      minHeight: '100vh',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       padding: '2rem',
       position: 'relative',
       overflow: 'hidden',
-      background: 'linear-gradient(135deg, #ff8c00 0%, #1e3a8a 50%, #ff8c00 100%)',
+      background: '#f1eee5ff',
+      borderRadius: '20px',
+      border: '2px solid #de800dff',
       opacity: isVisible ? 1 : 0,
       transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
-      transition: 'all 1s ease-out'
+      transition: 'all 1s ease-out',
     },
     heroContainer: {
       display: 'flex',
@@ -145,18 +147,16 @@ function Blog() {
       justifyContent: 'space-between',
       maxWidth: '1200px',
       width: '100%',
-      gap: '2rem',
-      flexWrap: 'nowrap',
-      flexDirection: isMobile ? 'column' : 'row'
+      gap: '9rem',
+      flexWrap: isMobile ? 'wrap' : 'nowrap',
     },
     heroImage: {
       width: isMobile ? '100%' : '45%',
       maxWidth: isMobile ? '100%' : '500px',
       height: 'auto',
-      objectFit: 'contain',
-      borderRadius: '20px',
-      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
-      margin: isMobile ? '0 auto' : '0'
+      objectFit: 'cover',
+      borderRadius: '10px',
+      margin: isMobile ? '0 auto' : '0',
     },
     heroContent: {
       textAlign: isMobile ? 'center' : 'left',
@@ -164,285 +164,298 @@ function Blog() {
       maxWidth: isMobile ? '100%' : '600px',
       zIndex: 10,
       position: 'relative',
-      padding: isMobile ? '1rem' : '2rem'
+      padding: isMobile ? '0' : '0 1rem',
     },
     heroTitle: {
-      fontSize: isMobile ? '2.5rem' : '4rem',
+      fontSize: isMobile ? '2.5rem' : '3.5rem',
       fontWeight: 'bold',
-      color: 'white',
+      color: '#0a1d51ff',
       marginBottom: '1.5rem',
-      lineHeight: '1.2'
+      lineHeight: '1.2',
+      textAlign: isMobile ? 'center' : 'left',
     },
-    heroDescription: {
-      fontSize: isMobile ? '1.2rem' : '1.4rem',
-      color: '#f3f4f6',
+    heroSubtitle: {
+      fontSize: isMobile ? '1rem' : '1.2rem',
+      color: '#0a1d51ff',
+      marginBottom: '2rem',
       lineHeight: '1.6',
-      marginBottom: '1rem',
-      margin: isMobile ? '0 auto' : '0'
+      maxWidth: '900px',
+      margin: isMobile ? '0 auto 2rem' : '0 0 2rem',
+      textAlign: isMobile ? 'center' : 'left',
     },
     section: {
-      padding: '4rem 2rem',
+      padding: '9rem 2rem',
       maxWidth: '1400px',
-      margin: '0 auto'
+      margin: '0 auto',
+      background: '#f1eee5ff',
+      borderRadius: '20px',
+      border: '2px solid #de800dff',
+    },
+    sectionTitle: {
+      fontSize: '3rem',
+      fontWeight: 'bold',
+      color: '#0a1d51ff',
+      textAlign: 'center',
+      marginBottom: '1.5rem',
+    },
+    sectionSubtitle: {
+      fontSize: '1.3rem',
+      color: '#0a1d51ff',
+      textAlign: 'center',
+      marginBottom: '4rem',
+      maxWidth: '800px',
+      margin: '0 auto 4rem',
     },
     searchSection: {
-      background: 'linear-gradient(135deg, #f8fafc, #e2e8f0)',
+      background: '#f1eee5ff',
       borderRadius: '20px',
-      padding: '3rem 2rem',
+      padding: '4rem 2rem',
       margin: '2rem auto',
-      textAlign: 'center'
+      maxWidth: '1400px',
+      border: '2px solid #de800dff',
     },
     searchContainer: {
-      maxWidth: '600px',
-      margin: '0 auto 2rem'
+      maxWidth: '800px',
+      margin: '0 auto 3rem',
+      position: 'relative',
     },
     searchInput: {
       width: '100%',
       padding: '1rem 1.5rem',
-      borderRadius: '50px',
-      border: '2px solid #e5e7eb',
-      fontSize: '1.1rem',
+      borderRadius: '25px',
+      border: '2px solid #de800dff',
+      fontSize: '1rem',
+      background: '#f1eee5ff',
+      color: '#0a1d51ff',
       outline: 'none',
       transition: 'all 0.3s ease',
-      boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'
+    },
+    searchIcon: {
+      position: 'absolute',
+      right: '1.5rem',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      color: '#de800dff',
+      fontSize: '1rem', // Reduced icon size
     },
     categoriesContainer: {
       display: 'flex',
+      flexWrap: 'wrap',
       gap: '1rem',
       justifyContent: 'center',
-      flexWrap: 'wrap'
     },
     categoryButton: {
-      padding: '0.8rem 1.5rem',
-      borderRadius: '25px',
-      border: '2px solid #e5e7eb',
-      background: 'white',
-      cursor: 'pointer',
-      fontSize: '0.95rem',
-      fontWeight: '500',
-      transition: 'all 0.3s ease',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.5rem'
-    },
-    activeCategoryButton: {
-      background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
-      color: 'white',
-      borderColor: '#ff8c00'
-    },
-    categoryCount: {
-      background: 'rgba(255, 255, 255, 0.2)',
-      borderRadius: '12px',
-      padding: '0.2rem 0.5rem',
-      fontSize: '0.8rem',
-      fontWeight: '600'
-    },
-    featuredSection: {
-      background: 'linear-gradient(135deg, #fff7ed, #fef3c7)',
+      background: '#f1eee5ff',
+      color: '#0a1d51ff',
+      padding: '0.75rem 1.5rem',
       borderRadius: '20px',
-      padding: '4rem 2rem',
-      margin: '2rem auto',
-      border: '2px solid #ff8c00'
-    },
-    sectionTitle: {
-      fontSize: '2.5rem',
-      fontWeight: 'bold',
-      color: '#1e3a8a',
-      textAlign: 'center',
-      marginBottom: '3rem'
-    },
-    featuredCard: {
-      background: 'white',
-      borderRadius: '20px',
-      padding: '3rem',
-      border: '2px solid #ff8c00',
-      boxShadow: '0 10px 40px rgba(255, 140, 0, 0.15)',
-      cursor: 'pointer',
-      transition: 'all 0.3s ease'
-    },
-    featuredMeta: {
-      display: 'flex',
-      gap: '1rem',
-      marginBottom: '1.5rem',
-      flexWrap: 'wrap'
-    },
-    metaBadge: {
-      background: '#f0f9ff',
-      color: '#1e3a8a',
-      padding: '0.5rem 1rem',
-      borderRadius: '20px',
-      fontSize: '0.9rem',
-      fontWeight: '500'
-    },
-    featuredTitle: {
-      fontSize: '2rem',
-      fontWeight: 'bold',
-      color: '#1e3a8a',
-      marginBottom: '1rem',
-      lineHeight: '1.3'
-    },
-    featuredDescription: {
-      fontSize: '1.1rem',
-      color: '#4b5563',
-      lineHeight: '1.6',
-      marginBottom: '1.5rem'
-    },
-    readMoreButton: {
-      background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
-      color: 'white',
-      padding: '0.8rem 2rem',
-      borderRadius: '25px',
-      border: 'none',
+      border: '2px solid #de800dff',
       fontSize: '1rem',
       fontWeight: '600',
       cursor: 'pointer',
-      transition: 'all 0.3s ease'
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+      transition: 'all 0.3s ease',
+    },
+    categoryCount: {
+      background: '#de800dff',
+      color: 'white',
+      padding: '0.25rem 0.75rem',
+      borderRadius: '15px',
+      fontSize: '0.9rem',
+    },
+    featuredSection: {
+      background: '#f1eee5ff',
+      borderRadius: '20px',
+      padding: '4rem 2rem',
+      margin: '2rem auto',
+      maxWidth: '1400px',
+      border: '2px solid #de800dff',
+    },
+    featuredCard: {
+      background: '#f1eee5ff',
+      borderRadius: '20px',
+      padding: '2rem',
+      border: '2px solid #de800dff',
+      transition: 'all 0.3s ease',
+    },
+    featuredMeta: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: '0.5rem',
+      marginBottom: '1.5rem',
+    },
+    metaBadge: {
+      background: '#de800dff',
+      color: 'white',
+      padding: '0.5rem 1rem',
+      borderRadius: '15px',
+      fontSize: '0.9rem',
+    },
+    featuredTitle: {
+      fontSize: '1.8rem',
+      fontWeight: 'bold',
+      color: '#0a1d51ff',
+      marginBottom: '1rem',
+    },
+    featuredDescription: {
+      color: '#0a1d51ff',
+      lineHeight: '1.6',
+      marginBottom: '2rem',
+    },
+    readMoreButton: {
+      background: '#de800dff',
+      color: 'white',
+      padding: '1rem 2rem',
+      borderRadius: '20px',
+      border: 'none',
+      fontSize: '1.1rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
     },
     articlesGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
       gap: '2rem',
-      marginTop: '3rem'
     },
     articleCard: {
-      background: 'white',
-      borderRadius: '15px',
+      background: '#f1eee5ff',
+      borderRadius: '20px',
       padding: '2rem',
-      border: '2px solid #f3f4f6',
-      cursor: 'pointer',
+      border: '2px solid #de800dff',
       transition: 'all 0.3s ease',
-      boxShadow: '0 5px 20px rgba(0, 0, 0, 0.08)',
-      height: 'fit-content'
     },
     articleImage: {
-      fontSize: '3rem',
-      marginBottom: '1.5rem',
-      display: 'block'
+      fontSize: '2rem', // Reduced icon size from 3rem to 2rem
+      marginBottom: '1rem',
+      textAlign: 'center',
     },
     articleMeta: {
       display: 'flex',
-      gap: '0.8rem',
+      gap: '0.5rem',
       marginBottom: '1rem',
-      flexWrap: 'wrap'
     },
     articleTitle: {
-      fontSize: '1.3rem',
+      fontSize: '1.4rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
+      color: '#0a1d51ff',
       marginBottom: '1rem',
-      lineHeight: '1.4'
     },
     articleDescription: {
-      color: '#6b7280',
+      color: '#0a1d51ff',
       lineHeight: '1.6',
-      marginBottom: '1.5rem'
+      marginBottom: '1rem',
     },
     articleDate: {
-      color: '#9ca3af',
       fontSize: '0.9rem',
-      fontWeight: '500'
+      color: '#de800dff',
+      textAlign: 'right',
+    },
+    noResults: {
+      textAlign: 'center',
+      padding: '4rem',
+      background: '#f1eee5ff',
+      borderRadius: '20px',
+      border: '2px solid #de800dff',
     },
     newsletterSection: {
-      background: 'linear-gradient(135deg, #1e3a8a, #ff8c00)',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       padding: '4rem 2rem',
-      color: 'white',
       textAlign: 'center',
-      margin: '4rem auto'
+      margin: '2rem auto',
+      maxWidth: '1400px',
+      border: '2px solid #de800dff',
     },
     newsletterTitle: {
       fontSize: '2.5rem',
       fontWeight: 'bold',
-      marginBottom: '1rem'
+      color: '#0a1d51ff',
+      marginBottom: '1rem',
     },
     newsletterDescription: {
       fontSize: '1.2rem',
+      color: '#0a1d51ff',
       marginBottom: '2rem',
-      opacity: 0.9,
-      maxWidth: '600px',
-      margin: '0 auto 2rem'
     },
     newsletterForm: {
       display: 'flex',
-      gap: '1rem',
-      maxWidth: '500px',
+      maxWidth: '600px',
       margin: '0 auto',
-      flexWrap: 'wrap',
-      justifyContent: 'center'
+      gap: '1rem',
     },
     emailInput: {
       flex: 1,
-      minWidth: '250px',
       padding: '1rem 1.5rem',
       borderRadius: '25px',
-      border: 'none',
+      border: '2px solid #de800dff',
       fontSize: '1rem',
-      outline: 'none'
+      background: '#f1eee5ff',
+      color: '#0a1d51ff',
+      outline: 'none',
     },
     subscribeButton: {
-      background: 'white',
-      color: '#1e3a8a',
+      background: '#de800dff',
+      color: 'white',
       padding: '1rem 2rem',
       borderRadius: '25px',
       border: 'none',
-      fontSize: '1rem',
+      fontSize: '1.1rem',
       fontWeight: '600',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
-      whiteSpace: 'nowrap'
     },
     newsletterNote: {
       fontSize: '0.9rem',
-      opacity: 0.8,
-      marginTop: '1rem'
+      color: '#0a1d51ff',
+      marginTop: '1rem',
     },
     popularTopicsSection: {
-      background: 'linear-gradient(135deg, #f0f9ff, #dbeafe)',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       padding: '4rem 2rem',
-      margin: '2rem auto'
+      margin: '2rem auto',
+      maxWidth: '1400px',
+      border: '2px solid #de800dff',
     },
     topicsGrid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-      gap: '1.5rem',
-      marginTop: '2rem'
+      gap: '1rem',
     },
     topicCard: {
-      background: 'white',
+      background: '#f1eee5ff',
       borderRadius: '15px',
-      padding: '2rem 1.5rem',
-      border: '2px solid #f3f4f6',
+      padding: '1.5rem',
+      border: '2px solid #de800dff',
       textAlign: 'center',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
-      boxShadow: '0 3px 15px rgba(30, 58, 138, 0.08)'
     },
     topicName: {
       fontSize: '1.1rem',
-      fontWeight: 'bold',
-      color: '#1e3a8a',
-      marginBottom: '0.5rem'
+      fontWeight: '600',
+      color: '#0a1d51ff',
+      marginBottom: '0.5rem',
     },
     topicCount: {
-      color: '#ff8c00',
       fontSize: '0.9rem',
-      fontWeight: '600'
+      color: '#de800dff',
     },
-    noResults: {
-      textAlign: 'center',
-      padding: '3rem',
-      color: '#6b7280',
-      fontSize: '1.1rem'
-    }
   };
 
-  const handleMouseEnter = (index) => {
-    setHoveredCard(index);
+  const handleMouseEnter = (id) => {
+    setHoveredCard(id);
   };
 
   const handleMouseLeave = () => {
     setHoveredCard(null);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
   const handleCategoryClick = (category) => {
@@ -450,13 +463,8 @@ function Blog() {
   };
 
   const handleSubscribe = () => {
-    if (email.trim() && email.includes('@')) {
-      console.log('Subscribing email:', email);
-      setEmail('');
-      alert('Thank you for subscribing!');
-    } else {
-      alert('Please enter a valid email address');
-    }
+    alert('Subscribed successfully!');
+    setEmail('');
   };
 
   return (
@@ -465,63 +473,58 @@ function Blog() {
       <section style={styles.heroSection}>
         <div style={styles.heroContainer}>
           <div style={styles.heroContent}>
-            <h1 style={styles.heroTitle}>
-              Learn. Lead. Localize.
-            </h1>
-            <p style={styles.heroDescription}>
-              Stay ahead with expert articles and insights from the world of translation, localization, and multilingual communication. Discover industry trends, best practices, and success stories from Africa and beyond.
-            </p>
+            <h1 style={styles.heroTitle}>LCI Blog</h1>
+            <p style={styles.heroSubtitle}>Insights on Language, Translation, and Localization</p>
           </div>
-          <img
-            src={heroImage}
-            alt="Blog Insights"
-            style={styles.heroImage}
-          />
+          <img src={heroImage} alt="AI Translation Wise" style={styles.heroImage} />
         </div>
       </section>
 
       {/* Search and Categories Section */}
       <section style={styles.section}>
         <div style={styles.searchSection}>
+          <h2 style={styles.sectionTitle}>Explore Our Blog</h2>
+          <p style={styles.sectionSubtitle}>
+            Discover insights on translation, localization, and language technology
+          </p>
           <div style={styles.searchContainer}>
             <input
               type="text"
               placeholder="Search articles..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{
-                ...styles.searchInput,
-                borderColor: searchQuery ? '#ff8c00' : '#e5e7eb'
-              }}
+              onChange={handleSearchChange}
+              style={styles.searchInput}
             />
+            <span style={styles.searchIcon}>🔍</span>
           </div>
           <div style={styles.categoriesContainer}>
             {categories.map((category, index) => (
               <button
                 key={index}
+                style={{
+                  ...styles.categoryButton,
+                  background: activeCategory === category.name ? '#de800dff' : '#f1eee5ff',
+                  color: activeCategory === category.name ? 'white' : '#0a1d51ff',
+                }}
                 onClick={() => handleCategoryClick(category.name)}
-                style={activeCategory === category.name ? 
-                  {...styles.categoryButton, ...styles.activeCategoryButton} : 
-                  styles.categoryButton
-                }
                 onMouseEnter={(e) => {
                   if (activeCategory !== category.name) {
-                    e.target.style.borderColor = '#ff8c00';
-                    e.target.style.background = '#fff7ed';
+                    e.target.style.background = '#de800dff';
+                    e.target.style.color = 'white';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (activeCategory !== category.name) {
-                    e.target.style.borderColor = '#e5e7eb';
-                    e.target.style.background = 'white';
+                    e.target.style.background = '#f1eee5ff';
+                    e.target.style.color = '#0a1d51ff';
                   }
                 }}
               >
                 {category.name}
                 <span style={{
                   ...styles.categoryCount,
-                  background: activeCategory === category.name ? 'rgba(255, 255, 255, 0.2)' : '#f3f4f6',
-                  color: activeCategory === category.name ? 'white' : '#6b7280'
+                  background: activeCategory === category.name ? 'rgba(255, 255, 255, 0.2)' : '#de800dff',
+                  color: activeCategory === category.name ? 'white' : 'white',
                 }}>
                   {category.count}
                 </span>
@@ -539,7 +542,6 @@ function Blog() {
             style={{
               ...styles.featuredCard,
               transform: hoveredCard === 'featured' ? 'scale(1.02)' : 'scale(1)',
-              boxShadow: hoveredCard === 'featured' ? '0 15px 50px rgba(255, 140, 0, 0.2)' : '0 10px 40px rgba(255, 140, 0, 0.15)'
             }}
             onMouseEnter={() => handleMouseEnter('featured')}
             onMouseLeave={handleMouseLeave}
@@ -581,24 +583,14 @@ function Blog() {
                 style={{
                   ...styles.articleCard,
                   transform: hoveredCard === index ? 'scale(1.03)' : 'scale(1)',
-                  borderColor: hoveredCard === index ? '#ff8c00' : '#f3f4f6',
-                  boxShadow: hoveredCard === index ? '0 8px 30px rgba(255, 140, 0, 0.15)' : '0 5px 20px rgba(0, 0, 0, 0.08)'
                 }}
                 onMouseEnter={() => handleMouseEnter(index)}
                 onMouseLeave={handleMouseLeave}
               >
                 <span style={styles.articleImage}>{article.image}</span>
                 <div style={styles.articleMeta}>
-                  <span style={{
-                    ...styles.metaBadge,
-                    background: '#f0f9ff',
-                    color: '#1e3a8a'
-                  }}>{article.category}</span>
-                  <span style={{
-                    ...styles.metaBadge,
-                    background: '#fff7ed',
-                    color: '#ff8c00'
-                  }}>{article.readingTime}</span>
+                  <span style={styles.metaBadge}>{article.category}</span>
+                  <span style={styles.metaBadge}>{article.readingTime}</span>
                 </div>
                 <h3 style={styles.articleTitle}>{article.title}</h3>
                 <p style={styles.articleDescription}>{article.description}</p>
@@ -627,14 +619,8 @@ function Blog() {
             <button
               onClick={handleSubscribe}
               style={styles.subscribeButton}
-              onMouseEnter={(e) => {
-                e.target.style.transform = 'scale(1.05)';
-                e.target.style.boxShadow = '0 5px 20px rgba(255, 255, 255, 0.3)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = 'scale(1)';
-                e.target.style.boxShadow = 'none';
-              }}
+              onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
             >
               Subscribe
             </button>
@@ -656,7 +642,6 @@ function Blog() {
                 style={{
                   ...styles.topicCard,
                   transform: hoveredCard === `topic-${index}` ? 'scale(1.05)' : 'scale(1)',
-                  borderColor: hoveredCard === `topic-${index}` ? '#ff8c00' : '#f3f4f6'
                 }}
                 onClick={() => handleCategoryClick(topic.name)}
                 onMouseEnter={() => handleMouseEnter(`topic-${index}`)}

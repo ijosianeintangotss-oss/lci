@@ -303,7 +303,7 @@ function Quote() {
       cursor: 'pointer'
     },
     submitButton: {
-      background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
+      backgroundColor: '#d27b10ff',
       color: 'white',
       padding: '1rem 3rem',
       borderRadius: '50px',
@@ -387,9 +387,6 @@ function Quote() {
       </style>
 
       <div style={{ padding: '4rem 2rem', maxWidth: '1400px', margin: '0 auto' }}>
-        {error && <div style={styles.errorMessage}>{error}</div>}
-        {success && <div style={styles.successMessage}>{success}</div>}
-        
         <h2 style={styles.sectionTitle}>Get a Detailed Quote</h2>
         <p style={styles.sectionSubtitle}>
           Upload your documents and get a professional quote within 2-4 hours. Our advanced form makes it easy to specify your exact requirements.
@@ -654,6 +651,9 @@ function Quote() {
             ></textarea>
           </div>
 
+          {error && <div style={styles.errorMessage}>{error}</div>}
+          {success && <div style={styles.successMessage}>{success}</div>}
+
           <button 
             type="submit" 
             style={{
@@ -670,7 +670,7 @@ function Quote() {
                 Submitting...
               </>
             ) : (
-              'Get Quote - Delivered in 2-4 Hours'
+              'Get Quote'
             )}
           </button>
         </form>

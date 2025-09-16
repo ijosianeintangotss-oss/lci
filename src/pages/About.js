@@ -1,46 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './About.css';
 import heroImage from '../assets/LCIVision+Mission.png';
+import whatsappIcon from '../assets/whatsapp-icon.png'; // Add WhatsApp icon import
 
 function About() {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     setIsVisible(true);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const coreValues = [
     {
       title: "Linguistic Excellence",
       description: "Delivering precise, culturally appropriate translations that maintain the original meaning and intent.",
-      icon: "🎯"
+      icon: ""
     },
     {
       title: "Responsiveness & Reliability",
       description: "Fast turnaround times without compromising quality, with transparent communication throughout.",
-      icon: "⚡"
+      icon: ""
     },
     {
       title: "Ethical Service Delivery",
       description: "Strict confidentiality protocols and ethical standards in all our professional relationships.",
-      icon: "🛡️"
+      icon: ""
     },
     {
       title: "Cost-Effective Solutions",
       description: "Competitive pricing without compromising on quality or professional standards.",
-      icon: "💰"
+      icon: ""
     },
     {
       title: "Cultural Accuracy",
       description: "Deep understanding of local cultures and contexts for authentic communication.",
-      icon: "🌍"
+      icon: ""
     },
     {
       title: "Talent Development",
       description: "Nurturing new talent and giving young linguists real-world opportunities to grow.",
-      icon: "🌱"
+      icon: ""
     }
   ];
 
@@ -48,253 +54,338 @@ function About() {
     {
       title: "Talent Incubator",
       description: "A talent incubator for aspiring language professionals, providing mentorship and real-world opportunities.",
-      icon: "🌱"
+      icon: "" // Updated icon
     },
     {
       title: "Global Standards",
       description: "Combining global best practices with deep local knowledge for superior results.",
-      icon: "🌍"
+      icon: "" // Updated icon
     },
     {
       title: "Cultural Expertise",
       description: "Promoting inclusive communication that respects cultural and linguistic diversity.",
-      icon: "🤝"
+      icon: "" // Updated icon
     }
   ];
 
   const keyStrengths = [
-    { text: "Global standards, local roots", icon: "🌍" },
-    { text: "Multilingual specialists in 5+ languages", icon: "💬" },
-    { text: "Native-speaking professionals only", icon: "✅" },
-    { text: "Stringent quality control", icon: "🔁" },
-    { text: "Client-focused solutions", icon: "🤝" },
-    { text: "Proven track record in translation & localization", icon: "🏆" }
+    { text: "Global standards, local roots", icon: "" },
+    { text: "Multilingual specialists in 5+ languages", icon: "" },
+    { text: "Native-speaking professionals only", icon: "" },
+    { text: "Stringent quality control", icon: "" },
+    { text: "Client-focused solutions", icon: "" },
+    { text: "Proven track record in translation & localization", icon: "" }
   ];
 
   const styles = {
     container: {
       minHeight: '100vh',
-      background: '#ffffff',
-      fontFamily: 'Arial, sans-serif'
+      background: '#ffffff ',
+      fontFamily: 'Arial, sans-serif',
+    },
+    heroSection: {
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '2rem',
+      position: 'relative',
+      overflow: 'hidden',
+      background: '#f1eee5ff',
+      borderRadius: '20px',
+      border: '2px solid #de800dff',
+      opacity: isVisible ? 1 : 0,
+      transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
+      transition: 'all 1s ease-out',
+    },
+    heroContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      maxWidth: '1200px',
+      width: '100%',
+      gap: '9rem',
+      flexWrap: isMobile ? 'wrap' : 'nowrap',
+    },
+    heroImage: {
+      width: isMobile ? '100%' : '45%',
+      maxWidth: isMobile ? '100%' : '500px',
+      height: 'auto',
+      objectFit: 'cover',
+      borderRadius: '10px',
+      margin: isMobile ? '0 auto' : '0',
+    },
+    heroContent: {
+      textAlign: isMobile ? 'center' : 'left',
+      width: isMobile ? '100%' : '50%',
+      maxWidth: isMobile ? '100%' : '600px',
+      zIndex: 10,
+      position: 'relative',
+      padding: isMobile ? '0' : '0 1rem',
+    },
+    heroTitle: {
+      fontSize: isMobile ? '2.5rem' : '3.5rem',
+      fontWeight: 'bold',
+      color: '#0a1d51ff',
+      marginBottom: '1.5rem',
+      lineHeight: '1.2',
+      textAlign: isMobile ? 'center' : 'left',
+    },
+    heroDescription: {
+      fontSize: isMobile ? '1rem' : '1.2rem',
+      color: '#0a1d51ff',
+      marginBottom: '2rem',
+      lineHeight: '1.6',
+      maxWidth: '900px',
+      margin: isMobile ? '0 auto 2rem' : '0 0 2rem',
+      textAlign: isMobile ? 'center' : 'left',
+    },
+    buttonContainer: {
+      display: 'flex',
+      gap: '1.5rem',
+      justifyContent: isMobile ? 'center' : 'flex-start',
+      flexWrap: 'wrap',
+    },
+    primaryButton: {
+      background: '#f1eee5ff',
+      color: '#0a1d51ff',
+      padding: '1rem 2.5rem', // Adjusted padding for better look
+      borderRadius: '25px', // Increased border radius for a smoother look
+      border: '2px solid #de800dff',
+      fontSize: '1.2rem', // Increased font size
+      fontWeight: '700', // Increased font weight
+      cursor: 'pointer',
+      boxShadow: '0 12px 30px rgba(255, 140, 0, 0.4)', // Enhanced shadow
+      transform: 'scale(1)',
+      transition: 'all 0.3s ease',
+      textDecoration: 'none',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    whatsappButton: {
+      backgroundColor: '#10b981',
+      color: '#0a1d51ff',
+      padding: '1rem 2rem',
+      borderRadius: '20px',
+      border: '2px solid #de800dff',
+      fontSize: '1.1rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      boxShadow: '0 10px 25px rgba(16, 185, 129, 0.3)',
+      transform: 'scale(1)',
+      transition: 'all 0.3s ease',
+      textDecoration: 'none',
     },
     section: {
-      padding: '6rem 2rem',
+      padding: '9rem 9rem',
       maxWidth: '1400px',
       margin: '0 auto',
-      background: '#ffffff'
+      background: '#f1eee5ff',
+      borderRadius: '20px',
+      border: '2px solid #de800dff',
     },
     sectionTitle: {
       fontSize: '3rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
+      color: '#0a1d51ff',
       textAlign: 'center',
-      marginBottom: '1.5rem'
+      marginBottom: '1.5rem',
     },
     sectionSubtitle: {
       fontSize: '1.3rem',
-      color: '#6b7280',
+      color: '#0a1d51ff',
       textAlign: 'center',
       marginBottom: '4rem',
       maxWidth: '800px',
-      margin: '0 auto 4rem'
+      margin: '0 auto 4rem',
     },
     missionVisionGrid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
       gap: '3rem',
-      marginBottom: '3rem'
+      marginBottom: '3rem',
     },
     missionCard: {
-      background: '#ffffff',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       padding: '3rem',
-      border: '2px solid #ff8c00',
+      border: '2px solid #de800dff',
       boxShadow: '0 8px 32px rgba(255, 140, 0, 0.1)',
-      textAlign: 'center'
+      textAlign: 'center',
     },
     visionCard: {
-      background: '#ffffff',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       padding: '3rem',
-      border: '2px solid #1e3a8a',
-      boxShadow: '0 8px 32px rgba(30, 58, 138, 0.1)',
-      textAlign: 'center'
+      border: '2px solid #de800dff',
+      boxShadow: '0 8px 32px rgba(255, 140, 0, 0.1)',
+      textAlign: 'center',
     },
     cardTitle: {
       fontSize: '2rem',
       fontWeight: 'bold',
-      marginBottom: '1.5rem'
+      color: '#0a1d51ff',
+      marginBottom: '1.5rem',
     },
     cardDescription: {
       fontSize: '1.1rem',
       lineHeight: '1.6',
-      color: '#4b5563'
+      color: '#0a1d51ff',
     },
     quoteSection: {
-      background: 'linear-gradient(135deg, #1e3a8a, #ff8c00)',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       padding: '3rem',
       textAlign: 'center',
-      marginTop: '3rem'
+      marginTop: '3rem',
+      border: '2px solid #de800dff',
     },
     quote: {
       fontSize: '2rem',
       fontWeight: 'bold',
-      color: 'white',
+      color: '#0a1d51ff',
       marginBottom: '1rem',
-      fontStyle: 'italic'
+      fontStyle: 'italic',
     },
     quoteSubtext: {
       fontSize: '1.2rem',
-      color: '#fbbf24',
-      lineHeight: '1.6'
+      color: '#de800dff',
+      lineHeight: '1.6',
     },
     whoWeAreSection: {
-      background: 'linear-gradient(135deg, #f0f9ff, #dbeafe)',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       padding: '4rem 2rem',
-      margin: '2rem 0'
+      margin: '2rem auto',
+      maxWidth: '1400px',
+      border: '2px solid #de800dff',
     },
     description: {
       fontSize: '1.2rem',
       lineHeight: '1.8',
-      color: '#4b5563',
+      color: '#0a1d51ff',
       marginBottom: '2rem',
       textAlign: 'center',
       maxWidth: '900px',
-      margin: '0 auto 2rem'
+      margin: '0 auto 2rem',
     },
     highlightBox: {
-      background: '#ffffff',
+      background: '#f1eee5ff',
       borderRadius: '15px',
       padding: '2rem',
-      border: '2px solid #ff8c00',
+      border: '2px solid #de800dff',
       marginBottom: '2rem',
-      boxShadow: '0 8px 25px rgba(255, 140, 0, 0.1)'
+      boxShadow: '0 8px 25px rgba(255, 140, 0, 0.1)',
     },
     featureGrid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
       gap: '2rem',
-      marginTop: '3rem'
+      marginTop: '3rem',
     },
     featureCard: {
-      background: '#ffffff',
+      background: '#f1eee5ff',
       borderRadius: '15px',
       padding: '2rem',
-      border: '2px solid #f3f4f6',
+      border: '2px solid #de800dff',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
-      boxShadow: '0 8px 25px rgba(30, 58, 138, 0.1)'
+      boxShadow: '0 8px 25px rgba(255, 140, 0, 0.1)',
     },
     featureIcon: {
-      fontSize: '3rem',
+      fontSize: '2.5rem', // Reduced size for smaller icons
       marginBottom: '1.5rem',
-      display: 'block'
+      display: 'block',
+      color: '#de800dff',
     },
     featureTitle: {
       fontSize: '1.3rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
-      marginBottom: '1rem'
+      color: '#0a1d51ff',
+      marginBottom: '1rem',
     },
     featureDescription: {
-      color: '#4b5563',
-      lineHeight: '1.6'
+      color: '#0a1d51ff',
+      lineHeight: '1.6',
     },
     storySection: {
       padding: '6rem 2rem',
-      background: 'linear-gradient(135deg, #fff7ed, #fef3c7)',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       margin: '2rem auto',
-      maxWidth: '1400px'
+      maxWidth: '1400px',
+      border: '2px solid #de800dff',
     },
     strengthsList: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
       gap: '1.5rem',
-      marginTop: '2rem'
+      marginTop: '2rem',
     },
     strengthItem: {
       display: 'flex',
       alignItems: 'center',
       gap: '1rem',
-      background: '#ffffff',
+      background: '#f1eee5ff',
       padding: '1.5rem',
       borderRadius: '10px',
-      border: '2px solid #ff8c00',
+      border: '2px solid #de800dff',
       fontSize: '1.1rem',
-      color: '#1e3a8a',
-      fontWeight: '600'
+      color: '#0a1d51ff',
+      fontWeight: '600',
     },
     valuesGrid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-      gap: '2rem'
+      gap: '2rem',
     },
     valueCard: {
-      background: '#ffffff',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       padding: '2rem',
-      border: '2px solid #f3f4f6',
+      border: '2px solid #de800dff',
       cursor: 'pointer',
       transition: 'all 0.5s ease',
-      boxShadow: '0 8px 32px rgba(255, 140, 0, 0.1)'
+      boxShadow: '0 8px 32px rgba(255, 140, 0, 0.1)',
     },
     valueIcon: {
-      fontSize: '3rem',
+      fontSize: '2.5rem', // Reduced size for smaller icons
       marginBottom: '1.5rem',
-      display: 'block'
+      display: 'block',
+      color: '#de800dff',
     },
     valueTitle: {
       fontSize: '1.3rem',
       fontWeight: 'bold',
-      color: '#1e3a8a',
-      marginBottom: '1rem'
+      color: '#0a1d51ff',
+      marginBottom: '1rem',
     },
     valueDescription: {
-      color: '#4b5563',
-      lineHeight: '1.6'
+      color: '#0a1d51ff',
+      lineHeight: '1.6',
     },
     ctaSection: {
       textAlign: 'center',
       padding: '6rem 2rem',
-      background: 'linear-gradient(135deg, #1e3a8a, #ff8c00)',
+      background: '#f1eee5ff',
       borderRadius: '20px',
       margin: '2rem auto',
       maxWidth: '1200px',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center'
+      border: '2px solid #de800dff',
     },
     ctaTitle: {
-      fontSize: '3rem',
+      fontSize: '3.5rem',
       fontWeight: 'bold',
-      color: 'white',
-      marginBottom: '1.5rem'
+      color: '#0a1d51ff',
+      marginBottom: '2rem',
     },
     ctaDescription: {
       fontSize: '1.3rem',
-      color: '#fbbf24',
+      color: '#0a1d51ff',
       marginBottom: '3rem',
-      lineHeight: '1.6'
+      lineHeight: '1.6',
     },
-    primaryButton: {
-      background: '#ffffff',
-      color: '#1e3a8a',
-      padding: '1.5rem 3rem', // Increased for better visibility
-      borderRadius: '50px',
-      border: 'none',
-      fontSize: '1.2rem', // Increased for better readability
-      fontWeight: '600',
-      cursor: 'pointer',
-      boxShadow: '0 10px 25px rgba(255, 255, 255, 0.2)',
-      transform: 'scale(1)',
-      transition: 'all 0.3s ease',
-      textDecoration: 'none',
-      display: 'inline-block'
-    }
   };
 
   const handleMouseEnter = (index) => {
@@ -307,26 +398,60 @@ function About() {
 
   const handleButtonHover = (e) => {
     e.target.style.transform = 'scale(1.05)';
-    e.target.style.background = '#ffffff';
+    e.target.style.background = '#de800dff';
+    e.target.style.color = 'white';
   };
 
   const handleButtonLeave = (e) => {
     e.target.style.transform = 'scale(1)';
-    e.target.style.background = '#ffffff';
+    e.target.style.background = '#f1eee5ff';
+    e.target.style.color = '#0a1d51ff';
   };
 
   return (
     <div style={styles.container}>
       {/* Hero Section */}
-      <section className="hero-section" style={{ opacity: isVisible ? 1 : 0, transform: isVisible ? 'translateY(0)' : 'translateY(40px)' }}>
-        <div className="hero-container">
-          <div className="hero-content">
-            <h1 className="hero-title">About Language Computing International</h1>
-            <p className="hero-description">
+      <section style={styles.heroSection}>
+        <div style={styles.heroContainer}>
+          <img 
+            src={heroImage} 
+            alt="Hero Image" 
+            style={styles.heroImage}
+          />
+          <div style={styles.heroContent}>
+            <h1 style={styles.heroTitle}>About Language Computing International</h1>
+            <p style={styles.heroDescription}>
               Your trusted partner for professional translation, localization, and multilingual communication services across Africa and beyond.
             </p>
+            <div style={styles.buttonContainer}>
+              {/* <Link
+                to="/quote"
+                style={styles.primaryButton}
+                onMouseEnter={handleButtonHover}
+                onMouseLeave={handleButtonLeave}
+              > */}
+                {/* <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  Request Quote <span style={{ color: '#de800dff' }}>⭐</span>
+                </span> */}
+              {/* </Link> */}
+              {/* <a
+                href="https://wa.me/250788518720"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={styles.whatsappButton}
+                onMouseEnter={handleButtonHover}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'scale(1)';
+                  e.target.style.backgroundColor = '#10b981';
+                  e.target.style.color = '#0a1d51ff';
+                }}
+              > */}
+                {/* <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <img src={whatsappIcon} alt="WhatsApp" style={{ width: '20px', height: '20px' }} /> Chat on WhatsApp
+                </span> */}
+              {/* </a> */}
+            </div>
           </div>
-          <img src={heroImage} alt="Hero Image" className="hero-image" />
         </div>
       </section>
 
@@ -335,13 +460,13 @@ function About() {
         <h2 style={styles.sectionTitle}>Our Mission & Vision</h2>
         <div style={styles.missionVisionGrid}>
           <div style={styles.missionCard}>
-            <h3 style={{ ...styles.cardTitle, color: '#ff8c00' }}>Our Mission</h3>
+            <h3 style={styles.cardTitle}>Our Mission</h3>
             <p style={styles.cardDescription}>
               To empower organizations and individuals to express their ideas accurately and professionally across languages—bridging communication gaps with cultural insight and linguistic excellence.
             </p>
           </div>
           <div style={styles.visionCard}>
-            <h3 style={{ ...styles.cardTitle, color: '#1e3a8a' }}>Our Vision</h3>
+            <h3 style={styles.cardTitle}>Our Vision</h3>
             <p style={styles.cardDescription}>
               To be Africa's leading hub for multilingual communication and translator development—where global reach meets local expertise.
             </p>
@@ -364,30 +489,30 @@ function About() {
           Language Computing International (LCI) is a trusted, Rwanda-registered language service provider dedicated to helping individuals and organizations connect across linguistic and cultural borders.
         </p>
         <div style={styles.highlightBox}>
-          <p style={{ fontSize: '1.2rem', lineHeight: '1.8', color: '#4b5563', margin: '0 0 1.5rem', textAlign: 'center' }}>
+          <p style={{ fontSize: '1.2rem', lineHeight: '1.8', color: '#0a1d51ff', margin: '0 0 1.5rem', textAlign: 'center' }}>
             We are a registered language service provider based in Kigali, with a growing network of native-speaking translators, linguists, and editors who specialize in African and international languages. Our mission: to empower communication that is meaningful, inclusive, and accurate.
           </p>
-          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <h3 style={{ fontSize: '1.8rem', fontWeight: 'bold', color: '#ff8c00', marginBottom: '1rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '1.8rem' }}>
+            <h3 style={{ fontSize: '1.8rem', fontWeight: 'bold', color: '#de800dff', marginBottom: '1rem' }}>
               🌱 We Are Also:
             </h3>
-            <ul style={{ listStyle: 'none', padding: 0, fontSize: '1.1rem', color: '#4b5563' }}>
+            <ul style={{ listStyle: 'none', padding: 0, fontSize: '1.1rem', color: '#0a1d51ff' }}>
               <li style={{ marginBottom: '0.5rem' }}>• A talent incubator for aspiring language professionals</li>
               <li style={{ marginBottom: '0.5rem' }}>• A mentor-driven environment for practical learning</li>
               <li style={{ marginBottom: '0.5rem' }}>• A trusted resource for consistent, culturally adapted content</li>
             </ul>
           </div>
-          <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#4b5563', textAlign: 'center', marginBottom: '1.5rem' }}>
+          <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#0a1d51ff', textAlign: 'center', marginBottom: '1.5rem' }}>
             Whether you're a business expanding across borders, an NGO localizing content, or a government institution enhancing multilingual communication, LCI brings you precise, culturally adapted, and professionally verified content—on time and on budget.
           </p>
-          <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#4b5563', textAlign: 'center', marginBottom: '2rem' }}>
+          <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#0a1d51ff', textAlign: 'center', marginBottom: '2rem' }}>
             We are proud to support diverse industries including legal, medical, educational, financial, and IT sectors with linguistically sound, native-level expertise.
           </p>
-          <div style={{ textAlign: 'center', borderTop: '2px solid #ff8c00', paddingTop: '2rem' }}>
-            <p style={{ fontSize: '1.3rem', fontWeight: 'bold', color: '#1e3a8a', marginBottom: '1rem' }}>
+          <div style={{ textAlign: 'center', borderTop: '2px solid #de800dff', paddingTop: '2rem' }}>
+            <p style={{ fontSize: '1.3rem', fontWeight: 'bold', color: '#0a1d51ff', marginBottom: '1rem' }}>
               🔸 Dedicated to You – Professional. Precise. Perfect.
             </p>
-            <p style={{ fontSize: '1.1rem', color: '#ff8c00', fontWeight: '600' }}>
+            <p style={{ fontSize: '1.1rem', color: '#de800dff', fontWeight: '600' }}>
               🔸 Fast turnaround, strict confidentiality, and native-language quality assurance.
             </p>
           </div>
@@ -399,7 +524,7 @@ function About() {
               style={{
                 ...styles.featureCard,
                 transform: hoveredCard === `feature-${index}` ? 'scale(1.05)' : 'scale(1)',
-                borderColor: hoveredCard === `feature-${index}` ? '#ff8c00' : '#f3f4f6'
+                background: hoveredCard === `feature-${index}` ? 'rgba(222, 128, 13, 0.1)' : '#f1eee5ff',
               }}
               onMouseEnter={() => handleMouseEnter(`feature-${index}`)}
               onMouseLeave={handleMouseLeave}
@@ -415,19 +540,19 @@ function About() {
       {/* Our Story Section */}
       <section style={styles.storySection}>
         <h2 style={styles.sectionTitle}>Our Story</h2>
-        <p style={{ ...styles.description, color: '#1e3a8a' }}>
+        <p style={{ ...styles.description, color: '#0a1d51ff' }}>
           Founded in Rwanda with a vision to bridge communication gaps across Africa and beyond, LCI has grown from a local translation service to a comprehensive language solutions provider.
         </p>
-        <p style={{ ...styles.description, color: '#4b5563', marginBottom: '3rem' }}>
+        <p style={{ ...styles.description, color: '#0a1d51ff', marginBottom: '3rem' }}>
           We specialize in delivering fast, affordable, and high-quality language solutions in English, French, Kinyarwanda, Kirundi, Kiswahili, and other languages—serving clients throughout Rwanda, Africa, and across the globe.
         </p>
-        <h3 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#ff8c00', textAlign: 'center', marginBottom: '2rem' }}>
+        <h3 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#de800dff', textAlign: 'center', marginBottom: '2rem' }}>
           Key Strengths
         </h3>
         <div style={styles.strengthsList}>
           {keyStrengths.map((strength, index) => (
             <div key={index} style={styles.strengthItem}>
-              <span style={{ fontSize: '1.5rem' }}>{strength.icon}</span>
+              <span style={{ fontSize: '1.5rem', color: '#de800dff' }}>{strength.icon}</span>
               <span>{strength.text}</span>
             </div>
           ))}
@@ -447,7 +572,7 @@ function About() {
               style={{
                 ...styles.valueCard,
                 transform: hoveredCard === `value-${index}` ? 'scale(1.05)' : 'scale(1)',
-                borderColor: hoveredCard === `value-${index}` ? '#ff8c00' : '#f3f4f6'
+                background: hoveredCard === `value-${index}` ? 'rgba(222, 128, 13, 0.1)' : '#f1eee5ff',
               }}
               onMouseEnter={() => handleMouseEnter(`value-${index}`)}
               onMouseLeave={handleMouseLeave}
@@ -467,14 +592,13 @@ function About() {
           Join the many organizations that trust LCI for their language needs.
         </p>
         <Link
-        
           to="/quote"
           style={styles.primaryButton}
           onMouseEnter={handleButtonHover}
           onMouseLeave={handleButtonLeave}
         >
           <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center' }}>
-            Get Started Today ✨
+            Get Started Today <span style={{ color: '#de800dff' }}>✨</span>
           </span>
         </Link>
       </section>

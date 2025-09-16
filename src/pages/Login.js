@@ -44,8 +44,8 @@ function Login() {
         {error && (
           <div style={{ color: '#dc2626', marginBottom: '1rem' }}>{error}</div>
         )}
-        <div style={{ marginBottom: '1rem' }}>
-          <label style={{ display: 'block', marginBottom: '0.5rem' }}>
+        <div style={{ marginBottom: '1rem'}}>
+          <label style={{ display: 'block', marginBottom: '0.5rem'}}>
             Username
           </label>
           <input
@@ -56,7 +56,7 @@ function Login() {
               width: '100%',
               padding: '0.7rem',
               borderRadius: '6px',
-              border: '1px solid #dbeafe',
+              border: '1px solid #d27b10ff',
             }}
             required
           />
@@ -73,7 +73,7 @@ function Login() {
               width: '100%',
               padding: '0.7rem',
               borderRadius: '6px',
-              border: '1px solid #dbeafe',
+              border: '1px solid #d27b10ff',
             }}
             required
           />
@@ -82,7 +82,8 @@ function Login() {
           type="submit"
           style={{
             width: '100%',
-            background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
+            // background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
+            backgroundColor: '#d27b10ff',
             color: 'white',
             padding: '0.8rem',
             borderRadius: '8px',
