@@ -37,7 +37,7 @@ function Footer() {
     { name: 'French', flag: '🇫🇷' },
     { name: 'Kinyarwanda', flag: '🇷🇼' },
     { name: 'Swahili', flag: '🇹🇿' },
-    { name: 'Kirundi', flag: 'BI' }
+    { name: 'Kirundi', flag: '🇧🇮' }
 
   ];
 
