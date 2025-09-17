@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import mobileMoney from '../assets/mobile money.png';
 import visaCard from '../assets/visa card.png';
 import masterCard from '../assets/master card.png';
-import heroImage from '../assets/Afteranimatingpicture.mp4';
+import heroImage from '../assets/After animating picture with arm gestures and lip sync.mp4';
 import whatsappIcon from '../assets/whatsapp-icon.png'; // Add this import for the WhatsApp icon image
 
 function Home() {

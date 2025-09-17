@@ -37,7 +37,8 @@ function Footer() {
     { name: 'French', flag: '🇫🇷' },
     { name: 'Kinyarwanda', flag: '🇷🇼' },
     { name: 'Swahili', flag: '🇹🇿' },
-    { name: 'Kirundi', flag: 'KR' }
+    { name: 'Kirundi', flag: 'BI' }
+
   ];
 
   const socialLinks = [
