@@ -515,7 +515,7 @@ function Home() {
             playsInline
           />
           <div style={styles.heroContent}>
-            <h1 style={styles.heroTitle}>Your Trusted Translation & Localization Experts</h1>
+            <h1 style={styles.heroTitle}>Youre Trusted Translation & Localization Experts</h1>
             <p style={styles.heroSubtitle}>Dedicated to You – Professional. Precise. Perfect.</p>
             <p style={styles.heroDescription}>
               Bridging languages and cultures through high-quality translation, localization, and digital content services across Africa and beyond.
