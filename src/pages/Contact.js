@@ -809,7 +809,7 @@ function Contact() {
                 📞 <strong>Call / WhatsApp:</strong> +250 788 518 720<br />
                 📍 <strong>Location:</strong> Kigali, Rwanda<br />
                 🌐 <strong>Services:</strong> Remote & On-site Available<br /><br />
-                💬 <strong>Need urgent support after hours?</strong><br />
+                 <strong>💬 Need urgent support after hours?</strong><br />
                 We respond promptly via WhatsApp for priority requests.
               </div>
             </div>
