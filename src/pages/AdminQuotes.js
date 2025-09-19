@@ -14,7 +14,8 @@ function AdminTranslationDashboard() {
   const [selectedQuote, setSelectedQuote] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
 
   const navigate = useNavigate();
@@ -29,17 +30,75 @@ function AdminTranslationDashboard() {
   });
 
   const navItems = [
-    { path: '/', label: 'Dashboard', icon: '' }, // New Dashboard button
+    // { path: '/', label: 'Dashboard', icon: '' }, // New Dashboard button
     { path: '/admin-quotes', label: 'Quotes', icon: '' },
-    // { path: '/messages', label: 'Messages', icon: '' },
-    { path: '/logout', label: 'Logout', icon: '', onClick: () => navigate('/'), className: 'logoutBtn' },
+    { path: '/logout', label: 'LogOut ', icon: '', onClick: () => navigate('/'), className: 'logoutBtn' },
   ];
 
   const styles = {
+    app: {
+      display: 'flex',
+      minHeight: '100vh',
+    },
+    sidebar: {
+      position: 'fixed',
+      left: 0,
+      top: 0,
+      height: '100vh',
+      width: '250px',
+      backgroundColor: '#1e3a8a',
+      color: 'white',
+      padding: '20px 0',
+      overflowY: 'auto',
+      transform: isMobile ? `translateX(${isSidebarOpen ? '0' : '-100%'})` : 'translateX(0)',
+      transition: 'transform 0.3s ease-in-out',
+      zIndex: 1001,
+    },
+    sidebarLogo: {
+      textAlign: 'center',
+      marginBottom: '20px',
+    },
+    sidebarLogoImg: {
+      height: '40px',
+      width: 'auto',
+    },
+    sidebarNav: {
+  listStyle: 'none',
+  padding: 0,
+  margin: 0,
+  display: 'flex',
+  flexDirection: 'column', // <-- This ensures vertical layout
+  gap: '5px', // optional: space between items
+},
+    sidebarItem: {
+  padding: '12px 16px',
+  cursor: 'pointer',
+  transition: 'background-color 0.3s',
+  display: 'block', // <-- Important for vertical stacking
+    },
+    sidebarItemActive: {
+      backgroundColor: '#34495e',
+      fontWeight: 'bold',
+    },
+    sidebarItemHover: {
+      backgroundColor: '#34495e',
+    },
+    sidebarLink: {
+      color: 'white',
+      textDecoration: 'none',
+      fontSize: '14px',
+      display: 'block',
+    },
+    content: {
+      marginLeft: isMobile ? (isSidebarOpen ? '250px' : '0') : '250px',
+      flex: 1,
+      padding: '16px',
+      transition: 'margin-left 0.3s ease-in-out',
+    },
     header: {
       position: 'fixed',
       top: 0,
-      left: 0,
+      left: isMobile ? (isSidebarOpen ? '250px' : '0') : '250px',
       right: 0,
       zIndex: 1000,
       background: isScrolled
@@ -67,7 +126,6 @@ function AdminTranslationDashboard() {
     logoSection: {
       display: 'flex',
       alignItems: 'center',
-      marginRight: '10rem',
       gap: '1rem',
       cursor: 'pointer',
       transition: 'transform 0.3s ease',
@@ -86,12 +144,17 @@ function AdminTranslationDashboard() {
       display: isScrolled ? 'none' : 'block',
       transition: 'all 0.3s ease',
     },
+    sidebarToggle: {
+      background: 'none',
+      border: 'none',
+      color: '#1e3a8a',
+      fontSize: '1.5rem',
+      cursor: 'pointer',
+      display: isMobile ? 'block' : 'none',
+      padding: '0.5rem',
+    },
     nav: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.5rem',
-      flex: 1,
-      justifyContent: 'space-between',
+      display: 'none',
     },
     navList: {
       display: 'flex',
@@ -99,8 +162,8 @@ function AdminTranslationDashboard() {
       margin: 0,
       padding: 0,
       gap: '0.3rem',
-      flexWrap: 'wrap',
-      alignItems: 'center',
+      flexDirection: 'column', // Changed to vertical layout
+      alignItems: 'flex-start',
     },
     logoutBtn: {
       marginLeft: 'auto',
@@ -123,64 +186,10 @@ function AdminTranslationDashboard() {
       overflow: 'hidden',
     },
     activeNavLink: {
-      background: '#e58511ff',
       color: 'white',
-      boxShadow: '0 4px 15px rgba(229, 133, 17, 0.3)',
     },
     hoveredNavLink: {
-      background: 'rgba(229, 133, 17, 0.1)',
       transform: 'translateY(-2px)',
-      boxShadow: '0 4px 12px rgba(30, 58, 138, 0.2)',
-    },
-    mobileMenuButton: {
-      display: 'none',
-      background: 'none',
-      border: '2px solid #e58511ff',
-      padding: '0.4rem',
-      borderRadius: '8px',
-      cursor: 'pointer',
-      fontSize: '1.1rem',
-      color: '#e58511ff',
-      transition: 'all 0.3s ease',
-    },
-    mobileMenu: {
-      position: 'absolute',
-      top: '100%',
-      left: 0,
-      right: 0,
-      background: 'rgba(255, 255, 255, 0.98)',
-      backdropFilter: 'blur(10px)',
-      border: '2px solid rgba(229, 133, 17, 0.2)',
-      borderTop: 'none',
-      borderRadius: '0 0 15px 15px',
-      padding: '1rem',
-      display: isMobileMenuOpen ? 'block' : 'none',
-      boxShadow: '0 8px 25px rgba(30, 58, 138, 0.15)',
-    },
-    mobileNavList: {
-      listStyle: 'none',
-      padding: 0,
-      margin: 0,
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '0.5rem',
-    },
-    mobileNavLink: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.6rem',
-      padding: '0.8rem',
-      textDecoration: 'none',
-      color: '#1e3a8a',
-      fontWeight: '600',
-      borderRadius: '12px',
-      transition: 'all 0.3s ease',
-      background: 'rgba(255, 255, 255, 0.5)',
-    },
-    mobileDivider: {
-      height: '1px',
-      background: '#e58511ff',
-      margin: '0.8rem 0',
     },
     contentContainer: {
       flex: 1,
@@ -190,173 +199,174 @@ function AdminTranslationDashboard() {
       backgroundColor: 'white',
       borderBottom: '1px solid #e2e8f0',
       boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
-      padding: '24px 0',
+      padding: '16px 0',
     },
     headerContent: {
       maxWidth: '1200px',
       margin: '0 auto',
-      padding: '0 24px',
+      padding: '0 16px',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      gap: '32px',
+      gap: '16px',
     },
     title: {
-      fontSize: '32px',
+      fontSize: '24px',
       fontWeight: 'bold',
       color: '#1a202c',
       margin: 0,
     },
     subtitle: {
-      fontSize: '14px',
+      fontSize: '12px',
       color: '#718096',
-      marginTop: '4px',
+      marginTop: '2px',
     },
     refreshButton: {
       backgroundColor: '#3182ce',
       color: 'white',
-      padding: '10px 16px',
+      padding: '8px 12px',
       border: 'none',
-      borderRadius: '8px',
+      borderRadius: '6px',
       cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
-      gap: '8px',
-      fontSize: '14px',
+      gap: '6px',
+      fontSize: '12px',
       fontWeight: '500',
       transition: 'background-color 0.2s',
     },
     mainContent: {
       maxWidth: '1200px',
       margin: '0 auto',
-      padding: '32px 24px',
+      padding: '16px',
     },
     statsGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-      gap: '24px',
-      marginBottom: '32px',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+      gap: '16px',
+      marginBottom: '16px',
     },
     statCard: {
       backgroundColor: 'white',
-      borderRadius: '8px',
+      borderRadius: '6px',
       boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
-      padding: '24px',
+      padding: '16px',
       display: 'flex',
       alignItems: 'center',
     },
     statIcon: {
-      padding: '8px',
-      borderRadius: '8px',
-      fontSize: '24px',
-      marginRight: '16px',
+      padding: '6px',
+      borderRadius: '6px',
+      fontSize: '18px',
+      marginRight: '12px',
     },
     statLabel: {
-      fontSize: '14px',
+      fontSize: '12px',
       fontWeight: '500',
       color: '#4a5568',
       margin: 0,
     },
     statValue: {
-      fontSize: '28px',
+      fontSize: '20px',
       fontWeight: 'bold',
-      margin: '4px 0 0 0',
+      margin: '2px 0 0 0',
     },
     filtersCard: {
       backgroundColor: 'white',
-      borderRadius: '8px',
+      borderRadius: '6px',
       boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
-      padding: '24px',
-      marginBottom: '24px',
+      padding: '16px',
+      marginBottom: '16px',
     },
     filtersGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-      gap: '16px',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+      gap: '12px',
     },
     filterGroup: {
       display: 'flex',
       flexDirection: 'column',
     },
     label: {
-      fontSize: '14px',
+      fontSize: '12px',
       fontWeight: '500',
       color: '#374151',
-      marginBottom: '8px',
+      marginBottom: '6px',
     },
     input: {
       width: '100%',
-      padding: '8px 12px',
+      padding: '6px 8px',
       border: '1px solid #d1d5db',
-      borderRadius: '6px',
-      fontSize: '14px',
+      borderRadius: '4px',
+      fontSize: '12px',
       outline: 'none',
       transition: 'border-color 0.2s',
     },
     select: {
       width: '100%',
-      padding: '8px 12px',
+      padding: '6px 8px',
       border: '1px solid #d1d5db',
-      borderRadius: '6px',
-      fontSize: '14px',
+      borderRadius: '4px',
+      fontSize: '12px',
       outline: 'none',
       backgroundColor: 'white',
       cursor: 'pointer',
     },
     sortContainer: {
       display: 'flex',
-      gap: '8px',
+      gap: '6px',
+      flexWrap: 'wrap',
     },
     sortButton: {
-      padding: '8px 12px',
+      padding: '6px 8px',
       border: '1px solid #d1d5db',
-      borderRadius: '6px',
+      borderRadius: '4px',
       backgroundColor: 'white',
       cursor: 'pointer',
-      fontSize: '16px',
+      fontSize: '12px',
     },
     errorCard: {
       backgroundColor: '#fef2f2',
       border: '1px solid #fecaca',
-      borderRadius: '6px',
-      padding: '16px',
-      marginBottom: '24px',
+      borderRadius: '4px',
+      padding: '12px',
+      marginBottom: '12px',
       display: 'flex',
       alignItems: 'flex-start',
     },
     errorIcon: {
       color: '#f87171',
-      fontSize: '20px',
-      marginRight: '12px',
+      fontSize: '16px',
+      marginRight: '8px',
     },
     errorTitle: {
-      fontSize: '14px',
+      fontSize: '12px',
       fontWeight: '500',
       color: '#991b1b',
       margin: 0,
     },
     errorMessage: {
-      fontSize: '14px',
+      fontSize: '12px',
       color: '#b91c1c',
-      margin: '4px 0 0 0',
+      margin: '2px 0 0 0',
     },
     emptyState: {
       backgroundColor: 'white',
-      borderRadius: '8px',
+      borderRadius: '6px',
       boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
-      padding: '64px 32px',
+      padding: '32px 16px',
       textAlign: 'center',
     },
     emptyIcon: {
-      fontSize: '64px',
-      marginBottom: '16px',
+      fontSize: '48px',
+      marginBottom: '12px',
       display: 'block',
     },
     emptyTitle: {
-      fontSize: '20px',
+      fontSize: '16px',
       fontWeight: '500',
       color: '#1a202c',
-      margin: '0 0 8px 0',
+      margin: '0 0 6px 0',
     },
     emptyText: {
       color: '#718096',
@@ -364,7 +374,7 @@ function AdminTranslationDashboard() {
     },
     tableCard: {
       backgroundColor: 'white',
-      borderRadius: '8px',
+      borderRadius: '6px',
       boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
       overflow: 'hidden',
     },
@@ -379,9 +389,9 @@ function AdminTranslationDashboard() {
       backgroundColor: '#f7fafc',
     },
     th: {
-      padding: '12px 24px',
+      padding: '8px 12px',
       textAlign: 'left',
-      fontSize: '12px',
+      fontSize: '11px',
       fontWeight: '500',
       color: '#4a5568',
       textTransform: 'uppercase',
@@ -389,9 +399,9 @@ function AdminTranslationDashboard() {
       borderBottom: '1px solid #e2e8f0',
     },
     td: {
-      padding: '16px 24px',
+      padding: '12px 16px',
       borderBottom: '1px solid #e2e8f0',
-      fontSize: '14px',
+      fontSize: '12px',
     },
     clientName: {
       fontWeight: '500',
@@ -400,13 +410,13 @@ function AdminTranslationDashboard() {
     },
     clientEmail: {
       color: '#718096',
-      fontSize: '14px',
-      margin: '2px 0 0 0',
+      fontSize: '12px',
+      margin: '1px 0 0 0',
     },
     clientPhone: {
       color: '#718096',
-      fontSize: '14px',
-      margin: '2px 0 0 0',
+      fontSize: '12px',
+      margin: '1px 0 0 0',
     },
     serviceMain: {
       color: '#1a202c',
@@ -414,21 +424,21 @@ function AdminTranslationDashboard() {
     },
     serviceDoc: {
       color: '#718096',
-      fontSize: '14px',
-      margin: '2px 0 0 0',
+      fontSize: '12px',
+      margin: '1px 0 0 0',
     },
     languageContainer: {
       display: 'flex',
       alignItems: 'center',
     },
     languageArrow: {
-      margin: '0 8px',
+      margin: '0 4px',
       color: '#718096',
     },
     statusSelect: {
-      fontSize: '12px',
-      padding: '4px 8px',
-      borderRadius: '16px',
+      fontSize: '11px',
+      padding: '3px 6px',
+      borderRadius: '12px',
       border: '1px solid',
       fontWeight: '500',
       cursor: 'pointer',
@@ -439,7 +449,7 @@ function AdminTranslationDashboard() {
     viewButton: {
       color: '#3182ce',
       textDecoration: 'none',
-      fontSize: '14px',
+      fontSize: '12px',
       fontWeight: '500',
       cursor: 'pointer',
       border: 'none',
@@ -461,24 +471,24 @@ function AdminTranslationDashboard() {
     },
     modalContent: {
       backgroundColor: 'white',
-      borderRadius: '8px',
+      borderRadius: '6px',
       boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
       width: '100%',
-      maxWidth: '800px',
-      maxHeight: '90vh',
+      maxWidth: '600px',
+      maxHeight: '80vh',
       overflow: 'auto',
-      padding: '24px',
+      padding: '16px',
     },
     modalHeader: {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: '24px',
-      paddingBottom: '16px',
+      marginBottom: '12px',
+      paddingBottom: '8px',
       borderBottom: '1px solid #e2e8f0',
     },
     modalTitle: {
-      fontSize: '20px',
+      fontSize: '16px',
       fontWeight: 'bold',
       color: '#1a202c',
       margin: 0,
@@ -486,46 +496,47 @@ function AdminTranslationDashboard() {
     closeButton: {
       background: 'none',
       border: 'none',
-      fontSize: '24px',
+      fontSize: '20px',
       color: '#9ca3af',
       cursor: 'pointer',
       padding: '4px',
     },
     modalGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gap: '24px',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+      gap: '16px',
     },
     modalSection: {
-      marginBottom: '24px',
-    },
-    modalSectionTitle: {
-      fontSize: '16px',
-      fontWeight: '600',
-      color: '#374151',
       marginBottom: '12px',
     },
+    modalSectionTitle: {
+      fontSize: '14px',
+      fontWeight: '600',
+      color: '#374151',
+      marginBottom: '6px',
+    },
     modalText: {
-      margin: '8px 0',
+      margin: '4px 0',
       color: '#4b5563',
+      fontSize: '12px',
     },
     modalLabel: {
       fontWeight: '500',
-      marginRight: '8px',
+      marginRight: '6px',
     },
     modalFooter: {
-      marginTop: '24px',
-      paddingTop: '16px',
+      marginTop: '12px',
+      paddingTop: '8px',
       borderTop: '1px solid #e2e8f0',
       display: 'flex',
       justifyContent: 'flex-end',
     },
     modalCloseBtn: {
-      padding: '8px 16px',
+      padding: '6px 12px',
       backgroundColor: '#e5e7eb',
       color: '#374151',
       border: 'none',
-      borderRadius: '6px',
+      borderRadius: '4px',
       cursor: 'pointer',
       fontWeight: '500',
     },
@@ -540,22 +551,23 @@ function AdminTranslationDashboard() {
       textAlign: 'center',
     },
     spinner: {
-      width: '48px',
-      height: '48px',
+      width: '32px',
+      height: '32px',
       border: '2px solid #e2e8f0',
       borderTop: '2px solid #3182ce',
       borderRadius: '50%',
       animation: 'spin 1s linear infinite',
-      margin: '0 auto 16px',
+      margin: '0 auto 12px',
     },
     loadingText: {
       color: '#4a5568',
       margin: 0,
+      fontSize: '14px',
     },
     fileLink: {
       color: '#3182ce',
       textDecoration: 'none',
-      fontSize: '14px',
+      fontSize: '12px',
     },
   };
 
@@ -579,18 +591,27 @@ function AdminTranslationDashboard() {
     };
 
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsMobileMenuOpen(false);
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (mobile) {
+        setIsSidebarOpen(false);
+      } else {
+        setIsSidebarOpen(true);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleResize);
+    handleResize(); // Initial check
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   const fetchQuotes = useCallback(async () => {
     try {
@@ -755,435 +776,376 @@ function AdminTranslationDashboard() {
   }
 
   return (
-    <>
-      {/* Header */}
-      <header style={styles.header}>
-        <div style={styles.container}>
-          {/* Logo Section */}
-          <Link to="/" style={{ textDecoration: 'none' }}>
-            <div
-              style={styles.logoSection}
-              onMouseEnter={handleLogoHover}
-              onMouseLeave={handleLogoLeave}
-            >
-              <img src={logo} alt="LCI Logo" style={styles.logo} />
-              <div>
-                <div
-                  style={{
-                    fontSize: '1rem',
-                    fontWeight: 'bold',
-                    color: '#1e3a8a',
-                    lineHeight: '1.2',
-                  }}
-                >
-                  {/* LCI Rwanda */}
-                </div>
-                {/* <div style={styles.tagline}>Translate. Localize. Connect.</div> */}
-              </div>
-            </div>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav
-            style={{
-              ...styles.nav,
-              display: window.innerWidth >= 768 ? 'flex' : 'none',
-            }}
-          >
-            <ul style={styles.navList}>
-              {navItems.map((item, index) => (
-                <li key={index} style={{ ...styles.navItem, ...(item.className === 'logoutBtn' ? styles.logoutBtn : {}) }}>
-                  {item.path === '/logout' ? (
-                    <button
-                      style={{
-                        ...styles.navLink,
-                        ...(window.location.pathname === item.path
-                          ? styles.activeNavLink
-                          : {}),
-                        ...(hoveredItem === index &&
-                        window.location.pathname !== item.path
-                          ? styles.hoveredNavLink
-                          : {}),
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                      }}
-                      onClick={item.onClick}
-                      onMouseEnter={() => handleMouseEnter(index)}
-                      onMouseLeave={handleMouseLeave}
-                    >
-                      <span style={{ fontSize: '0.8rem' }}>{item.icon}</span>
-                      {item.label}
-                    </button>
-                  ) : (
-                    <Link
-                      to={item.path}
-                      style={{
-                        ...styles.navLink,
-                        ...(window.location.pathname === item.path
-                          ? styles.activeNavLink
-                          : {}),
-                        ...(hoveredItem === index &&
-                        window.location.pathname !== item.path
-                          ? styles.hoveredNavLink
-                          : {}),
-                      }}
-                      onMouseEnter={() => handleMouseEnter(index)}
-                      onMouseLeave={handleMouseLeave}
-                    >
-                      <span style={{ fontSize: '0.8rem' }}>{item.icon}</span>
-                      {item.label}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <button
-            style={{
-              ...styles.mobileMenuButton,
-              display: window.innerWidth < 768 ? 'block' : 'none',
-              background: isMobileMenuOpen ? '#e58511ff' : 'none',
-              color: isMobileMenuOpen ? 'white' : '#e58511ff',
-            }}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            onMouseEnter={(e) => {
-              if (!isMobileMenuOpen) {
-                e.target.style.background = '#e58511ff';
-                e.target.style.color = 'white';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!isMobileMenuOpen) {
-                e.target.style.background = 'none';
-                e.target.style.color = '#e58511ff';
-              }
-            }}
-          >
-            {isMobileMenuOpen ? '✕' : '☰'}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        <div style={styles.mobileMenu}>
-          <ul style={styles.mobileNavList}>
+    <div style={styles.app}>
+      <aside style={styles.sidebar}>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <div style={styles.sidebarLogo}>
+            <img src={logo} alt="LCI Logo" style={styles.sidebarLogoImg} />
+          </div>
+        </Link>
+        <nav>
+          <ul style={styles.sidebarNav}>
             {navItems.map((item, index) => (
-              <li key={index}>
+              <li
+                key={index}
+                style={{
+                  ...styles.sidebarItem,
+                  ...(window.location.pathname === item.path ? styles.sidebarItemActive : {}),
+                }}
+                onMouseEnter={(e) => {
+                  if (window.location.pathname !== item.path) e.currentTarget.style.backgroundColor = '#34495e';
+                }}
+                onMouseLeave={(e) => {
+                  if (window.location.pathname !== item.path) e.currentTarget.style.backgroundColor = 'transparent';
+                }}
+              >
                 {item.path === '/logout' ? (
                   <button
                     style={{
-                      ...styles.mobileNavLink,
-                      ...(window.location.pathname === item.path
-                        ? {
-                            background: '#e58511ff',
-                            color: 'white',
-                          }
-                        : {}),
+                      ...styles.sidebarLink,
+                      ...(window.location.pathname === item.path ? styles.activeNavLink : {}),
+                      ...(hoveredItem === index && window.location.pathname !== item.path ? styles.hoveredNavLink : {}),
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
                       width: '100%',
                       textAlign: 'left',
                     }}
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      item.onClick();
-                    }}
-                    onMouseEnter={(e) => {
-                      if (window.location.pathname !== item.path) {
-                        e.target.style.background = 'rgba(229, 133, 17, 0.1)';
-                        e.target.style.transform = 'translateX(5px)';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (window.location.pathname !== item.path) {
-                        e.target.style.background = 'rgba(255, 255, 255, 0.5)';
-                        e.target.style.transform = 'translateX(0)';
-                      }
-                    }}
+                    onClick={item.onClick}
+                    onMouseEnter={() => handleMouseEnter(index)}
+                    onMouseLeave={handleMouseLeave}
                   >
-                    <span style={{ fontSize: '1rem' }}>{item.icon}</span>
+                    <span style={{ fontSize: '0.8rem' }}>{item.icon}</span>
                     {item.label}
-                    {window.location.pathname === item.path && (
-                      <span style={{ marginLeft: 'auto', fontSize: '0.7rem' }}>
-                        ●
-                      </span>
-                    )}
                   </button>
                 ) : (
                   <Link
                     to={item.path}
                     style={{
-                      ...styles.mobileNavLink,
-                      ...(window.location.pathname === item.path
-                        ? {
-                            background: '#e58511ff',
-                            color: 'white',
-                          }
-                        : {}),
+                      ...styles.sidebarLink,
+                      ...(window.location.pathname === item.path ? styles.activeNavLink : {}),
+                      ...(hoveredItem === index && window.location.pathname !== item.path ? styles.hoveredNavLink : {}),
                     }}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    onMouseEnter={(e) => {
-                      if (window.location.pathname !== item.path) {
-                        e.target.style.background = 'rgba(229, 133, 17, 0.1)';
-                        e.target.style.transform = 'translateX(5px)';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (window.location.pathname !== item.path) {
-                        e.target.style.background = 'rgba(255, 255, 255, 0.5)';
-                        e.target.style.transform = 'translateX(0)';
-                      }
-                    }}
+                    onMouseEnter={() => handleMouseEnter(index)}
+                    onMouseLeave={handleMouseLeave}
                   >
-                    <span style={{ fontSize: '1rem' }}>{item.icon}</span>
+                    <span style={{ fontSize: '0.8rem' }}>{item.icon}</span>
                     {item.label}
-                    {window.location.pathname === item.path && (
-                      <span style={{ marginLeft: 'auto', fontSize: '0.7rem' }}>
-                        ●
-                      </span>
-                    )}
                   </Link>
                 )}
               </li>
             ))}
           </ul>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <div style={styles.contentContainer}>
-        <div style={styles.mainContent}>
-          {/* Stats */}
-          <div style={styles.statsGrid}>
-            <div style={styles.statCard}>
-              <div style={{ ...styles.statIcon, backgroundColor: '#dbeafe' }}>📋</div>
-              <div>
-                <p style={styles.statLabel}>Total Requests</p>
-                <p style={{ ...styles.statValue, color: '#1a202c' }}>{stats.total}</p>
+        </nav>
+      </aside>
+      <div style={styles.content}>
+        <header style={styles.header}>
+          <div style={styles.container}>
+            <button style={styles.sidebarToggle} onClick={toggleSidebar}>
+              ☰
+            </button>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <div
+                style={styles.logoSection}
+                onMouseEnter={handleLogoHover}
+                onMouseLeave={handleLogoLeave}
+              >
+                <img src={logo} alt="LCI Logo" style={styles.logo} />
+                <div>
+                  <div
+                    style={{
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                      color: '#1e3a8a',
+                      lineHeight: '1.2',
+                    }}
+                  >
+                    LCI Rwanda
+                  </div>
+                  <div style={styles.tagline}>Translate. Localize. Connect.</div>
+                </div>
               </div>
-            </div>
-            <div style={styles.statCard}>
-              <div style={{ ...styles.statIcon, backgroundColor: '#fef3c7' }}>⏳</div>
-              <div>
-                <p style={styles.statLabel}>Pending</p>
-                <p style={{ ...styles.statValue, color: '#d97706' }}>{stats.pending}</p>
-              </div>
-            </div>
-            <div style={styles.statCard}>
-              <div style={{ ...styles.statIcon, backgroundColor: '#dbeafe' }}>🔄</div>
-              <div>
-                <p style={styles.statLabel}>In Progress</p>
-                <p style={{ ...styles.statValue, color: '#2563eb' }}>{stats.inProgress}</p>
-              </div>
-            </div>
-            <div style={styles.statCard}>
-              <div style={{ ...styles.statIcon, backgroundColor: '#d1fae5' }}>✅</div>
-              <div>
-                <p style={styles.statLabel}>Completed</p>
-                <p style={{ ...styles.statValue, color: '#059669' }}>{stats.completed}</p>
-              </div>
-            </div>
-            <div style={styles.statCard}>
-              <div style={{ ...styles.statIcon, backgroundColor: '#e0e7ff' }}>📅</div>
-              <div>
-                <p style={styles.statLabel}>Today's Requests</p>
-                <p style={{ ...styles.statValue, color: '#4f46e5' }}>{stats.todayRequests}</p>
-              </div>
-            </div>
+            </Link>
+            <nav style={styles.nav}>
+              <ul style={styles.navList}>
+                {navItems.map((item, index) => (
+                  <li key={index} style={styles.navItem}>
+                    {item.path === '/logout' ? (
+                      <button
+                        style={{
+                          ...styles.navLink,
+                          ...(window.location.pathname === item.path ? styles.activeNavLink : {}),
+                          ...(hoveredItem === index && window.location.pathname !== item.path ? styles.hoveredNavLink : {}),
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          width: '100%',
+                          textAlign: 'left',
+                        }}
+                        onClick={item.onClick}
+                        onMouseEnter={() => handleMouseEnter(index)}
+                        onMouseLeave={handleMouseLeave}
+                      >
+                        <span style={{ fontSize: '0.8rem' }}>{item.icon}</span>
+                        {item.label}
+                      </button>
+                    ) : (
+                      <Link
+                        to={item.path}
+                        style={{
+                          ...styles.navLink,
+                          ...(window.location.pathname === item.path ? styles.activeNavLink : {}),
+                          ...(hoveredItem === index && window.location.pathname !== item.path ? styles.hoveredNavLink : {}),
+                        }}
+                        onMouseEnter={() => handleMouseEnter(index)}
+                        onMouseLeave={handleMouseLeave}
+                      >
+                        <span style={{ fontSize: '0.8rem' }}>{item.icon}</span>
+                        {item.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
-
-          {/* Filters */}
-          <div style={styles.filtersCard}>
-            <div style={styles.filtersGrid}>
-              <div style={styles.filterGroup}>
-                <label style={styles.label}>Search Client</label>
-                <input
-                  style={styles.input}
-                  type="text"
-                  placeholder="Search by name or email..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  onFocus={(e) => (e.target.style.borderColor = '#3b82f6')}
-                  onBlur={(e) => (e.target.style.borderColor = '#d1d5db')}
-                />
+        </header>
+        <div style={styles.contentContainer}>
+          <div style={styles.mainContent}>
+            <div style={styles.dashboardHeader}>
+              <div style={styles.headerContent}>
+                <div>
+                  <h1 style={styles.title}>Translation Dashboard</h1>
+                  <p style={styles.subtitle}>Manage translation requests efficiently</p>
+                </div>
+                <button style={styles.refreshButton} onClick={fetchQuotes} onMouseEnter={handleButtonHover} onMouseLeave={handleButtonLeave}>
+                  🔄 Refresh
+                </button>
               </div>
-              <div style={styles.filterGroup}>
-                <label style={styles.label}>Status Filter</label>
-                <select
-                  style={styles.select}
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                >
-                  <option value="all">All Statuses</option>
-                  <option value="pending">Pending</option>
-                  <option value="inProgress">In Progress</option>
-                  <option value="completed">Completed</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
+            </div>
+            <div style={styles.statsGrid}>
+              <div style={styles.statCard}>
+                <div style={{ ...styles.statIcon, backgroundColor: '#dbeafe' }}>📋</div>
+                <div>
+                  <p style={styles.statLabel}>Total Requests</p>
+                  <p style={{ ...styles.statValue, color: '#1a202c' }}>{stats.total}</p>
+                </div>
               </div>
-              <div style={styles.filterGroup}>
-                <label style={styles.label}>Service Filter</label>
-                <select
-                  style={styles.select}
-                  value={serviceFilter}
-                  onChange={(e) => setServiceFilter(e.target.value)}
-                >
-                  <option value="all">All Services</option>
-                  <option value="Translation">Translation</option>
-                  <option value="Interpretation">Interpretation</option>
-                  <option value="Localization">Localization</option>
-                </select>
+              <div style={styles.statCard}>
+                <div style={{ ...styles.statIcon, backgroundColor: '#fef3c7' }}>⏳</div>
+                <div>
+                  <p style={styles.statLabel}>Pending</p>
+                  <p style={{ ...styles.statValue, color: '#d97706' }}>{stats.pending}</p>
+                </div>
               </div>
-              <div style={styles.filterGroup}>
-                <label style={styles.label}>Sort By</label>
-                <div style={styles.sortContainer}>
-                  <button
-                    style={{
-                      ...styles.sortButton,
-                      backgroundColor: sortBy === 'submittedAt' ? '#dbeafe' : 'white',
-                    }}
-                    onClick={() => handleSort('submittedAt')}
-                  >
-                    Date {sortBy === 'submittedAt' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
-                  </button>
-                  <button
-                    style={{
-                      ...styles.sortButton,
-                      backgroundColor: sortBy === 'fullName' ? '#dbeafe' : 'white',
-                    }}
-                    onClick={() => handleSort('fullName')}
-                  >
-                    Name {sortBy === 'fullName' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
-                  </button>
-                  <button
-                    style={{
-                      ...styles.sortButton,
-                      backgroundColor: sortBy === 'service' ? '#dbeafe' : 'white',
-                    }}
-                    onClick={() => handleSort('service')}
-                  >
-                    Service {sortBy === 'service' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
-                  </button>
+              <div style={styles.statCard}>
+                <div style={{ ...styles.statIcon, backgroundColor: '#dbeafe' }}>🔄</div>
+                <div>
+                  <p style={styles.statLabel}>In Progress</p>
+                  <p style={{ ...styles.statValue, color: '#2563eb' }}>{stats.inProgress}</p>
+                </div>
+              </div>
+              <div style={styles.statCard}>
+                <div style={{ ...styles.statIcon, backgroundColor: '#d1fae5' }}>✅</div>
+                <div>
+                  <p style={styles.statLabel}>Completed</p>
+                  <p style={{ ...styles.statValue, color: '#059669' }}>{stats.completed}</p>
+                </div>
+              </div>
+              <div style={styles.statCard}>
+                <div style={{ ...styles.statIcon, backgroundColor: '#e0e7ff' }}>📅</div>
+                <div>
+                  <p style={styles.statLabel}>Today's Requests</p>
+                  <p style={{ ...styles.statValue, color: '#4f46e5' }}>{stats.todayRequests}</p>
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Error Display */}
-          {error && (
-            <div style={styles.errorCard}>
-              <span style={styles.errorIcon}>⚠️</span>
-              <div>
-                <h3 style={styles.errorTitle}>Error</h3>
-                <p style={styles.errorMessage}>{error}</p>
+            <div style={styles.filtersCard}>
+              <div style={styles.filtersGrid}>
+                <div style={styles.filterGroup}>
+                  <label style={styles.label}>Search Client</label>
+                  <input
+                    style={styles.input}
+                    type="text"
+                    placeholder="Search by name or email..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onFocus={(e) => (e.target.style.borderColor = '#3b82f6')}
+                    onBlur={(e) => (e.target.style.borderColor = '#d1d5db')}
+                  />
+                </div>
+                <div style={styles.filterGroup}>
+                  <label style={styles.label}>Status Filter</label>
+                  <select
+                    style={styles.select}
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                  >
+                    <option value="all">All Statuses</option>
+                    <option value="pending">Pending</option>
+                    <option value="inProgress">In Progress</option>
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
+                  </select>
+                </div>
+                <div style={styles.filterGroup}>
+                  <label style={styles.label}>Service Filter</label>
+                  <select
+                    style={styles.select}
+                    value={serviceFilter}
+                    onChange={(e) => setServiceFilter(e.target.value)}
+                  >
+                    <option value="all">All Services</option>
+                    <option value="Translation">Translation</option>
+                    <option value="Interpretation">Interpretation</option>
+                    <option value="Localization">Localization</option>
+                  </select>
+                </div>
+                <div style={styles.filterGroup}>
+                  <label style={styles.label}>Sort By</label>
+                  <div style={styles.sortContainer}>
+                    <button
+                      style={{
+                        ...styles.sortButton,
+                        backgroundColor: sortBy === 'submittedAt' ? '#dbeafe' : 'white',
+                      }}
+                      onClick={() => handleSort('submittedAt')}
+                    >
+                      Date {sortBy === 'submittedAt' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                    </button>
+                    <button
+                      style={{
+                        ...styles.sortButton,
+                        backgroundColor: sortBy === 'fullName' ? '#dbeafe' : 'white',
+                      }}
+                      onClick={() => handleSort('fullName')}
+                    >
+                      Name {sortBy === 'fullName' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                    </button>
+                    <button
+                      style={{
+                        ...styles.sortButton,
+                        backgroundColor: sortBy === 'service' ? '#dbeafe' : 'white',
+                      }}
+                      onClick={() => handleSort('service')}
+                    >
+                      Service {sortBy === 'service' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-          )}
+            {error && (
+              <div style={styles.errorCard}>
+                <span style={styles.errorIcon}>⚠️</span>
+                <div>
+                  <h3 style={styles.errorTitle}>Error</h3>
+                  <p style={styles.errorMessage}>{error}</p>
+                </div>
+              </div>
+            )}
+            {sortedQuotes.length === 0 ? (
+              <div style={styles.emptyState}>
+                <span style={styles.emptyIcon}>📋</span>
+                <h3 style={styles.emptyTitle}>No translation requests found</h3>
+                <p style={styles.emptyText}>
+                  Requests will appear here when customers submit quote forms.
+                </p>
+              </div>
+            ) : (
+              <div style={styles.tableCard}>
+                <div style={styles.tableContainer}>
+                  <table style={styles.table}>
+                    <thead style={styles.tableHeader}>
+                      <tr>
+                        <th style={styles.th}>Client Full Names</th>
+                        <th style={styles.th}>Service</th>
+                        <th style={styles.th}>Languages</th>
+                        <th style={styles.th}>Urgency</th>
+                        <th style={styles.th}>Status</th>
+                        <th style={styles.th}>Submitted</th>
+                        <th style={styles.th}>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {sortedQuotes.map((quote, index) => {
+                        const urgencyStyles = getUrgencyStyles(quote.turnaround);
+                        const statusStyles = getStatusStyles(quote.status || 'pending');
 
-          {/* Quotes Table */}
-          {sortedQuotes.length === 0 ? (
-            <div style={styles.emptyState}>
-              <span style={styles.emptyIcon}>📋</span>
-              <h3 style={styles.emptyTitle}>No translation requests found</h3>
-              <p style={styles.emptyText}>
-                Requests will appear here when customers submit quote forms.
-              </p>
-            </div>
-          ) : (
-            <div style={styles.tableCard}>
-              <div style={styles.tableContainer}>
-                <table style={styles.table}>
-                  <thead style={styles.tableHeader}>
-                    <tr>
-                      <th style={styles.th}>Client Full Names</th>
-                      <th style={styles.th}>Service</th>
-                      <th style={styles.th}>Languages</th>
-                      <th style={styles.th}>Urgency</th>
-                      <th style={styles.th}>Status</th>
-                      <th style={styles.th}>Submitted</th>
-                      <th style={styles.th}>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {sortedQuotes.map((quote, index) => {
-                      const urgencyStyles = getUrgencyStyles(quote.turnaround);
-                      const statusStyles = getStatusStyles(quote.status || 'pending');
-
-                      return (
-                        <tr
-                          key={quote.id || index}
-                          style={{ ...styles.urgencyRow, ...urgencyStyles }}
-                          onMouseEnter={(e) =>
-                            (e.currentTarget.style.backgroundColor = '#f7fafc')
-                          }
-                          onMouseLeave={(e) =>
-                            (e.currentTarget.style.backgroundColor =
-                              urgencyStyles.backgroundColor)
-                          }
-                        >
-                          <td style={styles.td}>
-                            <div>
-                              <p style={styles.clientName}>{quote.fullName || 'N/A'}</p>
-                              <p style={styles.clientEmail}>{quote.email || 'N/A'}</p>
-                              {quote.phone && (
-                                <p style={styles.clientPhone}>{quote.phone}</p>
+                        return (
+                          <tr
+                            key={quote.id || index}
+                            style={{ ...styles.urgencyRow, ...urgencyStyles }}
+                            onMouseEnter={(e) =>
+                              (e.currentTarget.style.backgroundColor = '#f7fafc')
+                            }
+                            onMouseLeave={(e) =>
+                              (e.currentTarget.style.backgroundColor =
+                                urgencyStyles.backgroundColor)
+                            }
+                          >
+                            <td style={styles.td}>
+                              <div>
+                                <p style={styles.clientName}>{quote.fullName || 'N/A'}</p>
+                                <p style={styles.clientEmail}>{quote.email || 'N/A'}</p>
+                                {quote.phone && (
+                                  <p style={styles.clientPhone}>{quote.phone}</p>
+                                )}
+                              </div>
+                            </td>
+                            <td style={styles.td}>
+                              <p style={styles.serviceMain}>{quote.service || 'N/A'}</p>
+                              <p style={styles.serviceDoc}>{quote.documentType || 'N/A'}</p>
+                            </td>
+                            <td style={styles.td}>
+                              <div style={styles.languageContainer}>
+                                <span>{quote.sourceLanguage || 'N/A'}</span>
+                                <span style={styles.languageArrow}>→</span>
+                                <span>{quote.targetLanguage || 'N/A'}</span>
+                              </div>
+                            </td>
+                            <td style={styles.td}>
+                              <p style={styles.serviceMain}>{quote.turnaround || 'N/A'}</p>
+                              {quote.wordCount && (
+                                <p style={styles.serviceDoc}>{quote.wordCount} words</p>
                               )}
-                            </div>
-                          </td>
-                          <td style={styles.td}>
-                            <p style={styles.serviceMain}>{quote.service || 'N/A'}</p>
-                            <p style={styles.serviceDoc}>{quote.documentType || 'N/A'}</p>
-                          </td>
-                          <td style={styles.td}>
-                            <div style={styles.languageContainer}>
-                              <span>{quote.sourceLanguage || 'N/A'}</span>
-                              <span style={styles.languageArrow}>→</span>
-                              <span>{quote.targetLanguage || 'N/A'}</span>
-                            </div>
-                          </td>
-                          <td style={styles.td}>
-                            <p style={styles.serviceMain}>{quote.turnaround || 'N/A'}</p>
-                            {quote.wordCount && (
-                              <p style={styles.serviceDoc}>{quote.wordCount} words</p>
-                            )}
-                          </td>
-                          <td style={styles.td}>
-                            <select
-                              value={quote.status || 'pending'}
-                              onChange={(e) => updateQuoteStatus(quote.id, e.target.value)}
-                              style={{ ...styles.statusSelect, ...statusStyles }}
-                            >
-                              <option value="pending">Pending</option>
-                              <option value="inProgress">In Progress</option>
-                              <option value="completed">Completed</option>
-                              <option value="cancelled">Cancelled</option>
-                            </select>
-                          </td>
-                          <td style={styles.td}>{formatDate(quote.submittedAt)}</td>
-                          <td style={styles.td}>
-                            <button
-                              style={styles.viewButton}
-                              onClick={() => {
-                                setSelectedQuote(quote);
-                                setShowModal(true);
-                              }}
-                              onMouseEnter={(e) => (e.target.style.textDecoration = 'underline')}
-                              onMouseLeave={(e) => (e.target.style.textDecoration = 'none')}
-                            >
-                              View Details
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                            </td>
+                            <td style={styles.td}>
+                              <select
+                                value={quote.status || 'pending'}
+                                onChange={(e) => updateQuoteStatus(quote.id, e.target.value)}
+                                style={{ ...styles.statusSelect, ...statusStyles }}
+                              >
+                                <option value="pending">Pending</option>
+                                <option value="inProgress">In Progress</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                              </select>
+                            </td>
+                            <td style={styles.td}>{formatDate(quote.submittedAt)}</td>
+                            <td style={styles.td}>
+                              <button
+                                style={styles.viewButton}
+                                onClick={() => {
+                                  setSelectedQuote(quote);
+                                  setShowModal(true);
+                                }}
+                                onMouseEnter={(e) => (e.target.style.textDecoration = 'underline')}
+                                onMouseLeave={(e) => (e.target.style.textDecoration = 'none')}
+                              >
+                                View Details
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-
-        {/* Modal for Quote Details */}
         {showModal && selectedQuote && (
           <div style={styles.modal} onClick={() => setShowModal(false)}>
             <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
@@ -1245,9 +1207,9 @@ function AdminTranslationDashboard() {
                   <div style={styles.modalSection}>
                     <h4 style={styles.modalSectionTitle}>Files</h4>
                     {selectedQuote.files && selectedQuote.files.length > 0 ? (
-                      <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                      <ul style={{ margin: 0, paddingLeft: '16px' }}>
                         {selectedQuote.files.map((file, idx) => (
-                          <li key={idx} style={{ margin: '8px 0' }}>
+                          <li key={idx} style={{ margin: '4px 0' }}>
                             <a
                               href={`https://lcirwanda-backend001.onrender.com${file}`}
                               target="_blank"
@@ -1304,7 +1266,7 @@ function AdminTranslationDashboard() {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

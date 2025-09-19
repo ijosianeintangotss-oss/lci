@@ -21,7 +21,7 @@ function Training() {
       id: 1,
       title: "Mentorship from Experienced Linguists",
       tagline: "Personalized Guidance",
-      icon: "👥",
+      icon: "",
       description: "Learn directly from industry professionals with years of translation experience and deep cultural understanding.",
       keyFeatures: [
         "One-on-one mentoring sessions",
@@ -40,7 +40,7 @@ function Training() {
       id: 2,
       title: "Practical, Project-Based Training",
       tagline: "Hands-On Experience",
-      icon: "💼",
+      icon: "",
       description: "Work on real client projects under supervision to gain hands-on experience in professional translation environments.",
       keyFeatures: [
         "Real-world assignments",
@@ -59,7 +59,7 @@ function Training() {
       id: 3,
       title: "Industry Tools & Technology",
       tagline: "Modern Toolkit",
-      icon: "⚡",
+      icon: "",
       description: "Master professional CAT tools, quality assurance software, and industry standards used by top translation companies.",
       keyFeatures: [
         "CAT tools training (Trados, MemoQ)",
@@ -78,7 +78,7 @@ function Training() {
       id: 4,
       title: "Real Client Exposure",
       tagline: "Professional Portfolio",
-      icon: "🎯",
+      icon: "",
       description: "Build your portfolio while contributing to actual translation projects and understanding client requirements.",
       keyFeatures: [
         "Portfolio development",
@@ -95,7 +95,7 @@ function Training() {
     }
   ];
 
-  const qualitySteps = [ // Renamed to trainingSteps or keep as is, but adapting to program steps
+  const qualitySteps = [
     {
       step: 1,
       title: "Theoretical Foundation",
@@ -118,7 +118,7 @@ function Training() {
     }
   ];
 
-  const supportedLanguages = [ // Keep or adapt to supported training languages
+  const supportedLanguages = [
     { code: "EN", name: "English", flag: "🇬🇧" },
     { code: "FR", name: "French", flag: "🇫🇷" },
     { code: "RW", name: "Kinyarwanda", flag: "🇷🇼" },
@@ -131,21 +131,23 @@ function Training() {
       minHeight: '100vh',
       background: '#ffffff',
       fontFamily: 'Arial, sans-serif',
+      fontSize: '16px',
     },
     heroSection: {
-      minHeight: '100vh',
+      minHeight: '80vh',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '2rem',
+      padding: '1.5rem',
       position: 'relative',
       overflow: 'hidden',
-      background: '#f1eee5ff',
-      borderRadius: '20px',
-      border: '2px solid #de800dff',
+      background: '#f1eee5',
+      borderRadius: '15px',
+      border: '1px solid #de800d',
       opacity: isVisible ? 1 : 0,
-      transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
-      transition: 'all 1s ease-out',
+      transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+      transition: 'all 0.8s ease-out',
+      margin: '1rem',
     },
     heroContainer: {
       display: 'flex',
@@ -153,12 +155,12 @@ function Training() {
       justifyContent: 'space-between',
       maxWidth: '1200px',
       width: '100%',
-      gap: '9rem',
-      flexWrap: isMobile ? 'wrap' : 'nowrap',
+      gap: '2rem',
+      flexDirection: isMobile ? 'column' : 'row',
     },
     heroImage: {
-      width: isMobile ? '100%' : '45%',
-      maxWidth: isMobile ? '100%' : '500px',
+      width: isMobile ? '100%' : '40%',
+      maxWidth: isMobile ? '100%' : '450px',
       height: 'auto',
       objectFit: 'cover',
       borderRadius: '10px',
@@ -166,108 +168,105 @@ function Training() {
     },
     heroContent: {
       textAlign: isMobile ? 'center' : 'left',
-      width: isMobile ? '100%' : '50%',
+      width: isMobile ? '100%' : '55%',
       maxWidth: isMobile ? '100%' : '600px',
-      zIndex: 10,
-      position: 'relative',
       padding: isMobile ? '0' : '0 1rem',
     },
     heroTitle: {
-      fontSize: isMobile ? '2.5rem' : '3.5rem',
-      fontWeight: 'bold',
-      color: '#0a1d51ff',
-      marginBottom: '1.5rem',
-      lineHeight: '1.2',
+      fontSize: isMobile ? '2rem' : '2.8rem',
+      fontWeight: '700',
+      color: '#0a1d51',
+      marginBottom: '1rem',
+      lineHeight: '1.3',
       textAlign: isMobile ? 'center' : 'left',
     },
     heroSubtitle: {
-      fontSize: isMobile ? '1rem' : '1.2rem',
-      color: '#0a1d51ff',
-      marginBottom: '2rem',
-      lineHeight: '1.6',
-      maxWidth: '900px',
-      margin: isMobile ? '0 auto 2rem' : '0 0 2rem',
+      fontSize: '1rem',
+      color: '#0a1d51',
+      marginBottom: '1.5rem',
+      lineHeight: '1.5',
+      maxWidth: '800px',
+      margin: isMobile ? '0 auto 1.5rem' : '0 0 1.5rem',
       textAlign: isMobile ? 'center' : 'left',
     },
     section: {
-      padding: '9rem 2rem',
-      maxWidth: '1400px',
+      padding: '4rem 1.5rem',
+      maxWidth: '1200px',
       margin: '0 auto',
-      background: '#f1eee5ff',
-      borderRadius: '20px',
-      border: '2px solid #de800dff',
+      background: '#f1eee5',
+      borderRadius: '15px',
+      border: '1px solid #de800d',
     },
     sectionTitle: {
-      fontSize: '3rem',
-      fontWeight: 'bold',
-      color: '#0a1d51ff',
+      fontSize: '2.2rem',
+      fontWeight: '700',
+      color: '#0a1d51',
       textAlign: 'center',
-      marginBottom: '1.5rem',
+      marginBottom: '1rem',
     },
     sectionSubtitle: {
-      fontSize: '1.3rem',
-      color: '#0a1d51ff',
+      fontSize: '1rem',
+      color: '#0a1d51',
       textAlign: 'center',
-      marginBottom: '4rem',
-      maxWidth: '800px',
-      margin: '0 auto 4rem',
+      marginBottom: '2rem',
+      maxWidth: '700px',
+      margin: '0 auto 2rem',
     },
     servicesGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-      gap: '2rem',
-      marginBottom: '4rem',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+      gap: '1.5rem',
+      marginBottom: '2rem',
     },
     serviceCard: {
-      background: '#f1eee5ff',
-      borderRadius: '20px',
-      padding: '2rem',
-      border: '2px solid #de800dff',
+      background: '#f1eee5',
+      borderRadius: '15px',
+      padding: '1.5rem',
+      border: '1px solid #de800d',
       cursor: 'pointer',
-      transition: 'all 0.5s ease',
-      boxShadow: '0 8px 32px rgba(255, 140, 0, 0.1)',
+      transition: 'all 0.3s ease',
+      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.1)',
       position: 'relative',
     },
     serviceHeader: {
       display: 'flex',
-      alignItems: 'flex-start',
-      gap: '1.5rem',
-      marginBottom: '1.5rem',
+      alignItems: 'center',
+      gap: '1rem',
+      marginBottom: '1rem',
     },
     serviceIcon: {
-      fontSize: '1.5rem',
-      marginBottom: '1.5rem',
-      display: 'block',
-      color: '#de800dff',
+      fontSize: '2rem',
+      color: '#de800d',
     },
     serviceHeaderText: {
       flex: 1,
     },
     serviceTitle: {
-      fontSize: '1.3rem',
-      fontWeight: 'bold',
-      color: '#0a1d51ff',
-      marginBottom: '1rem',
+      fontSize: '1.2rem',
+      fontWeight: '600',
+      color: '#0a1d51',
+      marginBottom: '0.5rem',
     },
     serviceTagline: {
-      fontSize: '1rem',
-      color: '#de800dff',
-      fontWeight: '600',
+      fontSize: '0.95rem',
+      color: '#de800d',
+      fontWeight: '500',
       fontStyle: 'italic',
     },
     serviceDescription: {
-      color: '#0a1d51ff',
-      lineHeight: '1.6',
-      marginBottom: '2rem',
+      color: '#0a1d51',
+      lineHeight: '1.5',
+      marginBottom: '1rem',
+      fontSize: '0.95rem',
     },
     featuresSection: {
-      marginBottom: '1.5rem',
+      marginBottom: '1rem',
     },
     featuresTitle: {
-      fontSize: '1.3rem',
-      fontWeight: 'bold',
-      color: '#0a1d51ff',
-      marginBottom: '1rem',
+      fontSize: '1.1rem',
+      fontWeight: '600',
+      color: '#0a1d51',
+      marginBottom: '0.8rem',
     },
     featuresList: {
       listStyle: 'none',
@@ -275,191 +274,195 @@ function Training() {
       margin: 0,
     },
     featureItem: {
-      padding: '0.5rem 0',
-      color: '#0a1d51ff',
+      padding: '0.3rem 0',
+      color: '#0a1d51',
       display: 'flex',
       alignItems: 'center',
       gap: '0.5rem',
+      fontSize: '0.95rem',
     },
     useCasesGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-      gap: '0.5rem',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+      gap: '0.8rem',
     },
     useCaseItem: {
-      background: '#f1eee5ff',
+      background: '#f1eee5',
       padding: '0.5rem 1rem',
-      borderRadius: '20px',
+      borderRadius: '12px',
       fontSize: '0.9rem',
-      color: '#0a1d51ff',
+      color: '#0a1d51',
       textAlign: 'center',
-      border: '2px solid #de800dff',
+      border: '1px solid #de800d',
     },
     expandButton: {
       position: 'absolute',
       top: '1rem',
       right: '1rem',
-      background: '#de800dff',
+      background: '#de800d',
       color: 'white',
       border: 'none',
       borderRadius: '50%',
-      width: '2.5rem',
-      height: '2.5rem',
+      width: '2rem',
+      height: '2rem',
       cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      fontSize: '1.2rem',
+      fontSize: '1rem',
       transition: 'all 0.3s ease',
     },
     qualitySection: {
-      background: '#f1eee5ff',
-      borderRadius: '20px',
-      padding: '4rem 2rem',
-      margin: '2rem auto',
-      maxWidth: '1400px',
-      border: '2px solid #de800dff',
+      background: '#f1eee5',
+      borderRadius: '15px',
+      padding: '3rem 1.5rem',
+      margin: '1rem auto',
+      maxWidth: '1200px',
+      border: '1px solid #de800d',
     },
     qualityGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-      gap: '2rem',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+      gap: '1.5rem',
     },
     qualityStep: {
       textAlign: 'center',
-      background: '#f1eee5ff',
-      borderRadius: '15px',
-      padding: '2rem',
-      border: '2px solid #de800dff',
+      background: '#f1eee5',
+      borderRadius: '12px',
+      padding: '1.5rem',
+      border: '1px solid #de800d',
       position: 'relative',
     },
     stepNumber: {
       position: 'absolute',
-      top: '-15px',
+      top: '-12px',
       left: '50%',
       transform: 'translateX(-50%)',
-      background: '#de800dff',
+      background: '#de800d',
       color: 'white',
-      width: '30px',
-      height: '30px',
+      width: '24px',
+      height: '24px',
       borderRadius: '50%',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      fontWeight: 'bold',
+      fontWeight: '600',
+      fontSize: '0.9rem',
     },
     stepTitle: {
-      fontSize: '1.3rem',
-      fontWeight: 'bold',
-      color: '#0a1d51ff',
-      marginBottom: '1rem',
+      fontSize: '1.2rem',
+      fontWeight: '600',
+      color: '#0a1d51',
+      marginBottom: '0.8rem',
       marginTop: '1rem',
     },
     stepDescription: {
-      color: '#0a1d51ff',
-      fontSize: '1rem',
+      color: '#0a1d51',
+      fontSize: '0.95rem',
+      lineHeight: '1.5',
     },
     languagesSection: {
-      background: '#f1eee5ff',
-      borderRadius: '20px',
-      padding: '4rem 2rem',
-      margin: '2rem auto',
-      maxWidth: '1400px',
-      border: '2px solid #de800dff',
+      background: '#f1eee5',
+      borderRadius: '15px',
+      padding: '3rem 1.5rem',
+      margin: '1rem auto',
+      maxWidth: '1200px',
+      border: '1px solid #de800d',
     },
     languagesGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-      gap: '2rem',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+      gap: '1.5rem',
     },
     languageCard: {
-      background: '#f1eee5ff',
-      borderRadius: '15px',
-      padding: '2rem',
+      background: '#f1eee5',
+      borderRadius: '12px',
+      padding: '1.5rem',
       textAlign: 'center',
-      border: '2px solid #de800dff',
-      boxShadow: '0 8px 25px rgba(255, 140, 0, 0.1)',
+      border: '1px solid #de800d',
+      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.1)',
     },
     languageFlag: {
-      fontSize: '3rem',
-      marginBottom: '1rem',
+      fontSize: '2rem',
+      marginBottom: '0.8rem',
     },
     languageCode: {
-      fontSize: '1.2rem',
-      fontWeight: 'bold',
-      color: '#0a1d51ff',
+      fontSize: '1.1rem',
+      fontWeight: '600',
+      color: '#0a1d51',
       marginBottom: '0.5rem',
     },
     languageName: {
-      color: '#0a1d51ff',
-      fontSize: '1rem',
+      color: '#0a1d51',
+      fontSize: '0.95rem',
     },
     confidentialitySection: {
-      background: '#f1eee5ff',
-      borderRadius: '20px',
-      padding: '4rem 2rem',
+      background: '#f1eee5',
+      borderRadius: '15px',
+      padding: '3rem 1.5rem',
       textAlign: 'center',
-      margin: '2rem auto',
-      maxWidth: '1400px',
-      border: '2px solid #de800dff',
+      margin: '1rem auto',
+      maxWidth: '1200px',
+      border: '1px solid #de800d',
     },
     confidentialityTitle: {
-      fontSize: '2.5rem',
-      fontWeight: 'bold',
-      color: '#0a1d51ff',
-      marginBottom: '2rem',
+      fontSize: '2rem',
+      fontWeight: '700',
+      color: '#0a1d51',
+      marginBottom: '1rem',
     },
     confidentialityDescription: {
-      fontSize: '1.2rem',
-      color: '#0a1d51ff',
-      marginBottom: '2rem',
-      lineHeight: '1.6',
+      fontSize: '1rem',
+      color: '#0a1d51',
+      marginBottom: '1.5rem',
+      lineHeight: '1.5',
+      maxWidth: '800px',
+      margin: '0 auto 1.5rem',
     },
     confidentialityFeatures: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-      gap: '2rem',
-      marginTop: '3rem',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+      gap: '1rem',
+      marginTop: '1.5rem',
     },
     confidentialityFeature: {
       display: 'flex',
       alignItems: 'center',
-      gap: '1rem',
-      fontSize: '1.1rem',
-      color: '#0a1d51ff',
+      gap: '0.8rem',
+      fontSize: '0.95rem',
+      color: '#0a1d51',
     },
     ctaSection: {
       textAlign: 'center',
-      padding: '6rem 2rem',
-      background: '#f1eee5ff',
-      borderRadius: '20px',
-      margin: '2rem auto',
+      padding: '4rem 1.5rem',
+      background: '#f1eee5',
+      borderRadius: '15px',
+      margin: '1rem auto',
       maxWidth: '1200px',
-      border: '2px solid #de800dff',
+      border: '1px solid #de800d',
     },
     ctaTitle: {
-      fontSize: '3.5rem',
-      fontWeight: 'bold',
-      color: '#0a1d51ff',
-      marginBottom: '2rem',
+      fontSize: '2.2rem',
+      fontWeight: '700',
+      color: '#0a1d51',
+      marginBottom: '1rem',
     },
     ctaDescription: {
-      fontSize: '1.3rem',
-      color: '#0a1d51ff',
-      marginBottom: '3rem',
-      lineHeight: '1.6',
+      fontSize: '1rem',
+      color: '#0a1d51',
+      marginBottom: '2rem',
+      lineHeight: '1.5',
     },
     primaryButton: {
-      background: '#f1eee5ff',
-      color: '#0a1d51ff',
-      padding: '1rem 2.5rem',
-      borderRadius: '25px',
-      border: '2px solid #de800dff',
-      fontSize: '1.2rem',
-      fontWeight: '700',
+      background: '#f1eee5',
+      color: '#0a1d51',
+      padding: '0.8rem 1.8rem',
+      borderRadius: '15px',
+      border: '1px solid #de800d',
+      fontSize: '1rem',
+      fontWeight: '600',
       cursor: 'pointer',
-      boxShadow: '0 12px 30px rgba(255, 140, 0, 0.4)',
-      transform: 'scale(1)',
+      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.2)',
       transition: 'all 0.3s ease',
       textDecoration: 'none',
       display: 'inline-flex',
@@ -482,19 +485,18 @@ function Training() {
 
   const handleButtonHover = (e) => {
     e.target.style.transform = 'scale(1.05)';
-    e.target.style.background = '#de800dff';
+    e.target.style.background = '#de800d';
     e.target.style.color = 'white';
   };
 
   const handleButtonLeave = (e) => {
     e.target.style.transform = 'scale(1)';
-    e.target.style.background = '#f1eee5ff';
-    e.target.style.color = '#0a1d51ff';
+    e.target.style.background = '#f1eee5';
+    e.target.style.color = '#0a1d51';
   };
 
   return (
     <div style={styles.container}>
-      {/* Hero Section */}
       <section style={styles.heroSection}>
         <div style={styles.heroContainer}>
           <div style={styles.heroContent}>
@@ -505,7 +507,6 @@ function Training() {
         </div>
       </section>
 
-      {/* Program Features Grid */}
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}>Our Training Program</h2>
         <p style={styles.sectionSubtitle}>
@@ -518,7 +519,7 @@ function Training() {
               style={{
                 ...styles.serviceCard,
                 transform: hoveredCard === index ? 'scale(1.05)' : 'scale(1)',
-                background: hoveredCard === index ? 'rgba(222, 128, 13, 0.1)' : '#f1eee5ff',
+                background: hoveredCard === index ? 'rgba(222, 128, 13, 0.1)' : '#f1eee5',
               }}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
@@ -532,7 +533,6 @@ function Training() {
               >
                 +
               </button>
-              
               <div style={styles.serviceHeader}>
                 <span style={styles.serviceIcon}>{feature.icon}</span>
                 <div style={styles.serviceHeaderText}>
@@ -540,9 +540,7 @@ function Training() {
                   <p style={styles.serviceTagline}>{feature.tagline}</p>
                 </div>
               </div>
-              
               <p style={styles.serviceDescription}>{feature.description}</p>
-              
               {activeFeature === feature.id && (
                 <>
                   <div style={styles.featuresSection}>
@@ -550,13 +548,12 @@ function Training() {
                     <ul style={styles.featuresList}>
                       {feature.keyFeatures.map((feat, idx) => (
                         <li key={idx} style={styles.featureItem}>
-                          <span style={{ color: '#de800dff' }}>•</span>
+                          <span style={{ color: '#de800d' }}>•</span>
                           {feat}
                         </li>
                       ))}
                     </ul>
                   </div>
-                  
                   <div style={styles.featuresSection}>
                     <h4 style={styles.featuresTitle}>🎯 Benefits:</h4>
                     <div style={styles.useCasesGrid}>
@@ -574,100 +571,88 @@ function Training() {
         </div>
       </section>
 
-      {/* Training Process Section (adapted from Quality Assurance) */}
-      <section style={styles.section}>
-        <div style={styles.qualitySection}>
-          <h2 style={styles.sectionTitle}>Our Training Process</h2>
-          <p style={styles.sectionSubtitle}>
-            Structured approach to developing professional translators
-          </p>
-          <div style={styles.qualityGrid}>
-            {qualitySteps.map((step, index) => (
-              <div key={index} style={styles.qualityStep}>
-                <div style={styles.stepNumber}>{step.step}</div>
-                <h3 style={styles.stepTitle}>{step.title}</h3>
-                <p style={styles.stepDescription}>{step.description}</p>
-              </div>
-            ))}
-          </div>
-          <p style={{ textAlign: 'center', marginTop: '2rem', fontSize: '1.1rem', color: '#0a1d51ff' }}>
-            We provide personalized training tailored to your language strengths and career goals.
-          </p>
+      <section style={styles.qualitySection}>
+        <h2 style={styles.sectionTitle}>Our Training Process</h2>
+        <p style={styles.sectionSubtitle}>
+          Structured approach to developing professional translators
+        </p>
+        <div style={styles.qualityGrid}>
+          {qualitySteps.map((step, index) => (
+            <div key={index} style={styles.qualityStep}>
+              <div style={styles.stepNumber}>{step.step}</div>
+              <h3 style={styles.stepTitle}>{step.title}</h3>
+              <p style={styles.stepDescription}>{step.description}</p>
+            </div>
+          ))}
         </div>
+        <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.95rem', color: '#0a1d51' }}>
+          We provide personalized training tailored to your language strengths and career goals.
+        </p>
       </section>
 
-      {/* Languages Section */}
-      <section style={styles.section}>
-        <div style={styles.languagesSection}>
-          <h2 style={styles.sectionTitle}>Languages We Train In</h2>
-          <p style={styles.sectionSubtitle}>
-            Focus on major African and international languages
-          </p>
-          <div style={styles.languagesGrid}>
-            {supportedLanguages.map((language, index) => (
-              <div key={index} style={styles.languageCard}>
-                <div style={styles.languageFlag}>{language.flag}</div>
-                <div style={styles.languageCode}>{language.code}</div>
-                <div style={styles.languageName}>{language.name}</div>
-              </div>
-            ))}
-          </div>
-          <p style={{ textAlign: 'center', marginTop: '2rem', fontSize: '1.1rem', color: '#0a1d51ff' }}>
-            Specializing in African language pairs with global applications.
-          </p>
+      <section style={styles.languagesSection}>
+        <h2 style={styles.sectionTitle}>Languages We Train In</h2>
+        <p style={styles.sectionSubtitle}>
+          Focus on major African and international languages
+        </p>
+        <div style={styles.languagesGrid}>
+          {supportedLanguages.map((language, index) => (
+            <div key={index} style={styles.languageCard}>
+              <div style={styles.languageFlag}>{language.flag}</div>
+              <div style={styles.languageCode}>{language.code}</div>
+              <div style={styles.languageName}>{language.name}</div>
+            </div>
+          ))}
         </div>
+        <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.95rem', color: '#0a1d51' }}>
+          Specializing in African language pairs with global applications.
+        </p>
       </section>
 
-      {/* Confidentiality Section - Adapt to Professional Standards or something */}
-      <section style={styles.section}>
-        <div style={styles.confidentialitySection}>
-          <div style={styles.confidentialityTitle}>
-             Professional Standards Guaranteed
-          </div>
-          <p style={styles.confidentialityDescription}>
-            At LCI Training, we maintain the highest standards of professionalism and ethics in our mentorship program.
-          </p>
-          <div style={styles.confidentialityFeatures}>
-            <div style={styles.confidentialityFeature}>
-              <span style={{ color: '#de800dff' }}></span>
-              <span>Ethical translation practices</span>
-            </div>
-            <div style={styles.confidentialityFeature}>
-              <span style={{ color: '#de800dff' }}></span>
-              <span>Confidentiality in training</span>
-            </div>
-            <div style={styles.confidentialityFeature}>
-              <span style={{ color: '#de800dff' }}></span>
-              <span>Industry compliance</span>
-            </div>
-            <div style={styles.confidentialityFeature}>
-              <span style={{ color: '#de800dff' }}></span>
-              <span>Quality mentorship</span>
-            </div>
-          </div>
-          <p style={{ marginTop: '2rem', fontSize: '1.2rem', fontWeight: '600', color: '#0a1d51ff' }}>
-            🛡️ Professionalism isn't optional. It's our foundation.
-          </p>
+      <section style={styles.confidentialitySection}>
+        <div style={styles.confidentialityTitle}>
+          Professional Standards Guaranteed
         </div>
+        <p style={styles.confidentialityDescription}>
+          At LCI Training, we maintain the highest standards of professionalism and ethics in our mentorship program.
+        </p>
+        <div style={styles.confidentialityFeatures}>
+          <div style={styles.confidentialityFeature}>
+            <span style={{ color: '#de800d' }}>•</span>
+            <span>Ethical translation practices</span>
+          </div>
+          <div style={styles.confidentialityFeature}>
+            <span style={{ color: '#de800d' }}>•</span>
+            <span>Confidentiality in training</span>
+          </div>
+          <div style={styles.confidentialityFeature}>
+            <span style={{ color: '#de800d' }}>•</span>
+            <span>Industry compliance</span>
+          </div>
+          <div style={styles.confidentialityFeature}>
+            <span style={{ color: '#de800d' }}>•</span>
+            <span>Quality mentorship</span>
+          </div>
+        </div>
+        <p style={{ marginTop: '1.5rem', fontSize: '1rem', fontWeight: '600', color: '#0a1d51' }}>
+          🛡️ Professionalism isn't optional. It's our foundation.
+        </p>
       </section>
 
-      {/* Call-to-Action Section */}
-      <section style={styles.section}>
-        <div style={styles.ctaSection}>
-          <h2 style={styles.ctaTitle}>Ready to Start Your Training?</h2>
-          <p style={styles.ctaDescription}>
-            Join our mentorship program and launch your career in professional translation.
-          </p>
-          <button
-            style={styles.primaryButton}
-            onMouseEnter={handleButtonHover}
-            onMouseLeave={handleButtonLeave}
-          >
-            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              Apply Now ✨
-            </span>
-          </button>
-        </div>
+      <section style={styles.ctaSection}>
+        <h2 style={styles.ctaTitle}>Ready to Start Your Training?</h2>
+        <p style={styles.ctaDescription}>
+          Join our mentorship program and launch your career in professional translation.
+        </p>
+        <button
+          style={styles.primaryButton}
+          onMouseEnter={handleButtonHover}
+          onMouseLeave={handleButtonLeave}
+        >
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            Apply Now <span style={{ color: '#de800d' }}>✨</span>
+          </span>
+        </button>
       </section>
     </div>
   );

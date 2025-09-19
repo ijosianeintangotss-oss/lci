@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Quote() {
   const [formData, setFormData] = useState({
@@ -19,6 +19,15 @@ function Quote() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const services = [
     { value: 'translation', label: 'Translation' },
@@ -67,7 +76,6 @@ function Quote() {
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
     
-    // Validate file sizes
     const oversizedFiles = selectedFiles.filter(file => file.size > 10 * 1024 * 1024);
     if (oversizedFiles.length > 0) {
       setError(`Files too large: ${oversizedFiles.map(f => f.name).join(', ')}. Maximum size is 10MB per file.`);
@@ -167,7 +175,6 @@ function Quote() {
 
       setSuccess('Quote submitted successfully! We will respond within 2-4 hours.');
       
-      // Reset form
       setFormData({
         fullName: '',
         email: '',
@@ -183,7 +190,6 @@ function Quote() {
       setFiles([]);
       setPaymentScreenshot(null);
       
-      // Reset file inputs
       const fileInput = document.getElementById('fileInput');
       const paymentInput = document.getElementById('paymentScreenshotInput');
       if (fileInput) fileInput.value = '';
@@ -201,158 +207,162 @@ function Quote() {
     container: {
       minHeight: '100vh',
       background: '#ffffff',
-      fontFamily: 'Arial, sans-serif'
+      fontFamily: 'Arial, sans-serif',
+      fontSize: '16px',
     },
     sectionTitle: {
-      fontSize: '2.5rem',
-      fontWeight: 'bold',
-      color: '#1e3a8a',
+      fontSize: isMobile ? '1.8rem' : '2rem',
+      fontWeight: '700',
+      color: '#0a1d51',
       textAlign: 'center',
-      marginBottom: '1rem'
+      marginBottom: '1rem',
     },
     sectionSubtitle: {
-      fontSize: '1.2rem',
-      color: '#6b7280',
+      fontSize: '1rem',
+      color: '#0a1d51',
       textAlign: 'center',
-      marginBottom: '3rem',
-      maxWidth: '800px',
-      margin: '0 auto 3rem'
+      marginBottom: '1.5rem',
+      maxWidth: '700px',
+      margin: '0 auto 1.5rem',
     },
     formGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gap: '1.5rem',
-      marginBottom: '2rem'
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: '1rem',
+      marginBottom: '1.5rem',
     },
     formGroup: {
       display: 'flex',
-      flexDirection: 'column'
+      flexDirection: 'column',
     },
     label: {
-      fontSize: '1rem',
-      fontWeight: '600',
-      color: '#374151',
-      marginBottom: '0.5rem'
+      fontSize: '0.95rem',
+      fontWeight: '500',
+      color: '#0a1d51',
+      marginBottom: '0.4rem',
     },
     input: {
-      padding: '1rem',
-      border: '2px solid #e5e7eb',
-      borderRadius: '10px',
-      fontSize: '1rem',
-      transition: 'border-color 0.3s ease',
-      backgroundColor: '#ffffff'
-    },
-    select: {
-      padding: '1rem',
-      border: '2px solid #e5e7eb',
-      borderRadius: '10px',
-      fontSize: '1rem',
-      transition: 'border-color 0.3s ease',
-      backgroundColor: '#ffffff'
-    },
-    textarea: {
-      padding: '1rem',
-      border: '2px solid #e5e7eb',
-      borderRadius: '10px',
-      fontSize: '1rem',
+      padding: '0.8rem',
+      border: '1px solid #de800d',
+      borderRadius: '8px',
+      fontSize: '0.95rem',
       transition: 'border-color 0.3s ease',
       backgroundColor: '#ffffff',
-      minHeight: '120px',
-      resize: 'vertical'
+    },
+    select: {
+      padding: '0.8rem',
+      border: '1px solid #de800d',
+      borderRadius: '8px',
+      fontSize: '0.95rem',
+      transition: 'border-color 0.3s ease',
+      backgroundColor: '#ffffff',
+    },
+    textarea: {
+      padding: '0.8rem',
+      border: '1px solid #de800d',
+      borderRadius: '8px',
+      fontSize: '0.95rem',
+      transition: 'border-color 0.3s ease',
+      backgroundColor: '#ffffff',
+      minHeight: '100px',
+      resize: 'vertical',
     },
     fileUpload: {
-      border: '2px dashed #d1d5db',
-      borderRadius: '15px',
-      padding: '3rem',
+      border: '1px dashed #de800d',
+      borderRadius: '12px',
+      padding: '2rem',
       textAlign: 'center',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
-      background: '#f9fafb'
+      background: '#f1eee5',
     },
     fileUpload1: {
-      border: '2px dashed #d1d5db',
-      borderRadius: '15px',
-      padding: '1.5rem',
+      border: '1px dashed #de800d',
+      borderRadius: '12px',
+      padding: '1rem',
       textAlign: 'center',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
-      background: '#f9fafb'
+      background: '#f1eee5',
     },
     fileList: {
-      marginTop: '1rem',
-      padding: '1rem',
-      background: '#f8fafc',
+      marginTop: '0.8rem',
+      padding: '0.8rem',
+      background: '#ffffff',
       borderRadius: '8px',
-      border: '1px solid #e2e8f0'
+      border: '1px solid #de800d',
     },
     fileItem: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: '0.5rem 0',
-      borderBottom: '1px solid #e2e8f0',
-      color: '#1e3a8a'
+      padding: '0.4rem 0',
+      borderBottom: '1px solid #de800d',
+      color: '#0a1d51',
+      fontSize: '0.9rem',
     },
     removeFileButton: {
       background: '#ef4444',
       color: 'white',
       border: 'none',
       borderRadius: '4px',
-      padding: '0.25rem 0.5rem',
+      padding: '0.2rem 0.4rem',
       fontSize: '0.8rem',
-      cursor: 'pointer'
+      cursor: 'pointer',
     },
     submitButton: {
-      backgroundColor: '#d27b10ff',
+      background: '#de800d',
       color: 'white',
-      padding: '1rem 3rem',
-      borderRadius: '50px',
+      padding: '0.8rem 1.5rem',
+      borderRadius: '12px',
       border: 'none',
-      fontSize: '1.1rem',
-      fontWeight: '600',
+      fontSize: '0.95rem',
+      fontWeight: '500',
       cursor: 'pointer',
-      boxShadow: '0 10px 25px rgba(255, 140, 0, 0.3)',
+      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.2)',
       transition: 'all 0.3s ease',
       alignSelf: 'center',
       display: 'flex',
       alignItems: 'center',
       gap: '0.5rem',
-      margin: '0 auto'
+      margin: '0 auto',
     },
     submitButtonDisabled: {
       background: '#9ca3af',
       cursor: 'not-allowed',
-      boxShadow: 'none'
+      boxShadow: 'none',
     },
     errorMessage: {
       color: '#dc2626',
       textAlign: 'center',
       marginBottom: '1rem',
-      fontWeight: '600',
-      padding: '1rem',
+      fontWeight: '500',
+      padding: '0.8rem',
       background: '#fef2f2',
-      borderRadius: '10px',
-      border: '1px solid #fecaca'
+      borderRadius: '8px',
+      border: '1px solid #fecaca',
+      fontSize: '0.95rem',
     },
     successMessage: {
       color: '#065f46',
       textAlign: 'center',
       marginBottom: '1rem',
-      fontWeight: '600',
-      padding: '1rem',
+      fontWeight: '500',
+      padding: '0.8rem',
       background: '#ecfdf5',
-      borderRadius: '10px',
-      border: '1px solid #a7f3d0'
+      borderRadius: '8px',
+      border: '1px solid #a7f3d0',
+      fontSize: '0.95rem',
     },
     loadingSpinner: {
       display: 'inline-block',
-      width: '1rem',
-      height: '1rem',
+      width: '0.9rem',
+      height: '0.9rem',
       border: '2px solid transparent',
       borderTop: '2px solid white',
       borderRadius: '50%',
-      animation: 'spin 1s linear infinite'
-    }
+      animation: 'spin 1s linear infinite',
+    },
   };
 
   const handleButtonHover = (e) => {
@@ -375,18 +385,18 @@ function Quote() {
           }
           
           input:focus, select:focus, textarea:focus {
-            border-color: #ff8c00 !important;
+            border-color: #de800d !important;
             outline: none;
           }
           
           .file-upload-hover {
-            border-color: #ff8c00 !important;
+            border-color: #de800d !important;
             background: #fff7ed !important;
           }
         `}
       </style>
 
-      <div style={{ padding: '4rem 2rem', maxWidth: '1400px', margin: '0 auto' }}>
+      <div style={{ padding: '3rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
         <h2 style={styles.sectionTitle}>Get a Detailed Quote</h2>
         <p style={styles.sectionSubtitle}>
           Upload your documents and get a professional quote within 2-4 hours. Our advanced form makes it easy to specify your exact requirements.
@@ -408,7 +418,6 @@ function Quote() {
                 disabled={isSubmitting}
               />
             </div>
-            
             <div style={styles.formGroup}>
               <label style={styles.label} htmlFor="email">Email Address *</label>
               <input 
@@ -423,7 +432,6 @@ function Quote() {
                 disabled={isSubmitting}
               />
             </div>
-            
             <div style={styles.formGroup}>
               <label style={styles.label} htmlFor="phone">Phone Number</label>
               <input 
@@ -437,7 +445,6 @@ function Quote() {
                 disabled={isSubmitting}
               />
             </div>
-            
             <div style={styles.formGroup}>
               <label style={styles.label} htmlFor="service">Service Required *</label>
               <select 
@@ -455,7 +462,6 @@ function Quote() {
                 ))}
               </select>
             </div>
-            
             <div style={styles.formGroup}>
               <label style={styles.label} htmlFor="documentType">Document Type *</label>
               <select 
@@ -473,7 +479,6 @@ function Quote() {
                 ))}
               </select>
             </div>
-            
             <div style={styles.formGroup}>
               <label style={styles.label} htmlFor="sourceLanguage">Source Language *</label>
               <select 
@@ -491,7 +496,6 @@ function Quote() {
                 ))}
               </select>
             </div>
-            
             <div style={styles.formGroup}>
               <label style={styles.label} htmlFor="targetLanguage">Target Language *</label>
               <select 
@@ -509,7 +513,6 @@ function Quote() {
                 ))}
               </select>
             </div>
-            
             <div style={styles.formGroup}>
               <label style={styles.label} htmlFor="turnaround">Turnaround Time *</label>
               <select 
@@ -527,7 +530,6 @@ function Quote() {
                 ))}
               </select>
             </div>
-            
             <div style={styles.formGroup}>
               <label style={styles.label} htmlFor="wordCount">Estimated Word Count</label>
               <input 
@@ -541,7 +543,6 @@ function Quote() {
                 disabled={isSubmitting}
               />
             </div>
-
             <div style={styles.formGroup}>
               <label style={styles.label}>Upload Payment Screenshot *</label>
               <label style={styles.label}>Dial *182*1*1*0788518720*Amount# *</label>
@@ -551,11 +552,11 @@ function Quote() {
                 onMouseEnter={(e) => !isSubmitting && e.target.classList.add('file-upload-hover')}
                 onMouseLeave={(e) => e.target.classList.remove('file-upload-hover')}
               >
-                <h3 style={{color: '#1e3a8a', marginBottom: '0.5rem'}}>
+                <h3 style={{color: '#0a1d51', marginBottom: '0.5rem', fontSize: '0.95rem'}}>
                   {paymentScreenshot ? '✅ Payment Screenshot Uploaded' : 'Drag & drop your payment screenshot'}
                 </h3>
-                <p style={{color: '#6b7280'}}>
-                  Or <span style={{color: '#ff8c00', fontWeight: '600', cursor: 'pointer'}}>click here to browse</span> your computer
+                <p style={{color: '#0a1d51', fontSize: '0.9rem'}}>
+                  Or <span style={{color: '#de800d', fontWeight: '500', cursor: 'pointer'}}>click here to browse</span>
                 </p>
                 <input
                   id="paymentScreenshotInput"
@@ -595,16 +596,16 @@ function Quote() {
               onMouseEnter={(e) => !isSubmitting && e.target.classList.add('file-upload-hover')}
               onMouseLeave={(e) => e.target.classList.remove('file-upload-hover')}
             >
-              <div style={{fontSize: '3rem', color: '#8B5CF6', marginBottom: '1rem'}}>
-                📄
+              <div style={{fontSize: '2rem', color: '#de800d', marginBottom: '0.8rem'}}>
+                
               </div>
-              <h3 style={{color: '#1e3a8a', marginBottom: '0.5rem'}}>
+              <h3 style={{color: '#0a1d51', marginBottom: '0.5rem', fontSize: '0.95rem'}}>
                 {files.length > 0 ? `✅ ${files.length} File(s) Selected` : 'Drag & drop your files'}
               </h3>
-              <p style={{color: '#6b7280'}}>
-                Or <span style={{color: '#ff8c00', fontWeight: '600', cursor: 'pointer'}}>click here to browse</span> your computer
+              <p style={{color: '#0a1d51', fontSize: '0.9rem'}}>
+                Or <span style={{color: '#de800d', fontWeight: '500', cursor: 'pointer'}}>click here to browse</span>
               </p>
-              <p style={{color: '#9ca3af', fontSize: '0.9rem', marginTop: '1rem'}}>
+              <p style={{color: '#0a1d51', fontSize: '0.85rem', marginTop: '0.5rem'}}>
                 Supported formats: PDF, Word, PowerPoint, Excel, Text (Max 10MB per file)
               </p>
               <input
@@ -620,10 +621,10 @@ function Quote() {
             
             {files.length > 0 && (
               <div style={styles.fileList}>
-                <h4 style={{color: '#1e3a8a', marginBottom: '1rem'}}>Selected Files:</h4>
+                <h4 style={{color: '#0a1d51', marginBottom: '0.8rem', fontSize: '0.95rem'}}>Selected Files:</h4>
                 {files.map((file, idx) => (
                   <div key={idx} style={styles.fileItem}>
-                    <span>📄 {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                    <span> {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
                     <button
                       type="button"
                       style={styles.removeFileButton}
@@ -646,7 +647,7 @@ function Quote() {
               name="additionalRequirements" 
               value={formData.additionalRequirements}
               onChange={handleInputChange}
-              placeholder="Please specify any additional requirements, special instructions, or important details about your project..."
+              placeholder="Specify any additional requirements or special instructions..."
               disabled={isSubmitting}
             ></textarea>
           </div>

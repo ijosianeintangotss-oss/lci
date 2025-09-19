@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import mobileMoney from '../assets/mobile money.png';
 import visaCard from '../assets/visa card.png';
 import masterCard from '../assets/master card.png';
+import whatsappIcon from '../assets/whatsapp-icon.png';
+import phoneCallIcon from '../assets/phone-call.jpg';
+import emailIcon from '../assets/email-icon.jpg';
 
 function Contact() {
   const [isVisible, setIsVisible] = useState(false);
@@ -32,9 +35,15 @@ function Contact() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     setIsVisible(true);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const services = [
@@ -101,28 +110,28 @@ function Contact() {
   ];
 
   const quickActions = [
-  {
-    title: "WhatsApp Chat",
-    description: "Get instant responses to your questions. Chat with us directly on WhatsApp.",
-    image: "../assets/whatsapp-icon.png", // Replace with your actual image path
-    action: "Start WhatsApp Chat",
-    link: "https://wa.me/250788518720"
-  },
-  {
-    title: "Schedule a Call",
-    description: "Prefer to talk? Call us during business hours for immediate assistance.",
-    image: "../assets/call.png", // Replace with your actual image path
-    action: "Call Now",
-    link: "tel:+250788518720"
-  },
-  {
-    title: "Email Directly",
-    description: "Send us an email with your project details for a detailed quote.",
-    image: "../assets/email.png", // Replace with your actual image path
-    action: "Send Email",
-    link: "mailto:lcirwanda@gmail.com"
-  }
-];
+    {
+      title: "WhatsApp Chat",
+      description: "Get instant responses to your questions. Chat with us directly on WhatsApp.",
+      image: whatsappIcon,
+      action: "Start WhatsApp Chat",
+      link: "https://wa.me/250788518720"
+    },
+    {
+      title: "Schedule a Call",
+      description: "Prefer to talk? Call us during business hours for immediate assistance.",
+      image: phoneCallIcon,
+      action: "Call Now",
+      link: "tel:+250788518720"
+    },
+    {
+      title: "Email Directly",
+      description: "Send us an email with your project details for a detailed quote.",
+      image: emailIcon,
+      action: "Send Email",
+      link: "mailto:lcirwanda@gmail.com"
+    }
+  ];
 
   const paymentMethods = [
     {
@@ -131,12 +140,12 @@ function Contact() {
       image: mobileMoney
     },
     {
-      title: "Visa",
+      title: "",
       description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
       image: visaCard
     },
     {
-      title: "MasterCard",
+      title: "",
       description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
       image: masterCard
     }
@@ -161,7 +170,6 @@ function Contact() {
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
     
-    // Validate file sizes
     const oversizedFiles = selectedFiles.filter(file => file.size > 10 * 1024 * 1024);
     if (oversizedFiles.length > 0) {
       setError(`Files too large: ${oversizedFiles.map(f => f.name).join(', ')}. Maximum size is 10MB per file.`);
@@ -279,7 +287,6 @@ function Contact() {
 
       setSuccess('Quote submitted successfully! We will respond within 2-4 hours.');
       
-      // Reset form
       setFormData({
         fullName: '',
         email: '',
@@ -295,7 +302,6 @@ function Contact() {
       setFiles([]);
       setPaymentScreenshot(null);
       
-      // Reset file inputs
       const fileInput = document.getElementById('fileInput');
       const paymentInput = document.getElementById('paymentScreenshotInput');
       if (fileInput) fileInput.value = '';
@@ -336,7 +342,6 @@ function Contact() {
 
       setSuccess('Message sent successfully! We will get back to you soon.');
       
-      // Reset form
       setMessageData({
         fullName: '',
         email: '',
@@ -356,373 +361,381 @@ function Contact() {
     container: {
       minHeight: '100vh',
       background: '#ffffff',
-      fontFamily: 'Arial, sans-serif'
+      fontFamily: 'Arial, sans-serif',
+      fontSize: '16px',
     },
     heroSection: {
-      minHeight: '30vh',
+      minHeight: '60vh',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '4rem 2rem',
+      padding: '1.5rem',
       position: 'relative',
       overflow: 'hidden',
-      backgroundColor: '#ffffff  ',
-      // background: 'linear-gradient(135deg, #ff8c00 0%, #1e3a8a 50%, #ff8c00 100%)',
+      background: '#f1eee5',
+      borderRadius: '15px',
+      border: '1px solid #de800d',
       opacity: isVisible ? 1 : 0,
-      transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
-      transition: 'all 1s ease-out'
+      transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+      transition: 'all 0.8s ease-out',
+      margin: '1rem',
     },
     heroContent: {
       textAlign: 'center',
       maxWidth: '1200px',
       zIndex: 10,
-      position: 'relative'
+      position: 'relative',
     },
     heroTitle: {
-      fontSize: '3.5rem',
-      fontWeight: 'bold',
-      color: '#0a1d51ff',
-      marginBottom: '1.5rem',
-      lineHeight: '1.2'
+      fontSize: isMobile ? '2rem' : '2.8rem',
+      fontWeight: '700',
+      color: '#0a1d51',
+      marginBottom: '1rem',
+      lineHeight: '1.3',
     },
     heroDescription: {
-      fontSize: '1.3rem',
-      color: '#0a1d51ff',
-      marginBottom: '2rem',
-      lineHeight: '1.6',
+      fontSize: '1rem',
+      color: '#0a1d51',
+      marginBottom: '1.5rem',
+      lineHeight: '1.5',
       maxWidth: '800px',
-      margin: '0 auto 2rem'
+      margin: '0 auto 1.5rem',
     },
     section: {
-      padding: '4rem 2rem',
-      maxWidth: '1400px',
-      margin: '0 auto'
+      padding: '3rem 1.5rem',
+      maxWidth: '1200px',
+      margin: '0 auto',
     },
     sectionTitle: {
-      fontSize: '2.5rem',
-      fontWeight: 'bold',
-      color: '#0f2460ff',
+      fontSize: '2rem',
+      fontWeight: '700',
+      color: '#0a1d51',
       textAlign: 'center',
-      marginBottom: '1rem'
+      marginBottom: '1rem',
     },
     sectionSubtitle: {
-      fontSize: '1.2rem',
-      color: '#6b7280',
+      fontSize: '1rem',
+      color: '#0a1d51',
       textAlign: 'center',
-      marginBottom: '3rem',
-      maxWidth: '800px',
-      margin: '0 auto 3rem'
+      marginBottom: '1.5rem',
+      maxWidth: '700px',
+      margin: '0 auto 1.5rem',
     },
     contactInfoSection: {
-
-      // background: 'linear-gradient(135deg, #f0f9ff, #dbeafe)',
-      background: '#ffffff  ',
-      borderRadius: '20px',
-      padding: '3rem',
-      margin: '2rem 0',
-      border: '2px solid #ff8c00'
+      background: '#f1eee5',
+      borderRadius: '15px',
+      padding: '2rem',
+      margin: '1rem 0',
+      border: '1px solid #de800d',
     },
     contactGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gap: '2rem',
-      marginBottom: '2rem'
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: '1.5rem',
     },
     contactCard: {
       background: '#ffffff',
-      borderRadius: '15px',
-      padding: '2rem',
-      border: '2px solid #f3f4f6',
-      boxShadow: '0 8px 25px rgba(255, 140, 0, 0.1)'
+      borderRadius: '12px',
+      padding: '1.5rem',
+      border: '1px solid #de800d',
+      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.1)',
     },
     contactCardTitle: {
-      fontSize: '1.5rem',
-      fontWeight: 'bold',
-      color: '#0f2460ff',
-      marginBottom: '1rem'
+      fontSize: '1.3rem',
+      fontWeight: '600',
+      color: '#0a1d51',
+      marginBottom: '0.8rem',
     },
     contactDetails: {
-      color: '#4b5563',
-      lineHeight: '1.8',
-      fontSize: '1.1rem'
+      color: '#0a1d51',
+      lineHeight: '1.5',
+      fontSize: '0.95rem',
     },
     formSection: {
-      background: '#ffffff',
-      borderRadius: '20px',
-      padding: '3rem',
-      margin: '2rem 0',
-      border: '2px solid #f3f4f6',
-      boxShadow: '0 8px 32px rgba(30, 58, 138, 0.1)'
+      background: '#f1eee5',
+      borderRadius: '15px',
+      padding: '2rem',
+      margin: '1rem 0',
+      border: '1px solid #de800d',
     },
     tabContainer: {
       display: 'flex',
-      gap: '1rem',
-      marginBottom: '2rem',
-      borderBottom: '2px solid #f3f4f6'
+      gap: '0.8rem',
+      marginBottom: '1.5rem',
+      borderBottom: '1px solid #de800d',
+      justifyContent: 'center',
     },
     tab: {
-      padding: '1rem 2rem',
+      padding: '0.8rem 1.5rem',
       border: 'none',
       background: 'transparent',
       cursor: 'pointer',
-      fontSize: '1.1rem',
-      fontWeight: '600',
-      borderBottom: '3px solid transparent',
-      transition: 'all 0.3s ease'
+      fontSize: '0.95rem',
+      fontWeight: '500',
+      borderBottom: '2px solid transparent',
+      transition: 'all 0.3s ease',
     },
     activeTab: {
-      color: '#ff8c00',
-      borderBottom: '3px solid #ff8c00'
+      color: '#de800d',
+      borderBottom: '2px solid #de800d',
     },
     inactiveTab: {
-      color: '#6b7280'
+      color: '#0a1d51',
     },
     formGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gap: '1.5rem',
-      marginBottom: '2rem'
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: '1rem',
+      marginBottom: '1.5rem',
     },
     formGroup: {
       display: 'flex',
-      flexDirection: 'column'
+      flexDirection: 'column',
     },
     label: {
-      fontSize: '1rem',
-      fontWeight: '600',
-      color: '#374151',
-      marginBottom: '0.5rem'
+      fontSize: '0.95rem',
+      fontWeight: '500',
+      color: '#0a1d51',
+      marginBottom: '0.4rem',
     },
     input: {
-      padding: '1rem',
-      border: '2px solid #e5e7eb',
-      borderRadius: '10px',
-      fontSize: '1rem',
-      transition: 'border-color 0.3s ease',
-      backgroundColor: '#ffffff'
-    },
-    select: {
-      padding: '1rem',
-      border: '2px solid #e5e7eb',
-      borderRadius: '10px',
-      fontSize: '1rem',
-      transition: 'border-color 0.3s ease',
-      backgroundColor: '#ffffff'
-    },
-    textarea: {
-      padding: '1rem',
-      border: '2px solid #e5e7eb',
-      borderRadius: '10px',
-      fontSize: '1rem',
+      padding: '0.8rem',
+      border: '1px solid #de800d',
+      borderRadius: '8px',
+      fontSize: '0.95rem',
       transition: 'border-color 0.3s ease',
       backgroundColor: '#ffffff',
-      minHeight: '120px',
-      resize: 'vertical'
+    },
+    select: {
+      padding: '0.8rem',
+      border: '1px solid #de800d',
+      borderRadius: '8px',
+      fontSize: '0.95rem',
+      transition: 'border-color 0.3s ease',
+      backgroundColor: '#ffffff',
+    },
+    textarea: {
+      padding: '0.8rem',
+      border: '1px solid #de800d',
+      borderRadius: '8px',
+      fontSize: '0.95rem',
+      transition: 'border-color 0.3s ease',
+      backgroundColor: '#ffffff',
+      minHeight: '100px',
+      resize: 'vertical',
     },
     fileUpload: {
-      border: '2px dashed #d1d5db',
-      borderRadius: '15px',
-      padding: '3rem',
+      border: '1px dashed #de800d',
+      borderRadius: '12px',
+      padding: '2rem',
       textAlign: 'center',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
-      background: '#f9fafb'
+      background: '#f1eee5',
     },
     fileUpload1: {
-      border: '2px dashed #d1d5db',
-      borderRadius: '15px',
-      padding: '1.5rem',
+      border: '1px dashed #de800d',
+      borderRadius: '12px',
+      padding: '1rem',
       textAlign: 'center',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
-      background: '#f9fafb'
+      background: '#f1eee5',
     },
     fileList: {
-      marginTop: '1rem',
-      padding: '1rem',
-      background: '#f8fafc',
+      marginTop: '0.8rem',
+      padding: '0.8rem',
+      background: '#ffffff',
       borderRadius: '8px',
-      border: '1px solid #e2e8f0'
+      border: '1px solid #de800d',
     },
     fileItem: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: '0.5rem 0',
-      borderBottom: '1px solid #e2e8f0',
-      color: '#1e3a8a'
+      padding: '0.4rem 0',
+      borderBottom: '1px solid #de800d',
+      color: '#0a1d51',
+      fontSize: '0.9rem',
     },
     removeFileButton: {
       background: '#ef4444',
       color: 'white',
       border: 'none',
       borderRadius: '4px',
-      padding: '0.25rem 0.5rem',
+      padding: '0.2rem 0.4rem',
       fontSize: '0.8rem',
-      cursor: 'pointer'
+      cursor: 'pointer',
     },
     submitButton: {
-      // background: 'linear-gradient(135deg, #ff8c00, #1e3a8a)',
-      background: ' #d27b10ff',
+      background: '#de800d',
       color: 'white',
-      padding: '1rem 3rem',
-      borderRadius: '50px',
+      padding: '0.8rem 1.5rem',
+      borderRadius: '12px',
       border: 'none',
-      fontSize: '1.1rem',
-      fontWeight: '600',
+      fontSize: '0.95rem',
+      fontWeight: '500',
       cursor: 'pointer',
-      boxShadow: '0 10px 25px rgba(255, 140, 0, 0.3)',
+      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.2)',
       transition: 'all 0.3s ease',
       alignSelf: 'center',
       display: 'flex',
       alignItems: 'center',
       gap: '0.5rem',
-      margin: '0 auto'
+      margin: '0 auto',
     },
     submitButtonDisabled: {
       background: '#9ca3af',
       cursor: 'not-allowed',
-      boxShadow: 'none'
+      boxShadow: 'none',
     },
     quickActionsGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gap: '2rem'
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: '1.5rem',
     },
     quickActionCard: {
       background: '#ffffff',
-      borderRadius: '20px',
-      padding: '2rem',
-      border: '2px solid #f3f4f6',
+      borderRadius: '12px',
+      padding: '1.5rem',
+      border: '1px solid #de800d',
       cursor: 'pointer',
-      transform: 'scale(1)',
       transition: 'all 0.3s ease',
-      boxShadow: '0 8px 25px rgba(255, 140, 0, 0.1)',
-      textAlign: 'center'
+      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.1)',
+      textAlign: 'center',
     },
     quickActionIcon: {
-      fontSize: '3rem',
-      marginBottom: '1.5rem'
+      fontSize: '2rem',
+      marginBottom: '0.8rem',
     },
     quickActionTitle: {
-      fontSize: '1.3rem',
-      fontWeight: 'bold',
-      color: '#1e3a8a',
-      marginBottom: '1rem'
+      fontSize: '1.2rem',
+      fontWeight: '600',
+      color: '#0a1d51',
+      marginBottom: '0.8rem',
     },
     quickActionDescription: {
-      color: '#4b5563',
-      lineHeight: '1.6',
-      marginBottom: '1.5rem'
+      color: '#0a1d51',
+      lineHeight: '1.5',
+      marginBottom: '1rem',
+      fontSize: '0.95rem',
     },
     quickActionButton: {
-      background: 'linear-gradient(135deg, #10b981, #059669)',
+      background: '#10b981',
       color: 'white',
-      padding: '0.8rem 1.5rem',
-      borderRadius: '25px',
+      padding: '0.6rem 1.2rem',
+      borderRadius: '12px',
       border: 'none',
-      fontSize: '1rem',
-      fontWeight: '600',
+      fontSize: '0.95rem',
+      fontWeight: '500',
       cursor: 'pointer',
-      transition: 'all 0.3s ease'
+      transition: 'all 0.3s ease',
     },
     faqSection: {
-      backgroundColor: '#f1eee5ff',
-      // background: 'linear-gradient(135deg, #fff7ed, #fef3c7)',
-      borderRadius: '20px',
-      padding: '3rem',
-      margin: '2rem 0',
-      border: '2px solid #ff8c00'
+      background: '#f1eee5',
+      borderRadius: '15px',
+      padding: '2rem',
+      margin: '1rem 0',
+      border: '1px solid #de800d',
     },
     faqGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-      gap: '2rem'
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(360px, 1fr))',
+      gap: '1.5rem',
     },
     faqItem: {
       background: '#ffffff',
-      borderRadius: '15px',
-      padding: '2rem',
-      border: '2px solid #f3f4f6',
-      boxShadow: '0 4px 15px rgba(255, 140, 0, 0.1)'
+      borderRadius: '12px',
+      padding: '1.5rem',
+      border: '1px solid #de800d',
+      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.1)',
     },
     faqQuestion: {
-      fontSize: '1.2rem',
-      fontWeight: 'bold',
-      color: '#1e3a8a',
-      marginBottom: '1rem'
+      fontSize: '1.1rem',
+      fontWeight: '600',
+      color: '#0a1d51',
+      marginBottom: '0.8rem',
     },
     faqAnswer: {
-      color: '#4b5563',
-      lineHeight: '1.6'
+      color: '#0a1d51',
+      lineHeight: '1.5',
+      fontSize: '0.95rem',
     },
     ctaSection: {
       textAlign: 'center',
-      padding: '4rem 2rem',
-      backgroundColor: '#f1eee5ff',
-      // background: 'linear-gradient(135deg, #1e3a8a, #ff8c00)',
-      borderRadius: '20px',
-      margin: '2rem 0'
+      padding: '3rem 1.5rem',
+      background: '#f1eee5',
+      borderRadius: '15px',
+      margin: '1rem 0',
+      border: '1px solid #de800d',
     },
     ctaTitle: {
-      fontSize: '2.5rem',
-      fontWeight: 'bold',
-      color: '#0f2460ff',
-      marginBottom: '1rem'
+      fontSize: '2rem',
+      fontWeight: '700',
+      color: '#0a1d51',
+      marginBottom: '1rem',
     },
     ctaDescription: {
-      fontSize: '1.2rem',
-      color: '#0a1d51ff',
-      marginBottom: '2rem',
-      lineHeight: '1.6'
+      fontSize: '1rem',
+      color: '#0a1d51',
+      marginBottom: '1.5rem',
+      lineHeight: '1.5',
     },
     ctaButton: {
-      // background: 'linear-gradient(135deg, #fbbf24, #f59e0b)',
-      backgroundColor: '#d27b10ff',
-      color: '#1e3a8a',
-      padding: '1rem 3rem',
-      borderRadius: '50px',
+      background: '#de800d',
+      color: 'white',
+      padding: '0.8rem 1.5rem',
+      borderRadius: '12px',
       border: 'none',
-      fontSize: '1.1rem',
-      fontWeight: '600',
+      fontSize: '0.95rem',
+      fontWeight: '500',
       cursor: 'pointer',
-      boxShadow: '0 10px 25px rgba(251, 191, 36, 0.3)',
-      transition: 'all 0.3s ease'
+      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.2)',
+      transition: 'all 0.3s ease',
     },
     errorMessage: {
       color: '#dc2626',
       textAlign: 'center',
       marginBottom: '1rem',
-      fontWeight: '600',
-      padding: '1rem',
+      fontWeight: '500',
+      padding: '0.8rem',
       background: '#fef2f2',
-      borderRadius: '10px',
-      border: '1px solid #fecaca'
+      borderRadius: '8px',
+      border: '1px solid #fecaca',
+      fontSize: '0.95rem',
     },
     successMessage: {
       color: '#065f46',
       textAlign: 'center',
       marginBottom: '1rem',
-      fontWeight: '600',
-      padding: '1rem',
+      fontWeight: '500',
+      padding: '0.8rem',
       background: '#ecfdf5',
-      borderRadius: '10px',
-      border: '1px solid #a7f3d0'
+      borderRadius: '8px',
+      border: '1px solid #a7f3d0',
+      fontSize: '0.95rem',
     },
     loadingSpinner: {
       display: 'inline-block',
-      width: '1rem',
-      height: '1rem',
+      width: '0.9rem',
+      height: '0.9rem',
       border: '2px solid transparent',
       borderTop: '2px solid white',
       borderRadius: '50%',
-      animation: 'spin 1s linear infinite'
+      animation: 'spin 1s linear infinite',
     },
     paymentImage: {
-      width: '100px',
-      height: '50px',
+      width: '80px',
+      height: '40px',
       objectFit: 'contain',
-      marginBottom: '1.5rem',
+      marginBottom: '1rem',
+    },
+    clientPortalCard: {
+      background: '#ffffff',
+      borderRadius: '12px',
+      padding: '1.5rem',
+      border: '1px solid #de800d',
+      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.1)',
     },
   };
 
@@ -754,18 +767,17 @@ function Contact() {
           }
           
           input:focus, select:focus, textarea:focus {
-            border-color: #ff8c00 !important;
+            border-color: #de800d !important;
             outline: none;
           }
           
           .file-upload-hover {
-            border-color: #ff8c00 !important;
+            border-color: #de800d !important;
             background: #fff7ed !important;
           }
         `}
       </style>
 
-      {/* Hero Section */}
       <section style={styles.heroSection}>
         <div style={styles.heroContent}>
           <h1 style={styles.heroTitle}>Let's Talk Language</h1>
@@ -775,7 +787,6 @@ function Contact() {
         </div>
       </section>
 
-      {/* Contact Information Section */}
       <section style={styles.section}>
         <div style={styles.contactInfoSection}>
           <h2 style={styles.sectionTitle}>Contact Information</h2>
@@ -791,12 +802,11 @@ function Contact() {
                 📍 Kigali, Rwanda
               </div>
             </div>
-            
             <div style={styles.contactCard}>
               <h3 style={styles.contactCardTitle}>Contact Us</h3>
               <div style={styles.contactDetails}>
                 📧 <strong>Email:</strong> lcirwanda@gmail.com<br />
-                📞  <strong>Call / WhatsApp:</strong> +250 788 518 720<br />
+                📞 <strong>Call / WhatsApp:</strong> +250 788 518 720<br />
                 📍 <strong>Location:</strong> Kigali, Rwanda<br />
                 🌐 <strong>Services:</strong> Remote & On-site Available<br /><br />
                 💬 <strong>Need urgent support after hours?</strong><br />
@@ -807,10 +817,8 @@ function Contact() {
         </div>
       </section>
 
-      {/* Quote and Message Forms */}
       <section style={styles.section}>
         <div style={styles.formSection}>
-          
           <div style={styles.tabContainer}>
             <button 
               style={{
@@ -855,7 +863,6 @@ function Contact() {
                       disabled={isSubmitting}
                     />
                   </div>
-                  
                   <div style={styles.formGroup}>
                     <label style={styles.label} htmlFor="email">Email Address *</label>
                     <input 
@@ -870,7 +877,6 @@ function Contact() {
                       disabled={isSubmitting}
                     />
                   </div>
-                  
                   <div style={styles.formGroup}>
                     <label style={styles.label} htmlFor="phone">Phone Number</label>
                     <input 
@@ -884,7 +890,6 @@ function Contact() {
                       disabled={isSubmitting}
                     />
                   </div>
-                  
                   <div style={styles.formGroup}>
                     <label style={styles.label} htmlFor="service">Service Required *</label>
                     <select 
@@ -902,7 +907,6 @@ function Contact() {
                       ))}
                     </select>
                   </div>
-                  
                   <div style={styles.formGroup}>
                     <label style={styles.label} htmlFor="documentType">Document Type *</label>
                     <select 
@@ -920,7 +924,6 @@ function Contact() {
                       ))}
                     </select>
                   </div>
-                  
                   <div style={styles.formGroup}>
                     <label style={styles.label} htmlFor="sourceLanguage">Source Language *</label>
                     <select 
@@ -938,7 +941,6 @@ function Contact() {
                       ))}
                     </select>
                   </div>
-                  
                   <div style={styles.formGroup}>
                     <label style={styles.label} htmlFor="targetLanguage">Target Language *</label>
                     <select 
@@ -956,7 +958,6 @@ function Contact() {
                       ))}
                     </select>
                   </div>
-                  
                   <div style={styles.formGroup}>
                     <label style={styles.label} htmlFor="turnaround">Turnaround Time *</label>
                     <select 
@@ -974,7 +975,6 @@ function Contact() {
                       ))}
                     </select>
                   </div>
-                  
                   <div style={styles.formGroup}>
                     <label style={styles.label} htmlFor="wordCount">Estimated Word Count</label>
                     <input 
@@ -988,7 +988,6 @@ function Contact() {
                       disabled={isSubmitting}
                     />
                   </div>
-
                   <div style={styles.formGroup}>
                     <label style={styles.label}>Upload Payment Screenshot *</label>
                     <label style={styles.label}>Dial *182*1*1*0788518720*Amount# *</label>
@@ -998,11 +997,11 @@ function Contact() {
                       onMouseEnter={(e) => !isSubmitting && e.target.classList.add('file-upload-hover')}
                       onMouseLeave={(e) => e.target.classList.remove('file-upload-hover')}
                     >
-                      <h3 style={{color: '#1e3a8a', marginBottom: '0.5rem'}}>
+                      <h3 style={{color: '#0a1d51', marginBottom: '0.5rem', fontSize: '0.95rem'}}>
                         {paymentScreenshot ? '✅ Payment Screenshot Uploaded' : 'Drag & drop your payment screenshot'}
                       </h3>
-                      <p style={{color: '#6b7280'}}>
-                        Or <span style={{color: '#ff8c00', fontWeight: '600', cursor: 'pointer'}}>click here to browse</span> your computer
+                      <p style={{color: '#0a1d51', fontSize: '0.9rem'}}>
+                        Or <span style={{color: '#de800d', fontWeight: '500', cursor: 'pointer'}}>click here to browse</span>
                       </p>
                       <input
                         id="paymentScreenshotInput"
@@ -1042,16 +1041,16 @@ function Contact() {
                     onMouseEnter={(e) => !isSubmitting && e.target.classList.add('file-upload-hover')}
                     onMouseLeave={(e) => e.target.classList.remove('file-upload-hover')}
                   >
-                    <div style={{fontSize: '3rem', color: '#8B5CF6', marginBottom: '1rem'}}>
-                      📄
+                    <div style={{fontSize: '2rem', color: '#de800d', marginBottom: '0.8rem'}}>
+                      
                     </div>
-                    <h3 style={{color: '#1e3a8a', marginBottom: '0.5rem'}}>
+                    <h3 style={{color: '#0a1d51', marginBottom: '0.5rem', fontSize: '0.95rem'}}>
                       {files.length > 0 ? `✅ ${files.length} File(s) Selected` : 'Drag & drop your files'}
                     </h3>
-                    <p style={{color: '#6b7280'}}>
-                      Or <span style={{color: '#ff8c00', fontWeight: '600', cursor: 'pointer'}}>click here to browse</span> your computer
+                    <p style={{color: '#0a1d51', fontSize: '0.9rem'}}>
+                      Or <span style={{color: '#de800d', fontWeight: '500', cursor: 'pointer'}}>click here to browse</span>
                     </p>
-                    <p style={{color: '#9ca3af', fontSize: '0.9rem', marginTop: '1rem'}}>
+                    <p style={{color: '#0a1d51', fontSize: '0.85rem', marginTop: '0.5rem'}}>
                       Supported formats: PDF, Word, PowerPoint, Excel, Text (Max 10MB per file)
                     </p>
                     <input
@@ -1067,7 +1066,7 @@ function Contact() {
                   
                   {files.length > 0 && (
                     <div style={styles.fileList}>
-                      <h4 style={{color: '#1e3a8a', marginBottom: '1rem'}}>Selected Files:</h4>
+                      <h4 style={{color: '#0a1d51', marginBottom: '0.8rem', fontSize: '0.95rem'}}>Selected Files:</h4>
                       {files.map((file, idx) => (
                         <div key={idx} style={styles.fileItem}>
                           <span>📄 {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
@@ -1093,7 +1092,7 @@ function Contact() {
                     name="additionalRequirements" 
                     value={formData.additionalRequirements}
                     onChange={handleInputChange}
-                    placeholder="Please specify any additional requirements, special instructions, or important details about your project..."
+                    placeholder="Specify any additional requirements or special instructions..."
                     disabled={isSubmitting}
                   ></textarea>
                 </div>
@@ -1147,7 +1146,6 @@ function Contact() {
                       disabled={isSubmitting}
                     />
                   </div>
-                  
                   <div style={styles.formGroup}>
                     <label style={styles.label} htmlFor="messageEmail">Email Address *</label>
                     <input 
@@ -1196,9 +1194,9 @@ function Contact() {
                 {error && <div style={styles.errorMessage}>{error}</div>}
                 {success && <div style={styles.successMessage}>{success}</div>}
 
-                <div style={{background: '#f1eee5ff', padding: '1.5rem', borderRadius: '10px', marginBottom: '2rem', border: '1px solid #dbeafe'}}>
-                  <h4 style={{color: '#1e3a8a', marginBottom: '1rem'}}>💡 Tips for Faster Quotes:</h4>
-                  <ul style={{color: '#4b5563', lineHeight: '1.6', paddingLeft: '1.5rem'}}>
+                <div style={{background: '#f1eee5', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', border: '1px solid #de800d'}}>
+                  <h4 style={{color: '#0a1d51', marginBottom: '0.8rem', fontSize: '0.95rem'}}>💡 Tips for Faster Quotes:</h4>
+                  <ul style={{color: '#0a1d51', lineHeight: '1.5', paddingLeft: '1rem', fontSize: '0.9rem'}}>
                     <li>Mention source and target languages</li>
                     <li>Include document type and estimated word count</li>
                     <li>Specify your desired delivery date</li>
@@ -1231,7 +1229,6 @@ function Contact() {
         </div>
       </section>
 
-      {/* Quick Actions Section */}
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}>Quick Actions</h2>
         <p style={styles.sectionSubtitle}>
@@ -1244,12 +1241,12 @@ function Contact() {
               style={{
                 ...styles.quickActionCard,
                 transform: hoveredCard === index ? 'scale(1.05)' : 'scale(1)',
-                borderColor: hoveredCard === index ? '#ff8c00' : '#f3f4f6'
+                borderColor: hoveredCard === index ? '#de800d' : '#de800d'
               }}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
             >
-              <div style={styles.quickActionIcon}>{action.icon}</div>
+              <img src={action.image} alt={action.title} style={{width: '48px', height: '48px', marginBottom: '0.8rem'}} />
               <h3 style={styles.quickActionTitle}>{action.title}</h3>
               <p style={styles.quickActionDescription}>{action.description}</p>
               <a href={action.link} target="_blank" rel="noopener noreferrer">
@@ -1266,65 +1263,52 @@ function Contact() {
         </div>
       </section>
 
-      {/* Client Portal Section */}
       <section style={styles.section}>
-        <div style={{
-          // background: 'linear-gradient(135deg, #f8fafc, #e2e8f0)',
-          backgroundColor: '#f1eee5ff',
-          borderRadius: '20px',
-          padding: '4rem 2rem',
-          border: '2px solid #de800dff',
-          textAlign: 'center'
-        }}>
+        <div style={{...styles.clientPortalCard, padding: '2rem', textAlign: 'center'}}>
           <h2 style={styles.sectionTitle}>🗂️ Client Portal</h2>
-          <h3 style={{fontSize: '2rem', color: '#d27b10ff', marginBottom: '1rem'}}>Your Central Hub for Multilingual Projects</h3>
-          <p style={{fontSize: '1.8rem', fontWeight: 'bold', color: '#1e3a8a', marginBottom: '1.5rem'}}>
+          <h3 style={{fontSize: '1.6rem', color: '#0a1d51', marginBottom: '0.8rem'}}>Your Central Hub for Multilingual Projects</h3>
+          <p style={{fontSize: '1.2rem', fontWeight: '600', color: '#0a1d51', marginBottom: '1rem'}}>
             🌍 Translate. Track. Trust.
           </p>
           <p style={styles.sectionSubtitle}>
             Welcome to your personalized LCI Client Portal—your secure, organized, and user-friendly platform to manage all translation, localization, and linguistic service requests in one place.
           </p>
-
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '2rem',
-            marginTop: '3rem'
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(260px, 1fr))',
+            gap: '1.5rem',
+            marginTop: '2rem'
           }}>
-            <div style={styles.contactCard}>
-              <h4 style={{fontSize: '1.3rem', color: '#1e3a8a', marginBottom: '1rem'}}>✅ Project Dashboard</h4>
-              <p style={{color: '#4b5563'}}>Track all your requests in real-time with full project visibility and progress updates.</p>
+            <div style={styles.clientPortalCard}>
+              <h4 style={{fontSize: '1.1rem', color: '#0a1d51', marginBottom: '0.8rem'}}>✅ Project Dashboard</h4>
+              <p style={{color: '#0a1d51', fontSize: '0.95rem'}}>Track all your requests in real-time with full project visibility and progress updates.</p>
             </div>
-            <div style={styles.contactCard}>
-              <h4 style={{fontSize: '1.3rem', color: '#1e3a8a', marginBottom: '1rem'}}>📂 Document Repository</h4>
-              <p style={{color: '#4b5563'}}>Secure, encrypted storage for all your project files and deliverables.</p>
+            <div style={styles.clientPortalCard}>
+              <h4 style={{fontSize: '1.1rem', color: '#0a1d51', marginBottom: '0.8rem'}}>📂 Document Repository</h4>
+              <p style={{color: '#0a1d51', fontSize: '0.95rem'}}>Secure, encrypted storage for all your project files and deliverables.</p>
             </div>
-            <div style={styles.contactCard}>
-              <h4 style={{fontSize: '1.3rem', color: '#1e3a8a', marginBottom: '1rem'}}>💳 Payment Management</h4>
-              <p style={{color: '#4b5563'}}>Transparent billing with secure payment options via Credit Card, PayPal, or Mobile Money.</p>
+            <div style={styles.clientPortalCard}>
+              <h4 style={{fontSize: '1.1rem', color: '#0a1d51', marginBottom: '0.8rem'}}>💳 Payment Management</h4>
+              <p style={{color: '#0a1d51', fontSize: '0.95rem'}}>Transparent billing with secure payment options via Credit Card, PayPal, or Mobile Money.</p>
             </div>
-            <div style={styles.contactCard}>
-              <h4 style={{fontSize: '1.3rem', color: '#1e3a8a', marginBottom: '1rem'}}>📊 Performance Reports</h4>
-              <p style={{color: '#4b5563'}}>Analytics and insights to help you make informed decisions about your multilingual projects.</p>
+            <div style={styles.clientPortalCard}>
+              <h4 style={{fontSize: '1.1rem', color: '#0a1d51', marginBottom: '0.8rem'}}>📊 Performance Reports</h4>
+              <p style={{color: '#0a1d51', fontSize: '0.95rem'}}>Analytics and insights to help you make informed decisions about your multilingual projects.</p>
             </div>
           </div>
-
           <button 
             style={{
               ...styles.ctaButton,
-              marginTop: '2rem',
-              fontSize: '1.2rem',
-              padding: '1.2rem 3rem'
+              marginTop: '1.5rem',
             }}
             onMouseEnter={handleButtonHover}
             onMouseLeave={handleButtonLeave}
           >
-            🔗 Access Client Portal
+             Access Client Portal
           </button>
         </div>
       </section>
 
-      {/* FAQ Section */}
       <section style={styles.section}>
         <div style={styles.faqSection}>
           <h2 style={styles.sectionTitle}>Frequently Asked Questions</h2>
@@ -1342,23 +1326,16 @@ function Contact() {
         </div>
       </section>
 
-      {/* Payment Methods Section */}
       <section style={styles.section}>
-        <div style={{
-          // background: 'linear-gradient(135deg, #fef7ff, #fae8ff)',
-          backgroundColor: '#f1eee5ff',
-          borderRadius: '20px',
-          padding: '3rem',
-          border: '2px solid #de800dff'
-        }}>
+        <div style={{...styles.faqSection, padding: '2rem'}}>
           <h2 style={styles.sectionTitle}>💳 Secure Payment Options</h2>
           <p style={styles.sectionSubtitle}>
             We offer convenient and secure payment options for your translation and localization services.
           </p>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: '2rem'
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: '1.5rem'
           }}>
             {paymentMethods.map((method, index) => (
               <div
@@ -1370,102 +1347,61 @@ function Contact() {
                 }}
               >
                 <img src={method.image} alt={method.title} style={styles.paymentImage} />
-                <h4 style={{fontSize: '1.2rem', color: '#1e3a8a', marginBottom: '0.5rem'}}>{method.title}</h4>
-                <p style={{color: '#4b5563', fontSize: '0.9rem'}}>{method.description}</p>
+                <h4 style={{fontSize: '1.1rem', color: '#0a1d51', marginBottom: '0.5rem'}}>{method.title}</h4>
+                <p style={{color: '#0a1d51', fontSize: '0.9rem'}}>{method.description}</p>
               </div>
             ))}
           </div>
-
-          <div style={{textAlign: 'center', marginTop: '2rem'}}>
+          <div style={{textAlign: 'center', marginTop: '1.5rem'}}>
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
               background: 'rgba(16, 185, 129, 0.2)',
               border: '1px solid rgba(16, 185, 129, 0.3)',
-              borderRadius: '50px',
-              padding: '1rem 2rem',
+              borderRadius: '12px',
+              padding: '0.8rem 1.5rem',
               color: '#065f46',
-              fontWeight: '600'
+              fontWeight: '500',
+              fontSize: '0.95rem'
             }}>
-              <span style={{fontSize: '1.5rem'}}>🛡️</span>
+              <span style={{fontSize: '1.2rem'}}>🛡️</span>
               <span>All payments are processed securely. We do not store your payment information.</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Service Areas Section */}
-      <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>🌍 Our Service Coverage</h2>
-        <p style={styles.sectionSubtitle}>
-          Serving clients across Rwanda, Africa, and globally with professional language services.
-        </p>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '1.5rem',
-          textAlign: 'center'
-        }}>
-          {['🇷🇼 Rwanda', '🌍 East Africa', '🌎 International', '🌐 Remote Services'].map((area, index) => (
-            <div key={index} style={{
-              ...styles.contactCard,
-              padding: '1.5rem',
-              border: '2px solid #ff8c00'
-            }}>
-              <h4 style={{fontSize: '1.1rem', color: '#1e3a8a'}}>{area}</h4>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Final CTA Section */}
       <section style={styles.section}>
         <div style={styles.ctaSection}>
           <h2 style={styles.ctaTitle}>Ready to Start Your Project?</h2>
           <p style={styles.ctaDescription}>
             Join the many organizations that trust LCI for their language needs. Get your free quote today!
           </p>
-          <div style={{display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap'}}>
-            <button 
-              style={styles.ctaButton}
-              onMouseEnter={handleButtonHover}
-              onMouseLeave={handleButtonLeave}
-              onClick={() => setActiveSection('quote')}
-            >
-              <span style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-                 Get Free Quote Now
-              </span>
-            </button>
-            <a href="https://wa.me/250788518720" target="_blank" rel="noopener noreferrer">
+          <div style={{display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap'}}>
+            <a href="/quote" rel="noopener noreferrer">
               <button 
-                style={{
-                  ...styles.ctaButton,
-                  background: 'linear-gradient(135deg, #10b981, #059669)'
-                }}
+                style={styles.ctaButton}
                 onMouseEnter={handleButtonHover}
                 onMouseLeave={handleButtonLeave}
               >
-                <span style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-                  Chat on WhatsApp
-                </span>
+                Get Free Quote Now
               </button>
             </a>
           </div>
-          
           <div style={{
-            marginTop: '3rem',
-            padding: '2rem',
-            background: 'rgba(255, 255, 255, 0.2)',
-            borderRadius: '15px',
-            border: '1px solid rgba(255, 255, 255, 0.3)'
+            marginTop: '2rem',
+            padding: '1.5rem',
+            background: '#f1eee5',
+            borderRadius: '12px',
+            border: '1px solid #de800d'
           }}>
-            <h3 style={{color: '#1e3a8a', marginBottom: '1rem'}}>✨ Why Choose LCI?</h3>
+            <h3 style={{color: '#0a1d51', marginBottom: '0.8rem', fontSize: '1.2rem'}}>✨ Why Choose LCI?</h3>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(180px, 1fr))',
               gap: '1rem',
-              color: '#1e3a8a',
+              color: '#0a1d51',
               fontSize: '0.9rem'
             }}>
               <div>✅ Native linguists with expertise</div>
