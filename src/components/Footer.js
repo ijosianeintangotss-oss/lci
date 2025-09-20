@@ -151,14 +151,15 @@ function Footer() {
       position: 'relative',
       zIndex: 1,
       maxWidth: '1400px',
-      margin: '0 auto',
+      margin: '0 0 0 0',
       padding: '2rem 1rem 1rem'
     },
     mainSection: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(4, 1fr)',
+      gridTemplateColumns: 'repeat(3, 1fr)',
       gap: '1rem',
-      marginBottom: '2rem'
+      marginBottom: '2rem',
+      justifyContent: 'flex-start'
     },
     section: {
       display: 'flex',
@@ -419,58 +420,6 @@ function Footer() {
       <div style={styles.container}>
         {/* Main Footer Content */}
         <div style={styles.mainSection}>
-          {/* Company Information */}
-          <div style={styles.section}>
-            <div style={styles.companyInfo}>
-              {/* <div style={styles.logoSection}> */}
-                {/* <img src={logo} alt="LCI Logo" style={styles.logo} /> */}
-                {/* <div>
-                  <div style={styles.companyName}>Language Computing International</div>
-                  <div style={styles.tagline}>Translate. Localize. Connect.</div>
-                </div> */}
-              {/* </div> */}
-              
-              {/* <p style={styles.description}>
-                Language Computing International is your trusted partner for professional 
-                translation and localization services. We bridge language barriers and connect 
-                cultures across East Africa and beyond.
-              </p> */}
-
-              {/* Newsletter Subscription */}
-              <div style={{...styles.newsletter, alignItems: 'flex-start'}}>
-                <h4 style={{...styles.sectionTitle, fontSize: '1rem', marginBottom: '0.5rem'}}>
-                  Stay Updated
-                  <div style={styles.titleUnderline}></div>
-                </h4>
-                <form onSubmit={handleSubscribe} style={styles.newsletterInput}>
-                  <input 
-                    type="email" 
-                    placeholder="Your email address"
-                    value={email}
-                    onChange={handleEmailChange}
-                    style={styles.emailInput}
-                    required
-                  />
-                  <button 
-                    type="submit"
-                    style={styles.subscribeButton}
-                    onMouseEnter={(e) => {
-                      e.target.style.background = '#e57000';
-                      e.target.style.transform = 'scale(0.5)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.background = '#ff8c00';
-                      e.target.style.transform = 'scale(0.5)';
-                    }}
-                  >
-                    Subscribe
-                  </button>
-                </form>
-                {message && <p style={styles.message}>{message}</p>}
-              </div>
-            </div>
-          </div>
-
           {/* Quick Links */}
           <div style={styles.section}>
             <h3 style={styles.sectionTitle}>
@@ -523,33 +472,6 @@ function Footer() {
                 </div>
               ))}
             </div>
-
-            {/* Languages We Support */}
-            {/* <div style={{marginTop: '2rem'}}>
-              <h4 style={{...styles.sectionTitle, fontSize: '1.1rem'}}>
-                Languages We Support
-                <div style={styles.titleUnderline}></div>
-              </h4>
-              <div style={styles.languageGrid}>
-                {languages.map((language, index) => (
-                  <div 
-                    key={index}
-                    style={{
-                      ...styles.languageItem,
-                      ...(hoveredLink === `lang-${index}` ? {
-                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                        transform: 'scale(1.05)'
-                      } : {})
-                    }}
-                    onMouseEnter={() => setHoveredLink(`lang-${index}`)}
-                    onMouseLeave={() => setHoveredLink(null)}
-                  >
-                    <span style={{fontSize: '1.2rem'}}>{language.flag}</span>
-                    {language.name}
-                  </div>
-                ))}
-              </div>
-            </div> */}
           </div>
 
           {/* Contact Information */}
@@ -680,7 +602,7 @@ function Footer() {
         }
         
         @media (max-width: 768px) {
-          [style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns: 1fr !important; }
+          [style*="grid-template-columns: repeat(3, 1fr)"] { grid-template-columns: 1fr !important; }
           .newsletter-input { flex-direction: column !important; }
           .social-links { justify-content: center !important; }
           .legal-links { flex-direction: column !important; gap: 1rem !important; }
