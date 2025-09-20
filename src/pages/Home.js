@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import mobileMoney from '../assets/mobile money.png';
-import visaCard from '../assets/visa card.png';
-import masterCard from '../assets/master card.png';
-import heroImage from '../assets/After animating picture with arm gestures and lip sync.mp4';
+// import visaCard from '../assets/visa card.png';
+// import masterCard from '../assets/master card.png';
+import heroImage from '../assets/Welcome_Message_Update.mp4';
 import whatsappIcon from '../assets/whatsapp-icon.png';
+import translationImage from '../assets/translation-interpretation.png';
+import websiteImage from '../assets/website-and-software-localization.png';
+import certifiedImage from '../assets/certified-document-translation.png';
+import aImage from '../assets/audio.png';
+import proofreadingImage from '../assets/proofreading-and-editing.png';
+import cvImage from '../assets/cv-and-application-support.png';
+import contentImage from '../assets/content-creation.png';
+import socialImage from '../assets/social-media-marketing.png';
+import aiImage from '../assets/ai-translation.png';
+import backImage from '../assets/back-translation-and-quality-assuarance.png';
+import grossariesImage from '../assets/grossaries-and-language-resource.png';
+import machineImage from '../assets/machine.png';
 
 function Home() {
   const [isVisible, setIsVisible] = useState(false);
@@ -26,62 +38,62 @@ function Home() {
     {
       title: "Translation and Interpretation",
       description: "Document translation and live interpretation in English, French, Kinyarwanda, Kiswahili, Kirundi, and more—with native fluency and cultural precision.",
-      icon: ""
+      icon: translationImage
     },
     {
       title: "Website & Software Localization",
       description: "Adapt your content for local markets with cultural sensitivity, seamless UX, and multilingual interface accuracy.",
-      icon: ""
+      icon: websiteImage
     },
     {
       title: "Certified Document Translation",
       description: "Accepted translations for embassies, universities, immigration, and government documentation—certified and notarized upon request.",
-      icon: ""
+      icon: certifiedImage
     },
     {
       title: "Audio & Video Transcription",
       description: "Accurate translations for embassies, universities, immigration, and government.",
-      icon: ""
+      icon: aImage
     },
     {
-      title: "Proofreading, Editing & Back-Translation",
+      title: "Proofreading & Editing",
       description: "Refine grammar, structure, tone, and clarity—perfect for publication and professional use.",
-      icon: ""
+      icon: proofreadingImage
     },
     {
       title: "CV & Application Support",
       description: "Refine your CVs, resumes, cover letters, and personal statements to boost your success in job markets and admissions.",
-      icon: ""
+      icon: cvImage
     },
     {
       title: "Machine Translation Post-Editing (MTPE)",
       description: "Transform raw AI-generated text into clear, accurate, culturally relevant communication with our expert linguists.",
-      icon: ""
+      icon: machineImage
     },
     {
       title: "Glossaries & Language Resources",
       description: "Create bilingual glossaries, field-specific term banks, and custom language tools to support consistency in all your communications.",
-      icon: ""
+      icon: grossariesImage
     },
     {
       title: "Back-Translation & Quality Assurance",
       description: "Ensure accuracy, clarity, and risk-free delivery in sensitive sectors like health, law, and development with independent back-translation.",
-      icon: ""
+      icon: backImage
     },
     {
       title: "AI Translation Services",
       description: "Enhance multilingual communication with AI-powered translations enhanced by native-speaking linguists—fast, accurate, and locally adapted.",
-      icon: ""
+      icon: aiImage
     },
     {
       title: "Social Media Marketing",
       description: "Engage multilingual audiences across platforms with culturally adapted social media content, campaign strategies, and community management—in English, French, Kinyarwanda, Kiswahili, and more.",
-      icon: ""
+      icon: socialImage
     },
     {
       title: "Content Creation",
       description: "Professional, SEO-optimized content in multiple languages—tailored for web, print, and multimedia—to help you inform, inspire, and connect across cultures.",
-      icon: ""
+      icon: contentImage
     }
   ];
 
@@ -106,19 +118,19 @@ function Home() {
   const paymentMethods = [
     {
       title: "MTN Mobile Money",
-      description: "Pay securely using your MTN Mobile Money account. Dial *182*1*1# to make a payment to our registered number: +250788518720.",
+      description: "Pay securely using your MTN Mobile Money account. Dial *182*1*1# to make a payment to our registered number: +250788518720. This text should be visible on the page.",
       image: mobileMoney
     },
-    {
-      title: "",
-      description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
-      image: visaCard
-    },
-    {
-      title: "",
-      description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
-      image: masterCard
-    }
+    // {
+    //   title: "",
+    //   description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
+    //   image: visaCard
+    // },
+    // {
+    //   title: "",
+    //   description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
+    //   image: masterCard
+    // }
   ];
 
   const styles = {
@@ -257,6 +269,8 @@ function Home() {
       cursor: 'pointer',
       transition: 'all 0.3s ease',
       boxShadow: '0 5px 15px rgba(255, 140, 0, 0.1)',
+      position: 'relative',
+      overflow: 'hidden',
     },
     serviceIcon: {
       fontSize: '1.8rem',
@@ -274,6 +288,12 @@ function Home() {
       color: '#0a1d51',
       lineHeight: '1.5',
       fontSize: '0.95rem',
+      maxHeight: '0',
+      overflow: 'hidden',
+      transition: 'max-height 0.3s ease',
+    },
+    expandedDescription: {
+      maxHeight: '100px',
     },
     whyChooseGrid: {
       display: 'grid',
@@ -317,7 +337,7 @@ function Home() {
       borderRadius: '12px',
       padding: '1.5rem',
       border: '1px solid #de800d',
-      boxShadow: '0 5px 15px rgba255, 140, 0, 0.1)',
+      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.1)',
     },
     testimonial: {
       background: '#f1eee5',
@@ -371,6 +391,13 @@ function Home() {
       height: '40px',
       objectFit: 'contain',
       marginBottom: '1rem',
+    },
+    paymentDescription: {
+      color: '#0a1d51',
+      fontSize: '0.95rem',
+      lineHeight: '1.5',
+      textAlign: 'center',
+      marginTop: '0.5rem',
     },
     securityBadge: {
       display: 'inline-flex',
@@ -505,15 +532,15 @@ function Home() {
     <div style={styles.container}>
       <section style={styles.heroSection}>
         <div style={styles.heroContainer}>
-          <video 
-            src={heroImage} 
-            alt="Hero Video" 
-            style={styles.heroVideo}
-            controls
-            autoPlay
-            loop
-            playsInline
-          />
+        <video 
+  src={heroImage} 
+  style={styles.heroVideo}
+  controls
+  loop
+  playsInline
+/>
+
+
           <div style={styles.heroContent}>
             <h1 style={styles.heroTitle}>Your Trusted Translation & Localization Experts</h1>
             <p style={styles.heroSubtitle}>Dedicated to You – Professional. Precise. Perfect.</p>
@@ -548,7 +575,7 @@ function Home() {
                 onMouseLeave={handleButtonLeave}
               >
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} /> Chat on WhatsApp
+                  Chat on<img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} /> 
                 </span>
               </a>
             </div>
@@ -572,9 +599,18 @@ function Home() {
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
             >
-              <span style={styles.serviceIcon}>{service.icon}</span>
-              <h3 style={styles.serviceTitle}>{service.title}</h3>
-              <p style={styles.serviceDescription}>{service.description}</p>
+              {hoveredCard === index ? (
+                <>
+                  <img src={service.icon} alt={service.title} style={{ width: '40px', height: '40px', marginBottom: '1rem' }} />
+                  <h3 style={styles.serviceTitle}>{service.title}</h3>
+                  <p style={{ ...styles.serviceDescription, ...styles.expandedDescription }}>{service.description}</p>
+                </>
+              ) : (
+                <>
+                  <img src={service.icon} alt={service.title} style={{ width: '40px', height: '40px', marginBottom: '1rem' }} />
+                  <h3 style={styles.serviceTitle}>{service.title}</h3>
+                </>
+              )}
             </div>
           ))}
         </div>
@@ -647,7 +683,7 @@ function Home() {
             >
               <img src={method.image} alt={method.title} style={styles.paymentImage} />
               <h3 style={styles.serviceTitle}>{method.title}</h3>
-              <p style={styles.serviceDescription}>{method.description}</p>
+              <p style={styles.paymentDescription}>{method.description}</p>
             </div>
           ))}
         </div>
@@ -714,7 +750,7 @@ function Home() {
           />
           <button type="submit" style={styles.subscribeButton} onClick={handleSubscribe}>
             <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              Subscribe <span style={{ color: '#de800d' }}>✉️</span>
+              Subscribe <span style={{ color: '#de800d' }}></span>
             </span>
           </button>
         </div>

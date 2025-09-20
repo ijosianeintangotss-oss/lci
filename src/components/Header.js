@@ -108,6 +108,7 @@ function Header() {
       flexWrap: 'wrap',
     },
     navItem: {
+      // fontSize: 'clamp(2rem, 2vw, 2rem)', // Responsive font size
       position: 'relative',
     },
     navLink: {

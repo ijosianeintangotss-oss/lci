@@ -21,32 +21,32 @@ function About() {
     {
       title: "Linguistic Excellence",
       description: "Delivering precise, culturally appropriate translations that maintain the original meaning and intent.",
-      icon: ""
+      icon: "🎯"
     },
     {
       title: "Responsiveness & Reliability",
       description: "Fast turnaround times without compromising quality, with transparent communication throughout.",
-      icon: ""
+      icon: "⚡"
     },
     {
       title: "Ethical Service Delivery",
       description: "Strict confidentiality protocols and ethical standards in all our professional relationships.",
-      icon: ""
+      icon: "🛡️"
     },
     {
       title: "Cost-Effective Solutions",
       description: "Competitive pricing without compromising on quality or professional standards.",
-      icon: ""
+      icon: "💰"
     },
     {
       title: "Cultural Accuracy",
       description: "Deep understanding of local cultures and contexts for authentic communication.",
-      icon: ""
+      icon: "🌍"
     },
     {
       title: "Talent Development",
       description: "Nurturing new talent and giving young linguists real-world opportunities to grow.",
-      icon: ""
+      icon: "🌱"
     }
   ];
 
@@ -54,17 +54,17 @@ function About() {
     {
       title: "Talent Incubator",
       description: "A talent incubator for aspiring language professionals, providing mentorship and real-world opportunities.",
-      icon: ""
+      icon: "🌱"
     },
     {
       title: "Global Standards",
       description: "Combining global best practices with deep local knowledge for superior results.",
-      icon: ""
+      icon: "🌍"
     },
     {
       title: "Cultural Expertise",
       description: "Promoting inclusive communication that respects cultural and linguistic diversity.",
-      icon: ""
+      icon: "🤝"
     }
   ];
 
@@ -448,8 +448,7 @@ function About() {
                 onMouseLeave={handleWhatsAppButtonLeave}
               >
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} /> Chat on WhatsApp
-                </span>
+                  Chat on<img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} />                 </span>
               </a>
             </div>
           </div>

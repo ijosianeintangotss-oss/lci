@@ -139,16 +139,16 @@ function Contact() {
       description: "Pay securely using your MTN Mobile Money account. Dial *182*1*1*0788518720*Amount# to make a payment to our registered number: +250788518720.",
       image: mobileMoney
     },
-    {
-      title: "",
-      description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
-      image: visaCard
-    },
-    {
-      title: "",
-      description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
-      image: masterCard
-    }
+    // {
+    //   title: "",
+    //   description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
+    //   image: visaCard
+    // },
+    // {
+    //   title: "",
+    //   description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
+    //   image: masterCard
+    // }
   ];
 
   const handleInputChange = (e) => {

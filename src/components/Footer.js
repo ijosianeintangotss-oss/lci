@@ -87,17 +87,17 @@ function Footer() {
   const contactInfo = [
     {
       icon: '📍',
-      title: 'Head Office',
-      details: ['Kigali, Rwanda', 'KG 123 St, Gasabo District']
+      title: 'Kigali, Rwanda Gasabo District',
+      details: ['']
     },
     {
       icon: '📞',
-      title: 'Phone',
-      details: ['+250 788 518 720']
+      title: '+250 788 518 720',
+      details: ['']
     },
     {
       icon: '📧',
-      title: 'Email',
+      title: '',
       details: ['lcirwanda@gmail.com', 'lcirwanda@yahoo.com']
     },
     {
@@ -132,7 +132,7 @@ function Footer() {
 
   const styles = {
     footer: {
-      background: '#0a1d51ff',
+      background: '#051132ff',
       color: 'white',
       position: 'relative',
       overflow: 'hidden'
@@ -152,67 +152,67 @@ function Footer() {
       zIndex: 1,
       maxWidth: '1400px',
       margin: '0 auto',
-      padding: '3rem 2rem 1rem'
+      padding: '2rem 1rem 1rem'
     },
     mainSection: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-      gap: '3rem',
-      marginBottom: '3rem'
+      gridTemplateColumns: 'repeat(4, 1fr)',
+      gap: '1rem',
+      marginBottom: '2rem'
     },
     section: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '1.5rem'
+      gap: '0rem'
     },
     sectionTitle: {
-      fontSize: '1.3rem',
+      fontSize: '1.1rem',
       fontWeight: 'bold',
-      marginBottom: '1rem',
+      marginBottom: '0.75rem',
       color: 'white',
       position: 'relative',
-      paddingBottom: '0.5rem'
+      paddingBottom: '0.3rem'
     },
     titleUnderline: {
       position: 'absolute',
       bottom: 0,
       left: 0,
-      width: '50px',
-      height: '3px',
+      width: '40px',
+      height: '2px',
       background: 'linear-gradient(90deg, #ff8c00, transparent)',
       borderRadius: '2px'
     },
     companyInfo: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '1.5rem'
+      gap: '1rem'
     },
     logoSection: {
       display: 'flex',
       alignItems: 'center',
-      gap: '1rem',
-      marginBottom: '1rem'
+      gap: '0.75rem',
+      marginBottom: '0.75rem'
     },
     logo: {
-      height: '50px',
+      height: '40px',
       width: 'auto',
       filter: 'brightness(1.2)'
     },
     companyName: {
-      fontSize: '1.4rem',
+      fontSize: '1.2rem',
       fontWeight: 'bold',
       color: 'white'
     },
     tagline: {
-      fontSize: '0.95rem',
+      fontSize: '0.85rem',
       color: 'rgba(255, 255, 255, 0.9)',
       fontStyle: 'italic'
     },
     description: {
-      fontSize: '0.95rem',
-      lineHeight: '1.6',
+      fontSize: '0.85rem',
+      lineHeight: '1.5',
       color: 'rgba(255, 255, 255, 0.9)',
-      marginBottom: '1rem'
+      marginBottom: '0.75rem'
     },
     linksList: {
       listStyle: 'none',
@@ -220,109 +220,110 @@ function Footer() {
       margin: 0,
       display: 'flex',
       flexDirection: 'column',
-      gap: '0.8rem'
+      gap: '0.5rem'
     },
     link: {
       display: 'flex',
       alignItems: 'center',
-      gap: '0.8rem',
-      padding: '0.5rem 0',
+      gap: '0.5rem',
+      padding: '0.3rem 0',
       color: 'rgba(255, 255, 255, 0.9)',
       textDecoration: 'none',
-      fontSize: '0.95rem',
+      fontSize: '0.85rem',
       transition: 'all 0.3s ease',
-      borderRadius: '8px',
-      paddingLeft: '0.5rem'
+      borderRadius: '6px',
+      paddingLeft: '0.3rem'
     },
     hoveredLink: {
       color: 'white',
       backgroundColor: 'rgba(255, 255, 255, 0.1)',
-      transform: 'translateX(8px)',
-      paddingLeft: '1rem'
+      transform: 'translateX(6px)',
+      paddingLeft: '0.75rem'
     },
     servicesList: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '0.8rem'
+      gap: '0.5rem'
     },
     serviceItem: {
       display: 'flex',
       alignItems: 'center',
-      gap: '0.8rem',
-      padding: '0.5rem 0',
+      gap: '0.5rem',
+      padding: '0.3rem 0',
       color: 'rgba(255, 255, 255, 0.9)',
-      fontSize: '0.95rem',
-      borderRadius: '8px',
+      fontSize: '0.85rem',
+      borderRadius: '6px',
       transition: 'all 0.3s ease',
-      paddingLeft: '0.5rem'
+      paddingLeft: '0.3rem'
     },
     languageGrid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(2, 1fr)',
-      gap: '0.8rem'
+      gap: '0.5rem'
     },
     languageItem: {
       display: 'flex',
       alignItems: 'center',
-      gap: '0.5rem',
-      padding: '0.5rem',
+      gap: '0.3rem',
+      padding: '0.3rem',
       background: 'rgba(255, 255, 255, 0.1)',
-      borderRadius: '8px',
-      fontSize: '0.9rem',
+      borderRadius: '6px',
+      fontSize: '0.8rem',
       transition: 'all 0.3s ease'
     },
     contactGrid: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '1.5rem'
+      gap: '1rem'
     },
     contactItem: {
       display: 'flex',
-      flexDirection: 'column',
-      gap: '0.5rem'
+      flexDirection: 'row',
+      gap: '0.5rem',
+      alignItems: 'center'
     },
     contactHeader: {
       display: 'flex',
       alignItems: 'center',
-      gap: '0.8rem',
-      fontSize: '1rem',
+      gap: '0.5rem',
+      fontSize: '0.9rem',
       fontWeight: '600',
       color: 'white'
     },
     contactDetails: {
       display: 'flex',
-      flexDirection: 'column',
-      gap: '0.3rem',
-      paddingLeft: '2rem'
+      flexDirection: 'row',
+      gap: '0.5rem',
+      paddingLeft: '0'
     },
     contactDetail: {
-      fontSize: '0.9rem',
+      fontSize: '0.8rem',
       color: 'rgba(255, 255, 255, 0.9)',
       cursor: 'pointer',
       transition: 'color 0.3s ease'
     },
     socialSection: {
-      marginTop: '2rem',
-      paddingTop: '2rem',
+      marginTop: '1.5rem',
+      paddingTop: '1.5rem',
       borderTop: '1px solid rgba(255, 255, 255, 0.2)'
     },
     socialLinks: {
       display: 'flex',
-      gap: '1rem',
+      gap: '0.75rem',
       justifyContent: 'center',
       flexWrap: 'wrap',
-      marginBottom: '2rem'
+      marginBottom: '1.5rem'
     },
     socialLink: {
       display: 'flex',
       alignItems: 'center',
-      gap: '0.5rem',
-      padding: '0.8rem 1.2rem',
+      gap: '0.3rem',
+      padding: '0.6rem 0.9rem',
       background: 'rgba(255, 255, 255, 0.1)',
-      borderRadius: '25px',
+      borderRadius: '20px',
       textDecoration: 'none',
       color: 'white',
-      fontSize: '0.9rem',
+      fontSize: '0.8rem',
       fontWeight: '600',
       transition: 'all 0.3s ease',
       backdropFilter: 'blur(10px)',
@@ -332,66 +333,66 @@ function Footer() {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      gap: '1rem',
-      marginBottom: '2rem'
+      gap: '0.75rem',
+      marginBottom: '1.5rem'
     },
     newsletterInput: {
       display: 'flex',
-      gap: '0.5rem',
-      maxWidth: '400px',
+      gap: '0.3rem',
+      maxWidth: '350px',
       width: '100%'
     },
     emailInput: {
       flex: 1,
-      padding: '0.8rem 1rem',
+      padding: '0.6rem 0.75rem',
       border: 'none',
-      borderRadius: '25px',
-      fontSize: '0.9rem',
+      borderRadius: '20px',
+      fontSize: '0.8rem',
       outline: 'none',
       background: 'rgba(255, 255, 255, 0.9)',
       color: '#1e3a8a'
     },
     subscribeButton: {
-      padding: '0.8rem 1.5rem',
+      padding: '0.6rem 1.2rem',
       background: '#ff8c00',
       border: 'none',
-      borderRadius: '25px',
+      borderRadius: '20px',
       color: 'white',
-      fontSize: '0.9rem',
+      fontSize: '0.8rem',
       fontWeight: '600',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
       whiteSpace: 'nowrap'
     },
     message: {
-      marginTop: '1rem',
+      marginTop: '0.75rem',
       color: '#10b981',
       fontWeight: '500',
-      fontSize: '0.9rem'
+      fontSize: '0.8rem'
     },
     bottomSection: {
-      paddingTop: '2rem',
+      paddingTop: '1.5rem',
       borderTop: '1px solid rgba(255, 255, 255, 0.2)',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      gap: '1rem',
+      gap: '0.75rem',
       textAlign: 'center'
     },
     copyright: {
-      fontSize: '0.9rem',
+      fontSize: '0.8rem',
       color: 'rgba(255, 255, 255, 0.8)'
     },
     legalLinks: {
       display: 'flex',
-      gap: '2rem',
+      gap: '1.5rem',
       flexWrap: 'wrap',
       justifyContent: 'center'
     },
     legalLink: {
       color: 'rgba(255, 255, 255, 0.8)',
       textDecoration: 'none',
-      fontSize: '0.85rem',
+      fontSize: '0.75rem',
       transition: 'color 0.3s ease'
     },
     copiedNotification: {
@@ -401,9 +402,9 @@ function Footer() {
       transform: 'translate(-50%, -50%)',
       background: '#10b981',
       color: 'white',
-      padding: '1rem 2rem',
-      borderRadius: '25px',
-      fontSize: '0.9rem',
+      padding: '0.75rem 1.5rem',
+      borderRadius: '20px',
+      fontSize: '0.8rem',
       fontWeight: '600',
       zIndex: 9999,
       display: emailCopied ? 'block' : 'none',
@@ -421,23 +422,23 @@ function Footer() {
           {/* Company Information */}
           <div style={styles.section}>
             <div style={styles.companyInfo}>
-              <div style={styles.logoSection}>
-                <img src={logo} alt="LCI Logo" style={styles.logo} />
-                <div>
-                  <div style={styles.companyName}>LCI Rwanda</div>
+              {/* <div style={styles.logoSection}> */}
+                {/* <img src={logo} alt="LCI Logo" style={styles.logo} /> */}
+                {/* <div>
+                  <div style={styles.companyName}>Language Computing International</div>
                   <div style={styles.tagline}>Translate. Localize. Connect.</div>
-                </div>
-              </div>
+                </div> */}
+              {/* </div> */}
               
-              <p style={styles.description}>
-                Language Computing International Rwanda is your trusted partner for professional 
+              {/* <p style={styles.description}>
+                Language Computing International is your trusted partner for professional 
                 translation and localization services. We bridge language barriers and connect 
                 cultures across East Africa and beyond.
-              </p>
+              </p> */}
 
               {/* Newsletter Subscription */}
               <div style={{...styles.newsletter, alignItems: 'flex-start'}}>
-                <h4 style={{...styles.sectionTitle, fontSize: '1.1rem', marginBottom: '0.5rem'}}>
+                <h4 style={{...styles.sectionTitle, fontSize: '1rem', marginBottom: '0.5rem'}}>
                   Stay Updated
                   <div style={styles.titleUnderline}></div>
                 </h4>
@@ -455,14 +456,14 @@ function Footer() {
                     style={styles.subscribeButton}
                     onMouseEnter={(e) => {
                       e.target.style.background = '#e57000';
-                      e.target.style.transform = 'scale(1.05)';
+                      e.target.style.transform = 'scale(0.5)';
                     }}
                     onMouseLeave={(e) => {
                       e.target.style.background = '#ff8c00';
-                      e.target.style.transform = 'scale(1)';
+                      e.target.style.transform = 'scale(0.5)';
                     }}
                   >
-                    Subscribe ✉️
+                    Subscribe
                   </button>
                 </form>
                 {message && <p style={styles.message}>{message}</p>}
@@ -488,7 +489,7 @@ function Footer() {
                     onMouseEnter={() => setHoveredLink(`quick-${index}`)}
                     onMouseLeave={() => setHoveredLink(null)}
                   >
-                    <span style={{fontSize: '1.1rem'}}>{link.icon}</span>
+                    <span style={{fontSize: '1rem'}}>{link.icon}</span>
                     {link.label}
                   </Link>
                 </li>
@@ -517,14 +518,14 @@ function Footer() {
                   onMouseEnter={() => setHoveredLink(`service-${index}`)}
                   onMouseLeave={() => setHoveredLink(null)}
                 >
-                  <span style={{fontSize: '1.1rem'}}>{service.icon}</span>
+                  <span style={{fontSize: '1rem'}}>{service.icon}</span>
                   {service.label}
                 </div>
               ))}
             </div>
 
             {/* Languages We Support */}
-            <div style={{marginTop: '2rem'}}>
+            {/* <div style={{marginTop: '2rem'}}>
               <h4 style={{...styles.sectionTitle, fontSize: '1.1rem'}}>
                 Languages We Support
                 <div style={styles.titleUnderline}></div>
@@ -548,7 +549,7 @@ function Footer() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Contact Information */}
@@ -561,7 +562,7 @@ function Footer() {
               {contactInfo.map((contact, index) => (
                 <div key={index} style={styles.contactItem}>
                   <div style={styles.contactHeader}>
-                    <span style={{fontSize: '1.2rem'}}>{contact.icon}</span>
+                    <span style={{fontSize: '1rem'}}>{contact.icon}</span>
                     {contact.title}
                   </div>
                   <div style={styles.contactDetails}>
@@ -570,15 +571,18 @@ function Footer() {
                         key={idx}
                         style={{
                           ...styles.contactDetail,
-                          ...(contact.title === 'Email' ? {cursor: 'pointer'} : {}),
                           ...(hoveredLink === `contact-${index}-${idx}` ? {color: 'white'} : {})
                         }}
                         onMouseEnter={() => setHoveredLink(`contact-${index}-${idx}`)}
                         onMouseLeave={() => setHoveredLink(null)}
-                        onClick={contact.title === 'Email' ? () => handleEmailCopy(detail) : undefined}
+                        onClick={() => {
+                          if (contact.icon === '📧') {
+                            handleEmailCopy(detail);
+                          }
+                        }}
                       >
                         {detail}
-                        {contact.title === 'Email' && hoveredLink === `contact-${index}-${idx}` && 
+                        {contact.icon === '📧' && hoveredLink === `contact-${index}-${idx}` && 
                           <span style={{marginLeft: '0.5rem', fontSize: '0.8rem'}}>📋 Click to copy</span>
                         }
                       </div>
@@ -610,13 +614,13 @@ function Footer() {
                 onMouseEnter={() => setHoveredSocial(index)}
                 onMouseLeave={() => setHoveredSocial(null)}
               >
-                <span style={{fontSize: '1.1rem'}}>{social.icon}</span>
+                <span style={{fontSize: '1rem'}}>{social.icon}</span>
                 <img 
                   src={social.image} 
                   alt={social.name} 
                   style={{
-                    width: '20px',
-                    height: '20px',
+                    width: '18px',
+                    height: '18px',
                     objectFit: 'contain'
                   }}
                 />
@@ -655,9 +659,9 @@ function Footer() {
           </div>
           
           <div style={styles.copyright}>
-            © 2025 Language Computing International Rwanda. All rights reserved. 
+            © 2025 Language Computing International. All rights reserved. 
             <br />
-            <span style={{fontSize: '0.8rem', marginTop: '0.5rem', display: 'inline-block'}}>
+            <span style={{fontSize: '0.7rem', marginTop: '0.3rem', display: 'inline-block'}}>
               {/* Proudly serving East Africa with excellence in translation and localization services. */}
             </span>
           </div>
@@ -676,7 +680,7 @@ function Footer() {
         }
         
         @media (max-width: 768px) {
-          .footer-grid { grid-template-columns: 1fr !important; }
+          [style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns: 1fr !important; }
           .newsletter-input { flex-direction: column !important; }
           .social-links { justify-content: center !important; }
           .legal-links { flex-direction: column !important; gap: 1rem !important; }

@@ -21,7 +21,7 @@ function Services() {
       id: 1,
       title: "Translation and Interpretation Services",
       tagline: "Fluent. Accurate. Native-quality.",
-      icon: "",
+      icon: "🌐",
       description: "We provide precise translations and professional interpretation in multiple languages, ensuring cultural accuracy and quality for diverse events and settings.",
       keyFeatures: [
         "Native-speaking translators only",
@@ -41,7 +41,7 @@ function Services() {
       id: 2,
       title: "Website & Software Localization",
       tagline: "Global Content, Local Impact.",
-      icon: "",
+      icon: "🎯",
       description: "Localization isn't just translation—it's adaptation. Adapt your website, software, or app for specific regions and languages with LCI's cultural and linguistic expertise.",
       keyFeatures: [
         "UI/UX translation",
@@ -62,7 +62,7 @@ function Services() {
       id: 3,
       title: "Certified Document Translation",
       tagline: "Certified. Accepted by Embassies, Universities, and Institutions.",
-      icon: "",
+      icon: "🛡️",
       description: "Need certified translations for legal, academic use, or for immigration and visa application? We translate marriage certificates, birth records, court rulings, diplomas, and more. Certified and notarized services available on request.",
       keyFeatures: [
         "Legally recognized certifications",
@@ -82,7 +82,7 @@ function Services() {
       id: 4,
       title: "Audio & Video Transcription",
       tagline: "From Sound or Video to Transcript.",
-      icon: "",
+      icon: "🎵",
       description: "We offer fast, accurate transcription in formats like MP3, MP4, WAV, WMA, and WMV with optional time stamps and translation.",
       keyFeatures: [
         "Multiple audio/video formats",
@@ -101,7 +101,7 @@ function Services() {
       id: 5,
       title: "Proofreading & Editing",
       tagline: "Polish Your Message. Boost Your Impact.",
-      icon: "",
+      icon: "✅",
       description: "We refine grammar, structure, tone, and clarity—perfect for publication and professional use.",
       keyFeatures: [
         "Grammar and style correction",
@@ -120,7 +120,7 @@ function Services() {
       id: 6,
       title: "CV & Application Support",
       tagline: "Stand Out with Confidence.",
-      icon: "",
+      icon: "👥",
       description: "We help you present your best self to employers and universities—with polished CVs and compelling personal statements.",
       keyFeatures: [
         "Professional CV editing",
@@ -140,7 +140,7 @@ function Services() {
       id: 7,
       title: "Machine Translation Post-Editing (MTPE)",
       tagline: "Speed Meets Accuracy—with a Human Touch.",
-      icon: "",
+      icon: "⚡",
       description: "MTPE bridges the gap between fast, affordable machine translation and the precision of human language experts. At LCI, we enhance raw MT output with expert linguists who ensure clarity, cultural relevance, and error-free communication.",
       keyFeatures: [
         "Full post-editing (accuracy, tone, clarity)",
@@ -162,7 +162,7 @@ function Services() {
       id: 8,
       title: "Glossaries & Language Resources",
       tagline: "Clarity, Consistency, Confidence.",
-      icon: "",
+      icon: "📚",
       description: "We build bilingual glossaries and custom language tools tailored to your organization's field.",
       keyFeatures: [
         "Custom terminology development",
@@ -181,7 +181,7 @@ function Services() {
       id: 9,
       title: "Back-Translation & Quality Assurance",
       tagline: "Accuracy You Can Trust.",
-      icon: "",
+      icon: "🔒",
       description: "Back-Translation is a quality assurance process where a translated document is independently retranslated back into the source language. In medical, legal, and donor-funded work, accuracy isn't a luxury—it's a necessity.",
       keyFeatures: [
         "Independent back-translation",
@@ -223,7 +223,7 @@ function Services() {
       id: 11,
       title: "Social Media Marketing",
       tagline: "Build Visibility. Drive Engagement. Amplify in Every Language.",
-      icon: "",
+      icon: "🤖",
       description: "Engage multilingual audiences across platforms with culturally adapted social media content, campaign strategies, and community management—in English, French, Kinyarwanda, Kiswahili, and more.",
       keyFeatures: [
         "Multilingual content creation and localization",
@@ -244,7 +244,7 @@ function Services() {
       id: 12,
       title: "Content Creation",
       tagline: "Powerful Stories. Locally Told.",
-      icon: "",
+      icon: "📱",
       description: "Professional, SEO-optimized content in multiple languages—tailored for web, print, and multimedia—to help you inform, inspire, and connect across cultures.",
       keyFeatures: [
         "Multilingual blog writing and translation",
