@@ -24,12 +24,18 @@ function Footer() {
   ];
 
   const services = [
-    { label: 'Document Translation', icon: '' },
-    { label: 'Website Localization', icon: '' },
-    { label: 'Technical Translation', icon: '' },
-    { label: 'Legal Translation', icon: '' },
-    { label: 'Medical Translation', icon: '' },
-    { label: 'Language Training', icon: '' }
+    { label: 'Translation and Interpretation', icon: '', id: 1 },
+    { label: 'Website & Software Localization', icon: '', id: 2 },
+    { label: 'Certified Document Translation', icon: '', id: 3 },
+    { label: 'Audio & Video Transcription', icon: '', id: 4 },
+    { label: 'Proofreading & Editing', icon: '', id: 5 },
+    { label: 'CV & Application Support', icon: '', id: 6 },
+    { label: 'Machine Translation Post-Editing (MTPE)', icon: '', id: 7 },
+    { label: 'Glossaries & Language Resources', icon: '', id: 8 },
+    { label: 'Back-Translation & Quality Assurance', icon: '', id: 9 },
+    { label: 'AI Translation Services', icon: '', id: 10 },
+    { label: 'Social Media Marketing', icon: '', id: 11 },
+    { label: 'Content Creation', icon: '', id: 12 }
   ];
 
   const languages = [
@@ -130,6 +136,11 @@ function Footer() {
     }
   };
 
+  const handleServiceClick = (serviceId) => {
+    // Navigate to services page and scroll to the specific service
+    window.location.href = `/services#service-${serviceId}`;
+  };
+
   const styles = {
     footer: {
       background: '#051132ff',
@@ -151,20 +162,42 @@ function Footer() {
       position: 'relative',
       zIndex: 1,
       maxWidth: '1400px',
-      margin: '0 0 0 0',
+      margin: '0 auto',
       padding: '2rem 1rem 1rem'
     },
     mainSection: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(3, 1fr)',
-      gap: '1rem',
+      gridTemplateColumns: '1fr 1.5fr 1fr', // Adjusted to give Services more space
+      gap: '2rem', // Balanced gap
       marginBottom: '2rem',
-      justifyContent: 'flex-start'
+      alignItems: 'start'
     },
     section: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '0rem'
+      gap: '0rem',
+      textAlign: 'left'
+    },
+    quickLinksSection: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0rem',
+      alignItems: 'flex-start',
+      textAlign: 'left'
+    },
+    servicesSection: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0rem',
+      alignItems: 'center', // Center align services
+      textAlign: 'left'
+    },
+    contactSection: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0rem',
+      alignItems: 'flex-end', // Align contact to the right
+      textAlign: 'right'
     },
     sectionTitle: {
       fontSize: '1.1rem',
@@ -172,15 +205,16 @@ function Footer() {
       marginBottom: '0.75rem',
       color: 'white',
       position: 'relative',
-      paddingBottom: '0.3rem'
+      paddingBottom: '0.3rem',
+      width: '100%'
     },
     titleUnderline: {
       position: 'absolute',
       bottom: 0,
       left: 0,
-      width: '40px',
+      width: '100%',
       height: '2px',
-      background: 'linear-gradient(90deg, #ff8c00, transparent)',
+      background: '#ff8c00',
       borderRadius: '2px'
     },
     companyInfo: {
@@ -221,6 +255,7 @@ function Footer() {
       margin: 0,
       display: 'flex',
       flexDirection: 'column',
+      flexWrap: 'wrap',
       gap: '0.5rem'
     },
     link: {
@@ -233,7 +268,8 @@ function Footer() {
       fontSize: '0.85rem',
       transition: 'all 0.3s ease',
       borderRadius: '6px',
-      paddingLeft: '0.3rem'
+      paddingLeft: '0.3rem',
+      cursor: 'pointer'
     },
     hoveredLink: {
       color: 'white',
@@ -242,9 +278,14 @@ function Footer() {
       paddingLeft: '0.75rem'
     },
     servicesList: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '0.5rem'
+      listStyle: 'none',
+      padding: 0,
+      margin: 0,
+      display: 'grid',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      gap: '0.5rem',
+      width: '100%',
+      maxWidth: '500px' // Limit max width for better centering
     },
     serviceItem: {
       display: 'flex',
@@ -255,7 +296,8 @@ function Footer() {
       fontSize: '0.85rem',
       borderRadius: '6px',
       transition: 'all 0.3s ease',
-      paddingLeft: '0.3rem'
+      paddingLeft: '0.3rem',
+      cursor: 'pointer'
     },
     languageGrid: {
       display: 'grid',
@@ -275,13 +317,16 @@ function Footer() {
     contactGrid: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '1rem'
+      gap: '1rem',
+      alignItems: 'flex-end',
+      width: '100%'
     },
     contactItem: {
       display: 'flex',
-      flexDirection: 'row',
-      gap: '0.5rem',
-      alignItems: 'center'
+      flexDirection: 'column',
+      gap: '0.25rem',
+      alignItems: 'flex-end',
+      width: '100%'
     },
     contactHeader: {
       display: 'flex',
@@ -293,15 +338,17 @@ function Footer() {
     },
     contactDetails: {
       display: 'flex',
-      flexDirection: 'row',
-      gap: '0.5rem',
-      paddingLeft: '0'
+      flexDirection: 'column',
+      gap: '0.25rem',
+      alignItems: 'flex-end',
+      width: '100%'
     },
     contactDetail: {
       fontSize: '0.8rem',
       color: 'rgba(255, 255, 255, 0.9)',
       cursor: 'pointer',
-      transition: 'color 0.3s ease'
+      transition: 'color 0.3s ease',
+      textAlign: 'right'
     },
     socialSection: {
       marginTop: '1.5rem',
@@ -421,10 +468,12 @@ function Footer() {
         {/* Main Footer Content */}
         <div style={styles.mainSection}>
           {/* Quick Links */}
-          <div style={styles.section}>
+          <div style={styles.quickLinksSection}>
             <h3 style={styles.sectionTitle}>
-              Quick Links
-              <div style={styles.titleUnderline}></div>
+              <span style={{position: 'relative'}}>
+                Quick Links
+                <div style={styles.titleUnderline}></div>
+              </span>
             </h3>
             <ul style={styles.linksList}>
               {quickLinks.map((link, index) => (
@@ -447,38 +496,40 @@ function Footer() {
           </div>
 
           {/* Services */}
-          <div style={styles.section}>
+          <div style={styles.servicesSection}>
             <h3 style={styles.sectionTitle}>
-              Our Services
-              <div style={styles.titleUnderline}></div>
+              <span style={{position: 'relative', textAlign: 'center', display: 'block'}}>
+                Our Services
+                <div style={{...styles.titleUnderline, left: '50%', transform: 'translateX(-50%)', width: '80%'}}></div>
+              </span>
             </h3>
-            <div style={styles.servicesList}>
+            <ul style={styles.servicesList}>
               {services.map((service, index) => (
-                <div 
-                  key={index}
-                  style={{
-                    ...styles.serviceItem,
-                    ...(hoveredLink === `service-${index}` ? {
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                      transform: 'translateX(8px)',
-                      color: 'white'
-                    } : {})
-                  }}
-                  onMouseEnter={() => setHoveredLink(`service-${index}`)}
-                  onMouseLeave={() => setHoveredLink(null)}
-                >
-                  <span style={{fontSize: '1rem'}}>{service.icon}</span>
-                  {service.label}
-                </div>
+                <li key={index}>
+                  <span
+                    style={{
+                      ...styles.link,
+                      ...(hoveredLink === `service-${index}` ? styles.hoveredLink : {})
+                    }}
+                    onMouseEnter={() => setHoveredLink(`service-${index}`)}
+                    onMouseLeave={() => setHoveredLink(null)}
+                    onClick={() => handleServiceClick(service.id)}
+                  >
+                    <span style={{fontSize: '1rem'}}>{service.icon}</span>
+                    {service.label}
+                  </span>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
           {/* Contact Information */}
-          <div style={styles.section}>
+          <div style={styles.contactSection}>
             <h3 style={styles.sectionTitle}>
-              Get In Touch
-              <div style={styles.titleUnderline}></div>
+              <span style={{position: 'relative'}}>
+                Get In Touch
+                <div style={styles.titleUnderline}></div>
+              </span>
             </h3>
             <div style={styles.contactGrid}>
               {contactInfo.map((contact, index) => (
@@ -487,29 +538,31 @@ function Footer() {
                     <span style={{fontSize: '1rem'}}>{contact.icon}</span>
                     {contact.title}
                   </div>
-                  <div style={styles.contactDetails}>
-                    {contact.details.map((detail, idx) => (
-                      <div
-                        key={idx}
-                        style={{
-                          ...styles.contactDetail,
-                          ...(hoveredLink === `contact-${index}-${idx}` ? {color: 'white'} : {})
-                        }}
-                        onMouseEnter={() => setHoveredLink(`contact-${index}-${idx}`)}
-                        onMouseLeave={() => setHoveredLink(null)}
-                        onClick={() => {
-                          if (contact.icon === '📧') {
-                            handleEmailCopy(detail);
+                  {contact.details.length > 0 && (
+                    <div style={styles.contactDetails}>
+                      {contact.details.map((detail, idx) => (
+                        <div
+                          key={idx}
+                          style={{
+                            ...styles.contactDetail,
+                            ...(hoveredLink === `contact-${index}-${idx}` ? {color: 'white'} : {})
+                          }}
+                          onMouseEnter={() => setHoveredLink(`contact-${index}-${idx}`)}
+                          onMouseLeave={() => setHoveredLink(null)}
+                          onClick={() => {
+                            if (contact.icon === '📧') {
+                              handleEmailCopy(detail);
+                            }
+                          }}
+                        >
+                          {detail}
+                          {contact.icon === '📧' && hoveredLink === `contact-${index}-${idx}` && 
+                            <span style={{marginLeft: '0.5rem', fontSize: '0.8rem'}}>📋 Click to copy</span>
                           }
-                        }}
-                      >
-                        {detail}
-                        {contact.icon === '📧' && hoveredLink === `contact-${index}-${idx}` && 
-                          <span style={{marginLeft: '0.5rem', fontSize: '0.8rem'}}>📋 Click to copy</span>
-                        }
-                      </div>
-                    ))}
-                  </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -518,9 +571,11 @@ function Footer() {
 
         {/* Social Media Section */}
         <div style={styles.socialSection}>
-          <h3 style={{...styles.sectionTitle, textAlign: 'center', marginBottom: '1.5rem'}}>
-            Connect With Us
-            <div style={{...styles.titleUnderline, margin: '0.5rem auto 0'}}></div>
+          <h3 style={{...styles.sectionTitle, margin: '0 auto 1.5rem', width: 'fit-content'}}>
+            <span style={{position: 'relative'}}>
+              Connect With Us
+              <div style={styles.titleUnderline}></div>
+            </span>
           </h3>
           <div style={styles.socialLinks}>
             {socialLinks.map((social, index) => (
@@ -560,7 +615,7 @@ function Footer() {
             }}
             onMouseEnter={() => setHoveredLink('privacy')}
             onMouseLeave={() => setHoveredLink(null)}>
-              {/* Privacy Policy */}
+              Privacy Policy
             </a>
             <a href="/terms-of-service" style={{
               ...styles.legalLink,
@@ -568,7 +623,7 @@ function Footer() {
             }}
             onMouseEnter={() => setHoveredLink('terms')}
             onMouseLeave={() => setHoveredLink(null)}>
-              {/* Terms of Service */}
+              Terms of Service
             </a>
             <a href="/sitemap" style={{
               ...styles.legalLink,
@@ -576,16 +631,12 @@ function Footer() {
             }}
             onMouseEnter={() => setHoveredLink('sitemap')}
             onMouseLeave={() => setHoveredLink(null)}>
-              {/* Sitemap */}
+              Sitemap
             </a>
           </div>
           
           <div style={styles.copyright}>
             © 2025 Language Computing International. All rights reserved. 
-            <br />
-            <span style={{fontSize: '0.7rem', marginTop: '0.3rem', display: 'inline-block'}}>
-              {/* Proudly serving East Africa with excellence in translation and localization services. */}
-            </span>
           </div>
         </div>
       </div>
@@ -602,10 +653,40 @@ function Footer() {
         }
         
         @media (max-width: 768px) {
-          [style*="grid-template-columns: repeat(3, 1fr)"] { grid-template-columns: 1fr !important; }
+          [style*="grid-template-columns: 1fr 1.5fr 1fr"] { 
+            grid-template-columns: 1fr !important; 
+            gap: 2rem !important;
+          }
+          .services-section { 
+            align-items: flex-start !important; 
+            text-align: left !important;
+          }
+          .contact-section { 
+            align-items: flex-start !important; 
+            text-align: left !important;
+          }
+          .contact-grid {
+            align-items: flex-start !important;
+          }
+          .contact-item {
+            align-items: flex-start !important;
+          }
+          .contact-details {
+            align-items: flex-start !important;
+            padding-left: 1.5rem !important;
+          }
+          .contact-detail {
+            text-align: left !important;
+          }
           .newsletter-input { flex-direction: column !important; }
           .social-links { justify-content: center !important; }
           .legal-links { flex-direction: column !important; gap: 1rem !important; }
+        }
+
+        @media (max-width: 480px) {
+          [style*="grid-template-columns: 1fr 1.5fr 1fr"] { 
+            gap: 1.5rem !important;
+          }
         }
       `}</style>
     </footer>

@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import mobileMoney from '../assets/mobile money.png';
+import airtelMoney from '../assets/airtel.jpg';
 // import visaCard from '../assets/visa card.png';
 // import masterCard from '../assets/master card.png';
 import heroImage from '../assets/Welcome_Message_Update.mp4';
 import whatsappIcon from '../assets/whatsapp-icon.png';
-import translationImage from '../assets/translation-interpretation.png';
-import websiteImage from '../assets/website-and-software-localization.png';
-import certifiedImage from '../assets/certified-document-translation.png';
-import aImage from '../assets/audio.png';
-import proofreadingImage from '../assets/proofreading-and-editing.png';
+import translationImage from '../assets/translation-interpretation-removebg-preview.png';
+import websiteImage from '../assets/website-and-software-localization-removebg-preview.png';
+import certifiedImage from '../assets/certified-document-translation-removebg-preview.png';
+import aImage from '../assets/audio-removebg-preview.png';
+import proofreadingImage from '../assets/proofreading-and-editing-removebg-preview.png';
 import cvImage from '../assets/cv-and-application-support.png';
 import contentImage from '../assets/content-creation.png';
 import socialImage from '../assets/social-media-marketing.png';
-import aiImage from '../assets/ai-translation.png';
-import backImage from '../assets/back-translation-and-quality-assuarance.png';
-import grossariesImage from '../assets/grossaries-and-language-resource.png';
+import aiImage from '../assets/ai-translation-removebg-preview.png';
+import backImage from '../assets/back-translation-and-quality-assuarance-removebg-preview.png';
+import grossariesImage from '../assets/grossaries-and-language-resource-removebg-preview.png';
 import machineImage from '../assets/machine.png';
 
 function Home() {
@@ -24,6 +25,7 @@ function Home() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [selectedTestimonial, setSelectedTestimonial] = useState(0);
 
   useEffect(() => {
     setIsVisible(true);
@@ -36,63 +38,75 @@ function Home() {
 
   const services = [
     {
+      id: 1,
       title: "Translation and Interpretation",
-      description: "Document translation and live interpretation in English, French, Kinyarwanda, Kiswahili, Kirundi, and more—with native fluency and cultural precision.",
+      description: "We provide professional document translation and live interpretation in English, French, Kinyarwanda, Kiswahili, Kirundi, and more—with native fluency and cultural precision.",
       icon: translationImage
     },
     {
+      id: 2,
       title: "Website & Software Localization",
-      description: "Adapt your content for local markets with cultural sensitivity, seamless UX, and multilingual interface accuracy.",
+      description: "We adapt your content for local markets with cultural sensitivity, seamless UX, and multilingual interface accuracy.",
       icon: websiteImage
     },
     {
+      id: 3,
       title: "Certified Document Translation",
-      description: "Accepted translations for embassies, universities, immigration, and government documentation—certified and notarized upon request.",
+      description: "We provide legally accepted translations for embassies, universities, immigration, and government documentation—certified and notarized upon request.",
       icon: certifiedImage
     },
     {
+      id: 4,
       title: "Audio & Video Transcription",
-      description: "Accurate translations for embassies, universities, immigration, and government.",
+      description: "We transcribe audio/video files (MP3, MP4, WAV, etc.) with optional time-coding and translation services.",
       icon: aImage
     },
     {
+      id: 5,
       title: "Proofreading & Editing",
-      description: "Refine grammar, structure, tone, and clarity—perfect for publication and professional use.",
+      description: "We refine grammar, structure, tone, and clarity—perfect for publication and professional use.",
       icon: proofreadingImage
     },
     {
+      id: 6,
       title: "CV & Application Support",
-      description: "Refine your CVs, resumes, cover letters, and personal statements to boost your success in job markets and admissions.",
+      description: "We refine your CVs, cover letters, and personal statements to boost your success in job markets and admissions.",
       icon: cvImage
     },
     {
+      id: 7,
       title: "Machine Translation Post-Editing (MTPE)",
-      description: "Transform raw AI-generated text into clear, accurate, culturally relevant communication with our expert linguists.",
+      description: "We refine raw AI-generated text into clear, accurate, culturally relevant communication with our expert linguists.",
       icon: machineImage
     },
     {
+      id: 8,
       title: "Glossaries & Language Resources",
-      description: "Create bilingual glossaries, field-specific term banks, and custom language tools to support consistency in all your communications.",
+      description: "We build bilingual glossaries, field-specific term banks, and custom language tools to support consistency in all your communications.",
       icon: grossariesImage
     },
     {
+      id: 9,
       title: "Back-Translation & Quality Assurance",
-      description: "Ensure accuracy, clarity, and risk-free delivery in sensitive sectors like health, law, and development with independent back-translation.",
+      description: "We ensure accuracy, clarity, and risk-free delivery in sensitive sectors like health, law, and development with independent back-translation.",
       icon: backImage
     },
     {
+      id: 10,
       title: "AI Translation Services",
-      description: "Enhance multilingual communication with AI-powered translations enhanced by native-speaking linguists—fast, accurate, and locally adapted.",
+      description: "We accelerate multilingual communication with AI-powered translations enhanced by native-speaking linguists—fast, accurate, and locally adapted.",
       icon: aiImage
     },
     {
+      id: 11,
       title: "Social Media Marketing",
-      description: "Engage multilingual audiences across platforms with culturally adapted social media content, campaign strategies, and community management—in English, French, Kinyarwanda, Kiswahili, and more.",
+      description: "We engage multilingual audiences across platforms with culturally adapted social media content, campaign strategies, and community management—in English, French, Kinyarwanda, Kiswahili, and more.",
       icon: socialImage
     },
     {
+      id: 12,
       title: "Content Creation",
-      description: "Professional, SEO-optimized content in multiple languages—tailored for web, print, and multimedia—to help you inform, inspire, and connect across cultures.",
+      description: "We create professional, SEO-optimized content in multiple languages—tailored for web, print, and multimedia—to help you inform, inspire, and connect across cultures.",
       icon: contentImage
     }
   ];
@@ -100,37 +114,95 @@ function Home() {
   const whyChooseFeatures = [
     {
       title: "Native Linguists",
-      description: "All our translators are native speakers with subject-matter expertise",
+      description: "All our translators are native speakers with subject-matter expertise.",
       icon: ""
     },
     {
       title: "Tech-Enabled Workflow",
-      description: "We use advanced tools and quality assurance processes for consistent results",
+      description: "We use advanced tools and quality assurance processes for consistent results.",
       icon: ""
     },
     {
       title: "Trusted Across Africa & Globally",
-      description: "We serve clients throughout Rwanda, Africa, and worldwide",
+      description: "We serve clients throughout Rwanda, Africa, and worldwide.",
       icon: ""
+    },
+    {
+      title: "Mentorship & Training",
+      description: "For Rwandan translators and language professionals.",
+      icon: ""
+    },
+    {
+      title: "Local Expertise",
+      description: "Industry precision with cultural understanding.",
+      icon: ""
+    },
+    {
+      title: "Multi-Stage Quality Control",
+      description: "Rigorous review processes for perfect results.",
+      icon: ""
+    }
+    
+  ];
+
+  const testimonials = [
+    {
+      quote: "LCI helped us launch a fully localized campaign across East Africa. They were fast, responsive, and deeply professional.",
+      cite: "— Regional Marketing Manager, East Africa NGO"
+    },
+    {
+      quote: "Their translation services are top-notch! Accurate and timely delivery every time.",
+      cite: "— CEO, Tech Startup"
+    },
+    {
+      quote: "LCI's localization expertise helped us expand into new markets seamlessly.",
+      cite: "— Marketing Director, E-commerce Company"
+    },
+    {
+      quote: "Excellent customer service and high-quality interpretations for our international conferences.",
+      cite: "— Event Organizer, Global Firm"
+    },
+    {
+      quote: "The certified document translations were perfect for our visa applications.",
+      cite: "— Immigration Consultant"
+    },
+    {
+      quote: "Their proofreading turned our content into professional masterpieces.",
+      cite: "— Content Manager, Publishing House"
+    },
+    {
+      quote: "AI-enhanced translations saved us time without compromising quality.",
+      cite: "— Project Manager, Software Development"
+    },
+    {
+      quote: "Great social media marketing in multiple languages boosted our engagement.",
+      cite: "— Social Media Specialist"
+    },
+    {
+      quote: "The back-translation ensured accuracy for our medical documents.",
+      cite: "— Healthcare Administrator"
+    },
+    {
+      quote: "Custom glossaries improved consistency across our technical manuals.",
+      cite: "— Technical Writer"
+    },
+    {
+      quote: "Outstanding CV support that landed me my dream job abroad.",
+      cite: "— Job Seeker"
     }
   ];
 
   const paymentMethods = [
     {
-      title: "MTN Mobile Money",
-      description: "Pay securely using your MTN Mobile Money account. Dial *182*1*1# to make a payment to our registered number: +250788518720. This text should be visible on the page.",
+      title: "",
+      description: "Pay securely using your MTN Mobile Money account. Dial *182*1*1# to make a payment to our registered number: +250788518720.",
       image: mobileMoney
     },
-    // {
-    //   title: "",
-    //   description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
-    //   image: visaCard
-    // },
-    // {
-    //   title: "",
-    //   description: "Currently unavailable. Please use MTN Mobile Money for secure payments.",
-    //   image: masterCard
-    // }
+    {
+      title: "",
+      description: "Pay securely using your Airtel Money account. Dial *100# to make a payment to our registered number: +250788518720.",
+      image: airtelMoney
+    },
   ];
 
   const styles = {
@@ -264,13 +336,15 @@ function Home() {
     serviceCard: {
       background: '#f1eee5',
       borderRadius: '15px',
-      padding: '1.5rem',
+      padding: '1.3rem',
       border: '1px solid #de800d',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
       boxShadow: '0 5px 15px rgba(255, 140, 0, 0.1)',
       position: 'relative',
       overflow: 'hidden',
+      textDecoration: 'none',
+      display: 'block',
     },
     serviceIcon: {
       fontSize: '1.8rem',
@@ -287,7 +361,7 @@ function Home() {
     serviceDescription: {
       color: '#0a1d51',
       lineHeight: '1.5',
-      fontSize: '0.95rem',
+      fontSize: '0.85rem',
       maxHeight: '0',
       overflow: 'hidden',
       transition: 'max-height 0.3s ease',
@@ -295,9 +369,22 @@ function Home() {
     expandedDescription: {
       maxHeight: '100px',
     },
+    learnMoreLink: {
+      display: 'inline-block',
+      marginTop: '1rem',
+      color: '#de800d',
+      fontWeight: '600',
+      fontSize: '0.9rem',
+      textDecoration: 'none',
+      border: '1px solid #de800d',
+      padding: '0.3rem 0.8rem',
+      borderRadius: '10px',
+      transition: 'all 0.3s ease',
+    },
     whyChooseGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      gridTemplateRows: 'repeat(2, auto)',
       gap: '2rem',
     },
     whyChooseCard: {
@@ -369,6 +456,16 @@ function Home() {
       fontWeight: '500',
       fontSize: '0.95rem',
     },
+    dropdown: {
+      marginBottom: '1rem',
+      padding: '0.5rem',
+      fontSize: '1rem',
+      borderRadius: '5px',
+      border: '1px solid #de800d',
+      background: '#f1eee5',
+      color: '#0a1d51',
+      cursor: 'pointer',
+    },
     paymentGrid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
@@ -387,8 +484,8 @@ function Home() {
       textAlign: 'center',
     },
     paymentImage: {
-      width: '80px',
-      height: '40px',
+      width: '100px',
+      height: '60px',
       objectFit: 'contain',
       marginBottom: '1rem',
     },
@@ -532,15 +629,13 @@ function Home() {
     <div style={styles.container}>
       <section style={styles.heroSection}>
         <div style={styles.heroContainer}>
-        <video 
-  src={heroImage} 
-  style={styles.heroVideo}
-  controls
-  loop
-  playsInline
-/>
-
-
+          <video 
+            src={heroImage} 
+            style={styles.heroVideo}
+            controls
+            loop
+            playsInline
+          />
           <div style={styles.heroContent}>
             <h1 style={styles.heroTitle}>Your Trusted Translation & Localization Experts</h1>
             <p style={styles.heroSubtitle}>Dedicated to You – Professional. Precise. Perfect.</p>
@@ -571,11 +666,19 @@ function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={styles.whatsappButton}
-                onMouseEnter={handleButtonHover}
-                onMouseLeave={handleButtonLeave}
+                onMouseEnter={(e) => {
+                  e.target.style.background = '#de800d';
+                  e.target.style.color = 'white';
+                  e.target.style.transform = 'scale(1.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = '#e4ece9';
+                  e.target.style.color = '#0a1d51';
+                  e.target.style.transform = 'scale(1)';
+                }}
               >
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  Chat on<img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} /> 
+                  Chat on <span style={{ color: '#de800d' }}><img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} /></span>
                 </span>
               </a>
             </div>
@@ -588,8 +691,9 @@ function Home() {
         <p style={styles.sectionSubtitle}>Comprehensive language solutions tailored to your specific needs</p>
         <div style={styles.servicesGrid}>
           {services.map((service, index) => (
-            <div
+            <Link
               key={index}
+              to={`/services#service-${service.id}`}
               style={{
                 ...styles.serviceCard,
                 transform: hoveredCard === index ? 'scale(1.05)' : 'scale(1)',
@@ -604,6 +708,7 @@ function Home() {
                   <img src={service.icon} alt={service.title} style={{ width: '40px', height: '40px', marginBottom: '1rem' }} />
                   <h3 style={styles.serviceTitle}>{service.title}</h3>
                   <p style={{ ...styles.serviceDescription, ...styles.expandedDescription }}>{service.description}</p>
+                  <span style={styles.learnMoreLink}>Learn More →</span>
                 </>
               ) : (
                 <>
@@ -611,7 +716,7 @@ function Home() {
                   <h3 style={styles.serviceTitle}>{service.title}</h3>
                 </>
               )}
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -635,35 +740,30 @@ function Home() {
           <h2 style={styles.sectionTitle}>Excellence Isn't an Act. It's Our Tradition</h2>
           <p style={styles.sectionSubtitle}>Building Rwanda's Future of Multilingual Digital Communication</p>
           <div style={styles.excellenceGrid}>
-            <div style={styles.excellenceCard}>
-              <h3 style={{ fontSize: '1.3rem', fontWeight: '600', color: '#0a1d51', marginBottom: '0.8rem' }}>
-                Mentorship & Training
-              </h3>
-              <p style={{ color: '#0a1d51', fontSize: '0.95rem' }}>For Rwandan translators and language professionals</p>
-            </div>
-            <div style={styles.excellenceCard}>
-              <h3 style={{ fontSize: '1.3rem', fontWeight: '600', color: '#0a1d51', marginBottom: '0.8rem' }}>
-                Native-Language Expertise
-              </h3>
-              <p style={{ color: '#0a1d51', fontSize: '0.95rem' }}>Industry precision with cultural understanding</p>
-            </div>
-            <div style={styles.excellenceCard}>
-              <h3 style={{ fontSize: '1.3rem', fontWeight: '600', color: '#0a1d51', marginBottom: '0.8rem' }}>
-                Multi-Stage Quality Control
-              </h3>
-              <p style={{ color: '#0a1d51', fontSize: '0.95rem' }}>Rigorous review processes for perfect results</p>
-            </div>
           </div>
-          <div style={styles.testimonial}>
-            <div style={styles.stars}>
-              {[...Array(5)].map((_, i) => (
-                <span key={i} style={styles.star}>⭐</span>
+          <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+            <select 
+              value={selectedTestimonial} 
+              onChange={(e) => setSelectedTestimonial(parseInt(e.target.value))}
+              style={styles.dropdown}
+            >
+              {testimonials.map((testimonial, index) => (
+                <option key={index} value={index}>
+                  {testimonial.cite.replace('— ', '')}
+                </option>
               ))}
+            </select>
+            <div style={styles.testimonial}>
+              <div style={styles.stars}>
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} style={styles.star}>⭐</span>
+                ))}
+              </div>
+              <blockquote style={styles.quote}>
+                "{testimonials[selectedTestimonial].quote}"
+              </blockquote>
+              <cite style={styles.cite}>{testimonials[selectedTestimonial].cite}</cite>
             </div>
-            <blockquote style={styles.quote}>
-              "LCI helped us launch a fully localized campaign across East Africa. They were fast, responsive, and deeply professional."
-            </blockquote>
-            <cite style={styles.cite}>— Regional Marketing Manager, East Africa NGO</cite>
           </div>
         </div>
       </section>
@@ -677,8 +777,8 @@ function Home() {
               key={index}
               style={{
                 ...styles.paymentCard,
-                opacity: method.title !== "MTN Mobile Money" ? 0.6 : 1,
-                pointerEvents: method.title !== "MTN Mobile Money" ? 'none' : 'auto',
+                opacity: 1,
+                pointerEvents: 'auto',
               }}
             >
               <img src={method.image} alt={method.title} style={styles.paymentImage} />
@@ -748,7 +848,21 @@ function Home() {
             style={styles.subscribeInput}
             required
           />
-          <button type="submit" style={styles.subscribeButton} onClick={handleSubscribe}>
+          <button 
+            type="submit" 
+            style={styles.subscribeButton} 
+            onClick={handleSubscribe}
+            onMouseEnter={(e) => {
+              e.target.style.background = '#de800d';
+              e.target.style.color = 'white';
+              e.target.style.transform = 'scale(1.05)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = '#f1eee5';
+              e.target.style.color = '#0a1d51';
+              e.target.style.transform = 'scale(1)';
+            }}
+          >
             <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               Subscribe <span style={{ color: '#de800d' }}></span>
             </span>

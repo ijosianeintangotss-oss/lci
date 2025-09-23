@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import heroImage from '../assets/LCIVision+Mission.png';
+import heroImage from '../assets/Who-We-Are.png';
 import whatsappIcon from '../assets/whatsapp-icon.png';
+import culturalHubImage from '../assets/culture-expert-removebg-preview.png'; // Add this import
 
 function About() {
   const [isVisible, setIsVisible] = useState(false);
@@ -57,14 +58,14 @@ function About() {
       icon: "🌱"
     },
     {
-      title: "Global Standards",
-      description: "Combining global best practices with deep local knowledge for superior results.",
+      title: "Global Standards Champion",
+      description: "A champion of global best practices, blending international benchmarks with local expertise to deliver superior results.",
       icon: "🌍"
     },
     {
-      title: "Cultural Expertise",
-      description: "Promoting inclusive communication that respects cultural and linguistic diversity.",
-      icon: "🤝"
+      title: "Cultural Expertise Hub",
+      description: "A hub for cultural and linguistic insight, promoting inclusive communication that respects and celebrates diversity.",
+      image: culturalHubImage // Replaced icon with image
     }
   ];
 
@@ -163,7 +164,7 @@ function About() {
       justifyContent: 'center',
     },
     whatsappButton: {
-      backgroundColor: '#10b981',
+      backgroundColor: '#de800d',
       color: '#0a1d51',
       padding: '0.8rem 1.8rem',
       borderRadius: '15px',
@@ -227,7 +228,7 @@ function About() {
       marginBottom: '0.8rem',
     },
     cardDescription: {
-      fontSize: '0.95rem',
+      fontSize: '1.1rem',
       lineHeight: '1.5',
       color: '#0a1d51',
     },
@@ -290,12 +291,20 @@ function About() {
       cursor: 'pointer',
       transition: 'all 0.3s ease',
       boxShadow: '0 5px 15px rgba(255, 140, 0, 0.1)',
+      textAlign: 'center',
     },
     featureIcon: {
       fontSize: '2rem',
       marginBottom: '1rem',
       display: 'block',
       color: '#de800d',
+    },
+    featureImage: {
+      width: '40px',
+      height: '40px',
+      margin: '0 auto 1rem auto',
+      display: 'block',
+      objectFit: 'contain',
     },
     featureTitle: {
       fontSize: '1.2rem',
@@ -347,6 +356,7 @@ function About() {
       cursor: 'pointer',
       transition: 'all 0.3s ease',
       boxShadow: '0 5px 15px rgba(255, 140, 0, 0.1)',
+      textAlign: 'center',
     },
     valueIcon: {
       fontSize: '2rem',
@@ -410,7 +420,7 @@ function About() {
 
   const handleWhatsAppButtonLeave = (e) => {
     e.target.style.transform = 'scale(1)';
-    e.target.style.backgroundColor = '#10b981';
+    e.target.style.backgroundColor = '#de800d';
     e.target.style.color = '#0a1d51';
   };
 
@@ -424,7 +434,7 @@ function About() {
             style={styles.heroImage}
           />
           <div style={styles.heroContent}>
-            <h1 style={styles.heroTitle}>About Language Computing International</h1>
+            <h1 style={styles.heroTitle}>Language Computing International</h1>
             <p style={styles.heroDescription}>
               Your trusted partner for professional translation, localization, and multilingual communication services across Africa and beyond.
             </p>
@@ -447,7 +457,7 @@ function About() {
                 onMouseEnter={handleButtonHover}
                 onMouseLeave={handleWhatsAppButtonLeave}
               >
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', }}>
                   Chat on<img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} />                 </span>
               </a>
             </div>
@@ -463,59 +473,31 @@ function About() {
             <p style={styles.cardDescription}>
               To empower organizations and individuals to express their ideas accurately and professionally across languages—bridging communication gaps with cultural insight and linguistic excellence.
             </p>
+            
           </div>
           <div style={styles.visionCard}>
             <h3 style={styles.cardTitle}>Our Vision</h3>
             <p style={styles.cardDescription}>
               To be Africa's leading hub for multilingual communication and translator development—where global reach meets local expertise.
             </p>
-          </div>
-        </div>
-        <div style={styles.quoteSection}>
-          <blockquote style={styles.quote}>
-            "Think Globally, Act Locally"
-          </blockquote>
-          <p style={styles.quoteSubtext}>
+            <p style={styles.quoteSubtext}>
             We envision a world where people, cultures, and businesses are better connected—one language at a time.
           </p>
+          </div>
         </div>
       </section>
 
       <section style={styles.whoWeAreSection}>
         <h2 style={styles.sectionTitle}>Who We Are</h2>
         <p style={styles.description}>
-          Language Computing International (LCI) is a trusted, Rwanda-registered language service provider dedicated to helping individuals and organizations connect across linguistic and cultural borders.
+          We are a registered language service provider based in Kigali, with a growing network of native-speaking translators, linguists, and editors who specialize in African and international languages.
         </p>
         <div style={styles.highlightBox}>
-          <p style={{ fontSize: '1rem', lineHeight: '1.5', color: '#0a1d51', margin: '0 0 1rem', textAlign: 'center' }}>
-            We are a registered language service provider based in Kigali, with a growing network of native-speaking translators, linguists, and editors who specialize in African and international languages. Our mission: to empower communication that is meaningful, inclusive, and accurate.
-          </p>
           <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
             <h3 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#de800d', marginBottom: '0.8rem' }}>
-              🌱 We Are Also:
+              We Are Also:
             </h3>
-            <ul style={{ listStyle: 'none', padding: 0, fontSize: '0.95rem', color: '#0a1d51' }}>
-              <li style={{ marginBottom: '0.3rem' }}>• A talent incubator for aspiring language professionals</li>
-              <li style={{ marginBottom: '0.3rem' }}>• A mentor-driven environment for practical learning</li>
-              <li style={{ marginBottom: '0.3rem' }}>• A trusted resource for consistent, culturally adapted content</li>
-            </ul>
-          </div>
-          <p style={{ fontSize: '0.95rem', lineHeight: '1.5', color: '#0a1d51', textAlign: 'center', marginBottom: '1rem' }}>
-            Whether you're a business expanding across borders, an NGO localizing content, or a government institution enhancing multilingual communication, LCI brings you precise, culturally adapted, and professionally verified content—on time and on budget.
-          </p>
-          <p style={{ fontSize: '0.95rem', lineHeight: '1.5', color: '#0a1d51', textAlign: 'center', marginBottom: '1rem' }}>
-            We are proud to support diverse industries including legal, medical, educational, financial, and IT sectors with linguistically sound, native-level expertise.
-          </p>
-          <div style={{ textAlign: 'center', borderTop: '1px solid #de800d', paddingTop: '1rem' }}>
-            <p style={{ fontSize: '1.1rem', fontWeight: '600', color: '#0a1d51', marginBottom: '0.8rem' }}>
-              🔸 Dedicated to You – Professional. Precise. Perfect.
-            </p>
-            <p style={{ fontSize: '0.95rem', color: '#de800d', fontWeight: '500' }}>
-              🔸 Fast turnaround, strict confidentiality, and native-language quality assurance.
-            </p>
-          </div>
-        </div>
-        <div style={styles.featureGrid}>
+             <div style={styles.featureGrid}>
           {keyFeatures.map((feature, index) => (
             <div
               key={index}
@@ -527,11 +509,28 @@ function About() {
               onMouseEnter={() => handleMouseEnter(`feature-${index}`)}
               onMouseLeave={handleMouseLeave}
             >
-              <span style={styles.featureIcon}>{feature.icon}</span>
+              {feature.image ? (
+                <img 
+                  src={feature.image} 
+                  alt={feature.title}
+                  style={styles.featureImage}
+                />
+              ) : (
+                <span style={styles.featureIcon}>{feature.icon}</span>
+              )}
               <h3 style={styles.featureTitle}>{feature.title}</h3>
               <p style={styles.featureDescription}>{feature.description}</p>
             </div>
           ))}
+        </div>
+          </div>
+          <p style={{ fontSize: '1rem',fontWeight: '600', lineHeight: '1.5', color: '#0a1d51', textAlign: 'center', marginBottom: '1.5rem'  }}>
+
+            Whether you're a business expanding across borders, an NGO localizing content, or a government institution enhancing multilingual communication, LCI brings you precise, culturally adapted, and professionally verified content—on time and on budget.
+        
+            We are proud to support diverse industries including legal, medical, educational, financial, and IT sectors with linguistically sound, native-level expertise.
+          </p>
+          
         </div>
       </section>
 

@@ -13,16 +13,51 @@ function Services() {
       setIsMobile(window.innerWidth <= 768);
     };
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    
+    // Enhanced anchor link handling
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const serviceId = parseInt(hash.replace('#service-', ''));
+        if (!isNaN(serviceId)) {
+          setActiveService(serviceId);
+          
+          // Scroll to the service with smooth behavior
+          setTimeout(() => {
+            const element = document.getElementById(hash.slice(1));
+            if (element) {
+              const elementPosition = element.getBoundingClientRect().top;
+              const offsetPosition = elementPosition + window.pageYOffset - 100;
+              
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+              });
+            }
+          }, 300);
+        }
+      }
+    };
+    
+    // Handle initial hash
+    handleHashChange();
+    
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('hashchange', handleHashChange);
+    };
   }, []);
 
   const services = [
     {
       id: 1,
-      title: "Translation and Interpretation Services",
+      title: "Translation and Interpretation",
       tagline: "Fluent. Accurate. Native-quality.",
       icon: "🌐",
-      description: "We provide precise translations and professional interpretation in multiple languages, ensuring cultural accuracy and quality for diverse events and settings.",
+      description: <>We translate documents in English, French, Kinyarwanda, Kiswahili, Kirundi, and more with precision and contextual understanding. Our multi-stage review process—handled by native-speaking translators, editors, and proofreaders—ensures accurate, culturally appropriate translations. We also provide professional interpretation services—both simultaneous and consecutive—for conferences, legal proceedings, training sessions, field interviews, and community outreach. Our interpreters are not only fluent in target languages, but also trained to navigate tone, cultural nuance, and subject-specific terminology in real time. Whether remote or in-person, we ensure that every conversation is clear, respectful, and impactful.<br /><b>We handle all file types: Word, Excel, PowerPoint, HTML, XML, and PDF—delivered on time and within budget.</b></>,
       keyFeatures: [
         "Native-speaking translators only",
         "Multi-stage review process",
@@ -141,7 +176,7 @@ function Services() {
       title: "Machine Translation Post-Editing (MTPE)",
       tagline: "Speed Meets Accuracy—with a Human Touch.",
       icon: "⚡",
-      description: "MTPE bridges the gap between fast, affordable machine translation and the precision of human language experts. At LCI, we enhance raw MT output with expert linguists who ensure clarity, cultural relevance, and error-free communication.",
+      description: "MTPE bridges the gap between fast, affordable machine translation and the precision of human language experts. At LCI, we enhance raw MT output with expert linguists who ensure clarity, cultural relevance, and error-free communication. We humanize your machine output to meet real-world standards.",
       keyFeatures: [
         "Full post-editing (accuracy, tone, clarity)",
         "Light post-editing for non-critical content",
@@ -182,7 +217,7 @@ function Services() {
       title: "Back-Translation & Quality Assurance",
       tagline: "Accuracy You Can Trust.",
       icon: "🔒",
-      description: "Back-Translation is a quality assurance process where a translated document is independently retranslated back into the source language. In medical, legal, and donor-funded work, accuracy isn't a luxury—it's a necessity.",
+      description: "Back-Translation is a quality assurance process where a translated document is independently retranslated back into the source language. In medical, legal, and donor-funded work, accuracy isn't a luxury—it's a necessity. At LCI, we offer back-translation and bilingual proofreading to eliminate ambiguity and ensure clarity.",
       keyFeatures: [
         "Independent back-translation",
         "Quality verification process",
@@ -200,7 +235,7 @@ function Services() {
       id: 10,
       title: "AI Translation Services",
       tagline: "Smart Translations. Human Touch. Local Impact.",
-      icon: "",
+      icon: "🤖",
       description: "LCI's AI Translation Services combine the efficiency of machine translation with the cultural and linguistic precision of native-speaking experts. Our neural machine translation (NMT) solutions are optimized for African language pairs.",
       keyFeatures: [
         "Neural machine translation optimized for African and global language pairs",
@@ -223,8 +258,8 @@ function Services() {
       id: 11,
       title: "Social Media Marketing",
       tagline: "Build Visibility. Drive Engagement. Amplify in Every Language.",
-      icon: "🤖",
-      description: "Engage multilingual audiences across platforms with culturally adapted social media content, campaign strategies, and community management—in English, French, Kinyarwanda, Kiswahili, and more.",
+      icon: "📱",
+      description: "LCI offers multilingual social media marketing tailored to your audience and goals. Whether you're launching a campaign, raising awareness, or building brand loyalty, we help you craft content that resonates—across borders, platforms, and languages. From Facebook to Instagram, LinkedIn to X, we manage strategy, design, captions, scheduling, and community engagement—all in your target language and cultural context.",
       keyFeatures: [
         "Multilingual content creation and localization",
         "Platform-specific campaign strategies (Meta, LinkedIn, X, Instagram, TikTok)",
@@ -244,8 +279,8 @@ function Services() {
       id: 12,
       title: "Content Creation",
       tagline: "Powerful Stories. Locally Told.",
-      icon: "📱",
-      description: "Professional, SEO-optimized content in multiple languages—tailored for web, print, and multimedia—to help you inform, inspire, and connect across cultures.",
+      icon: "✍️",
+      description: "From blog articles to branded video scripts, LCI creates original, compelling content that speaks your audience's language—literally and figuratively. We specialize in multilingual content strategy, development, and adaptation for print, digital, and multimedia formats.",
       keyFeatures: [
         "Multilingual blog writing and translation",
         "Scriptwriting for explainer videos, radio, and storytelling",
@@ -407,6 +442,20 @@ function Services() {
       marginBottom: '1rem',
       fontSize: '0.95rem',
     },
+    viewMoreButton: {
+      background: 'none',
+      border: 'none',
+      color: '#de800d',
+      textDecoration: 'underline',
+      cursor: 'pointer',
+      fontSize: '0.95rem',
+      fontWeight: '600',
+      padding: '0',
+      margin: '0.5rem 0',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '0.3rem',
+    },
     featuresSection: {
       marginBottom: '1rem',
     },
@@ -442,23 +491,6 @@ function Services() {
       color: '#0a1d51',
       textAlign: 'center',
       border: '1px solid #de800d',
-    },
-    expandButton: {
-      position: 'absolute',
-      top: '1rem',
-      right: '1rem',
-      background: '#de800d',
-      color: 'white',
-      border: 'none',
-      borderRadius: '50%',
-      width: '2rem',
-      height: '2rem',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontSize: '1rem',
-      transition: 'all 0.3s ease',
     },
     qualitySection: {
       background: '#f1eee5',
@@ -643,6 +675,16 @@ function Services() {
     e.target.style.color = '#0a1d51';
   };
 
+  const handleViewMoreHover = (e) => {
+    e.target.style.textDecoration = 'underline';
+    e.target.style.color = '#0a1d51';
+  };
+
+  const handleViewMoreLeave = (e) => {
+    e.target.style.textDecoration = 'underline';
+    e.target.style.color = '#de800d';
+  };
+
   return (
     <div style={styles.container}>
       <section style={styles.heroSection}>
@@ -661,6 +703,7 @@ function Services() {
           {services.map((service, index) => (
             <div
               key={service.id}
+              id={`service-${service.id}`}
               style={{
                 ...styles.serviceCard,
                 transform: hoveredCard === index ? 'scale(1.05)' : 'scale(1)',
@@ -669,15 +712,6 @@ function Services() {
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
             >
-              <button
-                style={{
-                  ...styles.expandButton,
-                  transform: activeService === service.id ? 'rotate(45deg)' : 'rotate(0deg)',
-                }}
-                onClick={() => handleExpandService(service.id)}
-              >
-                +
-              </button>
               <div style={styles.serviceHeader}>
                 <span style={styles.serviceIcon}>{service.icon}</span>
                 <div style={styles.serviceHeaderText}>
@@ -686,6 +720,16 @@ function Services() {
                 </div>
               </div>
               <p style={styles.serviceDescription}>{service.description}</p>
+              
+              <button
+                style={styles.viewMoreButton}
+                onClick={() => handleExpandService(service.id)}
+                onMouseEnter={handleViewMoreHover}
+                onMouseLeave={handleViewMoreLeave}
+              >
+                {activeService === service.id ? 'View Less' : 'View More'}
+              </button>
+
               {activeService === service.id && (
                 <>
                   <div style={styles.featuresSection}>
