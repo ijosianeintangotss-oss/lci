@@ -44,7 +44,6 @@ function Footer() {
     { name: 'Kinyarwanda', flag: '🇷🇼' },
     { name: 'Swahili', flag: '🇹🇿' },
     { name: 'Kirundi', flag: '🇧🇮' }
-
   ];
 
   const socialLinks = [
@@ -167,8 +166,8 @@ function Footer() {
     },
     mainSection: {
       display: 'grid',
-      gridTemplateColumns: '1fr 1.5fr 1fr', // Adjusted to give Services more space
-      gap: '2rem', // Balanced gap
+      gridTemplateColumns: '1fr 1.5fr 1fr',
+      gap: '2rem',
       marginBottom: '2rem',
       alignItems: 'start'
     },
@@ -189,21 +188,21 @@ function Footer() {
       display: 'flex',
       flexDirection: 'column',
       gap: '0rem',
-      alignItems: 'center', // Center align services
+      alignItems: 'center',
       textAlign: 'left'
     },
-    contactSection: {
+    connectSection: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '0rem',
-      alignItems: 'flex-end', // Align contact to the right
-      textAlign: 'right'
+      gap: '1.5rem',
+      alignItems: 'center',
+      textAlign: 'center'
     },
     sectionTitle: {
       fontSize: '1.1rem',
       fontWeight: 'bold',
       marginBottom: '0.75rem',
-      color: 'white',
+      color: '#ff8c00',
       position: 'relative',
       paddingBottom: '0.3rem',
       width: '100%'
@@ -211,8 +210,9 @@ function Footer() {
     titleUnderline: {
       position: 'absolute',
       bottom: 0,
-      left: 0,
-      width: '100%',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      width: '80%',
       height: '2px',
       background: '#ff8c00',
       borderRadius: '2px'
@@ -285,7 +285,7 @@ function Footer() {
       gridTemplateColumns: 'repeat(2, 1fr)',
       gap: '0.5rem',
       width: '100%',
-      maxWidth: '500px' // Limit max width for better centering
+      maxWidth: '500px'
     },
     serviceItem: {
       display: 'flex',
@@ -299,56 +299,78 @@ function Footer() {
       paddingLeft: '0.3rem',
       cursor: 'pointer'
     },
-    languageGrid: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      gap: '0.5rem'
-    },
-    languageItem: {
+    // New ellipse-style social media section
+    ellipseContainer: {
       display: 'flex',
+      justifyContent: 'center',
       alignItems: 'center',
-      gap: '0.3rem',
-      padding: '0.3rem',
-      background: 'rgba(255, 255, 255, 0.1)',
-      borderRadius: '6px',
-      fontSize: '0.8rem',
-      transition: 'all 0.3s ease'
+      position: 'relative',
+      width: '280px',
+      height: '280px',
+      margin: '1rem auto'
     },
-    contactGrid: {
+    ellipseBackground: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '250px',
+      height: '250px',
+      background: 'linear-gradient(135deg, #ff8c00, #ff6b00)',
+      borderRadius: '50%',
       display: 'flex',
-      flexDirection: 'column',
-      gap: '1rem',
-      alignItems: 'flex-end',
-      width: '100%'
-    },
-    contactItem: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '0.25rem',
-      alignItems: 'flex-end',
-      width: '100%'
-    },
-    contactHeader: {
-      display: 'flex',
+      justifyContent: 'center',
       alignItems: 'center',
-      gap: '0.5rem',
-      fontSize: '0.9rem',
-      fontWeight: '600',
-      color: 'white'
+      boxShadow: '0 10px 30px rgba(255, 140, 0, 0.3)',
+      border: '3px solid rgba(255, 255, 255, 0.2)'
     },
-    contactDetails: {
+    socialIconsContainer: {
+      position: 'relative',
+      width: '100%',
+      height: '100%'
+    },
+    socialIcon: {
+      position: 'absolute',
+      width: '50px',
+      height: '50px',
+      background: 'rgba(255, 255, 255, 0.95)',
+      borderRadius: '50%',
       display: 'flex',
-      flexDirection: 'column',
-      gap: '0.25rem',
-      alignItems: 'flex-end',
-      width: '100%'
-    },
-    contactDetail: {
-      fontSize: '0.8rem',
-      color: 'rgba(255, 255, 255, 0.9)',
+      justifyContent: 'center',
+      alignItems: 'center',
+      boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
+      transition: 'all 0.3s ease',
       cursor: 'pointer',
-      transition: 'color 0.3s ease',
-      textAlign: 'right'
+      border: '2px solid white'
+    },
+    socialIconImage: {
+      width: '24px',
+      height: '24px',
+      objectFit: 'contain',
+      transition: 'transform 0.3s ease'
+    },
+    // Position each social icon around the ellipse
+    whatsappPos: {
+      top: '20%',
+      left: '50%',
+      transform: 'translateX(-50%)'
+    },
+    linkedinPos: {
+      top: '40%',
+      right: '15%'
+    },
+    twitterPos: {
+      bottom: '40%',
+      right: '15%'
+    },
+    facebookPos: {
+      bottom: '20%',
+      left: '50%',
+      transform: 'translateX(-50%)'
+    },
+    instagramPos: {
+      top: '40%',
+      left: '15%'
     },
     socialSection: {
       marginTop: '1.5rem',
@@ -457,6 +479,14 @@ function Footer() {
       zIndex: 9999,
       display: emailCopied ? 'block' : 'none',
       animation: emailCopied ? 'fadeInOut 2s ease-in-out' : 'none'
+    },
+    connectDescription: {
+      fontSize: '0.9rem',
+      color: 'rgba(255, 255, 255, 0.9)',
+      textAlign: 'center',
+      lineHeight: '1.5',
+      marginBottom: '1rem',
+      maxWidth: '300px'
     }
   };
 
@@ -472,7 +502,7 @@ function Footer() {
             <h3 style={styles.sectionTitle}>
               <span style={{position: 'relative'}}>
                 Quick Links
-                <div style={styles.titleUnderline}></div>
+                {/* <div style={styles.titleUnderline}></div> */}
               </span>
             </h3>
             <ul style={styles.linksList}>
@@ -500,7 +530,7 @@ function Footer() {
             <h3 style={styles.sectionTitle}>
               <span style={{position: 'relative', textAlign: 'center', display: 'block'}}>
                 Our Services
-                <div style={{...styles.titleUnderline, left: '50%', transform: 'translateX(-50%)', width: '80%'}}></div>
+                {/* <div style={{...styles.titleUnderline, left: '50%', transform: 'translateX(-50%)', width: '80%'}}></div> */}
               </span>
             </h3>
             <ul style={styles.servicesList}>
@@ -523,88 +553,183 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Contact Information */}
-          <div style={styles.contactSection}>
+          {/* Connect With Us - Ellipse Style */}
+          <div style={styles.connectSection}>
             <h3 style={styles.sectionTitle}>
               <span style={{position: 'relative'}}>
-                Get In Touch
-                <div style={styles.titleUnderline}></div>
+                Connect With Us
+                {/* <div style={styles.titleUnderline}></div> */}
               </span>
             </h3>
-            <div style={styles.contactGrid}>
-              {contactInfo.map((contact, index) => (
-                <div key={index} style={styles.contactItem}>
-                  <div style={styles.contactHeader}>
-                    <span style={{fontSize: '1rem'}}>{contact.icon}</span>
-                    {contact.title}
-                  </div>
-                  {contact.details.length > 0 && (
-                    <div style={styles.contactDetails}>
-                      {contact.details.map((detail, idx) => (
-                        <div
-                          key={idx}
-                          style={{
-                            ...styles.contactDetail,
-                            ...(hoveredLink === `contact-${index}-${idx}` ? {color: 'white'} : {})
-                          }}
-                          onMouseEnter={() => setHoveredLink(`contact-${index}-${idx}`)}
-                          onMouseLeave={() => setHoveredLink(null)}
-                          onClick={() => {
-                            if (contact.icon === '📧') {
-                              handleEmailCopy(detail);
-                            }
-                          }}
-                        >
-                          {detail}
-                          {contact.icon === '📧' && hoveredLink === `contact-${index}-${idx}` && 
-                            <span style={{marginLeft: '0.5rem', fontSize: '0.8rem'}}>📋 Click to copy</span>
-                          }
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
+            
+            {/* <p style={styles.connectDescription}>
+              Follow us on social media to stay updated with our latest services and offers
+            </p> */}
+
+            <div style={styles.ellipseContainer}>
+              <div style={styles.ellipseBackground}></div>
+              <div style={styles.socialIconsContainer}>
+                {/* WhatsApp */}
+                <a
+                  href={socialLinks[0].url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    ...styles.socialIcon,
+                    ...styles.whatsappPos,
+                    transform: hoveredSocial === 0 ? 'scale(1.2) translateX(-50%)' : 'translateX(-50%)',
+                    top: hoveredSocial === 0 ? '15%' : '20%'
+                  }}
+                  onMouseEnter={() => setHoveredSocial(0)}
+                  onMouseLeave={() => setHoveredSocial(null)}
+                >
+                  <img 
+                    src={socialLinks[0].image} 
+                    alt={socialLinks[0].name}
+                    style={{
+                      ...styles.socialIconImage,
+                      transform: hoveredSocial === 0 ? 'scale(1.1)' : 'scale(1)'
+                    }}
+                  />
+                </a>
+
+                {/* LinkedIn */}
+                <a
+                  href={socialLinks[1].url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    ...styles.socialIcon,
+                    ...styles.linkedinPos,
+                    transform: hoveredSocial === 1 ? 'scale(1.2)' : 'scale(1)',
+                    right: hoveredSocial === 1 ? '10%' : '15%'
+                  }}
+                  onMouseEnter={() => setHoveredSocial(1)}
+                  onMouseLeave={() => setHoveredSocial(null)}
+                >
+                  <img 
+                    src={socialLinks[1].image} 
+                    alt={socialLinks[1].name}
+                    style={{
+                      ...styles.socialIconImage,
+                      transform: hoveredSocial === 1 ? 'scale(1.1)' : 'scale(1)'
+                    }}
+                  />
+                </a>
+
+                {/* Twitter */}
+                <a
+                  href={socialLinks[2].url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    ...styles.socialIcon,
+                    ...styles.twitterPos,
+                    transform: hoveredSocial === 2 ? 'scale(1.2)' : 'scale(1)',
+                    right: hoveredSocial === 2 ? '10%' : '15%'
+                  }}
+                  onMouseEnter={() => setHoveredSocial(2)}
+                  onMouseLeave={() => setHoveredSocial(null)}
+                >
+                  <img 
+                    src={socialLinks[2].image} 
+                    alt={socialLinks[2].name}
+                    style={{
+                      ...styles.socialIconImage,
+                      transform: hoveredSocial === 2 ? 'scale(1.1)' : 'scale(1)'
+                    }}
+                  />
+                </a>
+
+                {/* Facebook */}
+                <a
+                  href={socialLinks[3].url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    ...styles.socialIcon,
+                    ...styles.facebookPos,
+                    transform: hoveredSocial === 3 ? 'scale(1.2) translateX(-50%)' : 'translateX(-50%)',
+                    bottom: hoveredSocial === 3 ? '15%' : '20%'
+                  }}
+                  onMouseEnter={() => setHoveredSocial(3)}
+                  onMouseLeave={() => setHoveredSocial(null)}
+                >
+                  <img 
+                    src={socialLinks[3].image} 
+                    alt={socialLinks[3].name}
+                    style={{
+                      ...styles.socialIconImage,
+                      transform: hoveredSocial === 3 ? 'scale(1.1)' : 'scale(1)'
+                    }}
+                  />
+                </a>
+
+                {/* Instagram */}
+                <a
+                  href={socialLinks[4].url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    ...styles.socialIcon,
+                    ...styles.instagramPos,
+                    transform: hoveredSocial === 4 ? 'scale(1.2)' : 'scale(1)',
+                    left: hoveredSocial === 4 ? '10%' : '15%'
+                  }}
+                  onMouseEnter={() => setHoveredSocial(4)}
+                  onMouseLeave={() => setHoveredSocial(null)}
+                >
+                  <img 
+                    src={socialLinks[4].image} 
+                    alt={socialLinks[4].name}
+                    style={{
+                      ...styles.socialIconImage,
+                      transform: hoveredSocial === 4 ? 'scale(1.1)' : 'scale(1)'
+                    }}
+                  />
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Social Media Section */}
-        <div style={styles.socialSection}>
+        {/* Newsletter Section */}
+        {/* <div style={styles.socialSection}>
           <h3 style={{...styles.sectionTitle, margin: '0 auto 1.5rem', width: 'fit-content'}}>
             <span style={{position: 'relative'}}>
-              Connect With Us
+              Stay Updated
               <div style={styles.titleUnderline}></div>
             </span>
           </h3>
-          <div style={styles.socialLinks}>
-            {socialLinks.map((social, index) => (
-              <a
-                key={index}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  ...styles.socialLink,
-                  backgroundColor: hoveredSocial === index ? social.color : 'rgba(255, 255, 255, 0.1)'
+          <div style={styles.newsletter}>
+            <div style={styles.newsletterInput}>
+              <input
+                type="email"
+                value={email}
+                onChange={handleEmailChange}
+                placeholder="Enter your email"
+                style={styles.emailInput}
+                required
+              />
+              <button 
+                type="submit" 
+                style={styles.subscribeButton} 
+                onClick={handleSubscribe}
+                onMouseEnter={(e) => {
+                  e.target.style.background = '#ff6b00';
+                  e.target.style.transform = 'scale(1.05)';
                 }}
-                onMouseEnter={() => setHoveredSocial(index)}
-                onMouseLeave={() => setHoveredSocial(null)}
+                onMouseLeave={(e) => {
+                  e.target.style.background = '#ff8c00';
+                  e.target.style.transform = 'scale(1)';
+                }}
               >
-                <span style={{fontSize: '1rem'}}>{social.icon}</span>
-                <img 
-                  src={social.image} 
-                  alt={social.name} 
-                  style={{
-                    width: '18px',
-                    height: '18px',
-                    objectFit: 'contain'
-                  }}
-                />
-              </a>
-            ))}
+                Subscribe
+              </button>
+            </div>
+            {message && <p style={styles.message}>{message}</p>}
           </div>
-        </div>
+        </div> */}
 
         {/* Bottom Section */}
         <div style={styles.bottomSection}>
@@ -632,6 +757,14 @@ function Footer() {
             onMouseEnter={() => setHoveredLink('sitemap')}
             onMouseLeave={() => setHoveredLink(null)}>
               Sitemap
+            </a>
+            <a href="/accessibility" style={{
+              ...styles.legalLink,
+              ...(hoveredLink === 'accessibility' ? {color: 'white'} : {})
+            }}
+            onMouseEnter={() => setHoveredLink('accessibility')}
+            onMouseLeave={() => setHoveredLink(null)}>
+              Accessibility
             </a>
           </div>
           
@@ -661,31 +794,41 @@ function Footer() {
             align-items: flex-start !important; 
             text-align: left !important;
           }
-          .contact-section { 
-            align-items: flex-start !important; 
-            text-align: left !important;
+          .connect-section { 
+            align-items: center !important; 
+            text-align: center !important;
           }
-          .contact-grid {
-            align-items: flex-start !important;
+          .ellipse-container {
+            width: 220px !important;
+            height: 220px !important;
           }
-          .contact-item {
-            align-items: flex-start !important;
+          .ellipse-background {
+            width: 200px !important;
+            height: 200px !important;
           }
-          .contact-details {
-            align-items: flex-start !important;
-            padding-left: 1.5rem !important;
+          .social-icon {
+            width: 40px !important;
+            height: 40px !important;
           }
-          .contact-detail {
-            text-align: left !important;
+          .social-icon-image {
+            width: 20px !important;
+            height: 20px !important;
           }
           .newsletter-input { flex-direction: column !important; }
-          .social-links { justify-content: center !important; }
           .legal-links { flex-direction: column !important; gap: 1rem !important; }
         }
 
         @media (max-width: 480px) {
           [style*="grid-template-columns: 1fr 1.5fr 1fr"] { 
             gap: 1.5rem !important;
+          }
+          .ellipse-container {
+            width: 180px !important;
+            height: 180px !important;
+          }
+          .ellipse-background {
+            width: 160px !important;
+            height: 160px !important;
           }
         }
       `}</style>

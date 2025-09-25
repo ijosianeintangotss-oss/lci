@@ -1,5 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import translationImage from '../assets/translation-interpretation-removebg-preview.png';
+import websiteImage from '../assets/website-and-software-localization-removebg-preview.png';
+import certifiedImage from '../assets/certified-document-translation-removebg-preview.png';
+import aImage from '../assets/audio-removebg-preview.png';
+import proofreadingImage from '../assets/proofreading-and-editing-removebg-preview.png';
+import cvImage from '../assets/cv-and-application-support.png';
+import contentImage from '../assets/content-creation.png';
+import socialImage from '../assets/social-media-marketing.png';
+import aiImage from '../assets/ai-translation-removebg-preview.png';
+import backImage from '../assets/back-translation-and-quality-assuarance-removebg-preview.png';
+import grossariesImage from '../assets/grossaries-and-language-resource-removebg-preview.png';
+import machineImage from '../assets/machine.png';
 
 function Services() {
   const [isVisible, setIsVisible] = useState(false);
@@ -56,8 +68,8 @@ function Services() {
       id: 1,
       title: "Translation and Interpretation",
       tagline: "Fluent. Accurate. Native-quality.",
-      icon: "🌐",
-      description: <>We translate documents in English, French, Kinyarwanda, Kiswahili, Kirundi, and more with precision and contextual understanding. Our multi-stage review process—handled by native-speaking translators, editors, and proofreaders—ensures accurate, culturally appropriate translations. We also provide professional interpretation services—both simultaneous and consecutive—for conferences, legal proceedings, training sessions, field interviews, and community outreach. Our interpreters are not only fluent in target languages, but also trained to navigate tone, cultural nuance, and subject-specific terminology in real time. Whether remote or in-person, we ensure that every conversation is clear, respectful, and impactful.<br /><b>We handle all file types: Word, Excel, PowerPoint, HTML, XML, and PDF—delivered on time and within budget.</b></>,
+      icon: translationImage,
+      description: <>We translate documents in English, French, Kinyarwanda, Kiswahili, Kirundi, and more with precision and contextual understanding. Our multi-stage review process—handled by native-speaking translators, editors, and proofreaders—ensures accurate, culturally appropriate translations.</>,
       keyFeatures: [
         "Native-speaking translators only",
         "Multi-stage review process",
@@ -76,7 +88,7 @@ function Services() {
       id: 2,
       title: "Website & Software Localization",
       tagline: "Global Content, Local Impact.",
-      icon: "🎯",
+      icon: websiteImage,
       description: "Localization isn't just translation—it's adaptation. Adapt your website, software, or app for specific regions and languages with LCI's cultural and linguistic expertise.",
       keyFeatures: [
         "UI/UX translation",
@@ -97,7 +109,7 @@ function Services() {
       id: 3,
       title: "Certified Document Translation",
       tagline: "Certified. Accepted by Embassies, Universities, and Institutions.",
-      icon: "🛡️",
+      icon: certifiedImage,
       description: "Need certified translations for legal, academic use, or for immigration and visa application? We translate marriage certificates, birth records, court rulings, diplomas, and more. Certified and notarized services available on request.",
       keyFeatures: [
         "Legally recognized certifications",
@@ -117,7 +129,7 @@ function Services() {
       id: 4,
       title: "Audio & Video Transcription",
       tagline: "From Sound or Video to Transcript.",
-      icon: "🎵",
+      icon: aImage,
       description: "We offer fast, accurate transcription in formats like MP3, MP4, WAV, WMA, and WMV with optional time stamps and translation.",
       keyFeatures: [
         "Multiple audio/video formats",
@@ -136,7 +148,7 @@ function Services() {
       id: 5,
       title: "Proofreading & Editing",
       tagline: "Polish Your Message. Boost Your Impact.",
-      icon: "✅",
+      icon: proofreadingImage,
       description: "We refine grammar, structure, tone, and clarity—perfect for publication and professional use.",
       keyFeatures: [
         "Grammar and style correction",
@@ -155,7 +167,7 @@ function Services() {
       id: 6,
       title: "CV & Application Support",
       tagline: "Stand Out with Confidence.",
-      icon: "👥",
+      icon: cvImage,
       description: "We help you present your best self to employers and universities—with polished CVs and compelling personal statements.",
       keyFeatures: [
         "Professional CV editing",
@@ -175,7 +187,7 @@ function Services() {
       id: 7,
       title: "Machine Translation Post-Editing (MTPE)",
       tagline: "Speed Meets Accuracy—with a Human Touch.",
-      icon: "⚡",
+      icon: machineImage,
       description: "MTPE bridges the gap between fast, affordable machine translation and the precision of human language experts. At LCI, we enhance raw MT output with expert linguists who ensure clarity, cultural relevance, and error-free communication. We humanize your machine output to meet real-world standards.",
       keyFeatures: [
         "Full post-editing (accuracy, tone, clarity)",
@@ -197,7 +209,7 @@ function Services() {
       id: 8,
       title: "Glossaries & Language Resources",
       tagline: "Clarity, Consistency, Confidence.",
-      icon: "📚",
+      icon: grossariesImage,
       description: "We build bilingual glossaries and custom language tools tailored to your organization's field.",
       keyFeatures: [
         "Custom terminology development",
@@ -216,7 +228,7 @@ function Services() {
       id: 9,
       title: "Back-Translation & Quality Assurance",
       tagline: "Accuracy You Can Trust.",
-      icon: "🔒",
+      icon: backImage,
       description: "Back-Translation is a quality assurance process where a translated document is independently retranslated back into the source language. In medical, legal, and donor-funded work, accuracy isn't a luxury—it's a necessity. At LCI, we offer back-translation and bilingual proofreading to eliminate ambiguity and ensure clarity.",
       keyFeatures: [
         "Independent back-translation",
@@ -235,7 +247,7 @@ function Services() {
       id: 10,
       title: "AI Translation Services",
       tagline: "Smart Translations. Human Touch. Local Impact.",
-      icon: "🤖",
+      icon: aiImage,
       description: "LCI's AI Translation Services combine the efficiency of machine translation with the cultural and linguistic precision of native-speaking experts. Our neural machine translation (NMT) solutions are optimized for African language pairs.",
       keyFeatures: [
         "Neural machine translation optimized for African and global language pairs",
@@ -258,7 +270,7 @@ function Services() {
       id: 11,
       title: "Social Media Marketing",
       tagline: "Build Visibility. Drive Engagement. Amplify in Every Language.",
-      icon: "📱",
+      icon: socialImage,
       description: "LCI offers multilingual social media marketing tailored to your audience and goals. Whether you're launching a campaign, raising awareness, or building brand loyalty, we help you craft content that resonates—across borders, platforms, and languages. From Facebook to Instagram, LinkedIn to X, we manage strategy, design, captions, scheduling, and community engagement—all in your target language and cultural context.",
       keyFeatures: [
         "Multilingual content creation and localization",
@@ -279,7 +291,7 @@ function Services() {
       id: 12,
       title: "Content Creation",
       tagline: "Powerful Stories. Locally Told.",
-      icon: "✍️",
+      icon: contentImage,
       description: "From blog articles to branded video scripts, LCI creates original, compelling content that speaks your audience's language—literally and figuratively. We specialize in multilingual content strategy, development, and adaptation for print, digital, and multimedia formats.",
       keyFeatures: [
         "Multilingual blog writing and translation",
@@ -418,7 +430,9 @@ function Services() {
       marginBottom: '1rem',
     },
     serviceIcon: {
-      fontSize: '2rem',
+      width: '50px',
+      height: '50px',
+      objectFit: 'contain',
       color: '#de800d',
     },
     serviceHeaderText: {
@@ -713,7 +727,7 @@ function Services() {
               onMouseLeave={handleMouseLeave}
             >
               <div style={styles.serviceHeader}>
-                <span style={styles.serviceIcon}>{service.icon}</span>
+                <img src={service.icon} alt={service.title} style={styles.serviceIcon} />
                 <div style={styles.serviceHeaderText}>
                   <h3 style={styles.serviceTitle}>{service.title}</h3>
                   <p style={styles.serviceTagline}>{service.tagline}</p>

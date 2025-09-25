@@ -557,24 +557,39 @@ function Home() {
     },
     subscribeInput: {
       padding: '0.6rem 1rem',
-      borderRadius: '15px',
-      border: '1px solid #de800d',
+      borderRadius: '4px',
+      border: '1px solid #ccc',
       fontSize: '0.95rem',
-      width: '220px',
-      marginRight: '0.8rem',
+      width: '250px',
+      marginRight: '1rem',
       color: '#0a1d51',
     },
-    subscribeButton: {
-      background: '#f1eee5',
-      color: '#0a1d51',
-      padding: '0.6rem 1.2rem',
-      borderRadius: '15px',
-      border: '1px solid #de800d',
-      fontSize: '0.95rem',
+    checkbox: {
+      marginRight: '0.5rem',
+      verticalAlign: 'middle',
+    },
+    reCaptcha: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      marginLeft: '0.5rem',
+      verticalAlign: 'middle',
+    },
+    submitButton: {
+      background: '#de800d',
+      color: 'white',
+      padding: '0.8rem 1.5rem',
+      borderRadius: '20px',
+      border: 'none',
+      fontSize: '1rem',
       fontWeight: '600',
       cursor: 'pointer',
-      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.2)',
+      boxShadow: '0 5px 15px rgba(255, 98, 0, 0.2)',
       transition: 'all 0.3s ease',
+    },
+    privacyTerms: {
+      fontSize: '0.8rem',
+      color: '#6b7280',
+      marginTop: '0.5rem',
     },
     message: {
       marginTop: '0.8rem',
@@ -708,7 +723,7 @@ function Home() {
                   <img src={service.icon} alt={service.title} style={{ width: '40px', height: '40px', marginBottom: '1rem' }} />
                   <h3 style={styles.serviceTitle}>{service.title}</h3>
                   <p style={{ ...styles.serviceDescription, ...styles.expandedDescription }}>{service.description}</p>
-                  <span style={styles.learnMoreLink}>Learn More →</span>
+                  <span style={styles.learnMoreLink}>View More →</span>
                 </>
               ) : (
                 <>
@@ -837,38 +852,45 @@ function Home() {
       </section>
 
       <section style={styles.subscribeSection}>
-        <h2 style={styles.sectionTitle}>Stay Updated</h2>
-        <p style={styles.sectionSubtitle}>Subscribe to our newsletter for the latest updates and offers.</p>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <input
-            type="email"
-            value={email}
-            onChange={handleEmailChange}
-            placeholder="Enter your email"
-            style={styles.subscribeInput}
-            required
-          />
-          <button 
-            type="submit" 
-            style={styles.subscribeButton} 
-            onClick={handleSubscribe}
+        <h2 style={styles.sectionTitle}>Stay updated</h2>
+        {/* <p style={styles.sectionSubtitle}>Stay updated with the latest news and offers.</p> */}
+        <form onSubmit={handleSubscribe} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
+            <input
+              type="email"
+              value={email}
+              onChange={handleEmailChange}
+              placeholder="Enter your email"
+              style={styles.subscribeInput}
+              required
+            />
+            <label style={{ display: 'flex', alignItems: 'center', marginLeft: '1rem' }}>
+              <input
+                type="checkbox"
+                style={styles.checkbox}
+              /> I'm not a robot
+            </label>
+            <div style={styles.reCaptcha}>
+              reCAPTCHA &nbsp;&nbsp;&nbsp; <span style={{ color: '#4285f4' }}>Privacy - Terms</span>
+            </div>
+          </div>
+          <button
+            type="submit"
+            style={styles.submitButton}
             onMouseEnter={(e) => {
-              e.target.style.background = '#de800d';
-              e.target.style.color = 'white';
+              e.target.style.background = '#e5944a';
               e.target.style.transform = 'scale(1.05)';
             }}
             onMouseLeave={(e) => {
-              e.target.style.background = '#f1eee5';
-              e.target.style.color = '#0a1d51';
+              e.target.style.background = '#ff6200';
               e.target.style.transform = 'scale(1)';
             }}
           >
-            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              Subscribe <span style={{ color: '#de800d' }}></span>
-            </span>
+            SUBMIT
           </button>
-        </div>
+        </form>
         {message && <p style={styles.message}>{message}</p>}
+        <p style={styles.privacyTerms}>By submitting this form, you agree to the privacy policy and terms of this website.</p>
       </section>
     </div>
   );
