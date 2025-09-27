@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import heroImage from '../assets/LCI_ExcellenceinTranslation.png';
+import whatsappIcon from '../assets/whatsapp-icon.png';
 
 function Training() {
   const [isVisible, setIsVisible] = useState(false);
@@ -180,7 +182,7 @@ function Training() {
       lineHeight: '1.3',
       textAlign: isMobile ? 'center' : 'left',
     },
-    heroSubtitle: {
+    heroDescription: {
       fontSize: '1rem',
       color: '#0a1d51',
       marginBottom: '1.5rem',
@@ -188,6 +190,40 @@ function Training() {
       maxWidth: '800px',
       margin: isMobile ? '0 auto 1.5rem' : '0 0 1.5rem',
       textAlign: isMobile ? 'center' : 'left',
+    },
+    buttonContainer: {
+      display: 'flex',
+      gap: '1rem',
+      justifyContent: isMobile ? 'center' : 'flex-start',
+      flexWrap: 'wrap',
+    },
+    whatsappButton: {
+      backgroundColor: '#de800d',
+      padding: '0.8rem 1.8rem',
+      borderRadius: '15px',
+      border: '1px solid #de800d',
+      fontSize: '1rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      boxShadow: '0 5px 15px rgba(16, 185, 129, 0.2)',
+      transition: 'all 0.3s ease',
+      textDecoration: 'none',
+    },
+    primaryButton: {
+      background: '#f1eee5',
+      color: '#0a1d51',
+      padding: '0.8rem 1.8rem',
+      borderRadius: '15px',
+      border: '1px solid #de800d',
+      fontSize: '1rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.2)',
+      transition: 'all 0.3s ease',
+      textDecoration: 'none',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     section: {
       padding: '4rem 1.5rem',
@@ -453,22 +489,6 @@ function Training() {
       marginBottom: '2rem',
       lineHeight: '1.5',
     },
-    primaryButton: {
-      background: '#f1eee5',
-      color: '#0a1d51',
-      padding: '0.8rem 1.8rem',
-      borderRadius: '15px',
-      border: '1px solid #de800d',
-      fontSize: '1rem',
-      fontWeight: '600',
-      cursor: 'pointer',
-      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.2)',
-      transition: 'all 0.3s ease',
-      textDecoration: 'none',
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
   };
 
   const handleMouseEnter = (index) => {
@@ -495,15 +515,73 @@ function Training() {
     e.target.style.color = '#0a1d51';
   };
 
+  const handleRequestServiceHover = (e) => {
+    e.target.style.transform = 'scale(1.05)';
+    e.target.style.background = '#0a1d51';
+    e.target.style.color = 'white';
+  };
+
+  const handleRequestServiceLeave = (e) => {
+    e.target.style.transform = 'scale(1)';
+    e.target.style.background = '#f1eee5';
+    e.target.style.color = '#0a1d51';
+  };
+
+  const handleViewMoreHover = (e) => {
+    e.target.style.textDecoration = 'underline';
+    e.target.style.color = '#de800d';
+  };
+
+  const handleViewMoreLeave = (e) => {
+    e.target.style.textDecoration = 'none';
+    e.target.style.color = '#0a1d51';
+  };
+
+  const handleWhatsAppButtonLeave = (e) => {
+    e.target.style.transform = 'scale(1)';
+    e.target.style.backgroundColor = '#de800d';
+    e.target.style.color = '#0a1d51';
+  };
+
   return (
     <div style={styles.container}>
       <section style={styles.heroSection}>
         <div style={styles.heroContainer}>
+          <img 
+            src={heroImage} 
+            alt="Hero Image" 
+            style={styles.heroImage}
+          />
           <div style={styles.heroContent}>
-            <h1 style={styles.heroTitle}>Training Program</h1>
-            <p style={styles.heroSubtitle}>Nurturing the Next Generation of Language Professionals</p>
+            <h1 style={styles.heroTitle}>Your Trusted Translation & Localization Experts</h1>
+            <p style={styles.heroDescription}>
+              Nurturing the Next Generation of Language Professionals
+            </p>
+            <div style={styles.buttonContainer}>
+              <Link
+                to="/quote"
+                style={styles.primaryButton}
+                onMouseEnter={handleButtonHover}
+                onMouseLeave={handleButtonLeave}
+              >
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  Request a Quote <span style={{ color: '#de800d' }}>⭐</span>
+                </span>
+              </Link>
+              <a
+                href="https://wa.me/250788518720"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={styles.whatsappButton}
+                onMouseEnter={handleButtonHover}
+                onMouseLeave={handleWhatsAppButtonLeave}
+              >
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  Let's Chat on<img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} />
+                </span>
+              </a>
+            </div>
           </div>
-          <img src={heroImage} alt="LCI Excellence in Translation" style={styles.heroImage} />
         </div>
       </section>
 
@@ -644,7 +722,8 @@ function Training() {
         <p style={styles.ctaDescription}>
           Join our mentorship program and launch your career in professional translation.
         </p>
-        <button
+        <Link
+          to="/quote"
           style={styles.primaryButton}
           onMouseEnter={handleButtonHover}
           onMouseLeave={handleButtonLeave}
@@ -652,7 +731,7 @@ function Training() {
           <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             Apply Now <span style={{ color: '#de800d' }}>✨</span>
           </span>
-        </button>
+        </Link>
       </section>
     </div>
   );

@@ -194,7 +194,7 @@ function Footer() {
     connectSection: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '1.5rem',
+      gap: '1rem',
       alignItems: 'center',
       textAlign: 'center'
     },
@@ -299,78 +299,33 @@ function Footer() {
       paddingLeft: '0.3rem',
       cursor: 'pointer'
     },
-    // New ellipse-style social media section
-    ellipseContainer: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      position: 'relative',
-      width: '280px',
-      height: '280px',
-      margin: '1rem auto'
-    },
-    ellipseBackground: {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: '250px',
-      height: '250px',
-      background: 'linear-gradient(135deg, #ff8c00, #ff6b00)',
-      borderRadius: '50%',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      boxShadow: '0 10px 30px rgba(255, 140, 0, 0.3)',
-      border: '3px solid rgba(255, 255, 255, 0.2)'
-    },
+    // Updated social media section - clean white circles above title
     socialIconsContainer: {
-      position: 'relative',
-      width: '100%',
-      height: '100%'
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: '1rem',
+      marginBottom: '1rem',
+      flexWrap: 'wrap'
     },
     socialIcon: {
-      position: 'absolute',
-      width: '50px',
-      height: '50px',
+      width: '45px',
+      height: '45px',
       background: 'rgba(255, 255, 255, 0.95)',
       borderRadius: '50%',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
+      boxShadow: '0 4px 15px rgba(0, 0, 0, 0.15)',
       transition: 'all 0.3s ease',
       cursor: 'pointer',
-      border: '2px solid white'
+      border: '2px solid rgba(255, 255, 255, 0.3)'
     },
     socialIconImage: {
-      width: '24px',
-      height: '24px',
+      width: '22px',
+      height: '22px',
       objectFit: 'contain',
       transition: 'transform 0.3s ease'
-    },
-    // Position each social icon around the ellipse
-    whatsappPos: {
-      top: '20%',
-      left: '50%',
-      transform: 'translateX(-50%)'
-    },
-    linkedinPos: {
-      top: '40%',
-      right: '15%'
-    },
-    twitterPos: {
-      bottom: '40%',
-      right: '15%'
-    },
-    facebookPos: {
-      bottom: '20%',
-      left: '50%',
-      transform: 'translateX(-50%)'
-    },
-    instagramPos: {
-      top: '40%',
-      left: '15%'
     },
     socialSection: {
       marginTop: '1.5rem',
@@ -502,7 +457,6 @@ function Footer() {
             <h3 style={styles.sectionTitle}>
               <span style={{position: 'relative'}}>
                 Quick Links
-                {/* <div style={styles.titleUnderline}></div> */}
               </span>
             </h3>
             <ul style={styles.linksList}>
@@ -530,7 +484,6 @@ function Footer() {
             <h3 style={styles.sectionTitle}>
               <span style={{position: 'relative', textAlign: 'center', display: 'block'}}>
                 Our Services
-                {/* <div style={{...styles.titleUnderline, left: '50%', transform: 'translateX(-50%)', width: '80%'}}></div> */}
               </span>
             </h3>
             <ul style={styles.servicesList}>
@@ -553,183 +506,51 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Connect With Us - Ellipse Style */}
+          {/* Connect With Us - Updated Design */}
           <div style={styles.connectSection}>
+            {/* Social Media Icons - Placed above the title */}
+            <div style={styles.socialIconsContainer}>
+              {socialLinks.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    ...styles.socialIcon,
+                    transform: hoveredSocial === index ? 'scale(1.15)' : 'scale(1)',
+                    boxShadow: hoveredSocial === index 
+                      ? '0 6px 20px rgba(0, 0, 0, 0.25)' 
+                      : '0 4px 15px rgba(0, 0, 0, 0.15)'
+                  }}
+                  onMouseEnter={() => setHoveredSocial(index)}
+                  onMouseLeave={() => setHoveredSocial(null)}
+                >
+                  <img 
+                    src={social.image} 
+                    alt={social.name}
+                    style={{
+                      ...styles.socialIconImage,
+                      transform: hoveredSocial === index ? 'scale(1.1)' : 'scale(1)'
+                    }}
+                  />
+                </a>
+              ))}
+            </div>
+
+            {/* Connect With Us Title */}
             <h3 style={styles.sectionTitle}>
               <span style={{position: 'relative'}}>
                 Connect With Us
-                {/* <div style={styles.titleUnderline}></div> */}
               </span>
             </h3>
             
+            {/* Optional description can be added here if needed */}
             {/* <p style={styles.connectDescription}>
               Follow us on social media to stay updated with our latest services and offers
             </p> */}
-
-            <div style={styles.ellipseContainer}>
-              <div style={styles.ellipseBackground}></div>
-              <div style={styles.socialIconsContainer}>
-                {/* WhatsApp */}
-                <a
-                  href={socialLinks[0].url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    ...styles.socialIcon,
-                    ...styles.whatsappPos,
-                    transform: hoveredSocial === 0 ? 'scale(1.2) translateX(-50%)' : 'translateX(-50%)',
-                    top: hoveredSocial === 0 ? '15%' : '20%'
-                  }}
-                  onMouseEnter={() => setHoveredSocial(0)}
-                  onMouseLeave={() => setHoveredSocial(null)}
-                >
-                  <img 
-                    src={socialLinks[0].image} 
-                    alt={socialLinks[0].name}
-                    style={{
-                      ...styles.socialIconImage,
-                      transform: hoveredSocial === 0 ? 'scale(1.1)' : 'scale(1)'
-                    }}
-                  />
-                </a>
-
-                {/* LinkedIn */}
-                <a
-                  href={socialLinks[1].url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    ...styles.socialIcon,
-                    ...styles.linkedinPos,
-                    transform: hoveredSocial === 1 ? 'scale(1.2)' : 'scale(1)',
-                    right: hoveredSocial === 1 ? '10%' : '15%'
-                  }}
-                  onMouseEnter={() => setHoveredSocial(1)}
-                  onMouseLeave={() => setHoveredSocial(null)}
-                >
-                  <img 
-                    src={socialLinks[1].image} 
-                    alt={socialLinks[1].name}
-                    style={{
-                      ...styles.socialIconImage,
-                      transform: hoveredSocial === 1 ? 'scale(1.1)' : 'scale(1)'
-                    }}
-                  />
-                </a>
-
-                {/* Twitter */}
-                <a
-                  href={socialLinks[2].url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    ...styles.socialIcon,
-                    ...styles.twitterPos,
-                    transform: hoveredSocial === 2 ? 'scale(1.2)' : 'scale(1)',
-                    right: hoveredSocial === 2 ? '10%' : '15%'
-                  }}
-                  onMouseEnter={() => setHoveredSocial(2)}
-                  onMouseLeave={() => setHoveredSocial(null)}
-                >
-                  <img 
-                    src={socialLinks[2].image} 
-                    alt={socialLinks[2].name}
-                    style={{
-                      ...styles.socialIconImage,
-                      transform: hoveredSocial === 2 ? 'scale(1.1)' : 'scale(1)'
-                    }}
-                  />
-                </a>
-
-                {/* Facebook */}
-                <a
-                  href={socialLinks[3].url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    ...styles.socialIcon,
-                    ...styles.facebookPos,
-                    transform: hoveredSocial === 3 ? 'scale(1.2) translateX(-50%)' : 'translateX(-50%)',
-                    bottom: hoveredSocial === 3 ? '15%' : '20%'
-                  }}
-                  onMouseEnter={() => setHoveredSocial(3)}
-                  onMouseLeave={() => setHoveredSocial(null)}
-                >
-                  <img 
-                    src={socialLinks[3].image} 
-                    alt={socialLinks[3].name}
-                    style={{
-                      ...styles.socialIconImage,
-                      transform: hoveredSocial === 3 ? 'scale(1.1)' : 'scale(1)'
-                    }}
-                  />
-                </a>
-
-                {/* Instagram */}
-                <a
-                  href={socialLinks[4].url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    ...styles.socialIcon,
-                    ...styles.instagramPos,
-                    transform: hoveredSocial === 4 ? 'scale(1.2)' : 'scale(1)',
-                    left: hoveredSocial === 4 ? '10%' : '15%'
-                  }}
-                  onMouseEnter={() => setHoveredSocial(4)}
-                  onMouseLeave={() => setHoveredSocial(null)}
-                >
-                  <img 
-                    src={socialLinks[4].image} 
-                    alt={socialLinks[4].name}
-                    style={{
-                      ...styles.socialIconImage,
-                      transform: hoveredSocial === 4 ? 'scale(1.1)' : 'scale(1)'
-                    }}
-                  />
-                </a>
-              </div>
-            </div>
           </div>
         </div>
-
-        {/* Newsletter Section */}
-        {/* <div style={styles.socialSection}>
-          <h3 style={{...styles.sectionTitle, margin: '0 auto 1.5rem', width: 'fit-content'}}>
-            <span style={{position: 'relative'}}>
-              Stay Updated
-              <div style={styles.titleUnderline}></div>
-            </span>
-          </h3>
-          <div style={styles.newsletter}>
-            <div style={styles.newsletterInput}>
-              <input
-                type="email"
-                value={email}
-                onChange={handleEmailChange}
-                placeholder="Enter your email"
-                style={styles.emailInput}
-                required
-              />
-              <button 
-                type="submit" 
-                style={styles.subscribeButton} 
-                onClick={handleSubscribe}
-                onMouseEnter={(e) => {
-                  e.target.style.background = '#ff6b00';
-                  e.target.style.transform = 'scale(1.05)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.background = '#ff8c00';
-                  e.target.style.transform = 'scale(1)';
-                }}
-              >
-                Subscribe
-              </button>
-            </div>
-            {message && <p style={styles.message}>{message}</p>}
-          </div>
-        </div> */}
 
         {/* Bottom Section */}
         <div style={styles.bottomSection}>
@@ -798,13 +619,8 @@ function Footer() {
             align-items: center !important; 
             text-align: center !important;
           }
-          .ellipse-container {
-            width: 220px !important;
-            height: 220px !important;
-          }
-          .ellipse-background {
-            width: 200px !important;
-            height: 200px !important;
+          .social-icons-container {
+            gap: 0.75rem !important;
           }
           .social-icon {
             width: 40px !important;
@@ -822,13 +638,16 @@ function Footer() {
           [style*="grid-template-columns: 1fr 1.5fr 1fr"] { 
             gap: 1.5rem !important;
           }
-          .ellipse-container {
-            width: 180px !important;
-            height: 180px !important;
+          .social-icons-container {
+            gap: 0.5rem !important;
           }
-          .ellipse-background {
-            width: 160px !important;
-            height: 160px !important;
+          .social-icon {
+            width: 35px !important;
+            height: 35px !important;
+          }
+          .social-icon-image {
+            width: 18px !important;
+            height: 18px !important;
           }
         }
       `}</style>

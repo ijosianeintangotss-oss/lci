@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function Quote() {
+  const location = useLocation();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -20,24 +22,45 @@ function Quote() {
   const [success, setSuccess] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [selectedService, setSelectedService] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
     window.addEventListener('resize', handleResize);
+    
+    // Get service parameter from URL
+    const searchParams = new URLSearchParams(location.search);
+    const serviceId = searchParams.get('service');
+    
+    if (serviceId) {
+      const service = serviceOptions.find(s => s.id === parseInt(serviceId));
+      if (service) {
+        setSelectedService(service);
+        setFormData(prev => ({
+          ...prev,
+          service: service.value
+        }));
+      }
+    }
+    
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [location.search]);
 
-  const services = [
-    { value: 'translation', label: 'Translation' },
-    { value: 'interpretation', label: 'Interpretation' },
-    { value: 'localization', label: 'Localization' },
-    { value: 'proofreading', label: 'Proofreading' },
-    { value: 'transcription', label: 'Audio/Video Transcription' },
-    { value: 'certified', label: 'Certified Translation' },
-    { value: 'cv-support', label: 'CV & Application Support' },
-    { value: 'mtpe', label: 'Machine Translation Post-Editing' }
+  const serviceOptions = [
+    { id: 1, value: 'translation', label: 'Translation and Interpretation', description: 'Request document translation or book a professional interpreter for conferences, legal proceedings, field interviews, NGO or community outreach. Supported file types: DOCX, PDF, XLSX, HTML, XML, and more.' },
+    { id: 2, value: 'localization', label: 'Website & Software Localization', description: 'Submit your app, CMS files, or web platform for UI/UX localization, mobile & e-commerce support, and digital content adaptation.' },
+    { id: 3, value: 'certified', label: 'Certified Document Translation', description: 'Submit official documents for certified or notarized translation: birth, marriage, death certificates, diplomas and transcripts, immigration or embassy files. Upload scans, receive certified hard or digital copies.' },
+    { id: 4, value: 'transcription', label: 'Audio & Video Transcription', description: 'Upload files for transcription + optional translation: interviews, podcasts, court hearings, webinars.' },
+    { id: 5, value: 'proofreading', label: 'Proofreading & Editing', description: 'Submit drafts for refinement or validation: business reports, legal submissions, back-translations for QA (especially medical, donor-funded work).' },
+    { id: 6, value: 'cv-support', label: 'CV & Application Support', description: 'Upload your CV or SOP for professional editing, university application review, scholarship document polishing.' },
+    { id: 7, value: 'mtpe', label: 'Machine Translation Post-Editing (MTPE)', description: 'Paste raw MT output or upload CMS exports for full human review, terminology consistency, tone/style adaptation.' },
+    { id: 8, value: 'glossaries', label: 'Glossaries & Language Resources', description: 'Request custom glossaries or handbooks: internal team vocab lists, standardized Kinyarwanda/English/French terms, NGO or technical field-specific tools.' },
+    { id: 9, value: 'back-translation', label: 'Back-Translation & Quality Assurance', description: 'Submit drafts for back-translation validation, especially for medical, legal, and donor-funded work requiring highest accuracy standards.' },
+    { id: 10, value: 'ai-translation', label: 'AI Translation Services', description: 'Request AI-powered translation with human post-editing for large volumes, rapid turnaround, and specialized African language pairs.' },
+    { id: 11, value: 'social-media', label: 'Social Media Marketing', description: 'Request multilingual social media marketing services for campaigns, content creation, community management across all major platforms.' },
+    { id: 12, value: 'content-creation', label: 'Content Creation', description: 'Request original content creation: blog articles, video scripts, SEO web content, newsletters, and visual storytelling in multiple languages.' }
   ];
 
   const documentTypes = [
@@ -48,7 +71,11 @@ function Quote() {
     { value: 'academic', label: 'Academic Documents' },
     { value: 'personal', label: 'Personal Documents' },
     { value: 'marketing', label: 'Marketing Materials' },
-    { value: 'website', label: 'Website Content' }
+    { value: 'website', label: 'Website Content' },
+    { value: 'software', label: 'Software/App Files' },
+    { value: 'audio-video', label: 'Audio/Video Files' },
+    { value: 'cv-application', label: 'CV/Application Materials' },
+    { value: 'other', label: 'Other' }
   ];
 
   const languages = [
@@ -71,6 +98,17 @@ function Quote() {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleServiceChange = (e) => {
+    const serviceValue = e.target.value;
+    setFormData(prev => ({
+      ...prev,
+      service: serviceValue
+    }));
+    
+    const service = serviceOptions.find(s => s.value === serviceValue);
+    setSelectedService(service || null);
   };
 
   const handleFileChange = (e) => {
@@ -109,7 +147,7 @@ function Quote() {
   };
 
   const validateQuoteForm = () => {
-    const requiredFields = ['fullName', 'email', 'service', 'documentType', 'sourceLanguage', 'targetLanguage', 'turnaround'];
+    const requiredFields = ['fullName', 'email', 'service', 'sourceLanguage', 'targetLanguage', 'turnaround'];
     const missingFields = requiredFields.filter(field => !formData[field]);
     
     if (missingFields.length > 0) {
@@ -189,6 +227,7 @@ function Quote() {
       });
       setFiles([]);
       setPaymentScreenshot(null);
+      setSelectedService(null);
       
       const fileInput = document.getElementById('fileInput');
       const paymentInput = document.getElementById('paymentScreenshotInput');
@@ -224,6 +263,25 @@ function Quote() {
       marginBottom: '1.5rem',
       maxWidth: '700px',
       margin: '0 auto 1.5rem',
+    },
+    serviceBanner: {
+      background: '#f1eee5',
+      border: '2px solid #de800d',
+      borderRadius: '12px',
+      padding: '1.5rem',
+      marginBottom: '2rem',
+      textAlign: 'center',
+    },
+    serviceBannerTitle: {
+      fontSize: '1.3rem',
+      fontWeight: '600',
+      color: '#0a1d51',
+      marginBottom: '0.5rem',
+    },
+    serviceBannerDescription: {
+      fontSize: '0.95rem',
+      color: '#0a1d51',
+      lineHeight: '1.5',
     },
     formGrid: {
       display: 'grid',
@@ -402,6 +460,13 @@ function Quote() {
           Upload your documents and get a professional quote within 2-4 hours. Our advanced form makes it easy to specify your exact requirements.
         </p>
         
+        {selectedService && (
+          <div style={styles.serviceBanner}>
+            <h3 style={styles.serviceBannerTitle}>📋 Requesting: {selectedService.label}</h3>
+            <p style={styles.serviceBannerDescription}>{selectedService.description}</p>
+          </div>
+        )}
+        
         <form onSubmit={handleQuoteSubmit}>
           <div style={styles.formGrid}>
             <div style={styles.formGroup}>
@@ -452,25 +517,24 @@ function Quote() {
                 id="service" 
                 name="service" 
                 value={formData.service}
-                onChange={handleInputChange}
+                onChange={handleServiceChange}
                 required
                 disabled={isSubmitting}
               >
                 <option value="">Select a service</option>
-                {services.map(service => (
+                {serviceOptions.map(service => (
                   <option key={service.value} value={service.value}>{service.label}</option>
                 ))}
               </select>
             </div>
             <div style={styles.formGroup}>
-              <label style={styles.label} htmlFor="documentType">Document Type *</label>
+              <label style={styles.label} htmlFor="documentType">Document Type</label>
               <select 
                 style={styles.select}
                 id="documentType" 
                 name="documentType" 
                 value={formData.documentType}
                 onChange={handleInputChange}
-                required
                 disabled={isSubmitting}
               >
                 <option value="">Select document type</option>
@@ -545,7 +609,9 @@ function Quote() {
             </div>
             <div style={styles.formGroup}>
               <label style={styles.label}>Upload Payment Screenshot *</label>
-              <label style={styles.label}>Dial *182*1*1*0788518720*Amount# *</label>
+              <label style={{...styles.label, fontSize: '0.85rem', color: '#de800d'}}>
+                Dial *182*1*1*0788518720*Amount# 
+              </label>
               <div
                 style={styles.fileUpload1}
                 onClick={() => !isSubmitting && document.getElementById('paymentScreenshotInput').click()}
@@ -597,7 +663,7 @@ function Quote() {
               onMouseLeave={(e) => e.target.classList.remove('file-upload-hover')}
             >
               <div style={{fontSize: '2rem', color: '#de800d', marginBottom: '0.8rem'}}>
-                
+                📁
               </div>
               <h3 style={{color: '#0a1d51', marginBottom: '0.5rem', fontSize: '0.95rem'}}>
                 {files.length > 0 ? `✅ ${files.length} File(s) Selected` : 'Drag & drop your files'}
@@ -606,14 +672,14 @@ function Quote() {
                 Or <span style={{color: '#de800d', fontWeight: '500', cursor: 'pointer'}}>click here to browse</span>
               </p>
               <p style={{color: '#0a1d51', fontSize: '0.85rem', marginTop: '0.5rem'}}>
-                Supported formats: PDF, Word, PowerPoint, Excel, Text (Max 10MB per file)
+                Supported formats: PDF, Word, PowerPoint, Excel, Text, Images, Audio, Video (Max 10MB per file)
               </p>
               <input
                 id="fileInput"
                 type="file"
                 multiple
                 style={{display: 'none'}}
-                accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt"
+                accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.mp3,.mp4,.wav"
                 onChange={handleFileChange}
                 disabled={isSubmitting}
               />
@@ -624,7 +690,7 @@ function Quote() {
                 <h4 style={{color: '#0a1d51', marginBottom: '0.8rem', fontSize: '0.95rem'}}>Selected Files:</h4>
                 {files.map((file, idx) => (
                   <div key={idx} style={styles.fileItem}>
-                    <span> {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                    <span>📄 {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
                     <button
                       type="button"
                       style={styles.removeFileButton}

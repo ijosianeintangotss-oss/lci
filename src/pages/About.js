@@ -434,7 +434,7 @@ function About() {
             style={styles.heroImage}
           />
           <div style={styles.heroContent}>
-            <h1 style={styles.heroTitle}>Language Computing International</h1>
+            <h1 style={styles.heroTitle}>Your Trusted Translation & Localization Experts</h1>
             <p style={styles.heroDescription}>
               Your trusted partner for professional translation, localization, and multilingual communication services across Africa and beyond.
             </p>
@@ -446,7 +446,7 @@ function About() {
                 onMouseLeave={handleButtonLeave}
               >
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  Request Quote <span style={{ color: '#de800d' }}>⭐</span>
+                  Request a Quote <span style={{ color: '#de800d' }}>⭐</span>
                 </span>
               </Link>
               <a
@@ -458,7 +458,7 @@ function About() {
                 onMouseLeave={handleWhatsAppButtonLeave}
               >
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', }}>
-                  Chat on<img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} />                 </span>
+                  Let's Chat on<img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} />                 </span>
               </a>
             </div>
           </div>

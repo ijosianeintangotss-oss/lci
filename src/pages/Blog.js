@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import whatsappIcon from '../assets/whatsapp-icon.png';
 import heroImage from '../assets/ai_translation_wise.png';
 
 function Blog() {
@@ -182,7 +184,7 @@ function Blog() {
       lineHeight: '1.3',
       textAlign: isMobile ? 'center' : 'left',
     },
-    heroSubtitle: {
+    heroDescription: {
       fontSize: '1rem',
       color: '#0a1d51',
       marginBottom: '1.5rem',
@@ -190,6 +192,40 @@ function Blog() {
       maxWidth: '800px',
       margin: isMobile ? '0 auto 1.5rem' : '0 0 1.5rem',
       textAlign: isMobile ? 'center' : 'left',
+    },
+    buttonContainer: {
+      display: 'flex',
+      gap: '1rem',
+      justifyContent: isMobile ? 'center' : 'flex-start',
+      flexWrap: 'wrap',
+    },
+    whatsappButton: {
+      backgroundColor: '#de800d',
+      padding: '0.8rem 1.8rem',
+      borderRadius: '15px',
+      border: '1px solid #de800d',
+      fontSize: '1rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      boxShadow: '0 5px 15px rgba(16, 185, 129, 0.2)',
+      transition: 'all 0.3s ease',
+      textDecoration: 'none',
+    },
+    primaryButton: {
+      background: '#f1eee5',
+      color: '#0a1d51',
+      padding: '0.8rem 1.8rem',
+      borderRadius: '15px',
+      border: '1px solid #de800d',
+      fontSize: '1rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.2)',
+      transition: 'all 0.3s ease',
+      textDecoration: 'none',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     section: {
       padding: '4rem 1.5rem',
@@ -479,15 +515,63 @@ function Blog() {
     setEmail('');
   };
 
+  const handleButtonHover = (e) => {
+    e.target.style.transform = 'scale(1.05)';
+    e.target.style.background = '#de800d';
+    e.target.style.color = 'white';
+  };
+
+  const handleButtonLeave = (e) => {
+    e.target.style.transform = 'scale(1)';
+    e.target.style.background = '#f1eee5';
+    e.target.style.color = '#0a1d51';
+  };
+
+  const handleWhatsAppButtonLeave = (e) => {
+    e.target.style.transform = 'scale(1)';
+    e.target.style.backgroundColor = '#de800d';
+    e.target.style.color = '#0a1d51';
+  };
+
   return (
     <div style={styles.container}>
       <section style={styles.heroSection}>
         <div style={styles.heroContainer}>
+          <img 
+            src={heroImage} 
+            alt="Hero Image" 
+            style={styles.heroImage}
+          />
           <div style={styles.heroContent}>
-            <h1 style={styles.heroTitle}>LCI Blog</h1>
-            <p style={styles.heroSubtitle}>Insights on Language, Translation, and Localization</p>
+            <h1 style={styles.heroTitle}>Your Trusted Translation & Localization Experts</h1>
+            <p style={styles.heroDescription}>
+              Discover insights on translation, localization, and language technology
+            </p>
+            <div style={styles.buttonContainer}>
+              <Link
+                to="/quote"
+                style={styles.primaryButton}
+                onMouseEnter={handleButtonHover}
+                onMouseLeave={handleButtonLeave}
+              >
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  Request a Quote <span style={{ color: '#de800d' }}>⭐</span>
+                </span>
+              </Link>
+              <a
+                href="https://wa.me/250788518720"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={styles.whatsappButton}
+                onMouseEnter={handleButtonHover}
+                onMouseLeave={handleWhatsAppButtonLeave}
+              >
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  Let's Chat on<img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} />
+                </span>
+              </a>
+            </div>
           </div>
-          <img src={heroImage} alt="AI Translation Wise" style={styles.heroImage} />
         </div>
       </section>
 

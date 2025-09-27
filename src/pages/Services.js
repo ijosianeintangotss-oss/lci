@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import translationImage from '../assets/translation-interpretation-removebg-preview.png';
-import websiteImage from '../assets/website-and-software-localization-removebg-preview.png';
-import certifiedImage from '../assets/certified-document-translation-removebg-preview.png';
-import aImage from '../assets/audio-removebg-preview.png';
-import proofreadingImage from '../assets/proofreading-and-editing-removebg-preview.png';
-import cvImage from '../assets/cv-and-application-support.png';
-import contentImage from '../assets/content-creation.png';
-import socialImage from '../assets/social-media-marketing.png';
-import aiImage from '../assets/ai-translation-removebg-preview.png';
-import backImage from '../assets/back-translation-and-quality-assuarance-removebg-preview.png';
-import grossariesImage from '../assets/grossaries-and-language-resource-removebg-preview.png';
-import machineImage from '../assets/machine.png';
+import heroImage from '../assets/Our Services.png';
+import whatsappIcon from '../assets/whatsapp-icon.png';
+import translationImage from '../assets/Translation___Interpretation-removebg-preview.png';
+import websiteImage from '../assets/Website___Software_Localization-removebg-preview.png';
+import certifiedImage from '../assets/Certified_Document_Translation-removebg-preview.png';
+import aImage from '../assets/Audio___Video_Transcription-removebg-preview.png';
+import proofreadingImage from '../assets/Proofreading___Editing-removebg-preview.png';
+import cvImage from '../assets/CV___Application_Support-removebg-preview.png';
+import contentImage from '../assets/Content_Creation-removebg-preview.png';
+import socialImage from '../assets/Social_Media_Marketing-removebg-preview.png';
+import aiImage from '../assets/AI_Translation_Services-removebg-preview.png';
+import backImage from '../assets/Back-Translation___Quality_Assurance-removebg-preview.png';
+import grossariesImage from '../assets/Glossaries___Language_Resources-removebg-preview.png';
+import machineImage from '../assets/Machine_Translation_Post-Editing__MTPE_-removebg-preview.png';
 
 function Services() {
   const [isVisible, setIsVisible] = useState(false);
@@ -82,7 +84,8 @@ function Services() {
         "Governance and Education",
         "Software and Website Localization",
         "Agriculture and Technology"
-      ]
+      ],
+      quoteDescription: "Request document translation or book a professional interpreter for conferences, legal proceedings, field interviews, NGO or community outreach. Supported file types: DOCX, PDF, XLSX, HTML, XML, and more."
     },
     {
       id: 2,
@@ -103,7 +106,8 @@ function Services() {
         "Mobile applications",
         "Software interfaces",
         "Digital platforms"
-      ]
+      ],
+      quoteDescription: "Submit your app, CMS files, or web platform for UI/UX localization, mobile & e-commerce support, and digital content adaptation."
     },
     {
       id: 3,
@@ -123,7 +127,8 @@ function Services() {
         "Academic diplomas",
         "Legal documents",
         "Immigration paperwork, etc."
-      ]
+      ],
+      quoteDescription: "Submit official documents for certified or notarized translation: birth, marriage, death certificates, diplomas and transcripts, immigration or embassy files. Upload scans, receive certified hard or digital copies."
     },
     {
       id: 4,
@@ -142,7 +147,8 @@ function Services() {
         "Podcasts and webinars",
         "Legal hearings",
         "Academic research"
-      ]
+      ],
+      quoteDescription: "Upload files for transcription + optional translation: interviews, podcasts, court hearings, webinars."
     },
     {
       id: 5,
@@ -161,7 +167,8 @@ function Services() {
         "Marketing content",
         "Academic theses",
         "Website content"
-      ]
+      ],
+      quoteDescription: "Submit drafts for refinement or validation: business reports, legal submissions, back-translations for QA (especially medical, donor-funded work)."
     },
     {
       id: 6,
@@ -181,7 +188,8 @@ function Services() {
         "University admissions",
         "Scholarship applications",
         "Professional networking"
-      ]
+      ],
+      quoteDescription: "Upload your CV or SOP for professional editing, university application review, scholarship document polishing."
     },
     {
       id: 7,
@@ -203,7 +211,8 @@ function Services() {
         "Multilingual knowledge bases",
         "Fast-turnaround marketing copy",
         "MT-integrated CMS workflows"
-      ]
+      ],
+      quoteDescription: "Paste raw MT output or upload CMS exports for full human review, terminology consistency, tone/style adaptation."
     },
     {
       id: 8,
@@ -222,7 +231,8 @@ function Services() {
         "Localization projects",
         "Terminology consistency",
         "Language standardization"
-      ]
+      ],
+      quoteDescription: "Request custom glossaries or handbooks: internal team vocab lists, standardized Kinyarwanda/English/French terms, NGO or technical field-specific tools."
     },
     {
       id: 9,
@@ -241,7 +251,8 @@ function Services() {
         "Legal documents",
         "Technical manuals",
         "Regulatory submissions"
-      ]
+      ],
+      quoteDescription: "Submit drafts for back-translation validation, especially for medical, legal, and donor-funded work requiring highest accuracy standards."
     },
     {
       id: 10,
@@ -264,7 +275,8 @@ function Services() {
         "Customer support & helpdesk content",
         "Marketing content that requires rapid turnaround",
         "Internal communications and bulk email campaigns"
-      ]
+      ],
+      quoteDescription: "Request AI-powered translation with human post-editing for large volumes, rapid turnaround, and specialized African language pairs."
     },
     {
       id: 11,
@@ -285,7 +297,8 @@ function Services() {
         "Event promotion",
         "Bilingual educational outreach",
         "Youth-targeted digital marketing"
-      ]
+      ],
+      quoteDescription: "Request multilingual social media marketing services for campaigns, content creation, community management across all major platforms."
     },
     {
       id: 12,
@@ -306,7 +319,8 @@ function Services() {
         "SEO-focused web copy for local startups",
         "Multilingual newsletters and email sequences",
         "Grant report narratives and summaries"
-      ]
+      ],
+      quoteDescription: "Request original content creation: blog articles, video scripts, SEO web content, newsletters, and visual storytelling in multiple languages."
     }
   ];
 
@@ -333,13 +347,13 @@ function Services() {
     }
   ];
 
-  const supportedLanguages = [
-    { code: "EN", name: "English", flag: "🇬🇧" },
-    { code: "FR", name: "French", flag: "🇫🇷" },
-    { code: "RW", name: "Kinyarwanda", flag: "🇷🇼" },
-    { code: "SW", name: "Kiswahili", flag: "🇹🇿" },
-    { code: "RN", name: "Kirundi", flag: "🇧🇮" }
-  ];
+ const supportedLanguages = [
+  { code: "en", name: "English", flag: "🇬🇧🇺🇸" },
+  { code: "fr", name: "French", flag: "🇫🇷" },
+  { code: "rw", name: "Kinyarwanda", flag: "🇷🇼" },
+  { code: "sw", name: "Kiswahili", flag: "🇰🇪🇹🇿" },
+  { code: "rn", name: "Kirundi", flag: "🇧🇮" }
+];
 
   const styles = {
     container: {
@@ -349,40 +363,94 @@ function Services() {
       fontSize: '16px',
     },
     heroSection: {
-      minHeight: '40vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '1.5rem',
-      position: 'relative',
-      overflow: 'hidden',
-      background: '#f1eee5',
+          minHeight: '80vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '1.5rem',
+          position: 'relative',
+          overflow: 'hidden',
+          background: '#f1eee5',
+          borderRadius: '15px',
+          border: '1px solid #de800d',
+          opacity: isVisible ? 1 : 0,
+          transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+          transition: 'all 0.8s ease-out',
+          margin: '1rem',
+        },
+        heroContainer: {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          maxWidth: '1200px',
+          width: '100%',
+          gap: '2rem',
+          flexDirection: isMobile ? 'column' : 'row',
+        },
+        heroImage: {
+          width: isMobile ? '100%' : '40%',
+          maxWidth: isMobile ? '100%' : '450px',
+          height: 'auto',
+          objectFit: 'cover',
+          borderRadius: '10px',
+          margin: isMobile ? '0 auto' : '0',
+        },
+        heroContent: {
+          textAlign: isMobile ? 'center' : 'left',
+          width: isMobile ? '100%' : '55%',
+          maxWidth: isMobile ? '100%' : '600px',
+          padding: isMobile ? '0' : '0 1rem',
+        },
+        heroTitle: {
+          fontSize: isMobile ? '2rem' : '2.8rem',
+          fontWeight: '700',
+          color: '#0a1d51',
+          marginBottom: '1rem',
+          lineHeight: '1.3',
+          textAlign: isMobile ? 'center' : 'left',
+        },
+        heroDescription: {
+          fontSize: '1rem',
+          color: '#0a1d51',
+          marginBottom: '1.5rem',
+          lineHeight: '1.5',
+          maxWidth: '800px',
+          margin: isMobile ? '0 auto 1.5rem' : '0 0 1.5rem',
+          textAlign: isMobile ? 'center' : 'left',
+        },
+        buttonContainer: {
+          display: 'flex',
+          gap: '1rem',
+          justifyContent: isMobile ? 'center' : 'flex-start',
+          flexWrap: 'wrap',
+        },
+        whatsappButton: {
+      backgroundColor: '#de800d',
+      padding: '0.8rem 1.8rem',
       borderRadius: '15px',
       border: '1px solid #de800d',
-      opacity: isVisible ? 1 : 0,
-      transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-      transition: 'all 0.8s ease-out',
-      margin: '1rem',
-    },
-    heroContent: {
-      textAlign: isMobile ? 'center' : 'center',
-      maxWidth: '1200px',
-      padding: isMobile ? '0' : '0 1rem',
-    },
-    heroTitle: {
-      fontSize: isMobile ? '2rem' : '2.8rem',
-      fontWeight: '700',
-      color: '#0a1d51',
-      marginBottom: '1rem',
-      lineHeight: '1.3',
-    },
-    heroSubtitle: {
       fontSize: '1rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      boxShadow: '0 5px 15px rgba(16, 185, 129, 0.2)',
+      transition: 'all 0.3s ease',
+      textDecoration: 'none',
+    },
+     primaryButton: {
+      background: '#f1eee5',
       color: '#0a1d51',
-      marginBottom: '1.5rem',
-      lineHeight: '1.5',
-      maxWidth: '800px',
-      margin: '0 auto 1.5rem',
+      padding: '0.8rem 1.8rem',
+      borderRadius: '15px',
+      border: '1px solid #de800d',
+      fontSize: '1rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.2)',
+      transition: 'all 0.3s ease',
+      textDecoration: 'none',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     section: {
       padding: '4rem 1.5rem',
@@ -456,19 +524,44 @@ function Services() {
       marginBottom: '1rem',
       fontSize: '0.95rem',
     },
+    serviceButtonsContainer: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: '1rem',
+      gap: '1rem',
+    },
     viewMoreButton: {
       background: 'none',
       border: 'none',
-      color: '#de800d',
-      textDecoration: 'underline',
+      color: '#0a1d51',
+      textDecoration: 'none',
       cursor: 'pointer',
       fontSize: '0.95rem',
       fontWeight: '600',
       padding: '0',
-      margin: '0.5rem 0',
       display: 'inline-flex',
       alignItems: 'center',
       gap: '0.3rem',
+      transition: 'all 0.3s ease',
+    },
+    requestServiceButton: {
+      background: '#f1eee5',
+      color: '#0a1d51',
+      border: '1px solid #0a1d51',
+      borderRadius: '8px',
+      padding: '0.6rem 1.2rem',
+      fontSize: '0.9rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+      textDecoration: 'none',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '0.5rem',
+      width: 'auto',
+      minWidth: '160px',
     },
     featuresSection: {
       marginBottom: '1rem',
@@ -689,22 +782,71 @@ function Services() {
     e.target.style.color = '#0a1d51';
   };
 
-  const handleViewMoreHover = (e) => {
-    e.target.style.textDecoration = 'underline';
+  const handleRequestServiceHover = (e) => {
+    e.target.style.transform = 'scale(1.05)';
+    e.target.style.background = '#0a1d51';
+    e.target.style.color = 'white';
+  };
+
+  const handleRequestServiceLeave = (e) => {
+    e.target.style.transform = 'scale(1)';
+    e.target.style.background = '#f1eee5';
     e.target.style.color = '#0a1d51';
   };
 
-  const handleViewMoreLeave = (e) => {
+  const handleViewMoreHover = (e) => {
     e.target.style.textDecoration = 'underline';
     e.target.style.color = '#de800d';
   };
 
+  const handleViewMoreLeave = (e) => {
+    e.target.style.textDecoration = 'none';
+    e.target.style.color = '#0a1d51';
+  };
+   const handleWhatsAppButtonLeave = (e) => {
+    e.target.style.transform = 'scale(1)';
+    e.target.style.backgroundColor = '#de800d';
+    e.target.style.color = '#0a1d51';
+  };
+
   return (
     <div style={styles.container}>
-      <section style={styles.heroSection}>
-        <div style={styles.heroContent}>
-          <h1 style={styles.heroTitle}>Our Services</h1>
-          <p style={styles.heroSubtitle}>Language Solutions Tailored to Your Needs</p>
+     <section style={styles.heroSection}>
+        <div style={styles.heroContainer}>
+          <img 
+            src={heroImage} 
+            alt="Hero Image" 
+            style={styles.heroImage}
+          />
+          <div style={styles.heroContent}>
+            <h1 style={styles.heroTitle}>Your Trusted Translation & Localization Experts</h1>
+            <p style={styles.heroDescription}>
+              Your trusted partner for professional translation, localization, and multilingual communication services across Africa and beyond.
+            </p>
+            <div style={styles.buttonContainer}>
+              <Link
+                to="/quote"
+                style={styles.primaryButton}
+                onMouseEnter={handleButtonHover}
+                onMouseLeave={handleButtonLeave}
+              >
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  Request a Quote <span style={{ color: '#de800d' }}>⭐</span>
+                </span>
+              </Link>
+              <a
+                href="https://wa.me/250788518720"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={styles.whatsappButton}
+                onMouseEnter={handleButtonHover}
+                onMouseLeave={handleWhatsAppButtonLeave}
+              >
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', }}>
+                  Let's Chat on<img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} />                 </span>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -735,14 +877,25 @@ function Services() {
               </div>
               <p style={styles.serviceDescription}>{service.description}</p>
               
-              <button
-                style={styles.viewMoreButton}
-                onClick={() => handleExpandService(service.id)}
-                onMouseEnter={handleViewMoreHover}
-                onMouseLeave={handleViewMoreLeave}
-              >
-                {activeService === service.id ? 'View Less' : 'View More'}
-              </button>
+              <div style={styles.serviceButtonsContainer}>
+                <button
+                  style={styles.viewMoreButton}
+                  onClick={() => handleExpandService(service.id)}
+                  onMouseEnter={handleViewMoreHover}
+                  onMouseLeave={handleViewMoreLeave}
+                >
+                  {activeService === service.id ? 'View Less' : 'View More'}
+                </button>
+                
+                <Link
+                  to={`/quote?service=${service.id}`}
+                  style={styles.requestServiceButton}
+                  onMouseEnter={handleRequestServiceHover}
+                  onMouseLeave={handleRequestServiceLeave}
+                >
+                  Request this Service
+                </Link>
+              </div>
 
               {activeService === service.id && (
                 <>
@@ -784,7 +937,6 @@ function Services() {
             <div key={index} style={styles.qualityStep}>
               <div style={styles.stepNumber}>{step.step}</div>
               <h3 style={styles.stepTitle}>{step.title}</h3>
-              <p style={styles.stepDescription}>{step.description}</p>
             </div>
           ))}
         </div>

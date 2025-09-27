@@ -6,18 +6,18 @@ import airtelMoney from '../assets/airtel.jpg';
 // import masterCard from '../assets/master card.png';
 import heroImage from '../assets/Welcome_Message_Update.mp4';
 import whatsappIcon from '../assets/whatsapp-icon.png';
-import translationImage from '../assets/translation-interpretation-removebg-preview.png';
-import websiteImage from '../assets/website-and-software-localization-removebg-preview.png';
-import certifiedImage from '../assets/certified-document-translation-removebg-preview.png';
-import aImage from '../assets/audio-removebg-preview.png';
-import proofreadingImage from '../assets/proofreading-and-editing-removebg-preview.png';
-import cvImage from '../assets/cv-and-application-support.png';
-import contentImage from '../assets/content-creation.png';
-import socialImage from '../assets/social-media-marketing.png';
-import aiImage from '../assets/ai-translation-removebg-preview.png';
-import backImage from '../assets/back-translation-and-quality-assuarance-removebg-preview.png';
-import grossariesImage from '../assets/grossaries-and-language-resource-removebg-preview.png';
-import machineImage from '../assets/machine.png';
+import translationImage from '../assets/Translation___Interpretation-removebg-preview.png';
+import websiteImage from '../assets/Website___Software_Localization-removebg-preview.png';
+import certifiedImage from '../assets/Certified_Document_Translation-removebg-preview.png';
+import aImage from '../assets/Audio___Video_Transcription-removebg-preview.png';
+import proofreadingImage from '../assets/Proofreading___Editing-removebg-preview.png';
+import cvImage from '../assets/CV___Application_Support-removebg-preview.png';
+import contentImage from '../assets/Content_Creation-removebg-preview.png';
+import socialImage from '../assets/Social_Media_Marketing-removebg-preview.png';
+import aiImage from '../assets/AI_Translation_Services-removebg-preview.png';
+import backImage from '../assets/Back-Translation___Quality_Assurance-removebg-preview.png';
+import grossariesImage from '../assets/Glossaries___Language_Resources-removebg-preview.png';
+import machineImage from '../assets/Machine_Translation_Post-Editing__MTPE_-removebg-preview.png';
 
 function Home() {
   const [isVisible, setIsVisible] = useState(false);
@@ -673,7 +673,7 @@ function Home() {
                 }}
               >
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  Request Quote <span style={{ color: '#de800d' }}>⭐</span>
+                  Request a Quote <span style={{ color: '#de800d' }}>⭐</span>
                 </span>
               </Link>
               <a
@@ -693,7 +693,7 @@ function Home() {
                 }}
               >
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  Chat on <span style={{ color: '#de800d' }}><img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} /></span>
+                  Let's Chat on <span style={{ color: '#de800d' }}><img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} /></span>
                 </span>
               </a>
             </div>

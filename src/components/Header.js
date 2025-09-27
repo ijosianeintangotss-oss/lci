@@ -30,12 +30,12 @@ function Header() {
 
   const navItems = [
     { path: '/', label: 'Home', icon: '' },
-    { path: '/about', label: 'About', icon: '' },
+    { path: '/about', label: 'About Us', icon: '' },
     { path: '/services', label: 'Services', icon: '' },
     { path: '/training', label: 'Training', icon: '' },
     { path: '/blog', label: 'Blog', icon: '' },
-    { path: '/contact', label: 'Contact', icon: '' },
-    { path: '/quote', label: 'Quote', icon: '' },
+    { path: '/contact', label: 'Contact Us', icon: '' },
+    { path: '/quote', label: 'Request  a  Quote', icon: '' },
   ];
 
   const styles = {
