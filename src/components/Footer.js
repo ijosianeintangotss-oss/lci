@@ -6,13 +6,18 @@ import linkedinIcon from '../assets/LinkedIn-icon.png';
 import twitterIcon from '../assets/X-icon.png';
 import facebookIcon from '../assets/facebook-icon.jpg';
 import instagramIcon from '../assets/instagram-icon.png';
+import locationIcon from '../assets/lolo-removebg-preview.png';
+import contactIcon from '../assets/phone_icon-removebg-preview.png';
+import emailIcon from '../assets/emailll-removebg-preview.png';
+import businessIcon from '../assets/hour-removebg-preview.png';
+
 
 function Footer() {
   const [hoveredSocial, setHoveredSocial] = useState(null);
   const [hoveredLink, setHoveredLink] = useState(null);
   const [emailCopied, setEmailCopied] = useState(false);
-  const [email, setEmail] = useState(''); // State for email input
-  const [message, setMessage] = useState(''); // State for subscription feedback
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
 
   const quickLinks = [
     { path: '/', label: 'Home', icon: '' },
@@ -20,7 +25,8 @@ function Footer() {
     { path: '/services', label: 'Services', icon: '' },
     { path: '/training', label: 'Training', icon: '' },
     { path: '/blog', label: 'Blog', icon: '' },
-    { path: '/contact', label: 'Contact', icon: '' }
+    { path: '/contact', label: 'Contact Us', icon: '' },
+    { path: '/quote', label: 'Request a Quote', icon: '' }
   ];
 
   const services = [
@@ -91,22 +97,22 @@ function Footer() {
 
   const contactInfo = [
     {
-      icon: '📍',
+      icon: locationIcon,
       title: 'Kigali, Rwanda Gasabo District',
-      details: ['']
+      details: []
     },
     {
-      icon: '📞',
+      icon: contactIcon,
       title: '+250 788 518 720',
-      details: ['']
+      details: []
     },
     {
-      icon: '📧',
+      icon: emailIcon,
       title: '',
       details: ['lcirwanda@gmail.com', 'lcirwanda@yahoo.com']
     },
     {
-      icon: '🕒',
+      icon: businessIcon,
       title: 'Business Hours',
       details: ['Mon - Fri: 8:00 AM - 6:00 PM', 'Sat: 9:00 AM - 2:00 PM']
     }
@@ -120,23 +126,21 @@ function Footer() {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    setMessage(''); // Clear message when typing
+    setMessage('');
   };
 
   const handleSubscribe = (e) => {
     e.preventDefault();
     if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      // Simulate subscription (e.g., send to backend or log)
       console.log('Subscribed with email:', email);
       setMessage('Thank you for subscribing!');
-      setEmail(''); // Clear input after successful subscription
+      setEmail('');
     } else {
       setMessage('Please enter a valid email address.');
     }
   };
 
   const handleServiceClick = (serviceId) => {
-    // Navigate to services page and scroll to the specific service
     window.location.href = `/services#service-${serviceId}`;
   };
 
@@ -299,7 +303,6 @@ function Footer() {
       paddingLeft: '0.3rem',
       cursor: 'pointer'
     },
-    // Updated social media section - clean white circles above title
     socialIconsContainer: {
       display: 'flex',
       justifyContent: 'center',
@@ -442,6 +445,43 @@ function Footer() {
       lineHeight: '1.5',
       marginBottom: '1rem',
       maxWidth: '300px'
+    },
+    // UPDATED: Improved contact grid layout
+    contactGrid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(4, 1fr)',
+      gap: '1rem',
+      width: '100%',
+      margin: '1.5rem 0',
+      alignItems: 'center',
+      justifyContent: 'space-between'
+    },
+    contactItem: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      minWidth: '0',
+      whiteSpace: 'nowrap',
+      textAlign: 'left',
+      fontSize: '0.75rem',
+      gap: '0.5rem'
+    },
+    contactRow: {
+      display: 'flex',
+      alignItems: 'center',
+      color: '#fff',
+      gap: '0.5rem',
+      flexWrap: 'nowrap',
+      width: '100%',
+    },
+    contactDetails: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0.2rem'
+    },
+    contactDetailItem: {
+      fontSize: '0.75rem',
+      lineHeight: '1.2'
     }
   };
 
@@ -506,9 +546,8 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Connect With Us - Updated Design */}
+          {/* Connect With Us */}
           <div style={styles.connectSection}>
-            {/* Social Media Icons - Placed above the title */}
             <div style={styles.socialIconsContainer}>
               {socialLinks.map((social, index) => (
                 <a
@@ -538,22 +577,45 @@ function Footer() {
               ))}
             </div>
 
-            {/* Connect With Us Title */}
             <h3 style={styles.sectionTitle}>
               <span style={{position: 'relative'}}>
                 Connect With Us
               </span>
             </h3>
-            
-            {/* Optional description can be added here if needed */}
-            {/* <p style={styles.connectDescription}>
-              Follow us on social media to stay updated with our latest services and offers
-            </p> */}
           </div>
         </div>
 
         {/* Bottom Section */}
         <div style={styles.bottomSection}>
+          {/* UPDATED: Improved contact grid */}
+          <div style={styles.contactGrid}>
+            {contactInfo.map((contact, index) => (
+              <div key={index} style={styles.contactItem}>
+                <div style={styles.contactRow}>
+                  <img
+                    src={contact.icon}
+                    alt=""
+                    style={{ width: 18, height: 18, verticalAlign: 'middle', objectFit: 'contain', flexShrink: 0 }}
+                  />
+                  <div style={styles.contactDetails}>
+                    {contact.title && (
+                      <div style={{ fontWeight: 500, fontSize: '0.75rem' }}>{contact.title}</div>
+                    )}
+                    {contact.details.length > 0 && (
+                      <div>
+                        {contact.details.map((detail, idx) => (
+                          <div key={idx} style={styles.contactDetailItem}>
+                            {detail}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
           <div style={styles.legalLinks}>
             <a href="/privacy-policy" style={{
               ...styles.legalLink,
@@ -606,6 +668,13 @@ function Footer() {
           50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
         
+        @media (max-width: 1024px) {
+          .contact-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1.5rem !important;
+          }
+        }
+        
         @media (max-width: 768px) {
           [style*="grid-template-columns: 1fr 1.5fr 1fr"] { 
             grid-template-columns: 1fr !important; 
@@ -632,6 +701,14 @@ function Footer() {
           }
           .newsletter-input { flex-direction: column !important; }
           .legal-links { flex-direction: column !important; gap: 1rem !important; }
+          .contact-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1rem !important;
+            text-align: center !important;
+          }
+          .contact-item {
+            justify-content: center !important;
+          }
         }
 
         @media (max-width: 480px) {
@@ -648,6 +725,9 @@ function Footer() {
           .social-icon-image {
             width: 18px !important;
             height: 18px !important;
+          }
+          .contact-item {
+            font-size: 0.7rem !important;
           }
         }
       `}</style>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import mobileMoney from '../assets/mobile money.png';
-import airtelMoney from '../assets/airtel.jpg';
+import airtelMoney from '../assets/airtel-removebg-preview.png';
 // import visaCard from '../assets/visa card.png';
 // import masterCard from '../assets/master card.png';
 import heroImage from '../assets/Welcome_Message_Update.mp4';
@@ -295,7 +295,7 @@ function Home() {
       textDecoration: 'none',
     },
     whatsappButton: {
-      backgroundColor: '#e4ece9',
+      backgroundColor: '#f1eee5',
       color: '#0a1d51',
       padding: '0.8rem 1.5rem',
       borderRadius: '15px',
@@ -303,7 +303,7 @@ function Home() {
       fontSize: '1rem',
       fontWeight: '600',
       cursor: 'pointer',
-      boxShadow: '0 5px 15px rgba(16, 185, 129, 0.2)',
+      // boxShadow: '0 5px 15px rgba(16, 185, 129, 0.2)',
       transition: 'all 0.3s ease',
       textDecoration: 'none',
     },
@@ -687,7 +687,7 @@ function Home() {
                   e.target.style.transform = 'scale(1.05)';
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.background = '#e4ece9';
+                  e.target.style.background = '#f1eee5';
                   e.target.style.color = '#0a1d51';
                   e.target.style.transform = 'scale(1)';
                 }}

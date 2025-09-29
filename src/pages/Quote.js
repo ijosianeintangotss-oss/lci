@@ -8,7 +8,8 @@ function Quote() {
     email: '',
     phone: '',
     service: '',
-    documentType: '',
+    // documentType: '', // Commented out as per request
+    serviceSubType: '',
     sourceLanguage: '',
     targetLanguage: '',
     turnaround: '',
@@ -23,30 +24,7 @@ function Quote() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [selectedService, setSelectedService] = useState(null);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    window.addEventListener('resize', handleResize);
-    
-    // Get service parameter from URL
-    const searchParams = new URLSearchParams(location.search);
-    const serviceId = searchParams.get('service');
-    
-    if (serviceId) {
-      const service = serviceOptions.find(s => s.id === parseInt(serviceId));
-      if (service) {
-        setSelectedService(service);
-        setFormData(prev => ({
-          ...prev,
-          service: service.value
-        }));
-      }
-    }
-    
-    return () => window.removeEventListener('resize', handleResize);
-  }, [location.search]);
+  const [serviceSubTypes, setServiceSubTypes] = useState([]);
 
   const serviceOptions = [
     { id: 1, value: 'translation', label: 'Translation and Interpretation', description: 'Request document translation or book a professional interpreter for conferences, legal proceedings, field interviews, NGO or community outreach. Supported file types: DOCX, PDF, XLSX, HTML, XML, and more.' },
@@ -63,20 +41,107 @@ function Quote() {
     { id: 12, value: 'content-creation', label: 'Content Creation', description: 'Request original content creation: blog articles, video scripts, SEO web content, newsletters, and visual storytelling in multiple languages.' }
   ];
 
-  const documentTypes = [
-    { value: 'legal', label: 'Legal Documents' },
-    { value: 'medical', label: 'Medical Documents' },
-    { value: 'technical', label: 'Technical Documents' },
-    { value: 'business', label: 'Business Documents' },
-    { value: 'academic', label: 'Academic Documents' },
-    { value: 'personal', label: 'Personal Documents' },
-    { value: 'marketing', label: 'Marketing Materials' },
-    { value: 'website', label: 'Website Content' },
-    { value: 'software', label: 'Software/App Files' },
-    { value: 'audio-video', label: 'Audio/Video Files' },
-    { value: 'cv-application', label: 'CV/Application Materials' },
-    { value: 'other', label: 'Other' }
-  ];
+  const serviceSubTypesMap = {
+    translation: [
+      { value: 'document-translation', label: 'Document Translation' },
+      { value: 'conference-interpreting', label: 'Conference Interpreting' },
+      { value: 'legal-interpreting', label: 'Legal Proceedings Interpreting' },
+      { value: 'field-interviews', label: 'Field Interviews Interpreting' },
+      { value: 'ngo-outreach', label: 'NGO/Community Outreach Interpreting' }
+    ],
+    localization: [
+      { value: 'cms-files', label: 'CMS Files Localization' },
+      { value: 'ui-ux-localization', label: 'UI/UX Localization' },
+      { value: 'mobile-apps', label: 'Mobile Apps Localization' },
+      { value: 'e-commerce', label: 'E-commerce Platform Localization' },
+      { value: 'digital-content', label: 'Digital Content Adaptation' }
+    ],
+    certified: [
+      { value: 'birth-certificates', label: 'Birth Certificates' },
+      { value: 'marriage-certificates', label: 'Marriage Certificates' },
+      { value: 'death-certificates', label: 'Death Certificates' },
+      { value: 'diplomas-transcripts', label: 'Diplomas & Transcripts' },
+      { value: 'immigration-files', label: 'Immigration/Embassy Files' }
+    ],
+    transcription: [
+      { value: 'interviews', label: 'Interviews Transcription' },
+      { value: 'podcasts', label: 'Podcasts Transcription' },
+      { value: 'court-hearings', label: 'Court Hearings Transcription' },
+      { value: 'webinars', label: 'Webinars Transcription' },
+      { value: 'meetings', label: 'Business Meetings Transcription' }
+    ],
+    proofreading: [
+      { value: 'business-reports', label: 'Business Reports' },
+      { value: 'legal-submissions', label: 'Legal Submissions' },
+      { value: 'back-translations', label: 'Back-Translations QA' },
+      { value: 'medical-documents', label: 'Medical Documents' },
+      { value: 'donor-funded-work', label: 'Donor-Funded Work' }
+    ],
+    'cv-support': [
+      { value: 'cv-editing', label: 'CV Professional Editing' },
+      { value: 'sop-editing', label: 'Statement of Purpose Editing' },
+      { value: 'university-applications', label: 'University Application Review' },
+      { value: 'scholarship-documents', label: 'Scholarship Document Polishing' },
+      { value: 'cover-letters', label: 'Cover Letters' }
+    ],
+    mtpe: [
+      { value: 'raw-mt-output', label: 'Raw MT Output Editing' },
+      { value: 'cms-exports', label: 'CMS Exports Editing' },
+      { value: 'terminology-consistency', label: 'Terminology Consistency' },
+      { value: 'tone-adaptation', label: 'Tone/Style Adaptation' },
+      { value: 'full-human-review', label: 'Full Human Review' }
+    ],
+    glossaries: [
+      { value: 'custom-glossaries', label: 'Custom Glossaries' },
+      { value: 'team-vocab-lists', label: 'Team Vocabulary Lists' },
+      { value: 'kinyarwanda-standards', label: 'Kinyarwanda Standardized Terms' },
+      { value: 'french-standards', label: 'French Standardized Terms' },
+      { value: 'technical-field-tools', label: 'Technical Field Tools' }
+    ],
+    'back-translation': [
+      { value: 'medical-validation', label: 'Medical Document Validation' },
+      { value: 'legal-validation', label: 'Legal Document Validation' },
+      { value: 'donor-funded-validation', label: 'Donor-Funded Work Validation' },
+      { value: 'quality-assurance', label: 'Quality Assurance' },
+      { value: 'accuracy-standards', label: 'Accuracy Standards Check' }
+    ],
+    'ai-translation': [
+      { value: 'large-volumes', label: 'Large Volume Translation' },
+      { value: 'rapid-turnaround', label: 'Rapid Turnaround Projects' },
+      { value: 'african-language-pairs', label: 'African Language Pairs' },
+      { value: 'human-post-editing', label: 'Human Post-Editing' },
+      { value: 'specialized-content', label: 'Specialized Content' }
+    ],
+    'social-media': [
+      { value: 'campaigns', label: 'Social Media Campaigns' },
+      { value: 'content-creation-sm', label: 'Content Creation' },
+      { value: 'community-management', label: 'Community Management' },
+      { value: 'multilingual-posts', label: 'Multilingual Posts' },
+      { value: 'platform-management', label: 'Platform Management' }
+    ],
+    'content-creation': [
+      { value: 'blog-articles', label: 'Blog Articles' },
+      { value: 'video-scripts', label: 'Video Scripts' },
+      { value: 'seo-content', label: 'SEO Web Content' },
+      { value: 'newsletters', label: 'Newsletters' },
+      { value: 'visual-storytelling', label: 'Visual Storytelling' }
+    ]
+  };
+
+  // const documentTypes = [ // Commented out as per request
+  //   { value: 'legal', label: 'Legal Documents' },
+  //   { value: 'medical', label: 'Medical Documents' },
+  //   { value: 'technical', label: 'Technical Documents' },
+  //   { value: 'business', label: 'Business Documents' },
+  //   { value: 'academic', label: 'Academic Documents' },
+  //   { value: 'personal', label: 'Personal Documents' },
+  //   { value: 'marketing', label: 'Marketing Materials' },
+  //   { value: 'website', label: 'Website Content' },
+  //   { value: 'software', label: 'Software/App Files' },
+  //   { value: 'audio-video', label: 'Audio/Video Files' },
+  //   { value: 'cv-application', label: 'CV/Application Materials' },
+  //   { value: 'other', label: 'Other' }
+  // ];
 
   const languages = [
     { value: 'english', label: 'English' },
@@ -92,6 +157,30 @@ function Quote() {
     { value: 'extended', label: 'Extended (1-2 weeks) - 10% discount' }
   ];
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    
+    const searchParams = new URLSearchParams(location.search);
+    const serviceId = searchParams.get('service');
+    
+    if (serviceId) {
+      const service = serviceOptions.find(s => s.id === parseInt(serviceId));
+      if (service) {
+        setSelectedService(service);
+        setFormData(prev => ({
+          ...prev,
+          service: service.value
+        }));
+        setServiceSubTypes(serviceSubTypesMap[service.value] || []);
+      }
+    }
+    
+    return () => window.removeEventListener('resize', handleResize);
+  }, [location.search]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -104,11 +193,13 @@ function Quote() {
     const serviceValue = e.target.value;
     setFormData(prev => ({
       ...prev,
-      service: serviceValue
+      service: serviceValue,
+      serviceSubType: ''
     }));
     
     const service = serviceOptions.find(s => s.value === serviceValue);
     setSelectedService(service || null);
+    setServiceSubTypes(serviceSubTypesMap[serviceValue] || []);
   };
 
   const handleFileChange = (e) => {
@@ -147,7 +238,7 @@ function Quote() {
   };
 
   const validateQuoteForm = () => {
-    const requiredFields = ['fullName', 'email', 'service', 'sourceLanguage', 'targetLanguage', 'turnaround'];
+    const requiredFields = ['fullName', 'email', 'service', 'serviceSubType', 'sourceLanguage', 'targetLanguage', 'turnaround'];
     const missingFields = requiredFields.filter(field => !formData[field]);
     
     if (missingFields.length > 0) {
@@ -189,7 +280,9 @@ function Quote() {
       submitData.append('email', formData.email);
       submitData.append('phone', formData.phone);
       submitData.append('service', formData.service);
-      submitData.append('documentType', formData.documentType);
+      submitData.append('serviceSubType', formData.serviceSubType);
+      // submitData.append('documentType', formData.documentType); // Commented out as per request
+      submitData.append('documentType', formData.serviceSubType); // Use serviceSubType instead
       submitData.append('sourceLanguage', formData.sourceLanguage);
       submitData.append('targetLanguage', formData.targetLanguage);
       submitData.append('turnaround', formData.turnaround);
@@ -218,7 +311,8 @@ function Quote() {
         email: '',
         phone: '',
         service: '',
-        documentType: '',
+        // documentType: '', // Commented out
+        serviceSubType: '',
         sourceLanguage: '',
         targetLanguage: '',
         turnaround: '',
@@ -228,6 +322,7 @@ function Quote() {
       setFiles([]);
       setPaymentScreenshot(null);
       setSelectedService(null);
+      setServiceSubTypes([]);
       
       const fileInput = document.getElementById('fileInput');
       const paymentInput = document.getElementById('paymentScreenshotInput');
@@ -527,7 +622,29 @@ function Quote() {
                 ))}
               </select>
             </div>
-            <div style={styles.formGroup}>
+
+            {formData.service && serviceSubTypes.length > 0 && (
+              <div style={styles.formGroup}>
+                <label style={styles.label} htmlFor="serviceSubType">Service Specific Options *</label>
+                <select 
+                  style={styles.select}
+                  id="serviceSubType" 
+                  name="serviceSubType" 
+                  value={formData.serviceSubType}
+                  onChange={handleInputChange}
+                  required
+                  disabled={isSubmitting}
+                >
+                  <option value="">Select specific option</option>
+                  {serviceSubTypes.map(subType => (
+                    <option key={subType.value} value={subType.value}>{subType.label}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {/* Document Type dropdown commented out as per request */}
+            {/* <div style={styles.formGroup}>
               <label style={styles.label} htmlFor="documentType">Document Type</label>
               <select 
                 style={styles.select}
@@ -542,7 +659,7 @@ function Quote() {
                   <option key={type.value} value={type.value}>{type.label}</option>
                 ))}
               </select>
-            </div>
+            </div> */}
             <div style={styles.formGroup}>
               <label style={styles.label} htmlFor="sourceLanguage">Source Language *</label>
               <select 

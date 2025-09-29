@@ -18,6 +18,7 @@ function Contact() {
     subject: '',
     message: ''
   });
+  const [isRobotChecked, setIsRobotChecked] = useState(false);
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -120,6 +121,11 @@ function Contact() {
       return false;
     }
 
+    if (!isRobotChecked) {
+      setError('Please verify that you are not a robot');
+      return false;
+    }
+
     return true;
   };
 
@@ -156,6 +162,8 @@ function Contact() {
         subject: '',
         message: ''
       });
+      
+      setIsRobotChecked(false);
 
     } catch (error) {
       console.error('Message submission error:', error);
@@ -198,7 +206,7 @@ function Contact() {
       flexDirection: isMobile ? 'column' : 'row',
     },
     heroImage: {
-      width: isMobile ? '100%' : '45%',
+      width: isMobile ? '100%' : '50%',
       maxWidth: isMobile ? '100%' : '700px',
       height: isMobile ? '300px' : '470px',
       objectFit: 'cover',
@@ -235,9 +243,17 @@ function Contact() {
       justifyContent: isMobile ? 'center' : 'flex-start',
       flexWrap: 'wrap',
     },
+    heroSubtitle: {
+      fontSize: isMobile ? '1.2rem' : '1.5rem',
+      color: '#0a1d51',
+      marginBottom: '0.8rem',
+      fontWeight: '400',
+      textAlign: isMobile ? 'center' : 'left',
+    },
     whatsappButton: {
-      backgroundColor: '#de800d',
-      padding: '0.8rem 1.8rem',
+      backgroundColor: '#f1eee5',
+      color: '#0a1d51',
+      padding: '0.8rem 1.5rem',
       borderRadius: '15px',
       border: '1px solid #de800d',
       fontSize: '1rem',
@@ -520,6 +536,48 @@ function Contact() {
       border: '1px solid #de800d',
       boxShadow: '0 5px 15px rgba(255, 140, 0, 0.1)',
     },
+    recaptchaContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: '#f9f9f9',
+      border: '1px solid #ddd',
+      borderRadius: '4px',
+      padding: '1rem',
+      margin: '1.5rem 0',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+    },
+    recaptchaCheckbox: {
+      width: '18px',
+      height: '18px',
+      marginRight: '10px',
+      cursor: 'pointer',
+    },
+    recaptchaText: {
+      fontSize: '14px',
+      color: '#333',
+    },
+    recaptchaFooter: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: '8px',
+      fontSize: '10px',
+      color: '#555',
+    },
+    termsText: {
+      fontSize: '12px',
+      color: '#666',
+      textAlign: 'center',
+      marginTop: '1rem',
+      lineHeight: '1.4',
+    },
+    termsLink: {
+      color: '#de800d',
+      textDecoration: 'underline',
+      cursor: 'pointer',
+    },
   };
 
   const handleMouseEnter = (index) => {
@@ -558,6 +616,12 @@ function Contact() {
     e.target.style.transform = 'scale(1)';
   };
 
+  const handleRecaptchaClick = () => {
+    if (!isSubmitting) {
+      setIsRobotChecked(!isRobotChecked);
+    }
+  };
+
   return (
     <div style={styles.container}>
       <style>
@@ -583,9 +647,11 @@ function Contact() {
           />
           <div style={styles.heroContent}>
             <h1 style={styles.heroTitle}>Your Trusted Translation & Localization Experts</h1>
+            
+            <p style={styles.heroSubtitle}>Dedicated to You – Professional. Precise. Perfect.</p>
+
             <p style={styles.heroDescription}>
-              Your trusted partner for professional translation, localization, and multilingual communication services across Africa and beyond.
-            </p>
+              Need a quote? Want to collaborate? We're happy to help! Get in touch with our language experts today.</p>
             <div style={styles.buttonContainer}>
               <Link
                 to="/quote"
@@ -712,6 +778,31 @@ function Contact() {
               ></textarea>
             </div>
 
+            {/* reCAPTCHA Section */}
+            <div 
+              style={{
+                ...styles.recaptchaContainer,
+                borderColor: isRobotChecked ? '#4285f4' : '#ddd',
+                backgroundColor: isRobotChecked ? '#f0f8ff' : '#f9f9f9'
+              }}
+              onClick={handleRecaptchaClick}
+            >
+              <input
+                type="checkbox"
+                checked={isRobotChecked}
+                onChange={handleRecaptchaClick}
+                style={styles.recaptchaCheckbox}
+                disabled={isSubmitting}
+              />
+              <div style={styles.recaptchaText}>
+                I'm not a robot
+                <div style={styles.recaptchaFooter}>
+                  <span>reCAPTCHA</span>
+                  <span>Privacy - Terms</span>
+                </div>
+              </div>
+            </div>
+
             {error && <div style={styles.errorMessage}>{error}</div>}
             {success && <div style={styles.successMessage}>{success}</div>}
 
@@ -741,9 +832,13 @@ function Contact() {
                   Sending...
                 </>
               ) : (
-                'Send Message'
+                'SUBMIT'
               )}
             </button>
+
+            <div style={styles.termsText}>
+              By submitting this form, you agree to the <span style={styles.termsLink}>privacy policy</span> and <span style={styles.termsLink}>terms</span> of this website.
+            </div>
           </form>
         </div>
       </section>

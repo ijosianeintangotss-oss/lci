@@ -332,7 +332,7 @@ function Services() {
     },
     {
       step: 2,
-      title: "Editor",
+      title: "Reviser",
       description: "Independent review for accuracy and consistency"
     },
     {
@@ -342,17 +342,17 @@ function Services() {
     },
     {
       step: 4,
-      title: "Delivery",
+      title: "QA & Delivery",
       description: "Cultural and context-appropriate final product"
     }
   ];
 
- const supportedLanguages = [
-  { code: "en", name: "English", flag: "🇬🇧🇺🇸" },
-  { code: "fr", name: "French", flag: "🇫🇷" },
-  { code: "rw", name: "Kinyarwanda", flag: "🇷🇼" },
-  { code: "sw", name: "Kiswahili", flag: "🇰🇪🇹🇿" },
-  { code: "rn", name: "Kirundi", flag: "🇧🇮" }
+const supportedLanguages = [
+  { code: "", name: "English", flag: "🇬🇧, 🇺🇸" },
+  { code: "", name: "French", flag: "🇫🇷" },
+  { code: "", name: "Kinyarwanda", flag: "🇷🇼" },
+  { code: "", name: "Kiswahili", flag: "🇰🇪, 🇹🇿" },
+  { code: "", name: "Kirundi", flag: "🇧🇮" }
 ];
 
   const styles = {
@@ -425,8 +425,9 @@ function Services() {
           flexWrap: 'wrap',
         },
         whatsappButton: {
-      backgroundColor: '#de800d',
-      padding: '0.8rem 1.8rem',
+      backgroundColor: '#f1eee5',
+      color: '#0a1d51',
+      padding: '0.8rem 1.5rem',
       borderRadius: '15px',
       border: '1px solid #de800d',
       fontSize: '1rem',
@@ -513,8 +514,8 @@ function Services() {
       marginBottom: '0.5rem',
     },
     serviceTagline: {
-      fontSize: '0.95rem',
-      color: '#de800d',
+      fontSize: '1rem',
+      color: '#0a1d51',
       fontWeight: '500',
       fontStyle: 'italic',
     },
@@ -526,30 +527,35 @@ function Services() {
     },
     serviceButtonsContainer: {
       display: 'flex',
+      // color: '#0a1d51',
       justifyContent: 'space-between',
       alignItems: 'center',
       marginTop: '1rem',
       gap: '1rem',
     },
     viewMoreButton: {
-      background: 'none',
-      border: 'none',
-      color: '#0a1d51',
-      textDecoration: 'none',
-      cursor: 'pointer',
-      fontSize: '0.95rem',
+      background: '#de800d',
+      color: '#f1eee5',
+      border: '1px solid #de800d',
+      borderRadius: '30px',
+      padding: '0.6rem 1.2rem',
+      fontSize: '0.9rem',
       fontWeight: '600',
-      padding: '0',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+      textDecoration: 'none',
       display: 'inline-flex',
       alignItems: 'center',
-      gap: '0.3rem',
-      transition: 'all 0.3s ease',
+      justifyContent: 'center',
+      gap: '0.5rem',
+      width: 'auto',
+      minWidth: '10px',
     },
     requestServiceButton: {
-      background: '#f1eee5',
-      color: '#0a1d51',
-      border: '1px solid #0a1d51',
-      borderRadius: '8px',
+      background: '#de800d',
+      color: '#f1eee5',
+      border: '1px solid #de800d',
+      borderRadius: '30px',
       padding: '0.6rem 1.2rem',
       fontSize: '0.9rem',
       fontWeight: '600',
@@ -562,6 +568,13 @@ function Services() {
       gap: '0.5rem',
       width: 'auto',
       minWidth: '160px',
+    },
+    heroSubtitle: {
+      fontSize: isMobile ? '1.2rem' : '1.5rem',
+      color: '#0a1d51',
+      marginBottom: '0.8rem',
+      fontWeight: '400',
+      textAlign: isMobile ? 'center' : 'left',
     },
     featuresSection: {
       marginBottom: '1rem',
@@ -784,24 +797,28 @@ function Services() {
 
   const handleRequestServiceHover = (e) => {
     e.target.style.transform = 'scale(1.05)';
-    e.target.style.background = '#0a1d51';
+    e.target.style.background = '#de800d';
     e.target.style.color = 'white';
   };
 
   const handleRequestServiceLeave = (e) => {
     e.target.style.transform = 'scale(1)';
-    e.target.style.background = '#f1eee5';
-    e.target.style.color = '#0a1d51';
+    e.target.style.background = '#de800d';
+    e.target.style.color = '#ffffffff';
   };
 
   const handleViewMoreHover = (e) => {
-    e.target.style.textDecoration = 'underline';
-    e.target.style.color = '#de800d';
+    e.target.style.textDecoration = 'none';
+    e.target.style.color = '#ffffffff';
+     e.target.style.background = '#de800d';
   };
 
   const handleViewMoreLeave = (e) => {
-    e.target.style.textDecoration = 'none';
-    e.target.style.color = '#0a1d51';
+    e.target.style.color = '#ffffffff';
+     e.target.style.background = '#de800d';
+    // e.target.style.textDecoration = 'none';
+    // e.target.style.color = '#0a1d51';
+    
   };
    const handleWhatsAppButtonLeave = (e) => {
     e.target.style.transform = 'scale(1)';
@@ -820,8 +837,14 @@ function Services() {
           />
           <div style={styles.heroContent}>
             <h1 style={styles.heroTitle}>Your Trusted Translation & Localization Experts</h1>
+             <p style={styles.heroSubtitle}>Dedicated to You – Professional. Precise. Perfect.</p>
+            
             <p style={styles.heroDescription}>
-              Your trusted partner for professional translation, localization, and multilingual communication services across Africa and beyond.
+              <b>Comprehensive Language Solutions, Tailored to You</b>
+              <br></br><br></br>
+We deliver <b>comprehensive language solutions</b> designed to meet the unique demands of your business, industry, or project. 
+From <b>translation and localization</b> to <b>transcription and proofreading</b>, every service is customized to ensure 
+<b>cultural accuracy, clarity, and global impact.</b>
             </p>
             <div style={styles.buttonContainer}>
               <Link
@@ -839,8 +862,16 @@ function Services() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={styles.whatsappButton}
-                onMouseEnter={handleButtonHover}
-                onMouseLeave={handleWhatsAppButtonLeave}
+                onMouseEnter={(e) => {
+                  e.target.style.background = '#de800d';
+                  e.target.style.color = 'white';
+                  e.target.style.transform = 'scale(1.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = '#e4ece9';
+                  e.target.style.color = '#0a1d51';
+                  e.target.style.transform = 'scale(1)';
+                }}
               >
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', }}>
                   Let's Chat on<img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} />                 </span>

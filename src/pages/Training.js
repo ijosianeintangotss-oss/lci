@@ -23,7 +23,6 @@ function Training() {
       id: 1,
       title: "Mentorship from Experienced Linguists",
       tagline: "Personalized Guidance",
-      icon: "",
       description: "Learn directly from industry professionals with years of translation experience and deep cultural understanding.",
       keyFeatures: [
         "One-on-one mentoring sessions",
@@ -42,7 +41,6 @@ function Training() {
       id: 2,
       title: "Practical, Project-Based Training",
       tagline: "Hands-On Experience",
-      icon: "",
       description: "Work on real client projects under supervision to gain hands-on experience in professional translation environments.",
       keyFeatures: [
         "Real-world assignments",
@@ -61,7 +59,6 @@ function Training() {
       id: 3,
       title: "Industry Tools & Technology",
       tagline: "Modern Toolkit",
-      icon: "",
       description: "Master professional CAT tools, quality assurance software, and industry standards used by top translation companies.",
       keyFeatures: [
         "CAT tools training (Trados, MemoQ)",
@@ -80,7 +77,6 @@ function Training() {
       id: 4,
       title: "Real Client Exposure",
       tagline: "Professional Portfolio",
-      icon: "",
       description: "Build your portfolio while contributing to actual translation projects and understanding client requirements.",
       keyFeatures: [
         "Portfolio development",
@@ -97,35 +93,67 @@ function Training() {
     }
   ];
 
-  const qualitySteps = [
+  const trainingBenefits = [
+    "Gain practical translation experience",
+    "Build a professional portfolio",
+    "Network with industry professionals",
+    "Learn industry-standard tools and processes",
+    "Receive mentorship and career guidance",
+    "Potential for ongoing work opportunities"
+  ];
+
+  const programRequirements = [
+    "Strong command of at least two languages (English, French, Kinyarwanda, Kiswahili, or Kirundi)",
+    "Bachelor's degree or equivalent experience",
+    "Passion for languages and cultural communication",
+    "Commitment to learning and professional development",
+    "Basic computer skills and internet access",
+    "Availability for training sessions and project work"
+  ];
+
+  const careerOpportunities = [
     {
-      step: 1,
-      title: "Theoretical Foundation",
-      description: "Build strong linguistic knowledge"
+      title: "Freelance Translator",
+      description: "Work independently with clients across various industries, setting your own schedule and rates."
     },
     {
-      step: 2,
-      title: "Practical Training",
-      description: "Hands-on project experience"
+      title: "In-House Linguist",
+      description: "Join organizations as a full-time language professional, handling all translation and localization needs."
     },
     {
-      step: 3,
-      title: "Mentorship Review",
-      description: "Expert feedback and guidance"
+      title: "Localization Specialist",
+      description: "Specialize in adapting digital content, software, and websites for local markets and cultures."
     },
     {
-      step: 4,
-      title: "Professional Certification",
-      description: "Industry-recognized completion"
+      title: "Project Manager",
+      description: "Coordinate translation projects, manage teams, and ensure quality delivery for language service providers."
+    },
+    {
+      title: "Quality Assurance",
+      description: "Ensure translation quality through review, editing, and linguistic quality assurance processes."
+    },
+    {
+      title: "Language Consultant",
+      description: "Provide expert advice on language strategy, cultural adaptation, and multilingual communication."
     }
   ];
 
-  const supportedLanguages = [
-    { code: "EN", name: "English", flag: "🇬🇧" },
-    { code: "FR", name: "French", flag: "🇫🇷" },
-    { code: "RW", name: "Kinyarwanda", flag: "🇷🇼" },
-    { code: "SW", name: "Kiswahili", flag: "🇹🇿" },
-    { code: "RN", name: "Kirundi", flag: "🇧🇮" }
+  const applicationSteps = [
+    {
+      step: 1,
+      title: "Submit Application",
+      description: "Send us your CV, cover letter, and language proficiency details"
+    },
+    {
+      step: 2,
+      title: "Assessment",
+      description: "Complete a language assessment and interview with our team"
+    },
+    {
+      step: 3,
+      title: "Start Training",
+      description: "Begin your journey with our comprehensive mentorship program"
+    }
   ];
 
   const styles = {
@@ -197,9 +225,17 @@ function Training() {
       justifyContent: isMobile ? 'center' : 'flex-start',
       flexWrap: 'wrap',
     },
+    heroSubtitle: {
+      fontSize: isMobile ? '1.2rem' : '1.5rem',
+      color: '#0a1d51',
+      marginBottom: '0.8rem',
+      fontWeight: '400',
+      textAlign: isMobile ? 'center' : 'left',
+    },
     whatsappButton: {
-      backgroundColor: '#de800d',
-      padding: '0.8rem 1.8rem',
+      backgroundColor: '#f1eee5',
+      color: '#0a1d51',
+      padding: '0.8rem 1.5rem',
       borderRadius: '15px',
       border: '1px solid #de800d',
       fontSize: '1rem',
@@ -232,6 +268,7 @@ function Training() {
       background: '#f1eee5',
       borderRadius: '15px',
       border: '1px solid #de800d',
+      marginBottom: '2rem',
     },
     sectionTitle: {
       fontSize: '2.2rem',
@@ -265,14 +302,7 @@ function Training() {
       position: 'relative',
     },
     serviceHeader: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '1rem',
       marginBottom: '1rem',
-    },
-    serviceIcon: {
-      fontSize: '2rem',
-      color: '#de800d',
     },
     serviceHeaderText: {
       flex: 1,
@@ -284,8 +314,8 @@ function Training() {
       marginBottom: '0.5rem',
     },
     serviceTagline: {
-      fontSize: '0.95rem',
-      color: '#de800d',
+      fontSize: '1rem',
+      color: '#0a1d51',
       fontWeight: '500',
       fontStyle: 'italic',
     },
@@ -294,6 +324,31 @@ function Training() {
       lineHeight: '1.5',
       marginBottom: '1rem',
       fontSize: '0.95rem',
+    },
+    serviceButtonsContainer: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: '1rem',
+      gap: '1rem',
+    },
+    viewMoreButton: {
+      background: '#de800d',
+      color: '#f1eee5',
+      border: '1px solid #de800d',
+      borderRadius: '30px',
+      padding: '0.6rem 1.2rem',
+      fontSize: '0.9rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+      textDecoration: 'none',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '0.5rem',
+      width: 'auto',
+      minWidth: '10px',
     },
     featuresSection: {
       marginBottom: '1rem',
@@ -331,37 +386,71 @@ function Training() {
       textAlign: 'center',
       border: '1px solid #de800d',
     },
-    expandButton: {
-      position: 'absolute',
-      top: '1rem',
-      right: '1rem',
-      background: '#de800d',
-      color: 'white',
-      border: 'none',
-      borderRadius: '50%',
-      width: '2rem',
-      height: '2rem',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontSize: '1rem',
-      transition: 'all 0.3s ease',
-    },
-    qualitySection: {
-      background: '#f1eee5',
-      borderRadius: '15px',
-      padding: '3rem 1.5rem',
-      margin: '1rem auto',
-      maxWidth: '1200px',
-      border: '1px solid #de800d',
-    },
-    qualityGrid: {
+    twoColumnGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-      gap: '1.5rem',
+      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+      gap: '2rem',
+      marginTop: '2rem',
     },
-    qualityStep: {
+    benefitsList: {
+      listStyle: 'none',
+      padding: 0,
+      margin: 0,
+    },
+    benefitItem: {
+      padding: '0.5rem 0',
+      color: '#0a1d51',
+      display: 'flex',
+      alignItems: 'flex-start',
+      gap: '0.8rem',
+      fontSize: '0.95rem',
+      lineHeight: '1.5',
+    },
+    requirementsList: {
+      listStyle: 'none',
+      padding: 0,
+      margin: 0,
+    },
+    requirementItem: {
+      padding: '0.5rem 0',
+      color: '#0a1d51',
+      display: 'flex',
+      alignItems: 'flex-start',
+      gap: '0.8rem',
+      fontSize: '0.95rem',
+      lineHeight: '1.5',
+    },
+    careerGrid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+      gap: '1.5rem',
+      marginTop: '2rem',
+    },
+    careerCard: {
+      background: '#f1eee5',
+      borderRadius: '12px',
+      padding: '1.5rem',
+      border: '1px solid #de800d',
+      textAlign: 'center',
+    },
+    careerTitle: {
+      fontSize: '1.2rem',
+      fontWeight: '600',
+      color: '#0a1d51',
+      marginBottom: '1rem',
+    },
+    careerDescription: {
+      color: '#0a1d51',
+      fontSize: '0.95rem',
+      lineHeight: '1.5',
+    },
+    applicationGrid: {
+      display: 'grid',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+      gap: '1.5rem',
+      marginTop: '2rem',
+    },
+    applicationStep: {
       textAlign: 'center',
       background: '#f1eee5',
       borderRadius: '12px',
@@ -376,14 +465,14 @@ function Training() {
       transform: 'translateX(-50%)',
       background: '#de800d',
       color: 'white',
-      width: '24px',
-      height: '24px',
+      width: '30px',
+      height: '30px',
       borderRadius: '50%',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       fontWeight: '600',
-      fontSize: '0.9rem',
+      fontSize: '1rem',
     },
     stepTitle: {
       fontSize: '1.2rem',
@@ -397,76 +486,43 @@ function Training() {
       fontSize: '0.95rem',
       lineHeight: '1.5',
     },
-    languagesSection: {
+    cohortSection: {
       background: '#f1eee5',
       borderRadius: '15px',
       padding: '3rem 1.5rem',
       margin: '1rem auto',
       maxWidth: '1200px',
       border: '1px solid #de800d',
-    },
-    languagesGrid: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-      gap: '1.5rem',
-    },
-    languageCard: {
-      background: '#f1eee5',
-      borderRadius: '12px',
-      padding: '1.5rem',
       textAlign: 'center',
-      border: '1px solid #de800d',
-      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.1)',
     },
-    languageFlag: {
-      fontSize: '2rem',
-      marginBottom: '0.8rem',
-    },
-    languageCode: {
-      fontSize: '1.1rem',
-      fontWeight: '600',
-      color: '#0a1d51',
-      marginBottom: '0.5rem',
-    },
-    languageName: {
-      color: '#0a1d51',
-      fontSize: '0.95rem',
-    },
-    confidentialitySection: {
-      background: '#f1eee5',
-      borderRadius: '15px',
-      padding: '3rem 1.5rem',
-      textAlign: 'center',
-      margin: '1rem auto',
-      maxWidth: '1200px',
-      border: '1px solid #de800d',
-    },
-    confidentialityTitle: {
-      fontSize: '2rem',
-      fontWeight: '700',
-      color: '#0a1d51',
-      marginBottom: '1rem',
-    },
-    confidentialityDescription: {
-      fontSize: '1rem',
-      color: '#0a1d51',
-      marginBottom: '1.5rem',
-      lineHeight: '1.5',
-      maxWidth: '800px',
-      margin: '0 auto 1.5rem',
-    },
-    confidentialityFeatures: {
+    cohortFeatures: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
       gap: '1rem',
-      marginTop: '1.5rem',
+      margin: '2rem 0',
+      maxWidth: '600px',
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
-    confidentialityFeature: {
+    cohortFeature: {
       display: 'flex',
       alignItems: 'center',
       gap: '0.8rem',
-      fontSize: '0.95rem',
+      fontSize: '1rem',
       color: '#0a1d51',
+      justifyContent: 'flex-start',
+    },
+    updateButton: {
+      background: '#de800d',
+      color: 'white',
+      border: 'none',
+      borderRadius: '25px',
+      padding: '0.8rem 2rem',
+      fontSize: '1rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+      marginTop: '1rem',
     },
     ctaSection: {
       textAlign: 'center',
@@ -488,6 +544,12 @@ function Training() {
       color: '#0a1d51',
       marginBottom: '2rem',
       lineHeight: '1.5',
+    },
+    ctaButtons: {
+      display: 'flex',
+      gap: '1rem',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
     },
   };
 
@@ -515,32 +577,31 @@ function Training() {
     e.target.style.color = '#0a1d51';
   };
 
-  const handleRequestServiceHover = (e) => {
-    e.target.style.transform = 'scale(1.05)';
-    e.target.style.background = '#0a1d51';
-    e.target.style.color = 'white';
-  };
-
-  const handleRequestServiceLeave = (e) => {
-    e.target.style.transform = 'scale(1)';
-    e.target.style.background = '#f1eee5';
-    e.target.style.color = '#0a1d51';
-  };
-
   const handleViewMoreHover = (e) => {
-    e.target.style.textDecoration = 'underline';
-    e.target.style.color = '#de800d';
+    e.target.style.textDecoration = 'none';
+    e.target.style.color = '#ffffffff';
+    e.target.style.background = '#de800d';
   };
 
   const handleViewMoreLeave = (e) => {
-    e.target.style.textDecoration = 'none';
-    e.target.style.color = '#0a1d51';
+    e.target.style.color = '#ffffffff';
+    e.target.style.background = '#de800d';
   };
 
   const handleWhatsAppButtonLeave = (e) => {
     e.target.style.transform = 'scale(1)';
     e.target.style.backgroundColor = '#de800d';
     e.target.style.color = '#0a1d51';
+  };
+
+  const handleUpdateButtonHover = (e) => {
+    e.target.style.transform = 'scale(1.05)';
+    e.target.style.background = '#0a1d51';
+  };
+
+  const handleUpdateButtonLeave = (e) => {
+    e.target.style.transform = 'scale(1)';
+    e.target.style.background = '#de800d';
   };
 
   return (
@@ -553,9 +614,9 @@ function Training() {
             style={styles.heroImage}
           />
           <div style={styles.heroContent}>
-            <h1 style={styles.heroTitle}>Your Trusted Translation & Localization Experts</h1>
+            <h1 style={styles.heroTitle}>LCI Translator Mentorship Program</h1>
             <p style={styles.heroDescription}>
-              Nurturing the Next Generation of Language Professionals
+              We don't just deliver language services—we develop talent. Our mentorship program is designed to nurture the next generation of African language professionals.
             </p>
             <div style={styles.buttonContainer}>
               <Link
@@ -565,7 +626,7 @@ function Training() {
                 onMouseLeave={handleButtonLeave}
               >
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  Request a Quote <span style={{ color: '#de800d' }}>⭐</span>
+                  Apply Now <span style={{ color: '#de800d' }}>⭐</span>
                 </span>
               </Link>
               <a
@@ -577,7 +638,8 @@ function Training() {
                 onMouseLeave={handleWhatsAppButtonLeave}
               >
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  Let's Chat on<img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} />
+                  Let's Chat on
+                  <img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} />
                 </span>
               </a>
             </div>
@@ -585,8 +647,40 @@ function Training() {
         </div>
       </section>
 
+      <section style={styles.cohortSection}>
+        <h2 style={styles.sectionTitle}>Next Training Cohort Opens Soon</h2>
+        <p style={styles.sectionSubtitle}>
+          Our comprehensive training program combines theoretical knowledge with practical application, ensuring you're ready for the professional translation industry.
+        </p>
+        <div style={styles.cohortFeatures}>
+          <div style={styles.cohortFeature}>
+            <span style={{ color: '#de800d' }}>✓</span>
+            <span>12-week intensive program</span>
+          </div>
+          <div style={styles.cohortFeature}>
+            <span style={{ color: '#de800d' }}>✓</span>
+            <span>Small cohorts for personalized attention</span>
+          </div>
+          <div style={styles.cohortFeature}>
+            <span style={{ color: '#de800d' }}>✓</span>
+            <span>Focus on African language pairs</span>
+          </div>
+          <div style={styles.cohortFeature}>
+            <span style={{ color: '#de800d' }}>✓</span>
+            <span>Certificate upon completion</span>
+          </div>
+        </div>
+        <button
+          style={styles.updateButton}
+          onMouseEnter={handleUpdateButtonHover}
+          onMouseLeave={handleUpdateButtonLeave}
+        >
+          Get Training Updates
+        </button>
+      </section>
+
       <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>Our Training Program</h2>
+        <h2 style={styles.sectionTitle}>Our Training Program Features</h2>
         <p style={styles.sectionSubtitle}>
           Comprehensive mentorship and hands-on experience for aspiring translators
         </p>
@@ -602,23 +696,25 @@ function Training() {
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
             >
-              <button
-                style={{
-                  ...styles.expandButton,
-                  transform: activeFeature === feature.id ? 'rotate(45deg)' : 'rotate(0deg)',
-                }}
-                onClick={() => handleExpandFeature(feature.id)}
-              >
-                +
-              </button>
               <div style={styles.serviceHeader}>
-                <span style={styles.serviceIcon}>{feature.icon}</span>
                 <div style={styles.serviceHeaderText}>
                   <h3 style={styles.serviceTitle}>{feature.title}</h3>
                   <p style={styles.serviceTagline}>{feature.tagline}</p>
                 </div>
               </div>
               <p style={styles.serviceDescription}>{feature.description}</p>
+              
+              <div style={styles.serviceButtonsContainer}>
+                <button
+                  style={styles.viewMoreButton}
+                  onClick={() => handleExpandFeature(feature.id)}
+                  onMouseEnter={handleViewMoreHover}
+                  onMouseLeave={handleViewMoreLeave}
+                >
+                  {activeFeature === feature.id ? 'View Less' : 'View More'}
+                </button>
+              </div>
+
               {activeFeature === feature.id && (
                 <>
                   <div style={styles.featuresSection}>
@@ -649,89 +745,92 @@ function Training() {
         </div>
       </section>
 
-      <section style={styles.qualitySection}>
-        <h2 style={styles.sectionTitle}>Our Training Process</h2>
+      <section style={styles.section}>
+        <h2 style={styles.sectionTitle}>What You'll Gain & Program Requirements</h2>
+        <div style={styles.twoColumnGrid}>
+          <div>
+            <h3 style={{ fontSize: '1.5rem', color: '#0a1d51', marginBottom: '1rem' }}>What You'll Gain</h3>
+            <ul style={styles.benefitsList}>
+              {trainingBenefits.map((benefit, index) => (
+                <li key={index} style={styles.benefitItem}>
+                  <span style={{ color: '#de800d', fontSize: '1.2rem' }}>✓</span>
+                  <span>{benefit}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 style={{ fontSize: '1.5rem', color: '#0a1d51', marginBottom: '1rem' }}>Program Requirements</h3>
+            <ul style={styles.requirementsList}>
+              {programRequirements.map((requirement, index) => (
+                <li key={index} style={styles.requirementItem}>
+                  <span style={{ color: '#de800d', fontSize: '1.2rem' }}>•</span>
+                  <span>{requirement}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section style={styles.section}>
+        <h2 style={styles.sectionTitle}>Career Opportunities</h2>
         <p style={styles.sectionSubtitle}>
-          Structured approach to developing professional translators
+          Our graduates go on to successful careers in various areas of the language industry
         </p>
-        <div style={styles.qualityGrid}>
-          {qualitySteps.map((step, index) => (
-            <div key={index} style={styles.qualityStep}>
+        <div style={styles.careerGrid}>
+          {careerOpportunities.map((career, index) => (
+            <div key={index} style={styles.careerCard}>
+              <h3 style={styles.careerTitle}>{career.title}</h3>
+              <p style={styles.careerDescription}>{career.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section style={styles.section}>
+        <h2 style={styles.sectionTitle}>How to Apply</h2>
+        <div style={styles.applicationGrid}>
+          {applicationSteps.map((step, index) => (
+            <div key={index} style={styles.applicationStep}>
               <div style={styles.stepNumber}>{step.step}</div>
               <h3 style={styles.stepTitle}>{step.title}</h3>
               <p style={styles.stepDescription}>{step.description}</p>
             </div>
           ))}
         </div>
-        <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.95rem', color: '#0a1d51' }}>
-          We provide personalized training tailored to your language strengths and career goals.
-        </p>
-      </section>
-
-      <section style={styles.languagesSection}>
-        <h2 style={styles.sectionTitle}>Languages We Train In</h2>
-        <p style={styles.sectionSubtitle}>
-          Focus on major African and international languages
-        </p>
-        <div style={styles.languagesGrid}>
-          {supportedLanguages.map((language, index) => (
-            <div key={index} style={styles.languageCard}>
-              <div style={styles.languageFlag}>{language.flag}</div>
-              <div style={styles.languageCode}>{language.code}</div>
-              <div style={styles.languageName}>{language.name}</div>
-            </div>
-          ))}
-        </div>
-        <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.95rem', color: '#0a1d51' }}>
-          Specializing in African language pairs with global applications.
-        </p>
-      </section>
-
-      <section style={styles.confidentialitySection}>
-        <div style={styles.confidentialityTitle}>
-          Professional Standards Guaranteed
-        </div>
-        <p style={styles.confidentialityDescription}>
-          At LCI Training, we maintain the highest standards of professionalism and ethics in our mentorship program.
-        </p>
-        <div style={styles.confidentialityFeatures}>
-          <div style={styles.confidentialityFeature}>
-            <span style={{ color: '#de800d' }}>•</span>
-            <span>Ethical translation practices</span>
-          </div>
-          <div style={styles.confidentialityFeature}>
-            <span style={{ color: '#de800d' }}>•</span>
-            <span>Confidentiality in training</span>
-          </div>
-          <div style={styles.confidentialityFeature}>
-            <span style={{ color: '#de800d' }}>•</span>
-            <span>Industry compliance</span>
-          </div>
-          <div style={styles.confidentialityFeature}>
-            <span style={{ color: '#de800d' }}>•</span>
-            <span>Quality mentorship</span>
-          </div>
-        </div>
-        <p style={{ marginTop: '1.5rem', fontSize: '1rem', fontWeight: '600', color: '#0a1d51' }}>
-          🛡️ Professionalism isn't optional. It's our foundation.
-        </p>
       </section>
 
       <section style={styles.ctaSection}>
-        <h2 style={styles.ctaTitle}>Ready to Start Your Training?</h2>
+        <h2 style={styles.ctaTitle}>Ready to Start Your Language Career?</h2>
         <p style={styles.ctaDescription}>
-          Join our mentorship program and launch your career in professional translation.
+          Join the next generation of African language professionals. Applications are now open for our upcoming cohort.
         </p>
-        <Link
-          to="/quote"
-          style={styles.primaryButton}
-          onMouseEnter={handleButtonHover}
-          onMouseLeave={handleButtonLeave}
-        >
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            Apply Now <span style={{ color: '#de800d' }}>✨</span>
-          </span>
-        </Link>
+        <div style={styles.ctaButtons}>
+          <Link
+            to="/quote"
+            style={styles.primaryButton}
+            onMouseEnter={handleButtonHover}
+            onMouseLeave={handleButtonLeave}
+          >
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              Apply Now <span style={{ color: '#de800d' }}>✨</span>
+            </span>
+          </Link>
+          <a
+            href="https://wa.me/250788518720"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={styles.whatsappButton}
+            onMouseEnter={handleButtonHover}
+            onMouseLeave={handleWhatsAppButtonLeave}
+          >
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              Learn More 
+              {/* <img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} /> */}
+            </span>
+          </a>
+        </div>
       </section>
     </div>
   );

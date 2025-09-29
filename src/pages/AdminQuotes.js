@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import logo from '../assets/logo.png'; // Ensure this path is correct
 
-function AdminTranslationDashboard() {
+function AdminQuotes() {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,16 +22,16 @@ function AdminTranslationDashboard() {
 
   // Stats state
   const [stats, setStats] = useState({
-    total: 0,
-    pending: 0,
-    inProgress: 0,
-    completed: 0,
+    totalQuotes: 0,
+    pendingQuotes: 0,
+    inProgressQuotes: 0,
+    completedQuotes: 0,
     todayRequests: 0,
   });
 
   const navItems = [
-    // { path: '/', label: 'Dashboard', icon: '' }, // New Dashboard button
     { path: '/admin-quotes', label: 'Quotes', icon: '' },
+    { path: '/admin-messages', label: 'Messages', icon: '' },
     { path: '/logout', label: 'LogOut ', icon: '', onClick: () => navigate('/'), className: 'logoutBtn' },
   ];
 
@@ -63,18 +63,18 @@ function AdminTranslationDashboard() {
       width: 'auto',
     },
     sidebarNav: {
-  listStyle: 'none',
-  padding: 0,
-  margin: 0,
-  display: 'flex',
-  flexDirection: 'column', // <-- This ensures vertical layout
-  gap: '5px', // optional: space between items
-},
+      listStyle: 'none',
+      padding: 0,
+      margin: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '5px',
+    },
     sidebarItem: {
-  padding: '12px 16px',
-  cursor: 'pointer',
-  transition: 'background-color 0.3s',
-  display: 'block', // <-- Important for vertical stacking
+      padding: '12px 16px',
+      cursor: 'pointer',
+      transition: 'background-color 0.3s',
+      display: 'block',
     },
     sidebarItemActive: {
       backgroundColor: '#34495e',
@@ -162,7 +162,7 @@ function AdminTranslationDashboard() {
       margin: 0,
       padding: 0,
       gap: '0.3rem',
-      flexDirection: 'column', // Changed to vertical layout
+      flexDirection: 'column',
       alignItems: 'flex-start',
     },
     logoutBtn: {
@@ -377,6 +377,7 @@ function AdminTranslationDashboard() {
       borderRadius: '6px',
       boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
       overflow: 'hidden',
+      marginBottom: '16px',
     },
     tableContainer: {
       overflowX: 'auto',
@@ -426,6 +427,12 @@ function AdminTranslationDashboard() {
       color: '#718096',
       fontSize: '12px',
       margin: '1px 0 0 0',
+    },
+    requestingText: {
+      color: '#4a5568',
+      fontSize: '11px',
+      margin: '2px 0 0 0',
+      fontStyle: 'italic',
     },
     languageContainer: {
       display: 'flex',
@@ -626,15 +633,15 @@ function AdminTranslationDashboard() {
 
       const today = new Date().setHours(0, 0, 0, 0);
       const statsData = {
-        total: data.length,
-        pending: data.filter((q) => q.status === 'pending').length,
-        inProgress: data.filter((q) => q.status === 'inProgress').length,
-        completed: data.filter((q) => q.status === 'completed').length,
+        totalQuotes: data.length,
+        pendingQuotes: data.filter((q) => q.status === 'pending').length,
+        inProgressQuotes: data.filter((q) => q.status === 'inProgress').length,
+        completedQuotes: data.filter((q) => q.status === 'completed').length,
         todayRequests: data.filter(
           (q) => new Date(q.submittedAt).setHours(0, 0, 0, 0) === today
         ).length,
       };
-      setStats(statsData);
+      setStats((prevStats) => ({ ...prevStats, ...statsData }));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -677,11 +684,13 @@ function AdminTranslationDashboard() {
   };
 
   const filteredQuotes = quotes.filter((quote) => {
+    const fullName = quote.fullName || '';
+    const email = quote.email || '';
     const matchesSearch =
-      quote.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      quote.email.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === 'all' || quote.status === statusFilter;
-    const matchesService = serviceFilter === 'all' || quote.service === serviceFilter;
+      fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      email.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = statusFilter === 'all' || (quote.status || '').toLowerCase() === statusFilter.toLowerCase();
+    const matchesService = serviceFilter === 'all' || (quote.service || '').toLowerCase() === serviceFilter.toLowerCase();
     return matchesSearch && matchesStatus && matchesService;
   });
 
@@ -915,7 +924,7 @@ function AdminTranslationDashboard() {
             <div style={styles.dashboardHeader}>
               <div style={styles.headerContent}>
                 <div>
-                  <h1 style={styles.title}>Translation Dashboard</h1>
+                  <h1 style={styles.title}>Quotes Dashboard</h1>
                   <p style={styles.subtitle}>Manage translation requests efficiently</p>
                 </div>
                 <button style={styles.refreshButton} onClick={fetchQuotes} onMouseEnter={handleButtonHover} onMouseLeave={handleButtonLeave}>
@@ -927,29 +936,29 @@ function AdminTranslationDashboard() {
               <div style={styles.statCard}>
                 <div style={{ ...styles.statIcon, backgroundColor: '#dbeafe' }}>📋</div>
                 <div>
-                  <p style={styles.statLabel}>Total Requests</p>
-                  <p style={{ ...styles.statValue, color: '#1a202c' }}>{stats.total}</p>
+                  <p style={styles.statLabel}>Total Quotes</p>
+                  <p style={{ ...styles.statValue, color: '#1a202c' }}>{stats.totalQuotes}</p>
                 </div>
               </div>
               <div style={styles.statCard}>
                 <div style={{ ...styles.statIcon, backgroundColor: '#fef3c7' }}>⏳</div>
                 <div>
-                  <p style={styles.statLabel}>Pending</p>
-                  <p style={{ ...styles.statValue, color: '#d97706' }}>{stats.pending}</p>
+                  <p style={styles.statLabel}>Pending Quotes</p>
+                  <p style={{ ...styles.statValue, color: '#d97706' }}>{stats.pendingQuotes}</p>
                 </div>
               </div>
               <div style={styles.statCard}>
                 <div style={{ ...styles.statIcon, backgroundColor: '#dbeafe' }}>🔄</div>
                 <div>
-                  <p style={styles.statLabel}>In Progress</p>
-                  <p style={{ ...styles.statValue, color: '#2563eb' }}>{stats.inProgress}</p>
+                  <p style={styles.statLabel}>In Progress Quotes</p>
+                  <p style={{ ...styles.statValue, color: '#2563eb' }}>{stats.inProgressQuotes}</p>
                 </div>
               </div>
               <div style={styles.statCard}>
                 <div style={{ ...styles.statIcon, backgroundColor: '#d1fae5' }}>✅</div>
                 <div>
-                  <p style={styles.statLabel}>Completed</p>
-                  <p style={{ ...styles.statValue, color: '#059669' }}>{stats.completed}</p>
+                  <p style={styles.statLabel}>Completed Quotes</p>
+                  <p style={{ ...styles.statValue, color: '#059669' }}>{stats.completedQuotes}</p>
                 </div>
               </div>
               <div style={styles.statCard}>
@@ -963,7 +972,7 @@ function AdminTranslationDashboard() {
             <div style={styles.filtersCard}>
               <div style={styles.filtersGrid}>
                 <div style={styles.filterGroup}>
-                  <label style={styles.label}>Search Client</label>
+                  <label style={styles.label}>Search Quotes</label>
                   <input
                     style={styles.input}
                     type="text"
@@ -1000,38 +1009,6 @@ function AdminTranslationDashboard() {
                     <option value="Interpretation">Interpretation</option>
                     <option value="Localization">Localization</option>
                   </select>
-                </div>
-                <div style={styles.filterGroup}>
-                  <label style={styles.label}>Sort By</label>
-                  <div style={styles.sortContainer}>
-                    <button
-                      style={{
-                        ...styles.sortButton,
-                        backgroundColor: sortBy === 'submittedAt' ? '#dbeafe' : 'white',
-                      }}
-                      onClick={() => handleSort('submittedAt')}
-                    >
-                      Date {sortBy === 'submittedAt' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
-                    </button>
-                    <button
-                      style={{
-                        ...styles.sortButton,
-                        backgroundColor: sortBy === 'fullName' ? '#dbeafe' : 'white',
-                      }}
-                      onClick={() => handleSort('fullName')}
-                    >
-                      Name {sortBy === 'fullName' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
-                    </button>
-                    <button
-                      style={{
-                        ...styles.sortButton,
-                        backgroundColor: sortBy === 'service' ? '#dbeafe' : 'white',
-                      }}
-                      onClick={() => handleSort('service')}
-                    >
-                      Service {sortBy === 'service' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -1164,11 +1141,11 @@ function AdminTranslationDashboard() {
                     <h4 style={styles.modalSectionTitle}>Client Information</h4>
                     <p style={styles.modalText}>
                       <span style={styles.modalLabel}>Name:</span>{' '}
-                      {selectedQuote.fullName}
+                      {selectedQuote.fullName || 'N/A'}
                     </p>
                     <p style={styles.modalText}>
                       <span style={styles.modalLabel}>Email:</span>{' '}
-                      {selectedQuote.email}
+                      {selectedQuote.email || 'N/A'}
                     </p>
                     {selectedQuote.phone && (
                       <p style={styles.modalText}>
@@ -1181,19 +1158,19 @@ function AdminTranslationDashboard() {
                     <h4 style={styles.modalSectionTitle}>Service Details</h4>
                     <p style={styles.modalText}>
                       <span style={styles.modalLabel}>Service:</span>{' '}
-                      {selectedQuote.service}
+                      {selectedQuote.service || 'N/A'}
                     </p>
                     <p style={styles.modalText}>
                       <span style={styles.modalLabel}>Document Type:</span>{' '}
-                      {selectedQuote.documentType}
+                      {selectedQuote.documentType || 'N/A'}
                     </p>
                     <p style={styles.modalText}>
                       <span style={styles.modalLabel}>Languages:</span>{' '}
-                      {selectedQuote.sourceLanguage} → {selectedQuote.targetLanguage}
+                      {selectedQuote.sourceLanguage || 'N/A'} → {selectedQuote.targetLanguage || 'N/A'}
                     </p>
                     <p style={styles.modalText}>
                       <span style={styles.modalLabel}>Turnaround:</span>{' '}
-                      {selectedQuote.turnaround}
+                      {selectedQuote.turnaround || 'N/A'}
                     </p>
                     {selectedQuote.wordCount && (
                       <p style={styles.modalText}>
@@ -1270,4 +1247,4 @@ function AdminTranslationDashboard() {
   );
 }
 
-export default AdminTranslationDashboard;
+export default AdminQuotes;

@@ -164,9 +164,9 @@ function About() {
       justifyContent: 'center',
     },
     whatsappButton: {
-      backgroundColor: '#de800d',
+      backgroundColor: '#f1eee5',
       color: '#0a1d51',
-      padding: '0.8rem 1.8rem',
+      padding: '0.8rem 1.5rem',
       borderRadius: '15px',
       border: '1px solid #de800d',
       fontSize: '1rem',
@@ -390,6 +390,13 @@ function About() {
       color: '#0a1d51',
       marginBottom: '1rem',
     },
+    heroSubtitle: {
+      fontSize: isMobile ? '1.2rem' : '1.5rem',
+      color: '#0a1d51',
+      marginBottom: '0.8rem',
+      fontWeight: '400',
+      textAlign: isMobile ? 'center' : 'left',
+    },
     ctaDescription: {
       fontSize: '1rem',
       color: '#0a1d51',
@@ -435,6 +442,8 @@ function About() {
           />
           <div style={styles.heroContent}>
             <h1 style={styles.heroTitle}>Your Trusted Translation & Localization Experts</h1>
+            <p style={styles.heroSubtitle}>Dedicated to You – Professional. Precise. Perfect.</p>
+            
             <p style={styles.heroDescription}>
               Your trusted partner for professional translation, localization, and multilingual communication services across Africa and beyond.
             </p>

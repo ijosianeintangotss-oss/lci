@@ -112,6 +112,11 @@ function Header() {
       position: 'relative',
     },
     navLink: {
+      border: '2px solid #de800dff',   // border width and color
+      borderRadius: '20px',
+      background: '#f9f9f8ff',
+      color: '#0a1d51ff',
+      
       display: 'flex',
       alignItems: 'center',
       gap: '0.4rem',
@@ -126,12 +131,21 @@ function Header() {
       overflow: 'hidden',
     },
     activeNavLink: {
-      background: 'linear-gradient(135deg, #de800dff)',
-      color: 'white',
-      boxShadow: '0 4px 15px rgba(255, 140, 0, 0.3)',
+      border: '2px solid #de800dff',   // border width and color
+      borderRadius: '20px',
+      background: '#f9f9f8ff',
+      color: '#0a1d51ff',
+      // boxShadow: '0 4px 15px rgba(255, 140, 0, 0.3)',
     },
     hoveredNavLink: {
-      background: 'linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(30, 58, 138, 0.1))',
+      background: '#de800dff',
+      color: 'white',
+      transform: 'translateY(-2px)',
+      boxShadow: '0 4px 12px rgba(30, 58, 138, 0.2)',
+    },
+    hoveredactive: {
+      background: '#de800dff',
+      color: 'white',
       transform: 'translateY(-2px)',
       boxShadow: '0 4px 12px rgba(30, 58, 138, 0.2)',
     },

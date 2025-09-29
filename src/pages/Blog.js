@@ -30,96 +30,130 @@ function Blog() {
     { name: 'General', count: 2 }
   ];
 
-  const featuredArticle = {
-    category: 'AI in Translation',
-    date: 'July 13, 2025',
-    author: 'LCI Team',
-    title: ' AI Might Be Fast, But We Make It Wise',
-    description: 'Why African human translators remain essential in the age of AI and how we\'re shaping the future of translation technology.',
-    readingTime: '6 min read',
-    image: ''
-  };
-
   const articles = [
     {
+      id: 1,
       category: 'AI in Translation',
       readingTime: '6 min read',
-      title: ' AI Might Be Fast, But We Make It Wise',
+      title: 'AI Might Be Fast, But We Make It Wise',
       description: 'Why African human translators remain essential in the age of AI and how we\'re shaping the future of translation technology.',
       date: 'July 13, 2025',
-      image: ''
+      image: heroImage,
+      fullContent: `
+        <p>In the rapidly evolving landscape of translation, AI tools offer unprecedented speed and efficiency. However, they often fall short in capturing cultural nuances, idiomatic expressions, and contextual subtleties that are crucial for accurate communication, especially in African languages.</p>
+        
+        <p>At LCI, we leverage AI as a tool while relying on our team of expert human translators to infuse wisdom, cultural understanding, and precision into every project. This hybrid approach not only ensures high-quality results but also helps in training AI models for better future performance.</p>
+        
+        <h3>The Human Touch in Digital Translation</h3>
+        <p>While AI can process thousands of words in minutes, it lacks the cultural intelligence that human translators bring to the table. African languages, with their rich oral traditions and contextual meanings, require more than literal translation—they demand cultural interpretation.</p>
+        
+        <h3>Our Approach at LCI</h3>
+        <p>We've developed a unique workflow that combines the best of both worlds: AI handles the initial translation for speed, while our human experts refine, contextualize, and culturally adapt the content. This ensures that your message resonates authentically with your target audience.</p>
+        
+        <p>By investing in human expertise, we're not just translating words—we're bridging cultures and fostering global understanding. The future of translation isn't about choosing between AI and humans, but about leveraging both to achieve excellence.</p>
+      `
     },
     {
+      id: 2,
       category: 'Localization Insights',
       readingTime: '5 min read',
       title: 'Inside Software Localization: From English to Kinyarwanda',
       description: 'Understanding the technical aspects of software localization and the importance of context in translation.',
       date: 'July 10, 2025',
-      image: ''
+      image: heroImage,
+      fullContent: `
+        <p>Software localization goes beyond mere translation; it involves adapting user interfaces, date formats, currency symbols, and even color schemes to suit local preferences.</p>
+        
+        <p>When localizing from English to Kinyarwanda, challenges arise due to linguistic differences, such as verb conjugations and cultural references. Our process at LCI includes extracting strings from code, translating them with context in mind, and testing the localized version for usability.</p>
+        
+        <h3>The Technical Process</h3>
+        <p>Our localization process begins with string extraction from source code. We then create a glossary of technical terms to ensure consistency across the entire application. Each string is translated with its context preserved, considering how it will appear in the user interface.</p>
+        
+        <h3>Testing and Quality Assurance</h3>
+        <p>After translation, we conduct rigorous testing to ensure the localized software feels native to Rwandan users. This includes functional testing, linguistic validation, and user experience testing with native speakers.</p>
+        
+        <p>This ensures that the software feels native to Rwandan users, improving adoption rates and user satisfaction. We also collaborate with developers to handle technical constraints like string length limitations.</p>
+      `
     },
     {
+      id: 3,
       category: 'Localization Insights',
       readingTime: '4 min read',
       title: 'How Kinyarwanda UI Strings Can Make or Break Your App in Rwanda',
       description: 'How proper localization can make or break user experience in mobile applications.',
       date: 'July 8, 2025',
-      image: ''
+      image: heroImage,
+      fullContent: 'How proper localization can make or break user experience in mobile applications. In Rwanda, where Kinyarwanda is the primary language, poorly translated UI strings can lead to confusion, frustration, and app abandonment. Effective localization considers not just direct translation but also cultural appropriateness and brevity to fit mobile interfaces. At LCI, we emphasize iterative testing with native speakers to refine UI elements. For instance, a simple button label like "Submit" might need adjustment to convey the right tone in Kinyarwanda. Successful localization can boost user engagement by 30-50%, making your app a market leader in the region.'
     },
     {
+      id: 4,
       category: 'Careers',
       readingTime: '3 min read',
       title: 'Bridging Global Communication—One Language at a Time',
       description: 'How we help businesses and professionals connect across cultures with precision and care.',
       date: 'July 6, 2025',
-      image: ''
+      image: heroImage,
+      fullContent: 'How we help businesses and professionals connect across cultures with precision and care. In an interconnected world, effective communication is key to success. LCI specializes in providing tailored translation and localization services that go beyond words to convey intent and emotion accurately. Our team of multilingual experts works closely with clients to understand their needs, ensuring that marketing materials, legal documents, and technical content resonate with target audiences. By focusing on cultural sensitivity, we help avoid misunderstandings that could harm business relationships. Join us in bridging the language gap and expanding your global reach.'
     },
     {
+      id: 5,
       category: 'Careers',
       readingTime: '4 min read',
       title: 'Empowering the Next Generation of Language Experts',
       description: 'Building the next generation of African language professionals through training and mentorship.',
       date: 'July 3, 2025',
-      image: ''
+      image: heroImage,
+      fullContent: 'Building the next generation of African language professionals through training and mentorship. At LCI, we believe in investing in talent to sustain the translation industry. Our programs include workshops on advanced translation tools, cultural linguistics, and project management. Mentorship pairs young linguists with experienced professionals, providing hands-on experience in real-world projects. This initiative not only addresses the shortage of skilled translators in African languages but also promotes diversity in the global language services sector. Graduates of our programs often go on to lead innovative projects, contributing to the preservation and promotion of African languages.'
     },
     {
+      id: 6,
       category: 'Digital Strategy',
       readingTime: '5 min read',
       title: 'Are You Building or Just Posting?',
       description: 'The importance of strategic thinking in digital content creation and business building.',
       date: 'June 28, 2025',
-      image: ''
+      image: heroImage,
+      fullContent: 'The importance of strategic thinking in digital content creation and business building. In the digital age, many businesses focus on frequent posting without a clear strategy, leading to diluted impact. At LCI, we advocate for a structured approach: defining goals, understanding audiences, and creating multilingual content that drives engagement. This includes SEO optimization for different languages and cultural adaptation of visuals. By building a cohesive digital presence, companies can achieve sustainable growth rather than short-term visibility. Our case studies show how strategic content has helped clients expand into new markets effectively.'
     },
     {
+      id: 7,
       category: 'Translation Tips',
       readingTime: '4 min read',
       title: 'Ready to Go Global? We\'re Here to Help You Speak the World\'s Languages!',
       description: 'How we help your message resonate across different languages and cultures.',
       date: 'June 25, 2025',
-      image: ''
+      image: heroImage,
+      fullContent: 'How we help your message resonate across different languages and cultures. Going global requires more than translation; it demands localization to ensure your brand voice remains consistent yet culturally relevant. LCI offers tips like preparing glossaries for key terms, involving native speakers early, and using CAT tools for efficiency. We handle everything from website content to marketing campaigns, ensuring idiomatic accuracy. Common pitfalls include ignoring regional dialects or humor that doesn\'t translate well. With our expertise, your business can communicate effectively worldwide, fostering trust and loyalty among diverse audiences.'
     },
     {
+      id: 8,
       category: 'Translation Tips',
       readingTime: '6 min read',
       title: 'Our Story -- Language Computing International (LCI)',
       description: 'Your trusted partner in professional translation, localization & language solutions.',
       date: 'June 20, 2025',
-      image: ''
+      image: heroImage,
+      fullContent: 'Your trusted partner in professional translation, localization & language solutions. Founded with a vision to empower African languages in the digital world, LCI has grown into a leading provider of multilingual services. Our story begins with recognizing the gap in quality translations for underrepresented languages. Today, we offer comprehensive solutions including AI-assisted translation, cultural consulting, and e-learning localization. Our commitment to excellence is reflected in our ISO-certified processes and client testimonials. As we expand, we continue to innovate, blending technology with human expertise to meet the evolving needs of global businesses.'
     },
     {
+      id: 9,
       category: 'General',
       readingTime: '3 min read',
       title: 'Welcome to Language Computing International (LCI)!',
       description: 'Welcome to our growing network of language professionals and business leaders across Africa and beyond.',
       date: 'June 15, 2025',
-      image: ''
+      image: heroImage,
+      fullContent: 'Welcome to our growing network of language professionals and business leaders across Africa and beyond. LCI is more than a service provider; it\'s a community dedicated to advancing linguistic diversity. We connect translators, interpreters, and clients through forums, webinars, and collaborative projects. Our platform fosters knowledge sharing on topics like language preservation and tech integration. Whether you\'re a seasoned professional or new to the field, join us to access resources, job opportunities, and networking events that drive career growth and industry innovation.'
     },
     {
+      id: 10,
       category: 'General',
       readingTime: '2 min read',
       title: 'Welcome to LCI -- Multilingual Translation & Localization Services!',
       description: 'Your trusted partner in professional translation, localization, and multilingual communication.',
       date: 'June 10, 2025',
-      image: ''
+      image: heroImage,
+      fullContent: 'Your trusted partner in professional translation, localization, and multilingual communication. At LCI, we specialize in delivering seamless language solutions tailored to your needs. From document translation to app localization, our services ensure your content is accessible and impactful globally. We support over 50 languages, with a focus on African dialects. Our team\'s expertise guarantees accuracy, confidentiality, and timely delivery. Discover how we can support your international expansion with customized strategies that align with your business objectives.'
     }
   ];
 
@@ -199,9 +233,17 @@ function Blog() {
       justifyContent: isMobile ? 'center' : 'flex-start',
       flexWrap: 'wrap',
     },
+    heroSubtitle: {
+      fontSize: isMobile ? '1.2rem' : '1.5rem',
+      color: '#0a1d51',
+      marginBottom: '0.8rem',
+      fontWeight: '400',
+      textAlign: isMobile ? 'center' : 'left',
+    },
     whatsappButton: {
-      backgroundColor: '#de800d',
-      padding: '0.8rem 1.8rem',
+      backgroundColor: '#f1eee5',
+      color: '#0a1d51',
+      padding: '0.8rem 1.5rem',
       borderRadius: '15px',
       border: '1px solid #de800d',
       fontSize: '1rem',
@@ -226,29 +268,6 @@ function Blog() {
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    section: {
-      padding: '4rem 1.5rem',
-      maxWidth: '1200px',
-      margin: '0 auto',
-      background: '#f1eee5',
-      borderRadius: '15px',
-      border: '1px solid #de800d',
-    },
-    sectionTitle: {
-      fontSize: '2.2rem',
-      fontWeight: '700',
-      color: '#0a1d51',
-      textAlign: 'center',
-      marginBottom: '1rem',
-    },
-    sectionSubtitle: {
-      fontSize: '1rem',
-      color: '#0a1d51',
-      textAlign: 'center',
-      marginBottom: '2rem',
-      maxWidth: '700px',
-      margin: '0 auto 2rem',
     },
     searchSection: {
       background: '#f1eee5',
@@ -309,26 +328,33 @@ function Blog() {
       borderRadius: '12px',
       fontSize: '0.85rem',
     },
-    featuredSection: {
-      background: '#f1eee5',
-      borderRadius: '15px',
-      padding: '3rem 1.5rem',
-      margin: '1rem auto',
-      maxWidth: '1200px',
-      border: '1px solid #de800d',
+    articlesGrid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+      gap: '1.5rem',
     },
-    featuredCard: {
+    articleCard: {
       background: '#f1eee5',
       borderRadius: '15px',
       padding: '1.5rem',
       border: '1px solid #de800d',
       transition: 'all 0.3s ease',
-    },
-    featuredMeta: {
       display: 'flex',
-      flexWrap: 'wrap',
-      gap: '0.5rem',
+      flexDirection: 'column',
+      height: '100%',
+    },
+    articleImage: {
+      width: '100%',
+      height: '200px',
+      objectFit: 'cover',
+      borderRadius: '10px',
       marginBottom: '1rem',
+    },
+    articleMeta: {
+      display: 'flex',
+      gap: '0.5rem',
+      marginBottom: '0.8rem',
+      flexWrap: 'wrap',
     },
     metaBadge: {
       background: '#de800d',
@@ -337,17 +363,29 @@ function Blog() {
       borderRadius: '12px',
       fontSize: '0.85rem',
     },
-    featuredTitle: {
-      fontSize: '1.6rem',
+    articleTitle: {
+      fontSize: '1.3rem',
       fontWeight: '600',
       color: '#0a1d51',
       marginBottom: '0.8rem',
+      flexGrow: 1,
     },
-    featuredDescription: {
+    articleDescription: {
       color: '#0a1d51',
       lineHeight: '1.5',
       marginBottom: '1rem',
       fontSize: '0.95rem',
+      flexGrow: 1,
+    },
+    articleFooter: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: 'auto',
+    },
+    articleDate: {
+      fontSize: '0.85rem',
+      color: '#de800d',
     },
     readMoreButton: {
       background: '#de800d',
@@ -359,45 +397,8 @@ function Blog() {
       fontWeight: '500',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
-    },
-    articlesGrid: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-      gap: '1.5rem',
-    },
-    articleCard: {
-      background: '#f1eee5',
-      borderRadius: '15px',
-      padding: '1.5rem',
-      border: '1px solid #de800d',
-      transition: 'all 0.3s ease',
-    },
-    articleImage: {
-      fontSize: '1.8rem',
-      marginBottom: '0.8rem',
-      textAlign: 'center',
-    },
-    articleMeta: {
-      display: 'flex',
-      gap: '0.5rem',
-      marginBottom: '0.8rem',
-    },
-    articleTitle: {
-      fontSize: '1.3rem',
-      fontWeight: '600',
-      color: '#0a1d51',
-      marginBottom: '0.8rem',
-    },
-    articleDescription: {
-      color: '#0a1d51',
-      lineHeight: '1.5',
-      marginBottom: '0.8rem',
-      fontSize: '0.95rem',
-    },
-    articleDate: {
-      fontSize: '0.85rem',
-      color: '#de800d',
-      textAlign: 'right',
+      textDecoration: 'none',
+      display: 'inline-block',
     },
     noResults: {
       textAlign: 'center',
@@ -544,8 +545,9 @@ function Blog() {
           />
           <div style={styles.heroContent}>
             <h1 style={styles.heroTitle}>Your Trusted Translation & Localization Experts</h1>
+            <p style={styles.heroSubtitle}>Dedicated to You – Professional. Precise. Perfect.</p>
             <p style={styles.heroDescription}>
-              Discover insights on translation, localization, and language technology
+              Stay ahead with expert articles and insights from the world of translation, localization, and multilingual communication.
             </p>
             <div style={styles.buttonContainer}>
               <Link
@@ -577,12 +579,13 @@ function Blog() {
 
       <section style={styles.searchSection}>
         <h2 style={{
-          ...styles.sectionTitle,
+          ...styles.newsletterTitle,
           fontSize: isMobile ? '2.5rem' : '3rem',
           color: '#de800d',
           textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
+          textAlign: 'center'
         }}>Explore Our Blog</h2>
-        <p style={styles.sectionSubtitle}>
+        <p style={styles.newsletterDescription}>
           Discover insights on translation, localization, and language technology
         </p>
         <div style={styles.searchContainer}>
@@ -630,7 +633,7 @@ function Blog() {
           ))}
         </div>
 
-         <h2 style={styles.sectionTitle}>
+        <h2 style={styles.newsletterTitle}>
           {activeCategory === 'All Posts' ? 'Recent Articles' : `${activeCategory} Articles`}
         </h2>
         {filteredArticles.length === 0 ? (
@@ -650,46 +653,34 @@ function Blog() {
                 onMouseEnter={() => handleMouseEnter(index)}
                 onMouseLeave={handleMouseLeave}
               >
-                <span style={styles.articleImage}>{article.image || ''}</span>
+                {article.image && (
+                  <img 
+                    src={article.image} 
+                    alt={article.title}
+                    style={styles.articleImage}
+                  />
+                )}
                 <div style={styles.articleMeta}>
                   <span style={styles.metaBadge}>{article.category}</span>
                   <span style={styles.metaBadge}>{article.readingTime}</span>
                 </div>
                 <h3 style={styles.articleTitle}>{article.title}</h3>
                 <p style={styles.articleDescription}>{article.description}</p>
-                <div style={styles.articleDate}>{article.date}</div>
+                <div style={styles.articleFooter}>
+                  <div style={styles.articleDate}>{article.date}</div>
+                  <Link
+                    to={`/blog/post/${article.id}`}
+                    style={styles.readMoreButton}
+                    onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
+                    onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
+                  >
+                    Read More →
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
         )}
-      </section>
-
-      <section style={styles.featuredSection}>
-        <h2 style={styles.sectionTitle}>Featured Article</h2>
-        <div
-          style={{
-            ...styles.featuredCard,
-            transform: hoveredCard === 'featured' ? 'scale(1.02)' : 'scale(1)',
-          }}
-          onMouseEnter={() => handleMouseEnter('featured')}
-          onMouseLeave={handleMouseLeave}
-        >
-          <div style={styles.featuredMeta}>
-            <span style={styles.metaBadge}>{featuredArticle.category}</span>
-            <span style={styles.metaBadge}>{featuredArticle.date}</span>
-            <span style={styles.metaBadge}>By {featuredArticle.author}</span>
-            <span style={styles.metaBadge}>{featuredArticle.readingTime}</span>
-          </div>
-          <h3 style={styles.featuredTitle}>{featuredArticle.title}</h3>
-          <p style={styles.featuredDescription}>{featuredArticle.description}</p>
-          <button
-            style={styles.readMoreButton}
-            onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
-            onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
-          >
-            Read More →
-          </button>
-        </div>
       </section>
 
       <section style={styles.newsletterSection}>
@@ -720,7 +711,7 @@ function Blog() {
       </section>
 
       <section style={styles.popularTopicsSection}>
-        <h2 style={styles.sectionTitle}>Popular Topics</h2>
+        <h2 style={styles.newsletterTitle}>Popular Topics</h2>
         <div style={styles.topicsGrid}>
           {categories.filter(cat => cat.name !== 'All Posts').map((topic, index) => (
             <div
