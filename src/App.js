@@ -10,14 +10,23 @@ import Training from './pages/Training';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Contact from './pages/Contact';
-// import AdminQuotes from './pages/AdminQuotes';
 import Quote from './pages/Quote';
 import Login from './pages/Login';
-import Messages from './pages/messages'; // Use a different name for messages
+import Messages from './pages/messages'; 
 import CookieConsent from './components/CookieConsent';
-import './App.css';
 import AdminQuotes from './pages/AdminQuotes';
 import AdminMessages from './pages/AdminMessages';
+import ClientLogin from './pages/ClientLogin';
+import ClientPortal from './pages/ClientPortal';
+import AdminUsers from './pages/AdminUsers';
+
+// ✅ Define AdminLayout wrapper
+const AdminLayout = ({ children }) => (
+  <div style={{ padding: "20px" }}>
+    <h2>Admin Panel</h2>
+    {children}
+  </div>
+);
 
 // PublicLayout component to wrap Header and Footer around public routes
 const PublicLayout = () => (
@@ -45,12 +54,13 @@ function App() {
             <Route path="/quote" element={<Quote />} />
             <Route path="/admin-quotes" element={<AdminQuotes />} />
             <Route path="/admin-messages" element={<AdminMessages />} />
-            
+            <Route path="/client-login" element={<ClientLogin />} />
+            <Route path="/client-portal" element={<ClientPortal />} />
+            <Route path="/admin-users" element={<AdminLayout><AdminUsers /></AdminLayout>} />
           </Route>
 
           {/* Admin/Login routes without Header and Footer */}
           <Route path="/login" element={<Login />} />
-          <Route path="/admin-quotes" element={<AdminQuotes />} />
           <Route path="/messages" element={<Messages />} /> {/* Fixed */}
         </Routes>
       </Router>

@@ -14,6 +14,13 @@ import aiImage from '../assets/AI_Translation_Services-removebg-preview.png';
 import backImage from '../assets/Back-Translation___Quality_Assurance-removebg-preview.png';
 import grossariesImage from '../assets/Glossaries___Language_Resources-removebg-preview.png';
 import machineImage from '../assets/Machine_Translation_Post-Editing__MTPE_-removebg-preview.png';
+import englishFlag from '../assets/uk flag.png';
+import americaFlag from '../assets/america flag.png';
+import frenchFlag from '../assets/french.jpg';
+import kinyarwandaFlag from '../assets/rwanda flag.png';
+import kiswahiliFlag from '../assets/kenya.png';
+import tzFlag from '../assets/tanzania.png';
+import kirundiFlag from '../assets/burundii.png';
 
 function Services() {
   const [isVisible, setIsVisible] = useState(false);
@@ -347,13 +354,13 @@ function Services() {
     }
   ];
 
-const supportedLanguages = [
-  { code: "", name: "English", flag: "🇬🇧, 🇺🇸" },
-  { code: "", name: "French", flag: "🇫🇷" },
-  { code: "", name: "Kinyarwanda", flag: "🇷🇼" },
-  { code: "", name: "Kiswahili", flag: "🇰🇪, 🇹🇿" },
-  { code: "", name: "Kirundi", flag: "🇧🇮" }
-];
+  const supportedLanguages = [
+    { code: "", name: "English", flag: [englishFlag, americaFlag] },
+    { code: "", name: "French", flag: [frenchFlag] },
+    { code: "", name: "Kinyarwanda", flag: [kinyarwandaFlag] },
+    { code: "", name: "Kiswahili", flag: [kiswahiliFlag, tzFlag] },
+    { code: "", name: "Kirundi", flag: [kirundiFlag] }
+  ];
 
   const styles = {
     container: {
@@ -363,68 +370,70 @@ const supportedLanguages = [
       fontSize: '16px',
     },
     heroSection: {
-          minHeight: '80vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '1.5rem',
-          position: 'relative',
-          overflow: 'hidden',
-          background: '#f1eee5',
-          borderRadius: '15px',
-          border: '1px solid #de800d',
-          opacity: isVisible ? 1 : 0,
-          transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-          transition: 'all 0.8s ease-out',
-          margin: '1rem',
-        },
-        heroContainer: {
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          maxWidth: '1200px',
-          width: '100%',
-          gap: '2rem',
-          flexDirection: isMobile ? 'column' : 'row',
-        },
-        heroImage: {
-          width: isMobile ? '100%' : '40%',
-          maxWidth: isMobile ? '100%' : '450px',
-          height: 'auto',
-          objectFit: 'cover',
-          borderRadius: '10px',
-          margin: isMobile ? '0 auto' : '0',
-        },
-        heroContent: {
-          textAlign: isMobile ? 'center' : 'left',
-          width: isMobile ? '100%' : '55%',
-          maxWidth: isMobile ? '100%' : '600px',
-          padding: isMobile ? '0' : '0 1rem',
-        },
-        heroTitle: {
-          fontSize: isMobile ? '2rem' : '2.8rem',
-          fontWeight: '700',
-          color: '#0a1d51',
-          marginBottom: '1rem',
-          lineHeight: '1.3',
-          textAlign: isMobile ? 'center' : 'left',
-        },
-        heroDescription: {
-          fontSize: '1rem',
-          color: '#0a1d51',
-          marginBottom: '1.5rem',
-          lineHeight: '1.5',
-          maxWidth: '800px',
-          margin: isMobile ? '0 auto 1.5rem' : '0 0 1.5rem',
-          textAlign: isMobile ? 'center' : 'left',
-        },
-        buttonContainer: {
-          display: 'flex',
-          gap: '1rem',
-          justifyContent: isMobile ? 'center' : 'flex-start',
-          flexWrap: 'wrap',
-        },
-        whatsappButton: {
+      minHeight: '80vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '1.5rem',
+      position: 'relative',
+      overflow: 'hidden',
+      background: '#f1eee5',
+      borderRadius: '15px',
+      border: '1px solid #de800d',
+      opacity: isVisible ? 1 : 0,
+      transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+      transition: 'all 0.8s ease-out',
+      margin: '1rem',
+    },
+    heroContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      maxWidth: '1200px',
+      width: '100%',
+      gap: '2rem',
+      flexDirection: isMobile ? 'column' : 'row',
+    },
+    heroImage: {
+      width: isMobile ? '100%' : '40%',
+      maxWidth: isMobile ? '100%' : '450px',
+      height: 'auto',
+      objectFit: 'cover',
+      borderRadius: '10px',
+      margin: isMobile ? '0 auto' : '0',
+      border: '2px solid #de800d',
+      boxShadow: '0 8px 25px rgba(222, 128, 13, 0.3)',
+    },
+    heroContent: {
+      textAlign: isMobile ? 'center' : 'left',
+      width: isMobile ? '100%' : '55%',
+      maxWidth: isMobile ? '100%' : '600px',
+      padding: isMobile ? '0' : '0 1rem',
+    },
+    heroTitle: {
+      fontSize: isMobile ? '2rem' : '2.8rem',
+      fontWeight: '700',
+      color: '#0a1d51',
+      marginBottom: '1rem',
+      lineHeight: '1.3',
+      textAlign: isMobile ? 'center' : 'left',
+    },
+    heroDescription: {
+      fontSize: '1rem',
+      color: '#0a1d51',
+      marginBottom: '1.5rem',
+      lineHeight: '1.5',
+      maxWidth: '800px',
+      margin: isMobile ? '0 auto 1.5rem' : '0 0 1.5rem',
+      textAlign: isMobile ? 'center' : 'left',
+    },
+    buttonContainer: {
+      display: 'flex',
+      gap: '1rem',
+      justifyContent: isMobile ? 'center' : 'flex-start',
+      flexWrap: 'wrap',
+    },
+    whatsappButton: {
       backgroundColor: '#f1eee5',
       color: '#0a1d51',
       padding: '0.8rem 1.5rem',
@@ -437,7 +446,7 @@ const supportedLanguages = [
       transition: 'all 0.3s ease',
       textDecoration: 'none',
     },
-     primaryButton: {
+    primaryButton: {
       background: '#f1eee5',
       color: '#0a1d51',
       padding: '0.8rem 1.8rem',
@@ -499,10 +508,14 @@ const supportedLanguages = [
       marginBottom: '1rem',
     },
     serviceIcon: {
-      width: '50px',
-      height: '50px',
+      width: '70px',
+      height: '70px',
       objectFit: 'contain',
-      color: '#de800d',
+      border: '2px solid #de800d',
+      borderRadius: '10px',
+      padding: '5px',
+      backgroundColor: 'white',
+      boxShadow: '0 4px 12px rgba(222, 128, 13, 0.2)',
     },
     serviceHeaderText: {
       flex: 1,
@@ -527,7 +540,6 @@ const supportedLanguages = [
     },
     serviceButtonsContainer: {
       display: 'flex',
-      // color: '#0a1d51',
       justifyContent: 'space-between',
       alignItems: 'center',
       marginTop: '1rem',
@@ -667,24 +679,43 @@ const supportedLanguages = [
       padding: '3rem 1.5rem',
       margin: '1rem auto',
       maxWidth: '1200px',
-      border: '1px solid #de800d',
     },
     languagesGrid: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-      gap: '1.5rem',
+      display: 'flex',
+      flexDirection: 'row',
+      gap: '1rem',
+      overflowX: 'auto',
+      justifyContent: 'center',
+      alignItems: 'stretch',
+      paddingBottom: '1rem',
     },
     languageCard: {
       background: '#f1eee5',
       borderRadius: '12px',
-      padding: '1.5rem',
+      padding: '1rem 1.2rem',
       textAlign: 'center',
       border: '1px solid #de800d',
       boxShadow: '0 5px 15px rgba(255, 140, 0, 0.1)',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '0.5rem',
+      minWidth: '120px',
+      maxWidth: '130px',
     },
     languageFlag: {
-      fontSize: '2rem',
-      marginBottom: '0.8rem',
+      width: '38px',
+      height: '26px',
+      objectFit: 'cover',
+      borderRadius: '4px',
+      border: '2px solid #de800d',
+      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.18)',
+    },
+    flagsContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      gap: '4px',
     },
     languageCode: {
       fontSize: '1.1rem',
@@ -695,6 +726,7 @@ const supportedLanguages = [
     languageName: {
       color: '#0a1d51',
       fontSize: '0.95rem',
+      fontWeight: '500',
     },
     confidentialitySection: {
       background: '#f1eee5',
@@ -753,22 +785,6 @@ const supportedLanguages = [
       marginBottom: '2rem',
       lineHeight: '1.5',
     },
-    primaryButton: {
-      background: '#f1eee5',
-      color: '#0a1d51',
-      padding: '0.8rem 1.8rem',
-      borderRadius: '15px',
-      border: '1px solid #de800d',
-      fontSize: '1rem',
-      fontWeight: '600',
-      cursor: 'pointer',
-      boxShadow: '0 5px 15px rgba(255, 140, 0, 0.2)',
-      transition: 'all 0.3s ease',
-      textDecoration: 'none',
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
   };
 
   const handleMouseEnter = (index) => {
@@ -810,17 +826,15 @@ const supportedLanguages = [
   const handleViewMoreHover = (e) => {
     e.target.style.textDecoration = 'none';
     e.target.style.color = '#ffffffff';
-     e.target.style.background = '#de800d';
+    e.target.style.background = '#de800d';
   };
 
   const handleViewMoreLeave = (e) => {
     e.target.style.color = '#ffffffff';
-     e.target.style.background = '#de800d';
-    // e.target.style.textDecoration = 'none';
-    // e.target.style.color = '#0a1d51';
-    
+    e.target.style.background = '#de800d';
   };
-   const handleWhatsAppButtonLeave = (e) => {
+
+  const handleWhatsAppButtonLeave = (e) => {
     e.target.style.transform = 'scale(1)';
     e.target.style.backgroundColor = '#de800d';
     e.target.style.color = '#0a1d51';
@@ -828,23 +842,23 @@ const supportedLanguages = [
 
   return (
     <div style={styles.container}>
-     <section style={styles.heroSection}>
+      <section style={styles.heroSection}>
         <div style={styles.heroContainer}>
           <img 
             src={heroImage} 
-            alt="Hero Image" 
+            alt="Our Services - Professional Translation and Localization" 
             style={styles.heroImage}
           />
           <div style={styles.heroContent}>
             <h1 style={styles.heroTitle}>Your Trusted Translation & Localization Experts</h1>
-             <p style={styles.heroSubtitle}>Dedicated to You – Professional. Precise. Perfect.</p>
+            <p style={styles.heroSubtitle}>Dedicated to You – Professional. Precise. Perfect.</p>
             
             <p style={styles.heroDescription}>
               <b>Comprehensive Language Solutions, Tailored to You</b>
               <br></br><br></br>
-We deliver <b>comprehensive language solutions</b> designed to meet the unique demands of your business, industry, or project. 
-From <b>translation and localization</b> to <b>transcription and proofreading</b>, every service is customized to ensure 
-<b>cultural accuracy, clarity, and global impact.</b>
+              We deliver <b>comprehensive language solutions</b> designed to meet the unique demands of your business, industry, or project. 
+              From <b>translation and localization</b> to <b>transcription and proofreading</b>, every service is customized to ensure 
+              <b>cultural accuracy, clarity, and global impact.</b>
             </p>
             <div style={styles.buttonContainer}>
               <Link
@@ -873,8 +887,9 @@ From <b>translation and localization</b> to <b>transcription and proofreading</b
                   e.target.style.transform = 'scale(1)';
                 }}
               >
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', }}>
-                  Let's Chat on<img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} />                 </span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  Let's Chat on<img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} />
+                </span>
               </a>
             </div>
           </div>
@@ -968,6 +983,7 @@ From <b>translation and localization</b> to <b>transcription and proofreading</b
             <div key={index} style={styles.qualityStep}>
               <div style={styles.stepNumber}>{step.step}</div>
               <h3 style={styles.stepTitle}>{step.title}</h3>
+              <p style={styles.stepDescription}>{step.description}</p>
             </div>
           ))}
         </div>
@@ -984,8 +1000,17 @@ From <b>translation and localization</b> to <b>transcription and proofreading</b
         <div style={styles.languagesGrid}>
           {supportedLanguages.map((language, index) => (
             <div key={index} style={styles.languageCard}>
-              <div style={styles.languageFlag}>{language.flag}</div>
-              <div style={styles.languageCode}>{language.code}</div>
+              <div style={styles.flagsContainer}>
+                {language.flag.map((flagImg, idx) => (
+                  <img
+                    key={idx}
+                    src={flagImg}
+                    alt={`${language.name} flag ${idx + 1}`}
+                    style={styles.languageFlag}
+                  />
+                ))}
+              </div>
+              <div style={styles.languageCode}>{language.code.toUpperCase()}</div>
               <div style={styles.languageName}>{language.name}</div>
             </div>
           ))}

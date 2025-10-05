@@ -1005,9 +1005,18 @@ function AdminQuotes() {
                     onChange={(e) => setServiceFilter(e.target.value)}
                   >
                     <option value="all">All Services</option>
-                    <option value="Translation">Translation</option>
-                    <option value="Interpretation">Interpretation</option>
-                    <option value="Localization">Localization</option>
+                    <option value="Translation and Interpretation">Translation and Interpretation</option>
+                    <option value="Website & Software Localization">Website & Software Localization</option>
+                    <option value="Certified Document Translation">Certified Document Translation</option>
+                    <option value="Audio & Video Transcription">Audio & Video Transcription</option>
+                    <option value="Proofreading & Editing">Proofreading & Editing</option>
+                    <option value="CV & Application Support">CV & Application Support</option>
+                    <option value="Machine Translation Post-Editing (MTPE)">Machine Translation Post-Editing (MTPE)</option>
+                    <option value="Glossaries & Language Resources">Glossaries & Language Resources</option>
+                    <option value="Back-Translation & Quality Assurance">Back-Translation & Quality Assurance</option>
+                    <option value="AI Translation Services">AI Translation Services</option>
+                    <option value="Social Media Marketing">Social Media Marketing</option>
+                    <option value="Content Creation">Content Creation</option>
                   </select>
                 </div>
               </div>

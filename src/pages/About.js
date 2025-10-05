@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import heroImage from '../assets/Who-We-Are.png';
 import whatsappIcon from '../assets/whatsapp-icon.png';
 import culturalHubImage from '../assets/culture-expert-removebg-preview.png'; // Add this import
+import englishFlag from '../assets/uk flag.png';
+import americaFlag from '../assets/america flag.png';
+import frenchFlag from '../assets/french.jpg';
+import kinyarwandaFlag from '../assets/rwanda flag.png';
+import kiswahiliFlag from '../assets/kenya.png';
+import kirundiFlag from '../assets/burundii.png';
 
 function About() {
   const [isVisible, setIsVisible] = useState(false);
@@ -76,6 +82,14 @@ function About() {
     { text: "Stringent quality control", icon: "" },
     { text: "Client-focused solutions", icon: "" },
     { text: "Proven track record in translation & localization", icon: "" }
+  ];
+
+  const supportedLanguages = [
+    { code: "en", name: "English", flag: englishFlag },
+    { code: "fr", name: "French", flag: frenchFlag },
+    { code: "rw", name: "Kinyarwanda", flag: kinyarwandaFlag },
+    { code: "sw", name: "Kiswahili", flag: kiswahiliFlag },
+    { code: "rn", name: "Kirundi", flag: kirundiFlag }
   ];
 
   const styles = {
@@ -249,7 +263,7 @@ function About() {
     },
     quoteSubtext: {
       fontSize: '1rem',
-      color: '#de800d',
+      color: '#0a1d51',
       lineHeight: '1.5',
     },
     whoWeAreSection: {

@@ -910,16 +910,18 @@ function Contact() {
               <p style={{color: '#0a1d51', fontSize: '0.95rem'}}>Analytics and insights to help you make informed decisions about your multilingual projects.</p>
             </div>
           </div>
-          <button 
-            style={{
-              ...styles.ctaButton,
-              marginTop: '1.5rem',
-            }}
-            onMouseEnter={handleButtonHover}
-            onMouseLeave={handleButtonLeave}
-          >
-             Access Client Portal
-          </button>
+          <Link to="/client-login">
+            <button 
+              style={{
+                ...styles.ctaButton,
+                marginTop: '1.5rem',
+              }}
+              onMouseEnter={handleButtonHover}
+              onMouseLeave={handleButtonLeave}
+            >
+              Access Client Portal
+            </button>
+          </Link>
         </div>
       </section>
 
@@ -957,7 +959,6 @@ function Contact() {
                 style={{
                   ...styles.contactCard,
                   opacity:  1,
-                  // pointerEvents: method.title !== "MTN Mobile Money" ? 'none' : 'auto',
                 }}
               >
                 <img src={method.image} alt={method.title} style={styles.paymentImage} />

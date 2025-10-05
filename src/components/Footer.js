@@ -11,13 +11,24 @@ import contactIcon from '../assets/phone_icon-removebg-preview.png';
 import emailIcon from '../assets/emailll-removebg-preview.png';
 import businessIcon from '../assets/hour-removebg-preview.png';
 
-
 function Footer() {
   const [hoveredSocial, setHoveredSocial] = useState(null);
   const [hoveredLink, setHoveredLink] = useState(null);
   const [emailCopied, setEmailCopied] = useState(false);
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isTablet, setIsTablet] = useState(window.innerWidth <= 1024);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      setIsTablet(window.innerWidth <= 1024);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const quickLinks = [
     { path: '/', label: 'Home', icon: '' },
@@ -166,12 +177,12 @@ function Footer() {
       zIndex: 1,
       maxWidth: '1400px',
       margin: '0 auto',
-      padding: '2rem 1rem 1rem'
+      padding: isMobile ? '1.5rem 1rem 1rem' : '2rem 1rem 1rem'
     },
     mainSection: {
       display: 'grid',
-      gridTemplateColumns: '1fr 1.5fr 1fr',
-      gap: '2rem',
+      gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr 1fr' : '1fr 1.5fr 1fr',
+      gap: isMobile ? '2rem' : '2rem',
       marginBottom: '2rem',
       alignItems: 'start'
     },
@@ -185,15 +196,15 @@ function Footer() {
       display: 'flex',
       flexDirection: 'column',
       gap: '0rem',
-      alignItems: 'flex-start',
-      textAlign: 'left'
+      alignItems: isMobile ? 'center' : 'flex-start',
+      textAlign: isMobile ? 'center' : 'left'
     },
     servicesSection: {
       display: 'flex',
       flexDirection: 'column',
       gap: '0rem',
-      alignItems: 'center',
-      textAlign: 'left'
+      alignItems: isMobile ? 'center' : 'center',
+      textAlign: isMobile ? 'center' : 'left'
     },
     connectSection: {
       display: 'flex',
@@ -203,7 +214,7 @@ function Footer() {
       textAlign: 'center'
     },
     sectionTitle: {
-      fontSize: '1.1rem',
+      fontSize: isMobile ? '1rem' : '1.1rem',
       fontWeight: 'bold',
       marginBottom: '0.75rem',
       color: '#ff8c00',
@@ -230,28 +241,31 @@ function Footer() {
       display: 'flex',
       alignItems: 'center',
       gap: '0.75rem',
-      marginBottom: '0.75rem'
+      marginBottom: '0.75rem',
+      justifyContent: isMobile ? 'center' : 'flex-start'
     },
     logo: {
-      height: '40px',
+      height: isMobile ? '35px' : '40px',
       width: 'auto',
       filter: 'brightness(1.2)'
     },
     companyName: {
-      fontSize: '1.2rem',
+      fontSize: isMobile ? '1.1rem' : '1.2rem',
       fontWeight: 'bold',
       color: 'white'
     },
     tagline: {
       fontSize: '0.85rem',
       color: 'rgba(255, 255, 255, 0.9)',
-      fontStyle: 'italic'
+      fontStyle: 'italic',
+      textAlign: isMobile ? 'center' : 'left'
     },
     description: {
       fontSize: '0.85rem',
       lineHeight: '1.5',
       color: 'rgba(255, 255, 255, 0.9)',
-      marginBottom: '0.75rem'
+      marginBottom: '0.75rem',
+      textAlign: isMobile ? 'center' : 'left'
     },
     linksList: {
       listStyle: 'none',
@@ -269,11 +283,12 @@ function Footer() {
       padding: '0.3rem 0',
       color: 'rgba(255, 255, 255, 0.9)',
       textDecoration: 'none',
-      fontSize: '0.85rem',
+      fontSize: isMobile ? '0.8rem' : '0.85rem',
       transition: 'all 0.3s ease',
       borderRadius: '6px',
       paddingLeft: '0.3rem',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      justifyContent: isMobile ? 'center' : 'flex-start'
     },
     hoveredLink: {
       color: 'white',
@@ -286,7 +301,7 @@ function Footer() {
       padding: 0,
       margin: 0,
       display: 'grid',
-      gridTemplateColumns: 'repeat(2, 1fr)',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
       gap: '0.5rem',
       width: '100%',
       maxWidth: '500px'
@@ -297,23 +312,24 @@ function Footer() {
       gap: '0.5rem',
       padding: '0.3rem 0',
       color: 'rgba(255, 255, 255, 0.9)',
-      fontSize: '0.85rem',
+      fontSize: isMobile ? '0.8rem' : '0.85rem',
       borderRadius: '6px',
       transition: 'all 0.3s ease',
       paddingLeft: '0.3rem',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      justifyContent: isMobile ? 'center' : 'flex-start'
     },
     socialIconsContainer: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      gap: '1rem',
+      gap: isMobile ? '0.75rem' : '1rem',
       marginBottom: '1rem',
       flexWrap: 'wrap'
     },
     socialIcon: {
-      width: '45px',
-      height: '45px',
+      width: isMobile ? '40px' : '45px',
+      height: isMobile ? '40px' : '45px',
       background: 'rgba(255, 255, 255, 0.95)',
       borderRadius: '50%',
       display: 'flex',
@@ -325,8 +341,8 @@ function Footer() {
       border: '2px solid rgba(255, 255, 255, 0.3)'
     },
     socialIconImage: {
-      width: '22px',
-      height: '22px',
+      width: isMobile ? '20px' : '22px',
+      height: isMobile ? '20px' : '22px',
       objectFit: 'contain',
       transition: 'transform 0.3s ease'
     },
@@ -368,23 +384,25 @@ function Footer() {
       display: 'flex',
       gap: '0.3rem',
       maxWidth: '350px',
-      width: '100%'
+      width: '100%',
+      flexDirection: isMobile ? 'column' : 'row'
     },
     emailInput: {
       flex: 1,
       padding: '0.6rem 0.75rem',
       border: 'none',
-      borderRadius: '20px',
+      borderRadius: isMobile ? '12px' : '20px',
       fontSize: '0.8rem',
       outline: 'none',
       background: 'rgba(255, 255, 255, 0.9)',
-      color: '#1e3a8a'
+      color: '#1e3a8a',
+      marginBottom: isMobile ? '0.5rem' : '0'
     },
     subscribeButton: {
       padding: '0.6rem 1.2rem',
       background: '#ff8c00',
       border: 'none',
-      borderRadius: '20px',
+      borderRadius: isMobile ? '12px' : '20px',
       color: 'white',
       fontSize: '0.8rem',
       fontWeight: '600',
@@ -396,7 +414,8 @@ function Footer() {
       marginTop: '0.75rem',
       color: '#10b981',
       fontWeight: '500',
-      fontSize: '0.8rem'
+      fontSize: '0.8rem',
+      textAlign: 'center'
     },
     bottomSection: {
       paddingTop: '1.5rem',
@@ -408,19 +427,20 @@ function Footer() {
       textAlign: 'center'
     },
     copyright: {
-      fontSize: '0.8rem',
-      color: 'rgba(255, 255, 255, 0.8)'
+      fontSize: isMobile ? '0.75rem' : '0.8rem',
+      color: 'rgba(255, 255, 255, 0.8)',
+      textAlign: 'center'
     },
     legalLinks: {
       display: 'flex',
-      gap: '1.5rem',
+      gap: isMobile ? '1rem' : '1.5rem',
       flexWrap: 'wrap',
       justifyContent: 'center'
     },
     legalLink: {
       color: 'rgba(255, 255, 255, 0.8)',
       textDecoration: 'none',
-      fontSize: '0.75rem',
+      fontSize: isMobile ? '0.7rem' : '0.75rem',
       transition: 'color 0.3s ease'
     },
     copiedNotification: {
@@ -446,11 +466,10 @@ function Footer() {
       marginBottom: '1rem',
       maxWidth: '300px'
     },
-    // UPDATED: Improved contact grid layout
     contactGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(4, 1fr)',
-      gap: '1rem',
+      gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+      gap: isMobile ? '1rem' : '1rem',
       width: '100%',
       margin: '1.5rem 0',
       alignItems: 'center',
@@ -459,11 +478,11 @@ function Footer() {
     contactItem: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'flex-start',
+      justifyContent: isMobile ? 'center' : 'flex-start',
       minWidth: '0',
       whiteSpace: 'nowrap',
-      textAlign: 'left',
-      fontSize: '0.75rem',
+      textAlign: isMobile ? 'center' : 'left',
+      fontSize: isMobile ? '0.7rem' : '0.75rem',
       gap: '0.5rem'
     },
     contactRow: {
@@ -471,17 +490,20 @@ function Footer() {
       alignItems: 'center',
       color: '#fff',
       gap: '0.5rem',
-      flexWrap: 'nowrap',
+      flexWrap: isMobile ? 'wrap' : 'nowrap',
       width: '100%',
+      justifyContent: isMobile ? 'center' : 'flex-start'
     },
     contactDetails: {
       display: 'flex',
       flexDirection: 'column',
-      gap: '0.2rem'
+      gap: '0.2rem',
+      alignItems: isMobile ? 'center' : 'flex-start'
     },
     contactDetailItem: {
-      fontSize: '0.75rem',
-      lineHeight: '1.2'
+      fontSize: isMobile ? '0.7rem' : '0.75rem',
+      lineHeight: '1.2',
+      textAlign: isMobile ? 'center' : 'left'
     }
   };
 
@@ -587,7 +609,7 @@ function Footer() {
 
         {/* Bottom Section */}
         <div style={styles.bottomSection}>
-          {/* UPDATED: Improved contact grid */}
+          {/* Contact Grid */}
           <div style={styles.contactGrid}>
             {contactInfo.map((contact, index) => (
               <div key={index} style={styles.contactItem}>
@@ -595,11 +617,23 @@ function Footer() {
                   <img
                     src={contact.icon}
                     alt=""
-                    style={{ width: 18, height: 18, verticalAlign: 'middle', objectFit: 'contain', flexShrink: 0 }}
+                    style={{ 
+                      width: isMobile ? 16 : 18, 
+                      height: isMobile ? 16 : 18, 
+                      verticalAlign: 'middle', 
+                      objectFit: 'contain', 
+                      flexShrink: 0 
+                    }}
                   />
                   <div style={styles.contactDetails}>
                     {contact.title && (
-                      <div style={{ fontWeight: 500, fontSize: '0.75rem' }}>{contact.title}</div>
+                      <div style={{ 
+                        fontWeight: 500, 
+                        fontSize: isMobile ? '0.7rem' : '0.75rem',
+                        textAlign: isMobile ? 'center' : 'left'
+                      }}>
+                        {contact.title}
+                      </div>
                     )}
                     {contact.details.length > 0 && (
                       <div>
@@ -616,6 +650,19 @@ function Footer() {
             ))}
           </div>
 
+          {/* Beige Solid Divider */}
+          <div
+            style={{
+              width: '100%',
+              height: '1px',
+              background: 'rgba(247, 247, 242, 0.3)',
+              margin: '1.5rem 0 1rem 0',
+              border: 'none',
+              borderRadius: '1px',
+            }}
+          />
+
+          {/* Legal Links */}
           <div style={styles.legalLinks}>
             <a href="/privacy-policy" style={{
               ...styles.legalLink,
@@ -650,7 +697,6 @@ function Footer() {
               Accessibility
             </a>
           </div>
-          
           <div style={styles.copyright}>
             © 2025 Language Computing International. All rights reserved. 
           </div>
@@ -668,53 +714,7 @@ function Footer() {
           50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
         
-        @media (max-width: 1024px) {
-          .contact-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 1.5rem !important;
-          }
-        }
-        
-        @media (max-width: 768px) {
-          [style*="grid-template-columns: 1fr 1.5fr 1fr"] { 
-            grid-template-columns: 1fr !important; 
-            gap: 2rem !important;
-          }
-          .services-section { 
-            align-items: flex-start !important; 
-            text-align: left !important;
-          }
-          .connect-section { 
-            align-items: center !important; 
-            text-align: center !important;
-          }
-          .social-icons-container {
-            gap: 0.75rem !important;
-          }
-          .social-icon {
-            width: 40px !important;
-            height: 40px !important;
-          }
-          .social-icon-image {
-            width: 20px !important;
-            height: 20px !important;
-          }
-          .newsletter-input { flex-direction: column !important; }
-          .legal-links { flex-direction: column !important; gap: 1rem !important; }
-          .contact-grid {
-            grid-template-columns: 1fr !important;
-            gap: 1rem !important;
-            text-align: center !important;
-          }
-          .contact-item {
-            justify-content: center !important;
-          }
-        }
-
         @media (max-width: 480px) {
-          [style*="grid-template-columns: 1fr 1.5fr 1fr"] { 
-            gap: 1.5rem !important;
-          }
           .social-icons-container {
             gap: 0.5rem !important;
           }
@@ -725,9 +725,6 @@ function Footer() {
           .social-icon-image {
             width: 18px !important;
             height: 18px !important;
-          }
-          .contact-item {
-            font-size: 0.7rem !important;
           }
         }
       `}</style>
