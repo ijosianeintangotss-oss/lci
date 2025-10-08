@@ -27,28 +27,7 @@ function AdminUsers() {
     }
   };
 
-  const updateUserStatus = async (userId, newStatus) => {
-    try {
-      const response = await fetch(`https://lcirwanda-backend001.onrender.com/api/users/${userId}/status`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status: newStatus }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update user status');
-      }
-
-      // Update local state
-      setUsers(users.map(user => 
-        user.id === userId ? { ...user, status: newStatus } : user
-      ));
-    } catch (err) {
-      setError(err.message);
-    }
-  };
+  // REMOVED updateUserStatus function since status doesn't affect login anymore
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -183,7 +162,7 @@ function AdminUsers() {
 
       <div style={styles.header}>
         <h1 style={styles.title}>Manage Users</h1>
-        <p style={styles.subtitle}>Approve or reject client portal access requests</p>
+        <p style={styles.subtitle}>View all registered client users</p>
         <button style={styles.refreshButton} onClick={fetchUsers}>
           🔄 Refresh
         </button>
@@ -198,7 +177,7 @@ function AdminUsers() {
       {users.length === 0 ? (
         <div style={styles.emptyState}>
           <h3>No users found</h3>
-          <p>User registration requests will appear here</p>
+          <p>User registrations will appear here</p>
         </div>
       ) : (
         <div style={{ overflowX: 'auto' }}>
@@ -211,7 +190,6 @@ function AdminUsers() {
                 <th style={styles.th}>Company</th>
                 <th style={styles.th}>Registered</th>
                 <th style={styles.th}>Status</th>
-                <th style={styles.th}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -230,22 +208,6 @@ function AdminUsers() {
                       <span style={{ ...styles.statusSelect, ...statusStyles }}>
                         {user.status}
                       </span>
-                    </td>
-                    <td style={styles.td}>
-                      <select
-                        value={user.status}
-                        onChange={(e) => updateUserStatus(user.id, e.target.value)}
-                        style={{
-                          padding: '0.25rem 0.5rem',
-                          borderRadius: '4px',
-                          border: '1px solid #d1d5db',
-                          fontSize: '0.8rem'
-                        }}
-                      >
-                        <option value="pending">Pending</option>
-                        <option value="approved">Approve</option>
-                        <option value="rejected">Reject</option>
-                      </select>
                     </td>
                   </tr>
                 );

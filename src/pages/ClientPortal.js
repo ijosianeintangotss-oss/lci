@@ -5,52 +5,71 @@ function ClientPortal() {
   const [activeTab, setActiveTab] = useState('quotes');
   const [clientQuotes, setClientQuotes] = useState([]);
   const [clientMessages, setClientMessages] = useState([]);
+  const [clientInfo, setClientInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
-  const clientData = JSON.parse(localStorage.getItem('clientData') || '{}');
 
   useEffect(() => {
     if (!localStorage.getItem('clientToken')) {
       navigate('/client-login');
       return;
     }
-    fetchClientData();
+    fetchClientDashboard();
   }, [navigate]);
 
-  const fetchClientData = async () => {
+  const fetchClientDashboard = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('clientToken');
+      setError(null);
       
-      // Fetch client's quotes
-      const quotesResponse = await fetch(`https://lcirwanda-backend001.onrender.com/api/client-quotes?email=${clientData.email}`, {
+      const token = localStorage.getItem('clientToken');
+      const clientData = JSON.parse(localStorage.getItem('clientData') || '{}');
+
+      console.log('Fetching dashboard with token:', token ? 'Token exists' : 'No token');
+      console.log('Client data:', clientData);
+
+      const response = await fetch(`https://lcirwanda-backend001.onrender.com/api/users/dashboard`, {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
       });
 
-      if (quotesResponse.ok) {
-        const quotesData = await quotesResponse.json();
-        setClientQuotes(quotesData);
+      console.log('Dashboard response status:', response.status);
+
+      if (response.status === 401) {
+        // Token is invalid, redirect to login
+        localStorage.removeItem('clientToken');
+        localStorage.removeItem('clientData');
+        navigate('/client-login');
+        return;
       }
 
-      // Fetch client's messages
-      const messagesResponse = await fetch(`https://lcirwanda-backend001.onrender.com/api/client-messages?email=${clientData.email}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (messagesResponse.ok) {
-        const messagesData = await messagesResponse.json();
-        setClientMessages(messagesData);
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ message: 'Unknown error' }));
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
+
+      const dashboardData = await response.json();
+      console.log('Dashboard data received:', dashboardData);
+      
+      setClientInfo(dashboardData.user || {});
+      setClientQuotes(dashboardData.quotes || []);
+      setClientMessages(dashboardData.messages || []);
 
     } catch (err) {
-      setError('Failed to load data');
-      console.error('Data fetch error:', err);
+      console.error('Dashboard fetch error:', err);
+      
+      if (err.message.includes('401') || err.message.includes('token')) {
+        // Token related error, redirect to login
+        localStorage.removeItem('clientToken');
+        localStorage.removeItem('clientData');
+        navigate('/client-login');
+        return;
+      }
+      
+      setError(err.message || 'Failed to load dashboard data. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -63,6 +82,7 @@ function ClientPortal() {
   };
 
   const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
     const date = new Date(dateString);
     return date.toLocaleString('en-US', {
       year: 'numeric',
@@ -84,7 +104,31 @@ function ClientPortal() {
       case 'cancelled':
         return { backgroundColor: '#fef2f2', color: '#ef4444', borderColor: '#fca5a5' };
       default:
-        return {};
+        return { backgroundColor: '#f3f4f6', color: '#6b7280', borderColor: '#d1d5db' };
+    }
+  };
+
+  const getMessageStatusStyles = (status) => {
+    switch (status) {
+      case 'pending':
+        return { backgroundColor: '#fefce8', color: '#ca8a04', borderColor: '#fde047' };
+      case 'replied':
+        return { backgroundColor: '#eff6ff', color: '#3b82f6', borderColor: '#93c5fd' };
+      case 'resolved':
+        return { backgroundColor: '#f0fdf4', color: '#16a34a', borderColor: '#86efac' };
+      default:
+        return { backgroundColor: '#f3f4f6', color: '#6b7280', borderColor: '#d1d5db' };
+    }
+  };
+
+  const getUrgencyStyles = (urgency) => {
+    switch (urgency) {
+      case 'urgent':
+        return { backgroundColor: '#fef2f2', color: '#ef4444' };
+      case 'very-urgent':
+        return { backgroundColor: '#fef2f2', color: '#dc2626', fontWeight: 'bold' };
+      default:
+        return { backgroundColor: '#f3f4f6', color: '#6b7280' };
     }
   };
 
@@ -115,10 +159,6 @@ function ClientPortal() {
       display: 'flex',
       alignItems: 'center',
       gap: '1rem'
-    },
-    logo: {
-      height: '40px',
-      width: 'auto'
     },
     clientInfo: {
       textAlign: 'right'
@@ -242,7 +282,8 @@ function ClientPortal() {
       borderRadius: '12px',
       fontSize: '0.8rem',
       fontWeight: '500',
-      display: 'inline-block'
+      display: 'inline-block',
+      border: '1px solid'
     },
     emptyState: {
       textAlign: 'center',
@@ -265,6 +306,23 @@ function ClientPortal() {
       borderRadius: '50%',
       animation: 'spin 1s linear infinite',
       margin: '0 auto 1rem'
+    },
+    errorContainer: {
+      background: '#fef2f2',
+      border: '1px solid #fecaca',
+      borderRadius: '8px',
+      padding: '1rem',
+      marginBottom: '1rem',
+      color: '#dc2626'
+    },
+    retryButton: {
+      background: '#1e3a8a',
+      color: 'white',
+      border: 'none',
+      padding: '0.5rem 1rem',
+      borderRadius: '6px',
+      cursor: 'pointer',
+      marginTop: '0.5rem'
     }
   };
 
@@ -297,8 +355,8 @@ function ClientPortal() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <div style={styles.clientInfo}>
-              <p style={styles.clientName}>{clientData.fullName}</p>
-              <p style={styles.clientEmail}>{clientData.email}</p>
+              <p style={styles.clientName}>{clientInfo.fullName || 'User'}</p>
+              <p style={styles.clientEmail}>{clientInfo.email || 'No email'}</p>
             </div>
             <button style={styles.logoutButton} onClick={handleLogout}>
               Logout
@@ -308,8 +366,17 @@ function ClientPortal() {
       </header>
 
       <main style={styles.mainContent}>
+        {error && (
+          <div style={styles.errorContainer}>
+            <strong>Error:</strong> {error}
+            <button style={styles.retryButton} onClick={fetchClientDashboard}>
+              Retry
+            </button>
+          </div>
+        )}
+
         <div style={styles.welcomeSection}>
-          <h1 style={styles.welcomeTitle}>Welcome back, {clientData.fullName}!</h1>
+          <h1 style={styles.welcomeTitle}>Welcome back, {clientInfo.fullName || 'User'}!</h1>
           <p style={styles.welcomeSubtitle}>
             Track your translation projects and communicate with our team
           </p>
@@ -370,16 +437,20 @@ function ClientPortal() {
                       <tr>
                         <th style={styles.th}>Service</th>
                         <th style={styles.th}>Languages</th>
+                        <th style={styles.th}>Word Count</th>
+                        <th style={styles.th}>Urgency</th>
                         <th style={styles.th}>Submitted</th>
                         <th style={styles.th}>Status</th>
+                        <th style={styles.th}>Price</th>
                         <th style={styles.th}>Admin Reply</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {clientQuotes.map((quote, index) => {
+                      {clientQuotes.map((quote) => {
                         const statusStyles = getStatusStyles(quote.status || 'pending');
+                        const urgencyStyles = getUrgencyStyles(quote.urgency);
                         return (
-                          <tr key={index}>
+                          <tr key={quote.id}>
                             <td style={styles.td}>
                               <strong>{quote.service}</strong>
                               <br />
@@ -388,6 +459,12 @@ function ClientPortal() {
                             <td style={styles.td}>
                               {quote.sourceLanguage} → {quote.targetLanguage}
                             </td>
+                            <td style={styles.td}>{quote.wordCount || 'N/A'}</td>
+                            <td style={styles.td}>
+                              <span style={{ ...styles.statusBadge, ...urgencyStyles }}>
+                                {quote.urgency || 'standard'}
+                              </span>
+                            </td>
                             <td style={styles.td}>{formatDate(quote.submittedAt)}</td>
                             <td style={styles.td}>
                               <span style={{ ...styles.statusBadge, ...statusStyles }}>
@@ -395,7 +472,15 @@ function ClientPortal() {
                               </span>
                             </td>
                             <td style={styles.td}>
+                              {quote.price ? `$${quote.price}` : 'Not quoted yet'}
+                            </td>
+                            <td style={styles.td}>
                               {quote.adminReply || 'No reply yet'}
+                              {quote.estimatedTime && (
+                                <div style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: '#6b7280' }}>
+                                  <strong>Est. Time:</strong> {quote.estimatedTime}
+                                </div>
+                              )}
                             </td>
                           </tr>
                         );
@@ -418,28 +503,37 @@ function ClientPortal() {
                 </div>
               ) : (
                 <div>
-                  {clientMessages.map((message, index) => (
-                    <div key={index} style={{
+                  {clientMessages.map((message) => (
+                    <div key={message.id} style={{
                       border: '1px solid #e5e7eb',
                       borderRadius: '8px',
                       padding: '1.5rem',
                       marginBottom: '1rem',
-                      background: index % 2 === 0 ? '#f8fafc' : 'white'
+                      background: '#f8fafc'
                     }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                         <strong>{message.subject}</strong>
-                        <small style={{ color: '#6b7280' }}>{formatDate(message.submittedAt)}</small>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                          <span style={{ ...styles.statusBadge, ...getMessageStatusStyles(message.status) }}>
+                            {message.status}
+                          </span>
+                          <small style={{ color: '#6b7280' }}>{formatDate(message.submittedAt)}</small>
+                        </div>
                       </div>
-                      <p style={{ marginBottom: '1rem' }}>{message.message}</p>
+                      <p style={{ marginBottom: '1rem', whiteSpace: 'pre-wrap' }}>{message.message}</p>
                       {message.adminReply && (
                         <div style={{
                           background: '#eff6ff',
                           borderLeft: '4px solid #3b82f6',
                           padding: '1rem',
-                          borderRadius: '4px'
+                          borderRadius: '4px',
+                          marginTop: '1rem'
                         }}>
-                          <strong>Admin Reply:</strong>
-                          <p style={{ margin: '0.5rem 0 0 0' }}>{message.adminReply}</p>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                            <strong style={{ color: '#1e40af' }}>Admin Reply:</strong>
+                            <small style={{ color: '#6b7280' }}>{formatDate(message.updatedAt)}</small>
+                          </div>
+                          <p style={{ margin: 0, whiteSpace: 'pre-wrap' }}>{message.adminReply}</p>
                         </div>
                       )}
                     </div>

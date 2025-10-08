@@ -66,8 +66,13 @@ function ClientLogin() {
 
     try {
       if (isLogin) {
-        // Login logic
-        const response = await fetch('https://lcirwanda-backend001.onrender.com/api/client-login', {
+        // Login logic - REMOVED STATUS CHECK
+        console.log('Attempting login...', {
+          email: formData.email,
+          password: formData.password
+        });
+
+        const response = await fetch('https://lcirwanda-backend001.onrender.com/api/auth/client-login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -78,57 +83,80 @@ function ClientLogin() {
           })
         });
 
-        const data = await response.json();
+        console.log('Login response status:', response.status);
 
-        if (response.ok) {
-          if (data.status === 'approved') {
-            localStorage.setItem('clientToken', data.token);
-            localStorage.setItem('clientData', JSON.stringify(data.user));
-            setSuccess('Login successful!');
-            setTimeout(() => navigate('/client-portal'), 1000);
-          } else {
-            setError('Your account is pending approval. Please wait for admin approval.');
-          }
-        } else {
-          setError(data.message || 'Login failed');
+        // Check if response is OK before parsing JSON
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('Login error response:', errorText);
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
+
+        const data = await response.json();
+        console.log('Login success data:', data);
+
+        // REMOVED STATUS CHECK - All users can login immediately
+        localStorage.setItem('clientToken', data.token);
+        localStorage.setItem('clientData', JSON.stringify(data.user));
+        setSuccess('Login successful!');
+        setTimeout(() => navigate('/client-portal'), 1000);
       } else {
         // Registration logic
-        const response = await fetch('https://lcirwanda-backend001.onrender.com/api/client-register', {
+        console.log('Attempting registration...', formData);
+        
+        const response = await fetch('https://lcirwanda-backend001.onrender.com/api/auth/client-register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(formData)
+          body: JSON.stringify({
+            fullName: formData.fullName,
+            email: formData.email,
+            password: formData.password,
+            phone: formData.phone || '',
+            company: formData.company || ''
+          })
         });
 
-        const data = await response.json();
+        console.log('Registration response status:', response.status);
 
-        if (response.ok) {
-          setSuccess('Registration successful! Your account is pending admin approval. You will receive an email when approved.');
-          setIsLogin(true);
-          setFormData({
-            fullName: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            phone: '',
-            company: ''
-          });
-        } else {
-          setError(data.message || 'Registration failed');
+        // Check if response is OK before parsing JSON
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('Registration error response:', errorText);
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
+
+        const data = await response.json();
+        console.log('Registration success data:', data);
+
+        setSuccess('Registration successful! You can now login to your client portal.');
+        setIsLogin(true);
+        setFormData({
+          fullName: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          phone: '',
+          company: ''
+        });
       }
     } catch (error) {
-      console.error('Auth error:', error);
-      setError('Network error. Please try again.');
+      console.error('Auth error details:', error);
+      // More specific error messages
+      if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+        setError('Cannot connect to server. Please check your internet connection and try again.');
+      } else if (error.message.includes('HTTP error')) {
+        setError('Server error. Please try again later.');
+      } else {
+        setError(error.message || 'Network error. Please try again.');
+      }
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleGoogleLogin = () => {
-    // Google OAuth implementation would go here
     setError('Google login functionality will be implemented soon');
   };
 
