@@ -14,7 +14,7 @@ function AdminLayout({ children }) {
   const navItems = [
     { path: '/admin-quotes', label: 'Quotes', icon: '📋' },
     { path: '/admin-messages', label: 'Messages', icon: '💬' },
-    { path: '/admin-users', label: 'Manage Users', icon: '👥' },
+    // { path: '/admin-users', label: 'Manage Users', icon: '👥' },
     { path: '/logout', label: 'LogOut', icon: '🚪', onClick: () => navigate('/'), className: 'logoutBtn' },
   ];
 

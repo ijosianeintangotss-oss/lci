@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import logo from '../assets/logo.png'; // Ensure this path is correct
+import logo from '../assets/logo.png';
 
 function AdminQuotes() {
   const [quotes, setQuotes] = useState([]);
@@ -20,7 +20,6 @@ function AdminQuotes() {
 
   const navigate = useNavigate();
 
-  // Stats state
   const [stats, setStats] = useState({
     totalQuotes: 0,
     pendingQuotes: 0,
@@ -578,7 +577,6 @@ function AdminQuotes() {
     },
   };
 
-  // Add CSS animation for spinner
   useEffect(() => {
     const spinnerStyle = document.createElement('style');
     spinnerStyle.textContent = `
@@ -591,7 +589,6 @@ function AdminQuotes() {
     return () => document.head.removeChild(spinnerStyle);
   }, []);
 
-  // Header Scroll and Resize Effects
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -609,7 +606,7 @@ function AdminQuotes() {
 
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleResize);
-    handleResize(); // Initial check
+    handleResize();
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
@@ -620,31 +617,77 @@ function AdminQuotes() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  // Helper function to map backend urgency to frontend turnaround
+  const mapUrgencyToTurnaround = (urgency) => {
+    const urgencyMap = {
+      'standard': 'Standard',
+      'urgent': 'Express', 
+      'very-urgent': 'Urgent',
+      'rush': 'Urgent'
+    };
+    return urgencyMap[urgency] || 'Standard';
+  };
+
   const fetchQuotes = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('https://lcirwanda-backend001.onrender.com/api/quotes');
+      console.log('Fetching quotes from API...');
+      
+      const response = await fetch('https://lcirwanda-backend001.onrender.com/api/public/quotes', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      });
+      
+      console.log('Response status:', response.status);
+      console.log('Response ok:', response.ok);
+      
       if (!response.ok) {
-        throw new Error('Failed to fetch quotes');
+        const errorText = await response.text();
+        console.error('Server response error:', errorText);
+        throw new Error(`Failed to fetch quotes: ${response.status} ${response.statusText}`);
       }
+      
       const data = await response.json();
-      setQuotes(data);
+      console.log('Fetched quotes data:', data);
+      
+      // Process data to ensure compatibility
+      const processedData = data.map(quote => ({
+        ...quote,
+        // Map urgency to turnaround for frontend compatibility
+        turnaround: mapUrgencyToTurnaround(quote.urgency),
+        // Map additionalRequirements to additionalNotes
+        additionalRequirements: quote.additionalNotes || quote.additionalRequirements,
+        // Ensure all required fields exist
+        status: quote.status || 'pending',
+        submittedAt: quote.submittedAt || quote.createdAt,
+        // Map service names to match frontend
+        service: quote.service || 'translation'
+      }));
+      
+      setQuotes(processedData);
 
       const today = new Date().setHours(0, 0, 0, 0);
       const statsData = {
-        totalQuotes: data.length,
-        pendingQuotes: data.filter((q) => q.status === 'pending').length,
-        inProgressQuotes: data.filter((q) => q.status === 'inProgress').length,
-        completedQuotes: data.filter((q) => q.status === 'completed').length,
-        todayRequests: data.filter(
-          (q) => new Date(q.submittedAt).setHours(0, 0, 0, 0) === today
+        totalQuotes: processedData.length,
+        pendingQuotes: processedData.filter((q) => q.status === 'pending').length,
+        inProgressQuotes: processedData.filter((q) => q.status === 'inProgress').length,
+        completedQuotes: processedData.filter((q) => q.status === 'completed').length,
+        todayRequests: processedData.filter(
+          (q) => {
+            const quoteDate = new Date(q.submittedAt);
+            return !isNaN(quoteDate.getTime()) && quoteDate.setHours(0, 0, 0, 0) === today;
+          }
         ).length,
       };
-      setStats((prevStats) => ({ ...prevStats, ...statsData }));
+      setStats(statsData);
+      setLoading(false);
     } catch (err) {
+      console.error('Error fetching quotes:', err);
       setError(err.message);
-    } finally {
       setLoading(false);
     }
   }, []);
@@ -656,7 +699,7 @@ function AdminQuotes() {
   const updateQuoteStatus = async (id, newStatus) => {
     try {
       const response = await fetch(
-        `https://lcirwanda-backend001.onrender.com/api/quotes/${id}/status`,
+        `https://lcirwanda-backend001.onrender.com/api/public/quotes/${id}/status`,
         {
           method: 'PUT',
           headers: {
@@ -665,12 +708,15 @@ function AdminQuotes() {
           body: JSON.stringify({ status: newStatus }),
         }
       );
+      
       if (!response.ok) {
         throw new Error('Failed to update status');
       }
+      
       fetchQuotes();
     } catch (err) {
       console.error('Status update error:', err);
+      setError(`Failed to update status: ${err.message}`);
     }
   };
 
@@ -927,7 +973,12 @@ function AdminQuotes() {
                   <h1 style={styles.title}>Quotes Dashboard</h1>
                   <p style={styles.subtitle}>Manage translation requests efficiently</p>
                 </div>
-                <button style={styles.refreshButton} onClick={fetchQuotes} onMouseEnter={handleButtonHover} onMouseLeave={handleButtonLeave}>
+                <button 
+                  style={styles.refreshButton} 
+                  onClick={fetchQuotes} 
+                  onMouseEnter={(e) => e.target.style.backgroundColor = '#2c5282'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = '#3182ce'}
+                >
                   🔄 Refresh
                 </button>
               </div>
@@ -1005,18 +1056,18 @@ function AdminQuotes() {
                     onChange={(e) => setServiceFilter(e.target.value)}
                   >
                     <option value="all">All Services</option>
-                    <option value="Translation and Interpretation">Translation and Interpretation</option>
-                    <option value="Website & Software Localization">Website & Software Localization</option>
-                    <option value="Certified Document Translation">Certified Document Translation</option>
-                    <option value="Audio & Video Transcription">Audio & Video Transcription</option>
-                    <option value="Proofreading & Editing">Proofreading & Editing</option>
-                    <option value="CV & Application Support">CV & Application Support</option>
-                    <option value="Machine Translation Post-Editing (MTPE)">Machine Translation Post-Editing (MTPE)</option>
-                    <option value="Glossaries & Language Resources">Glossaries & Language Resources</option>
-                    <option value="Back-Translation & Quality Assurance">Back-Translation & Quality Assurance</option>
-                    <option value="AI Translation Services">AI Translation Services</option>
-                    <option value="Social Media Marketing">Social Media Marketing</option>
-                    <option value="Content Creation">Content Creation</option>
+                    <option value="translation">Translation and Interpretation</option>
+                    <option value="localization">Website & Software Localization</option>
+                    <option value="certified">Certified Document Translation</option>
+                    <option value="transcription">Audio & Video Transcription</option>
+                    <option value="proofreading">Proofreading & Editing</option>
+                    <option value="cv-support">CV & Application Support</option>
+                    <option value="mtpe">Machine Translation Post-Editing (MTPE)</option>
+                    <option value="glossaries">Glossaries & Language Resources</option>
+                    <option value="back-translation">Back-Translation & Quality Assurance</option>
+                    <option value="ai-translation">AI Translation Services</option>
+                    <option value="social-media">Social Media Marketing</option>
+                    <option value="content-creation">Content Creation</option>
                   </select>
                 </div>
               </div>
@@ -1027,6 +1078,21 @@ function AdminQuotes() {
                 <div>
                   <h3 style={styles.errorTitle}>Error</h3>
                   <p style={styles.errorMessage}>{error}</p>
+                  <button 
+                    onClick={fetchQuotes}
+                    style={{
+                      marginTop: '8px',
+                      padding: '4px 8px',
+                      backgroundColor: '#dc2626',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '4px',
+                      fontSize: '11px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Try Again
+                  </button>
                 </div>
               </div>
             )}
@@ -1035,8 +1101,25 @@ function AdminQuotes() {
                 <span style={styles.emptyIcon}>📋</span>
                 <h3 style={styles.emptyTitle}>No translation requests found</h3>
                 <p style={styles.emptyText}>
-                  Requests will appear here when customers submit quote forms.
+                  {quotes.length === 0 
+                    ? "Requests will appear here when customers submit quote forms." 
+                    : "No quotes match your search criteria."}
                 </p>
+                <button 
+                  onClick={fetchQuotes}
+                  style={{
+                    marginTop: '12px',
+                    padding: '6px 12px',
+                    backgroundColor: '#3182ce',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    fontSize: '12px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Refresh Quotes
+                </button>
               </div>
             ) : (
               <div style={styles.tableCard}>
@@ -1233,7 +1316,7 @@ function AdminQuotes() {
                   <div style={styles.modalSection}>
                     <h4 style={styles.modalSectionTitle}>Additional Requirements</h4>
                     <p style={{ ...styles.modalText, color: '#4b5563' }}>
-                      {selectedQuote.additionalRequirements || 'None specified'}
+                      {selectedQuote.additionalRequirements || selectedQuote.additionalNotes || 'None specified'}
                     </p>
                   </div>
                 </div>

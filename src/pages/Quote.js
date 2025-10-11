@@ -8,11 +8,10 @@ function Quote() {
     email: '',
     phone: '',
     service: '',
-    // documentType: '', // Commented out as per request
     serviceSubType: '',
     sourceLanguage: '',
     targetLanguage: '',
-    turnaround: '',
+    urgency: '',
     wordCount: '',
     additionalRequirements: ''
   });
@@ -25,6 +24,8 @@ function Quote() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [selectedService, setSelectedService] = useState(null);
   const [serviceSubTypes, setServiceSubTypes] = useState([]);
+  const [showPriceModal, setShowPriceModal] = useState(false);
+  const [currentServicePrice, setCurrentServicePrice] = useState('');
 
   const serviceOptions = [
     { id: 1, value: 'translation', label: 'Translation and Interpretation', description: 'Request document translation or book a professional interpreter for conferences, legal proceedings, field interviews, NGO or community outreach. Supported file types: DOCX, PDF, XLSX, HTML, XML, and more.' },
@@ -128,21 +129,6 @@ function Quote() {
     ]
   };
 
-  // const documentTypes = [ // Commented out as per request
-  //   { value: 'legal', label: 'Legal Documents' },
-  //   { value: 'medical', label: 'Medical Documents' },
-  //   { value: 'technical', label: 'Technical Documents' },
-  //   { value: 'business', label: 'Business Documents' },
-  //   { value: 'academic', label: 'Academic Documents' },
-  //   { value: 'personal', label: 'Personal Documents' },
-  //   { value: 'marketing', label: 'Marketing Materials' },
-  //   { value: 'website', label: 'Website Content' },
-  //   { value: 'software', label: 'Software/App Files' },
-  //   { value: 'audio-video', label: 'Audio/Video Files' },
-  //   { value: 'cv-application', label: 'CV/Application Materials' },
-  //   { value: 'other', label: 'Other' }
-  // ];
-
   const languages = [
     { value: 'english', label: 'English' },
     { value: 'french', label: 'French' },
@@ -151,11 +137,27 @@ function Quote() {
     { value: 'kirundi', label: 'Kirundi' },
   ];
 
-  const turnaroundOptions = [
-    { value: 'rush', label: 'Rush (24-48 hours) - +50% fee' },
+  const urgencyOptions = [
     { value: 'standard', label: 'Standard (3-5 days)' },
-    { value: 'extended', label: 'Extended (1-2 weeks) - 10% discount' }
+    { value: 'urgent', label: 'Urgent (24-48 hours) - +50% fee' },
+    { value: 'very-urgent', label: 'Very Urgent (12-24 hours) - +100% fee' }
   ];
+
+  // Service pricing information
+  const servicePricing = {
+    translation: "USD25/250 words or its current equivalent in Rwandan currency",
+    proofreading: "USD15/250 words or its current equivalent in Rwandan currency",
+    mtpe: "USD15/250 words or its current equivalent in Rwandan currency or negotiable based on the raw quality",
+    'cv-support': "USD70 words or its current equivalent in Rwandan currency",
+    localization: "USD75 words or its current equivalent in Rwandan currency",
+    certified: "USD80 words or its current equivalent in Rwandan currency",
+    transcription: "USD65 words or its current equivalent in Rwandan currency",
+    glossaries: "USD 62 words or its current equivalent in Rwandan currency",
+    'back-translation': "USD50 words or its current equivalent in Rwandan currency",
+    'ai-translation': "USD55 words or its current equivalent in Rwandan currency",
+    'social-media': "USD60 words or its current equivalent in Rwandan currency",
+    'content-creation': "USD62 words or its current equivalent in Rwandan currency"
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -200,6 +202,12 @@ function Quote() {
     const service = serviceOptions.find(s => s.value === serviceValue);
     setSelectedService(service || null);
     setServiceSubTypes(serviceSubTypesMap[serviceValue] || []);
+    
+    // Show price modal when service is selected
+    if (serviceValue && servicePricing[serviceValue]) {
+      setCurrentServicePrice(servicePricing[serviceValue]);
+      setShowPriceModal(true);
+    }
   };
 
   const handleFileChange = (e) => {
@@ -238,7 +246,7 @@ function Quote() {
   };
 
   const validateQuoteForm = () => {
-    const requiredFields = ['fullName', 'email', 'service', 'serviceSubType', 'sourceLanguage', 'targetLanguage', 'turnaround'];
+    const requiredFields = ['fullName', 'email', 'service', 'serviceSubType', 'sourceLanguage', 'targetLanguage', 'urgency'];
     const missingFields = requiredFields.filter(field => !formData[field]);
     
     if (missingFields.length > 0) {
@@ -281,11 +289,10 @@ function Quote() {
       submitData.append('phone', formData.phone);
       submitData.append('service', formData.service);
       submitData.append('serviceSubType', formData.serviceSubType);
-      // submitData.append('documentType', formData.documentType); // Commented out as per request
-      submitData.append('documentType', formData.serviceSubType); // Use serviceSubType instead
+      submitData.append('documentType', formData.serviceSubType);
       submitData.append('sourceLanguage', formData.sourceLanguage);
       submitData.append('targetLanguage', formData.targetLanguage);
-      submitData.append('turnaround', formData.turnaround);
+      submitData.append('urgency', formData.urgency);
       submitData.append('wordCount', formData.wordCount);
       submitData.append('additionalRequirements', formData.additionalRequirements);
 
@@ -311,11 +318,10 @@ function Quote() {
         email: '',
         phone: '',
         service: '',
-        // documentType: '', // Commented out
         serviceSubType: '',
         sourceLanguage: '',
         targetLanguage: '',
-        turnaround: '',
+        urgency: '',
         wordCount: '',
         additionalRequirements: ''
       });
@@ -380,9 +386,12 @@ function Quote() {
     },
     formGrid: {
       display: 'grid',
-      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
       gap: '1rem',
       marginBottom: '1.5rem',
+    },
+    fullWidth: {
+      gridColumn: '1 / -1',
     },
     formGroup: {
       display: 'flex',
@@ -516,6 +525,62 @@ function Quote() {
       borderRadius: '50%',
       animation: 'spin 1s linear infinite',
     },
+    priceModal: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 1000,
+      padding: '20px',
+    },
+    priceModalContent: {
+      backgroundColor: 'white',
+      borderRadius: '12px',
+      boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
+      width: '100%',
+      maxWidth: '500px',
+      padding: '2rem',
+      textAlign: 'center',
+    },
+    priceModalTitle: {
+      fontSize: '1.5rem',
+      fontWeight: 'bold',
+      color: '#0a1d51',
+      marginBottom: '1rem',
+    },
+    priceModalText: {
+      fontSize: '1rem',
+      color: '#0a1d51',
+      marginBottom: '1.5rem',
+      lineHeight: '1.5',
+    },
+    priceModalButton: {
+      background: '#de800d',
+      color: 'white',
+      padding: '0.8rem 1.5rem',
+      borderRadius: '8px',
+      border: 'none',
+      fontSize: '1rem',
+      fontWeight: '500',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+    },
+    priceInfoButton: {
+      background: 'transparent',
+      border: '1px solid #de800d',
+      color: '#de800d',
+      padding: '0.3rem 0.8rem',
+      borderRadius: '4px',
+      fontSize: '0.8rem',
+      cursor: 'pointer',
+      marginLeft: '0.5rem',
+      transition: 'all 0.3s ease',
+    },
   };
 
   const handleButtonHover = (e) => {
@@ -526,6 +591,13 @@ function Quote() {
 
   const handleButtonLeave = (e) => {
     e.target.style.transform = 'scale(1)';
+  };
+
+  const handlePriceInfoClick = (serviceValue) => {
+    if (serviceValue && servicePricing[serviceValue]) {
+      setCurrentServicePrice(servicePricing[serviceValue]);
+      setShowPriceModal(true);
+    }
   };
 
   return (
@@ -556,7 +628,7 @@ function Quote() {
         </p>
         
         {selectedService && (
-          <div style={styles.serviceBanner}>
+          <div style={{...styles.serviceBanner, ...styles.fullWidth}}>
             <h3 style={styles.serviceBannerTitle}>📋 Requesting: {selectedService.label}</h3>
             <p style={styles.serviceBannerDescription}>{selectedService.description}</p>
           </div>
@@ -606,7 +678,19 @@ function Quote() {
               />
             </div>
             <div style={styles.formGroup}>
-              <label style={styles.label} htmlFor="service">Service Required *</label>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <label style={styles.label} htmlFor="service">Service Required *</label>
+                <button 
+                  type="button"
+                  style={styles.priceInfoButton}
+                  onClick={() => handlePriceInfoClick(formData.service)}
+                  disabled={!formData.service || isSubmitting}
+                  onMouseEnter={(e) => e.target.style.backgroundColor = '#de800d'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                >
+                  💰 Price Info
+                </button>
+              </div>
               <select 
                 style={styles.select}
                 id="service" 
@@ -624,7 +708,7 @@ function Quote() {
             </div>
 
             {formData.service && serviceSubTypes.length > 0 && (
-              <div style={styles.formGroup}>
+              <div style={{...styles.formGroup, ...styles.fullWidth}}>
                 <label style={styles.label} htmlFor="serviceSubType">Service Specific Options *</label>
                 <select 
                   style={styles.select}
@@ -643,23 +727,6 @@ function Quote() {
               </div>
             )}
 
-            {/* Document Type dropdown commented out as per request */}
-            {/* <div style={styles.formGroup}>
-              <label style={styles.label} htmlFor="documentType">Document Type</label>
-              <select 
-                style={styles.select}
-                id="documentType" 
-                name="documentType" 
-                value={formData.documentType}
-                onChange={handleInputChange}
-                disabled={isSubmitting}
-              >
-                <option value="">Select document type</option>
-                {documentTypes.map(type => (
-                  <option key={type.value} value={type.value}>{type.label}</option>
-                ))}
-              </select>
-            </div> */}
             <div style={styles.formGroup}>
               <label style={styles.label} htmlFor="sourceLanguage">Source Language *</label>
               <select 
@@ -695,18 +762,18 @@ function Quote() {
               </select>
             </div>
             <div style={styles.formGroup}>
-              <label style={styles.label} htmlFor="turnaround">Turnaround Time *</label>
+              <label style={styles.label} htmlFor="urgency">Urgency *</label>
               <select 
                 style={styles.select}
-                id="turnaround" 
-                name="turnaround" 
-                value={formData.turnaround}
+                id="urgency" 
+                name="urgency" 
+                value={formData.urgency}
                 onChange={handleInputChange}
                 required
                 disabled={isSubmitting}
               >
-                <option value="">Select timeframe</option>
-                {turnaroundOptions.map(option => (
+                <option value="">Select urgency level</option>
+                {urgencyOptions.map(option => (
                   <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
               </select>
@@ -724,7 +791,8 @@ function Quote() {
                 disabled={isSubmitting}
               />
             </div>
-            <div style={styles.formGroup}>
+
+            <div style={{...styles.formGroup, ...styles.fullWidth}}>
               <label style={styles.label}>Upload Payment Screenshot *</label>
               <label style={{...styles.label, fontSize: '0.85rem', color: '#de800d'}}>
                 Dial *182*1*1*0788518720*Amount# 
@@ -769,96 +837,116 @@ function Quote() {
                 )}
               </div>
             </div>
-          </div>
 
-          <div style={styles.formGroup}>
-            <label style={styles.label}>Upload Your Documents *</label>
-            <div
-              style={styles.fileUpload}
-              onClick={() => !isSubmitting && document.getElementById('fileInput').click()}
-              onMouseEnter={(e) => !isSubmitting && e.target.classList.add('file-upload-hover')}
-              onMouseLeave={(e) => e.target.classList.remove('file-upload-hover')}
-            >
-              <div style={{fontSize: '2rem', color: '#de800d', marginBottom: '0.8rem'}}>
-                📁
+            <div style={{...styles.formGroup, ...styles.fullWidth}}>
+              <label style={styles.label}>Upload Your Documents *</label>
+              <div
+                style={styles.fileUpload}
+                onClick={() => !isSubmitting && document.getElementById('fileInput').click()}
+                onMouseEnter={(e) => !isSubmitting && e.target.classList.add('file-upload-hover')}
+                onMouseLeave={(e) => e.target.classList.remove('file-upload-hover')}
+              >
+                <div style={{fontSize: '2rem', color: '#de800d', marginBottom: '0.8rem'}}>
+                  📁
+                </div>
+                <h3 style={{color: '#0a1d51', marginBottom: '0.5rem', fontSize: '0.95rem'}}>
+                  {files.length > 0 ? `✅ ${files.length} File(s) Selected` : 'Drag & drop your files'}
+                </h3>
+                <p style={{color: '#0a1d51', fontSize: '0.9rem'}}>
+                  Or <span style={{color: '#de800d', fontWeight: '500', cursor: 'pointer'}}>click here to browse</span>
+                </p>
+                <p style={{color: '#0a1d51', fontSize: '0.85rem', marginTop: '0.5rem'}}>
+                  Supported formats: PDF, Word, PowerPoint, Excel, Text, Images, Audio, Video (Max 10MB per file)
+                </p>
+                <input
+                  id="fileInput"
+                  type="file"
+                  multiple
+                  style={{display: 'none'}}
+                  accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.mp3,.mp4,.wav"
+                  onChange={handleFileChange}
+                  disabled={isSubmitting}
+                />
               </div>
-              <h3 style={{color: '#0a1d51', marginBottom: '0.5rem', fontSize: '0.95rem'}}>
-                {files.length > 0 ? `✅ ${files.length} File(s) Selected` : 'Drag & drop your files'}
-              </h3>
-              <p style={{color: '#0a1d51', fontSize: '0.9rem'}}>
-                Or <span style={{color: '#de800d', fontWeight: '500', cursor: 'pointer'}}>click here to browse</span>
-              </p>
-              <p style={{color: '#0a1d51', fontSize: '0.85rem', marginTop: '0.5rem'}}>
-                Supported formats: PDF, Word, PowerPoint, Excel, Text, Images, Audio, Video (Max 10MB per file)
-              </p>
-              <input
-                id="fileInput"
-                type="file"
-                multiple
-                style={{display: 'none'}}
-                accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.mp3,.mp4,.wav"
-                onChange={handleFileChange}
-                disabled={isSubmitting}
-              />
+              
+              {files.length > 0 && (
+                <div style={styles.fileList}>
+                  <h4 style={{color: '#0a1d51', marginBottom: '0.8rem', fontSize: '0.95rem'}}>Selected Files:</h4>
+                  {files.map((file, idx) => (
+                    <div key={idx} style={styles.fileItem}>
+                      <span>📄 {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                      <button
+                        type="button"
+                        style={styles.removeFileButton}
+                        onClick={() => removeFile(idx)}
+                        disabled={isSubmitting}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-            
-            {files.length > 0 && (
-              <div style={styles.fileList}>
-                <h4 style={{color: '#0a1d51', marginBottom: '0.8rem', fontSize: '0.95rem'}}>Selected Files:</h4>
-                {files.map((file, idx) => (
-                  <div key={idx} style={styles.fileItem}>
-                    <span>📄 {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
-                    <button
-                      type="button"
-                      style={styles.removeFileButton}
-                      onClick={() => removeFile(idx)}
-                      disabled={isSubmitting}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
+
+            <div style={{...styles.formGroup, ...styles.fullWidth}}>
+              <label style={styles.label} htmlFor="additionalRequirements">Additional Requirements</label>
+              <textarea 
+                style={styles.textarea}
+                id="additionalRequirements" 
+                name="additionalRequirements" 
+                value={formData.additionalRequirements}
+                onChange={handleInputChange}
+                placeholder="Specify any additional requirements or special instructions..."
+                disabled={isSubmitting}
+              ></textarea>
+            </div>
           </div>
 
-          <div style={styles.formGroup}>
-            <label style={styles.label} htmlFor="additionalRequirements">Additional Requirements</label>
-            <textarea 
-              style={styles.textarea}
-              id="additionalRequirements" 
-              name="additionalRequirements" 
-              value={formData.additionalRequirements}
-              onChange={handleInputChange}
-              placeholder="Specify any additional requirements or special instructions..."
+          {error && <div style={{...styles.errorMessage, ...styles.fullWidth}}>{error}</div>}
+          {success && <div style={{...styles.successMessage, ...styles.fullWidth}}>{success}</div>}
+
+          <div style={{...styles.fullWidth, textAlign: 'center'}}>
+            <button 
+              type="submit" 
+              style={{
+                ...styles.submitButton,
+                ...(isSubmitting ? styles.submitButtonDisabled : {})
+              }}
+              onMouseEnter={handleButtonHover}
+              onMouseLeave={handleButtonLeave}
               disabled={isSubmitting}
-            ></textarea>
+            >
+              {isSubmitting ? (
+                <>
+                  <div style={styles.loadingSpinner}></div>
+                  Submitting...
+                </>
+              ) : (
+                'Get Quote'
+              )}
+            </button>
           </div>
-
-          {error && <div style={styles.errorMessage}>{error}</div>}
-          {success && <div style={styles.successMessage}>{success}</div>}
-
-          <button 
-            type="submit" 
-            style={{
-              ...styles.submitButton,
-              ...(isSubmitting ? styles.submitButtonDisabled : {})
-            }}
-            onMouseEnter={handleButtonHover}
-            onMouseLeave={handleButtonLeave}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? (
-              <>
-                <div style={styles.loadingSpinner}></div>
-                Submitting...
-              </>
-            ) : (
-              'Get Quote'
-            )}
-          </button>
         </form>
       </div>
+
+      {/* Price Information Modal */}
+      {showPriceModal && (
+        <div style={styles.priceModal} onClick={() => setShowPriceModal(false)}>
+          <div style={styles.priceModalContent} onClick={(e) => e.stopPropagation()}>
+            <h3 style={styles.priceModalTitle}>💰 Service Pricing</h3>
+            <p style={styles.priceModalText}>{currentServicePrice}</p>
+            <button
+              style={styles.priceModalButton}
+              onClick={() => setShowPriceModal(false)}
+              onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
+            >
+              Got it!
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

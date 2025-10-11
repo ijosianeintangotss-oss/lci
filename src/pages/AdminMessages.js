@@ -300,16 +300,37 @@ function AdminMessages() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('https://lcirwanda-backend001.onrender.com/api/messages');
-      if (!response.ok) {
-        throw new Error('Failed to fetch messages');
-      }
-      const data = await response.json();
+      console.log('Fetching messages from API...');
       
-      // Process the data to ensure proper date handling
+      const response = await fetch('https://lcirwanda-backend001.onrender.com/api/public/messages', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      });
+      
+      console.log('Response status:', response.status);
+      console.log('Response ok:', response.ok);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Server response error:', errorText);
+        throw new Error(`Failed to fetch messages: ${response.status} ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      console.log('Fetched messages data:', data);
+      
+      // Process the data to ensure proper date handling and field mapping
       const processedData = data.map(message => ({
         ...message,
-        // Ensure we have a valid date - use current date if sentAt is invalid
+        // Map fields for consistency
+        sender: message.fullName || 'Unknown Sender',
+        email: message.email || 'No email',
+        subject: message.subject || 'No Subject',
+        message: message.message || 'No message content',
+        // Ensure we have a valid date
         sentAt: message.sentAt && !isNaN(new Date(message.sentAt).getTime()) 
           ? message.sentAt 
           : new Date().toISOString()
@@ -330,6 +351,7 @@ function AdminMessages() {
       setStats(statsData);
       setLoading(false);
     } catch (err) {
+      console.error('Error fetching messages:', err);
       setError(err.message);
       setLoading(false);
     }
@@ -365,9 +387,10 @@ function AdminMessages() {
   };
 
   const filteredMessages = messages.filter((message) =>
-    message.sender?.toLowerCase().includes(messageSearchTerm.toLowerCase()) ||
-    message.subject?.toLowerCase().includes(messageSearchTerm.toLowerCase()) ||
-    message.message?.toLowerCase().includes(messageSearchTerm.toLowerCase())
+    (message.sender && message.sender.toLowerCase().includes(messageSearchTerm.toLowerCase())) ||
+    (message.subject && message.subject.toLowerCase().includes(messageSearchTerm.toLowerCase())) ||
+    (message.message && message.message.toLowerCase().includes(messageSearchTerm.toLowerCase())) ||
+    (message.email && message.email.toLowerCase().includes(messageSearchTerm.toLowerCase()))
   );
 
   if (loading) {
@@ -392,7 +415,12 @@ function AdminMessages() {
               <h1 style={styles.title}>Customer Messages</h1>
               <p style={styles.subtitle}>Manage and respond to customer inquiries</p>
             </div>
-            <button style={styles.refreshButton} onClick={fetchMessages}>
+            <button 
+              style={styles.refreshButton} 
+              onClick={fetchMessages}
+              onMouseEnter={(e) => e.target.style.backgroundColor = '#2c5282'}
+              onMouseLeave={(e) => e.target.style.backgroundColor = '#3182ce'}
+            >
               🔄 Refresh
             </button>
           </div>
@@ -424,6 +452,8 @@ function AdminMessages() {
               placeholder="Search by sender, subject, or message content..."
               value={messageSearchTerm}
               onChange={(e) => setMessageSearchTerm(e.target.value)}
+              onFocus={(e) => e.target.style.borderColor = '#3182ce'}
+              onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
             />
           </div>
         </div>
@@ -446,6 +476,21 @@ function AdminMessages() {
               <p style={{ fontSize: '12px', color: '#b91c1c', margin: '2px 0 0 0' }}>
                 {error}
               </p>
+              <button 
+                onClick={fetchMessages}
+                style={{
+                  marginTop: '8px',
+                  padding: '4px 8px',
+                  backgroundColor: '#dc2626',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  fontSize: '11px',
+                  cursor: 'pointer'
+                }}
+              >
+                Try Again
+              </button>
             </div>
           </div>
         )}
@@ -459,6 +504,21 @@ function AdminMessages() {
                 ? "No messages have been received yet." 
                 : "No messages match your search criteria."}
             </p>
+            <button 
+              onClick={fetchMessages}
+              style={{
+                marginTop: '12px',
+                padding: '6px 12px',
+                backgroundColor: '#3182ce',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                fontSize: '12px',
+                cursor: 'pointer'
+              }}
+            >
+              Refresh Messages
+            </button>
           </div>
         ) : (
           <div style={styles.tableCard}>
@@ -466,7 +526,7 @@ function AdminMessages() {
               <table style={styles.table}>
                 <thead style={styles.tableHeader}>
                   <tr>
-                    {/* <th style={styles.th}>Sender</th> */}
+                    <th style={styles.th}>Sender</th>
                     <th style={styles.th}>Email</th>
                     <th style={styles.th}>Subject</th>
                     <th style={styles.th}>Message Preview</th>
@@ -481,9 +541,9 @@ function AdminMessages() {
                       onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f7fafc')}
                       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'white')}
                     >
-                      {/* <td style={styles.td}>
-                        <p style={styles.clientName}>{message.sender || 'N/A'}</p>
-                      </td> */}
+                      <td style={styles.td}>
+                        <p style={styles.clientName}>{message.sender || 'Unknown Sender'}</p>
+                      </td>
                       <td style={styles.td}>
                         <p style={styles.clientEmail}>{message.email || 'N/A'}</p>
                       </td>
@@ -537,17 +597,13 @@ function AdminMessages() {
               </div>
               <div style={styles.modalSection}>
                 <h4 style={styles.modalSectionTitle}>Sender Information</h4>
-                {/* <p style={styles.modalText}>
+                <p style={styles.modalText}>
                   <span style={styles.modalLabel}>Name:</span>{' '}
                   {selectedMessage.sender || 'N/A'}
-                </p> */}
+                </p>
                 <p style={styles.modalText}>
                   <span style={styles.modalLabel}>Email:</span>{' '}
                   {selectedMessage.email || 'N/A'}
-                </p>
-                <p style={styles.modalText}>
-                  <span style={styles.modalLabel}>Phone:</span>{' '}
-                  {selectedMessage.phone || 'N/A'}
                 </p>
               </div>
               <div style={styles.modalSection}>

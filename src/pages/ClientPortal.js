@@ -139,7 +139,7 @@ function ClientPortal() {
       fontFamily: 'Arial, sans-serif'
     },
     header: {
-      background: '#1e3a8a',
+      background: '#0a1d51',
       color: 'white',
       padding: '1rem 2rem',
       display: 'flex',
@@ -199,7 +199,7 @@ function ClientPortal() {
     welcomeTitle: {
       fontSize: '2rem',
       fontWeight: '700',
-      color: '#1e3a8a',
+      color: '#0a1d51',
       marginBottom: '0.5rem'
     },
     welcomeSubtitle: {
@@ -223,7 +223,7 @@ function ClientPortal() {
     statValue: {
       fontSize: '2rem',
       fontWeight: '700',
-      color: '#1e3a8a',
+      color: '#0a1d51',
       margin: '0.5rem 0'
     },
     statLabel: {
@@ -247,8 +247,8 @@ function ClientPortal() {
       color: '#6b7280'
     },
     activeTab: {
-      color: '#1e3a8a',
-      borderBottomColor: '#1e3a8a',
+      color: '#0a1d51',
+      borderBottomColor: '#0a1d51',
       fontWeight: '600'
     },
     contentSection: {
@@ -302,7 +302,7 @@ function ClientPortal() {
       width: '32px',
       height: '32px',
       border: '3px solid #f3f4f6',
-      borderTop: '3px solid #1e3a8a',
+      borderTop: '3px solid #0a1d51',
       borderRadius: '50%',
       animation: 'spin 1s linear infinite',
       margin: '0 auto 1rem'
@@ -316,7 +316,7 @@ function ClientPortal() {
       color: '#dc2626'
     },
     retryButton: {
-      background: '#1e3a8a',
+      background: '#0a1d51',
       color: 'white',
       border: 'none',
       padding: '0.5rem 1rem',
@@ -423,7 +423,7 @@ function ClientPortal() {
         <div style={styles.contentSection}>
           {activeTab === 'quotes' && (
             <>
-              <h2 style={{ marginBottom: '1.5rem', color: '#1e3a8a' }}>My Translation Requests</h2>
+              <h2 style={{ marginBottom: '1.5rem', color: '#0a1d51' }}>My Translation Requests</h2>
               {clientQuotes.length === 0 ? (
                 <div style={styles.emptyState}>
                   <div style={styles.emptyIcon}>📋</div>
@@ -441,8 +441,8 @@ function ClientPortal() {
                         <th style={styles.th}>Urgency</th>
                         <th style={styles.th}>Submitted</th>
                         <th style={styles.th}>Status</th>
-                        <th style={styles.th}>Price</th>
-                        <th style={styles.th}>Admin Reply</th>
+                        {/* <th style={styles.th}>Price</th> */}
+                        {/* <th style={styles.th}>Admin Reply</th> */}
                       </tr>
                     </thead>
                     <tbody>
@@ -471,17 +471,17 @@ function ClientPortal() {
                                 {quote.status || 'pending'}
                               </span>
                             </td>
-                            <td style={styles.td}>
+                            {/* <td style={styles.td}>
                               {quote.price ? `$${quote.price}` : 'Not quoted yet'}
-                            </td>
-                            <td style={styles.td}>
+                            </td> */}
+                            {/* <td style={styles.td}>
                               {quote.adminReply || 'No reply yet'}
                               {quote.estimatedTime && (
                                 <div style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: '#6b7280' }}>
                                   <strong>Est. Time:</strong> {quote.estimatedTime}
                                 </div>
                               )}
-                            </td>
+                            </td> */}
                           </tr>
                         );
                       })}
@@ -494,7 +494,7 @@ function ClientPortal() {
 
           {activeTab === 'messages' && (
             <>
-              <h2 style={{ marginBottom: '1.5rem', color: '#1e3a8a' }}>My Messages</h2>
+              <h2 style={{ marginBottom: '1.5rem', color: '#0a1d51' }}>My Messages</h2>
               {clientMessages.length === 0 ? (
                 <div style={styles.emptyState}>
                   <div style={styles.emptyIcon}>💬</div>
@@ -529,10 +529,10 @@ function ClientPortal() {
                           borderRadius: '4px',
                           marginTop: '1rem'
                         }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                          {/* <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                             <strong style={{ color: '#1e40af' }}>Admin Reply:</strong>
                             <small style={{ color: '#6b7280' }}>{formatDate(message.updatedAt)}</small>
-                          </div>
+                          </div> */}
                           <p style={{ margin: 0, whiteSpace: 'pre-wrap' }}>{message.adminReply}</p>
                         </div>
                       )}
