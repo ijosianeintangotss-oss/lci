@@ -11,10 +11,19 @@ function ClientPortal() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!localStorage.getItem('clientToken')) {
+    // Check for client authentication - FIXED: using correct keys
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    
+    console.log('Auth check - Token:', token ? 'Exists' : 'Missing');
+    console.log('Auth check - User:', user);
+    
+    if (!token || !user.email) {
+      console.log('No valid client session, redirecting to login');
       navigate('/client-login');
       return;
     }
+    
     fetchClientDashboard();
   }, [navigate]);
 
@@ -23,48 +32,73 @@ function ClientPortal() {
       setLoading(true);
       setError(null);
       
-      const token = localStorage.getItem('clientToken');
-      const clientData = JSON.parse(localStorage.getItem('clientData') || '{}');
+      // FIXED: Use correct token key
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-      console.log('Fetching dashboard with token:', token ? 'Token exists' : 'No token');
-      console.log('Client data:', clientData);
+      console.log('Fetching dashboard for user:', user.email);
+      console.log('Using token:', token ? 'Token exists' : 'No token');
 
-      const response = await fetch(`https://lcirwanda-backend001.onrender.com/api/users/dashboard`, {
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+
+      // FIXED: Fetch quotes and messages separately for the specific user
+      const quotesResponse = await fetch(`https://lci-api.onrender.com/api/quotes/client?email=${encodeURIComponent(user.email)}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
 
-      console.log('Dashboard response status:', response.status);
+      const messagesResponse = await fetch(`https://lci-api.onrender.com/api/messages/client?email=${encodeURIComponent(user.email)}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
 
-      if (response.status === 401) {
+      console.log('Quotes response status:', quotesResponse.status);
+      console.log('Messages response status:', messagesResponse.status);
+
+      if (quotesResponse.status === 401 || messagesResponse.status === 401) {
         // Token is invalid, redirect to login
-        localStorage.removeItem('clientToken');
-        localStorage.removeItem('clientData');
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         navigate('/client-login');
         return;
       }
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ message: 'Unknown error' }));
-        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      let quotesData = [];
+      let messagesData = [];
+
+      if (quotesResponse.ok) {
+        quotesData = await quotesResponse.json();
+        console.log('Quotes data received:', quotesData.length, 'quotes');
+      } else {
+        const errorText = await quotesResponse.text();
+        console.error('Quotes fetch error:', errorText);
       }
 
-      const dashboardData = await response.json();
-      console.log('Dashboard data received:', dashboardData);
+      if (messagesResponse.ok) {
+        messagesData = await messagesResponse.json();
+        console.log('Messages data received:', messagesData.length, 'messages');
+      } else {
+        const errorText = await messagesResponse.text();
+        console.error('Messages fetch error:', errorText);
+      }
       
-      setClientInfo(dashboardData.user || {});
-      setClientQuotes(dashboardData.quotes || []);
-      setClientMessages(dashboardData.messages || []);
+      setClientInfo(user || {});
+      setClientQuotes(quotesData || []);
+      setClientMessages(messagesData || []);
 
     } catch (err) {
       console.error('Dashboard fetch error:', err);
       
       if (err.message.includes('401') || err.message.includes('token')) {
         // Token related error, redirect to login
-        localStorage.removeItem('clientToken');
-        localStorage.removeItem('clientData');
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         navigate('/client-login');
         return;
       }
@@ -76,8 +110,9 @@ function ClientPortal() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('clientToken');
-    localStorage.removeItem('clientData');
+    // FIXED: Remove correct keys
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     navigate('/client-login');
   };
 
@@ -130,6 +165,12 @@ function ClientPortal() {
       default:
         return { backgroundColor: '#f3f4f6', color: '#6b7280' };
     }
+  };
+
+  // Function to download files
+  const downloadFile = (fileUrl) => {
+    const fullUrl = `https://lci-api.onrender.com${fileUrl}`;
+    window.open(fullUrl, '_blank');
   };
 
   const styles = {
@@ -323,6 +364,46 @@ function ClientPortal() {
       borderRadius: '6px',
       cursor: 'pointer',
       marginTop: '0.5rem'
+    },
+    // File download styles
+    fileList: {
+      marginTop: '0.5rem',
+      paddingLeft: '1rem'
+    },
+    fileItem: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+      marginBottom: '0.25rem',
+      cursor: 'pointer',
+      color: '#0a1d51',
+      textDecoration: 'underline'
+    },
+    adminReplySection: {
+      background: '#f8fafc',
+      borderLeft: '4px solid #0a1d51',
+      padding: '1rem',
+      borderRadius: '4px',
+      marginTop: '1rem'
+    },
+    adminReplyHeader: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: '0.5rem'
+    },
+    adminReplyTitle: {
+      fontWeight: '600',
+      color: '#de800d',
+      margin: 0,
+    },
+    adminReplyDate: {
+      color: '#6b7280',
+      fontSize: '0.8rem'
+    },
+    adminReplyText: {
+      margin: 0,
+      whiteSpace: 'pre-wrap'
     }
   };
 
@@ -351,7 +432,7 @@ function ClientPortal() {
       <header style={styles.header}>
         <div style={styles.headerContent}>
           <div style={styles.logoSection}>
-            <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>LCI Client Portal</div>
+            <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>  Client Portal</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <div style={styles.clientInfo}>
@@ -441,8 +522,7 @@ function ClientPortal() {
                         <th style={styles.th}>Urgency</th>
                         <th style={styles.th}>Submitted</th>
                         <th style={styles.th}>Status</th>
-                        {/* <th style={styles.th}>Price</th> */}
-                        {/* <th style={styles.th}>Admin Reply</th> */}
+                        <th style={styles.th}>Admin Response</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -471,17 +551,49 @@ function ClientPortal() {
                                 {quote.status || 'pending'}
                               </span>
                             </td>
-                            {/* <td style={styles.td}>
-                              {quote.price ? `$${quote.price}` : 'Not quoted yet'}
-                            </td> */}
-                            {/* <td style={styles.td}>
-                              {quote.adminReply || 'No reply yet'}
-                              {quote.estimatedTime && (
-                                <div style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: '#6b7280' }}>
-                                  <strong>Est. Time:</strong> {quote.estimatedTime}
+                            <td style={styles.td}>
+                              {quote.adminReply ? (
+                                <div style={styles.adminReplySection}>
+                                  <div style={styles.adminReplyHeader}>
+                                    <strong style={styles.adminReplyTitle}>Admin Response</strong>
+                                    {quote.repliedAt && (
+                                      <small style={styles.adminReplyDate}>
+                                        {formatDate(quote.repliedAt)}
+                                      </small>
+                                    )}
+                                  </div>
+                                  <p style={styles.adminReplyText}>{quote.adminReply}</p>
+                                  {quote.price && (
+                                    <p style={{ margin: '0.5rem 0 0 0', fontWeight: '500' }}>
+                                      Price: ${quote.price}
+                                    </p>
+                                  )}
+                                  {quote.estimatedTime && (
+                                    <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.9rem' }}>
+                                      Estimated Time: {quote.estimatedTime}
+                                    </p>
+                                  )}
+                                  {quote.replyFiles && quote.replyFiles.length > 0 && (
+                                    <div style={styles.fileList}>
+                                      <strong style={{ fontSize: '0.8rem' }}>Attached Files:</strong>
+                                      {quote.replyFiles.map((file, index) => (
+                                        <div 
+                                          key={index} 
+                                          style={styles.fileItem}
+                                          onClick={() => downloadFile(file)}
+                                        >
+                                          📎 {file.split('/').pop()}
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
                                 </div>
+                              ) : (
+                                <span style={{ color: '#6b7280', fontStyle: 'italic' }}>
+                                  Waiting for admin response
+                                </span>
                               )}
-                            </td> */}
+                            </td>
                           </tr>
                         );
                       })}
@@ -521,19 +633,32 @@ function ClientPortal() {
                         </div>
                       </div>
                       <p style={{ marginBottom: '1rem', whiteSpace: 'pre-wrap' }}>{message.message}</p>
+                      
                       {message.adminReply && (
-                        <div style={{
-                          background: '#eff6ff',
-                          borderLeft: '4px solid #3b82f6',
-                          padding: '1rem',
-                          borderRadius: '4px',
-                          marginTop: '1rem'
-                        }}>
-                          {/* <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                            <strong style={{ color: '#1e40af' }}>Admin Reply:</strong>
-                            <small style={{ color: '#6b7280' }}>{formatDate(message.updatedAt)}</small>
-                          </div> */}
-                          <p style={{ margin: 0, whiteSpace: 'pre-wrap' }}>{message.adminReply}</p>
+                        <div style={styles.adminReplySection}>
+                          <div style={styles.adminReplyHeader}>
+                            <strong style={styles.adminReplyTitle}>Admin Response</strong>
+                            {message.repliedAt && (
+                              <small style={styles.adminReplyDate}>
+                                {formatDate(message.repliedAt)}
+                              </small>
+                            )}
+                          </div>
+                          <p style={styles.adminReplyText}>{message.adminReply}</p>
+                          {message.replyFiles && message.replyFiles.length > 0 && (
+                            <div style={styles.fileList}>
+                              <strong style={{ fontSize: '0.8rem' }}>Attached Files:</strong>
+                              {message.replyFiles.map((file, index) => (
+                                <div 
+                                  key={index} 
+                                  style={styles.fileItem}
+                                  onClick={() => downloadFile(file)}
+                                >
+                                  📎 {file.split('/').pop()}
+                                </div>
+                              ))}
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>

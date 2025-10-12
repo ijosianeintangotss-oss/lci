@@ -139,7 +139,7 @@ function Contact() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('https://lcirwanda-backend001.onrender.com/api/messages', {
+      const response = await fetch('https://lci-api.onrender.com/api/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

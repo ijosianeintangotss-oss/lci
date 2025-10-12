@@ -299,7 +299,7 @@ function Quote() {
       files.forEach(file => submitData.append('files', file));
       if (paymentScreenshot) submitData.append('paymentScreenshot', paymentScreenshot);
 
-      const response = await fetch('https://lcirwanda-backend001.onrender.com/api/quotes', {
+      const response = await fetch('https://lci-api.onrender.com/api/quotes', {
         method: 'POST',
         body: submitData,
       });

@@ -579,7 +579,7 @@ function AdminTranslationDashboard() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('https://lcirwanda-backend001.onrender.com/api/quotes');
+      const response = await fetch('https://lci-api.onrender.com/api/quotes');
       if (!response.ok) {
         throw new Error('Failed to fetch quotes');
       }
@@ -608,7 +608,7 @@ function AdminTranslationDashboard() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('https://lcirwanda-backend001.onrender.com/api/messages');
+      const response = await fetch('https://lci-api.onrender.com/api/messages');
       if (!response.ok) {
         throw new Error(`Failed to fetch messages: ${response.status} ${response.statusText}`);
       }
@@ -643,8 +643,9 @@ function AdminTranslationDashboard() {
 
   const updateQuoteStatus = async (id, newStatus) => {
     try {
+      // url link to check push status update
       const response = await fetch(
-        `https://lcirwanda-backend001.onrender.com/api/quotes/${id}/status`,
+        `https://lci-api.onrender.com/api/quotes/${id}/status`,
         {
           method: 'PUT',
           headers: {
@@ -1357,7 +1358,7 @@ function AdminTranslationDashboard() {
                         {selectedQuote.files.map((file, idx) => (
                           <li key={idx} style={{ margin: '8px 0' }}>
                             <a
-                              href={`https://lcirwanda-backend001.onrender.com${file}`}
+                              href={`https://lcirwanda-backend01.onrender.com${file}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               style={styles.fileLink}
@@ -1377,7 +1378,7 @@ function AdminTranslationDashboard() {
                     <h4 style={styles.modalSectionTitle}>Payment Screenshot</h4>
                     {selectedQuote.paymentScreenshot ? (
                       <a
-                        href={`https://lcirwanda-backend001.onrender.com${selectedQuote.paymentScreenshot}`}
+                        href={`https://lcirwanda-backend01.onrender.com${selectedQuote.paymentScreenshot}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={styles.fileLink}

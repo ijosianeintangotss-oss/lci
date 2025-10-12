@@ -1,477 +1,150 @@
+// src/pages/ClientLogin.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 function ClientLogin() {
-  const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    phone: '',
-    company: ''
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const validateForm = () => {
-    if (isLogin) {
-      if (!formData.email || !formData.password) {
-        setError('Please fill in all required fields');
-        return false;
-      }
-    } else {
-      if (!formData.fullName || !formData.email || !formData.password || !formData.confirmPassword) {
-        setError('Please fill in all required fields');
-        return false;
-      }
-
-      if (formData.password !== formData.confirmPassword) {
-        setError('Passwords do not match');
-        return false;
-      }
-
-      if (formData.password.length < 6) {
-        setError('Password must be at least 6 characters long');
-        return false;
-      }
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setError('Please enter a valid email address');
-      return false;
-    }
-
-    return true;
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError('');
-    setSuccess('');
-
-    if (!validateForm()) return;
-
-    setIsSubmitting(true);
 
     try {
-      if (isLogin) {
-        // Login logic - REMOVED STATUS CHECK
-        console.log('Attempting login...', {
-          email: formData.email,
-          password: formData.password
-        });
+      const response = await fetch('https://lci-api.onrender.com/api/auth/client-login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-        const response = await fetch('https://lcirwanda-backend001.onrender.com/api/auth/client-login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: formData.email,
-            password: formData.password
-          })
-        });
+      const data = await response.json();
 
-        console.log('Login response status:', response.status);
-
-        // Check if response is OK before parsing JSON
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error('Login error response:', errorText);
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log('Login success data:', data);
-
-        // REMOVED STATUS CHECK - All users can login immediately
-        localStorage.setItem('clientToken', data.token);
-        localStorage.setItem('clientData', JSON.stringify(data.user));
-        setSuccess('Login successful!');
-        setTimeout(() => navigate('/client-portal'), 1000);
-      } else {
-        // Registration logic
-        console.log('Attempting registration...', formData);
+      if (response.ok) {
+        // Store client token and user data
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
         
-        const response = await fetch('https://lcirwanda-backend001.onrender.com/api/auth/client-register', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            fullName: formData.fullName,
-            email: formData.email,
-            password: formData.password,
-            phone: formData.phone || '',
-            company: formData.company || ''
-          })
-        });
-
-        console.log('Registration response status:', response.status);
-
-        // Check if response is OK before parsing JSON
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error('Registration error response:', errorText);
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log('Registration success data:', data);
-
-        setSuccess('Registration successful! You can now login to your client portal.');
-        setIsLogin(true);
-        setFormData({
-          fullName: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
-          phone: '',
-          company: ''
-        });
-      }
-    } catch (error) {
-      console.error('Auth error details:', error);
-      // More specific error messages
-      if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-        setError('Cannot connect to server. Please check your internet connection and try again.');
-      } else if (error.message.includes('HTTP error')) {
-        setError('Server error. Please try again later.');
+        console.log('Client login successful, navigating to client portal');
+        navigate('/client-portal', { replace: true });
       } else {
-        setError(error.message || 'Network error. Please try again.');
+        setError(data.message || 'Login failed');
       }
+    } catch (err) {
+      setError('Network error. Please try again.');
     } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleGoogleLogin = () => {
-    setError('Google login functionality will be implemented soon');
-  };
-
-  const styles = {
-    container: {
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: 'linear-gradient(135deg, #f8fafc, #e2e8f0)',
-      padding: '2rem 1rem'
-    },
-    card: {
-      background: '#fff',
-      padding: '2.5rem',
-      borderRadius: '12px',
-      boxShadow: '0 4px 32px rgba(0,0,0,0.10)',
-      width: '100%',
-      maxWidth: '450px'
-    },
-    title: {
-      fontSize: '1.8rem',
-      fontWeight: '700',
-      color: '#1e3a8a',
-      marginBottom: '0.5rem',
-      textAlign: 'center'
-    },
-    subtitle: {
-      fontSize: '1rem',
-      color: '#6b7280',
-      marginBottom: '2rem',
-      textAlign: 'center'
-    },
-    toggleText: {
-      textAlign: 'center',
-      marginBottom: '1.5rem',
-      color: '#6b7280'
-    },
-    toggleButton: {
-      background: 'none',
-      border: 'none',
-      color: '#1e3a8a',
-      fontWeight: '600',
-      cursor: 'pointer',
-      textDecoration: 'underline'
-    },
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '1rem'
-    },
-    inputGroup: {
-      display: 'flex',
-      flexDirection: 'column'
-    },
-    label: {
-      fontSize: '0.9rem',
-      fontWeight: '500',
-      color: '#374151',
-      marginBottom: '0.5rem'
-    },
-    input: {
-      padding: '0.8rem',
-      border: '1px solid #d1d5db',
-      borderRadius: '6px',
-      fontSize: '0.95rem',
-      transition: 'border-color 0.3s ease'
-    },
-    submitButton: {
-      background: '#d27b10ff',
-      color: 'white',
-      padding: '0.8rem',
-      borderRadius: '8px',
-      border: 'none',
-      fontWeight: '600',
-      fontSize: '1rem',
-      cursor: 'pointer',
-      transition: 'all 0.3s ease',
-      marginTop: '0.5rem'
-    },
-    submitButtonDisabled: {
-      background: '#9ca3af',
-      cursor: 'not-allowed'
-    },
-    googleButton: {
-      background: 'white',
-      color: '#374151',
-      padding: '0.8rem',
-      borderRadius: '8px',
-      border: '1px solid #d1d5db',
-      fontWeight: '600',
-      fontSize: '1rem',
-      cursor: 'pointer',
-      transition: 'all 0.3s ease',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '0.5rem',
-      marginBottom: '1rem'
-    },
-    errorMessage: {
-      color: '#dc2626',
-      textAlign: 'center',
-      marginBottom: '1rem',
-      fontWeight: '500',
-      padding: '0.8rem',
-      background: '#fef2f2',
-      borderRadius: '8px',
-      border: '1px solid #fecaca'
-    },
-    successMessage: {
-      color: '#065f46',
-      textAlign: 'center',
-      marginBottom: '1rem',
-      fontWeight: '500',
-      padding: '0.8rem',
-      background: '#ecfdf5',
-      borderRadius: '8px',
-      border: '1px solid #a7f3d0'
-    },
-    loadingSpinner: {
-      display: 'inline-block',
-      width: '1rem',
-      height: '1rem',
-      border: '2px solid transparent',
-      borderTop: '2px solid white',
-      borderRadius: '50%',
-      animation: 'spin 1s linear infinite'
-    },
-    backButton: {
-      background: 'none',
-      border: 'none',
-      color: '#6b7280',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.5rem',
-      marginBottom: '1rem',
-      fontSize: '0.9rem'
+      setLoading(false);
     }
   };
 
   return (
-    <div style={styles.container}>
-      <style>
-        {`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-          
-          input:focus {
-            border-color: #d27b10ff !important;
-            outline: none;
-          }
-        `}
-      </style>
-
-      <div style={styles.card}>
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <button style={styles.backButton}>
-            ← Back to Home
-          </button>
-        </Link>
-
-        <h1 style={styles.title}>
-          {isLogin ? 'Client Login' : 'Client Registration'}
-        </h1>
-        <p style={styles.subtitle}>
-          {isLogin 
-            ? 'Access your client portal to track your projects' 
-            : 'Create your client account to get started'}
-        </p>
-
-        <div style={styles.toggleText}>
-          {isLogin ? "Don't have an account? " : "Already have an account? "}
-          <button 
-            style={styles.toggleButton}
-            onClick={() => setIsLogin(!isLogin)}
-            type="button"
-          >
-            {isLogin ? 'Register here' : 'Login here'}
-          </button>
-        </div>
-
-        {!isLogin && (
-          <button 
-            style={styles.googleButton}
-            onClick={handleGoogleLogin}
-            type="button"
-          >
-            <span>🔗</span>
-            Sign up with Google
-          </button>
+    <div style={{ 
+      minHeight: '100vh', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      background: 'linear-gradient(135deg, #f8fafc, #e2e8f0)',
+      padding: '20px'
+    }}>
+      <div style={{
+        background: 'white',
+        padding: '2rem',
+        borderRadius: '12px',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        width: '100%',
+        maxWidth: '400px'
+      }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', color: '#1f2937' }}>
+          Client Login
+        </h2>
+        
+        {error && (
+          <div style={{
+            background: '#fef2f2',
+            border: '1px solid #fecaca',
+            color: '#dc2626',
+            padding: '0.75rem',
+            borderRadius: '6px',
+            marginBottom: '1rem',
+            textAlign: 'center'
+          }}>
+            {error}
+          </div>
         )}
 
-        {error && <div style={styles.errorMessage}>{error}</div>}
-        {success && <div style={styles.successMessage}>{success}</div>}
-
-        <form style={styles.form} onSubmit={handleSubmit}>
-          {!isLogin && (
-            <div style={styles.inputGroup}>
-              <label style={styles.label} htmlFor="fullName">Full Name *</label>
-              <input
-                style={styles.input}
-                type="text"
-                id="fullName"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
-                placeholder="Enter your full name"
-                required
-              />
-            </div>
-          )}
-
-          <div style={styles.inputGroup}>
-            <label style={styles.label} htmlFor="email">Email Address *</label>
-            <input
-              style={styles.input}
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-
-          {!isLogin && (
-            <>
-              <div style={styles.inputGroup}>
-                <label style={styles.label} htmlFor="phone">Phone Number</label>
-                <input
-                  style={styles.input}
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="Enter your phone number"
-                />
-              </div>
-
-              <div style={styles.inputGroup}>
-                <label style={styles.label} htmlFor="company">Company</label>
-                <input
-                  style={styles.input}
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  placeholder="Enter your company name"
-                />
-              </div>
-            </>
-          )}
-
-          <div style={styles.inputGroup}>
-            <label style={styles.label} htmlFor="password">
-              Password {!isLogin && '(min. 6 characters)'} *
+        <form onSubmit={handleSubmit}>
+          <div style={{ marginBottom: '1rem' }}>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
+              Email
             </label>
             <input
-              style={styles.input}
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                border: '1px solid #d1d5db',
+                borderRadius: '6px',
+                fontSize: '1rem'
+              }}
               required
             />
           </div>
 
-          {!isLogin && (
-            <div style={styles.inputGroup}>
-              <label style={styles.label} htmlFor="confirmPassword">Confirm Password *</label>
-              <input
-                style={styles.input}
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                placeholder="Confirm your password"
-                required
-              />
-            </div>
-          )}
+          <div style={{ marginBottom: '1.5rem' }}>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
+              Password
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                border: '1px solid #d1d5db',
+                borderRadius: '6px',
+                fontSize: '1rem'
+              }}
+              required
+            />
+          </div>
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
+            disabled={loading}
             style={{
-              ...styles.submitButton,
-              ...(isSubmitting ? styles.submitButtonDisabled : {})
+              width: '100%',
+              background: loading ? '#9ca3af' : '#de800d',
+              color: 'white',
+              padding: '0.75rem',
+              border: 'none',
+              borderRadius: '6px',
+              fontSize: '1rem',
+              fontWeight: '500',
+              cursor: loading ? 'not-allowed' : 'pointer'
             }}
-            disabled={isSubmitting}
           >
-            {isSubmitting ? (
-              <>
-                <div style={styles.loadingSpinner}></div>
-                {isLogin ? 'Logging in...' : 'Registering...'}
-              </>
-            ) : (
-              isLogin ? 'Login to Portal' : 'Create Account'
-            )}
+            {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
 
-        <div style={{ ...styles.toggleText, marginTop: '1.5rem', fontSize: '0.8rem', color: '#9ca3af' }}>
-          {isLogin 
-            ? 'Forgot your password? Contact admin for assistance.' 
-            : 'By registering, you agree to our terms and conditions.'}
+        <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+          <p style={{ color: '#6b7280' }}>
+            Don't have an account?{' '}
+            <Link 
+              to="/client-register" 
+              style={{ color: '#de800d', textDecoration: 'none' }}
+            >
+              Register here
+            </Link>
+          </p>
         </div>
       </div>
     </div>

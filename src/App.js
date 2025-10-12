@@ -1,6 +1,6 @@
 // src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -12,13 +12,15 @@ import BlogPost from './pages/BlogPost';
 import Contact from './pages/Contact';
 import Quote from './pages/Quote';
 import Login from './pages/Login';
-import Messages from './pages/messages'; 
+import Messages from './pages/messages';
 import CookieConsent from './components/CookieConsent';
 import AdminQuotes from './pages/AdminQuotes';
 import AdminMessages from './pages/AdminMessages';
 import ClientLogin from './pages/ClientLogin';
 import ClientPortal from './pages/ClientPortal';
+import ClientRegister from './pages/ClientRegister';
 import AdminUsers from './pages/AdminUsers';
+import ProtectedRoute from './components/ProtectedRoute';
 
 // ✅ Define AdminLayout wrapper
 const AdminLayout = ({ children }) => (
@@ -32,7 +34,7 @@ const AdminLayout = ({ children }) => (
 const PublicLayout = () => (
   <>
     <Header />
-    <Outlet /> {/* This renders the child route components */}
+    <Outlet />
     <Footer />
   </>
 );
@@ -52,19 +54,66 @@ function App() {
             <Route path="/blog/post/:id" element={<BlogPost />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/quote" element={<Quote />} />
-            <Route path="/admin-quotes" element={<AdminQuotes />} />
-            <Route path="/admin-messages" element={<AdminMessages />} />
-            <Route path="/client-login" element={<ClientLogin />} />
-            <Route path="/client-portal" element={<ClientPortal />} />
-            <Route path="/admin-users" element={<AdminLayout><AdminUsers /></AdminLayout>} />
           </Route>
 
-          {/* Admin/Login routes without Header and Footer */}
+          {/* Authentication routes */}
           <Route path="/login" element={<Login />} />
-          <Route path="/messages" element={<Messages />} /> {/* Fixed */}
+          <Route path="/client-login" element={<ClientLogin />} />
+          <Route path="/client-register" element={<ClientRegister />} />
+
+          {/* Admin Protected Routes */}
+          <Route 
+            path="/admin-quotes" 
+            element={
+              <ProtectedRoute role="admin">
+                <AdminLayout>
+                  <AdminQuotes />
+                </AdminLayout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin-messages" 
+            element={
+              <ProtectedRoute role="admin">
+                <AdminLayout>
+                  <AdminMessages />
+                </AdminLayout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin-users" 
+            element={
+              <ProtectedRoute role="admin">
+                <AdminLayout>
+                  <AdminUsers />
+                </AdminLayout>
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Client Protected Route */}
+          <Route 
+            path="/client-portal" 
+            element={
+              <ProtectedRoute role="client">
+                <ClientPortal />
+              </ProtectedRoute>
+            } 
+          />
+
+          {/* Messages route */}
+          <Route path="/messages" element={<Messages />} />
+
+          {/* Redirect root to home */}
+          <Route path="/" element={<Navigate to="/" replace />} />
+          
+          {/* Fallback route */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
-      <CookieConsent /> {/* Add this at the root so it appears on all pages */}
+      <CookieConsent />
     </>
   );
 }
