@@ -544,6 +544,7 @@ function Services() {
       alignItems: 'center',
       marginTop: '1rem',
       gap: '1rem',
+      width: '100%',
     },
     viewMoreButton: {
       background: '#de800d',
@@ -560,8 +561,8 @@ function Services() {
       alignItems: 'center',
       justifyContent: 'center',
       gap: '0.5rem',
-      width: 'auto',
-      minWidth: '10px',
+      whiteSpace: 'nowrap',
+      flexShrink: 0,
     },
     requestServiceButton: {
       background: '#de800d',
@@ -578,8 +579,8 @@ function Services() {
       alignItems: 'center',
       justifyContent: 'center',
       gap: '0.5rem',
-      width: 'auto',
-      minWidth: '160px',
+      whiteSpace: 'nowrap',
+      flexShrink: 0,
     },
     heroSubtitle: {
       fontSize: isMobile ? '1.2rem' : '1.5rem',

@@ -64,7 +64,7 @@ function AdminQuotes() {
       margin: '4px 0 0 0'
     },
     refreshButton: {
-      backgroundColor: '#3b82f6',
+      backgroundColor: '#de800dff',
       color: 'white',
       border: 'none',
       padding: '10px 20px',
@@ -74,7 +74,7 @@ function AdminQuotes() {
       fontWeight: '500'
     },
     pdfButton: {
-      backgroundColor: '#dc2626',
+      backgroundColor: '#0a1d51ff',
       color: 'white',
       border: 'none',
       padding: '10px 20px',

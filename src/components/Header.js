@@ -131,10 +131,10 @@ function Header() {
       overflow: 'hidden',
     },
     activeNavLink: {
-      border: '2px solid #de800dff',   // border width and color
+      border: '2px solid #de800d',   // border width and color
       borderRadius: '20px',
-      background: '#f9f9f8ff',
-      color: '#0a1d51ff',
+      background: '#de800dff', // FIXED: Removed the extra # character
+      color: '#f9f9f8ff',
       // boxShadow: '0 4px 15px rgba(255, 140, 0, 0.3)',
     },
     hoveredNavLink: {
@@ -319,7 +319,7 @@ function Header() {
           <div style={styles.rightSection}>
             {/* Login Button - Desktop */}
             <Link
-              to="/login"
+              to="/client-login"
               style={{
                 textDecoration: 'none',
                 display: window.innerWidth >= 768 ? 'block' : 'none',
@@ -331,7 +331,7 @@ function Header() {
                 onMouseLeave={handleButtonLeave}
               >
                 {/* <span>⭐</span> */}
-                Login
+                Client Login
               </button>
             </Link>
 
@@ -373,8 +373,7 @@ function Header() {
                     ...styles.mobileNavLink,
                     ...(location.pathname === item.path
                       ? {
-                          background:
-                            'linear-gradient(135deg, #de800dff, )',
+                          background: '#de800dff', // FIXED: Changed from gradient to solid color
                           color: 'white',
                         }
                       : {}),
@@ -407,37 +406,36 @@ function Header() {
             {/* Login Button - Mobile */}
             <li>
               <Link
-                to="/login"
+                to="/client-login"
                 style={{
                   ...styles.mobileNavLink,
-                  ...(location.pathname === '/login'
+                  ...(location.pathname === '/client-login'
                     ? {
-                        background:
-                          'linear-gradient(135deg, #e58511ff, )',
+                        background: '#de800dff', // FIXED: Changed from gradient to solid color
                         color: 'white',
                       }
                     : {}),
                 }}
                 onClick={() => setIsMobileMenuOpen(false)}
                 onMouseEnter={(e) => {
-                  if (location.pathname !== '/login') {
+                  if (location.pathname !== '/client-login') {
                     e.target.style.background =
                       'linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(30, 58, 138, 0.1))';
                     e.target.style.transform = 'translateX(5px)';
                   }
                 }}
                 onMouseLeave={(e) => {
-                  if (location.pathname !== '/login') {
+                  if (location.pathname !== '/client-login') {
                     e.target.style.background = 'rgba(255, 255, 255, 0.5)';
                     e.target.style.transform = 'translateX(0)';
                   }
                 }}
               >
                 <span style={{ fontSize: '1rem' }}>⭐</span>
-                Login
-                {location.pathname === '/login' && (
+                client-login
+                {location.pathname === '/client-login' && (
                   <span style={{ marginLeft: 'auto', fontSize: '0.7rem' }}>
-                    ●
+                    ● 
                   </span>
                 )}
               </Link>

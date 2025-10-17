@@ -10,6 +10,7 @@ function Blog() {
   const [searchQuery, setSearchQuery] = useState('');
   const [email, setEmail] = useState('');
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [subscribeStatus, setSubscribeStatus] = useState(''); // 'success', 'error', ''
 
   useEffect(() => {
     setIsVisible(true);
@@ -164,6 +165,26 @@ function Blog() {
     return matchesCategory && matchesSearch;
   });
 
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setSubscribeStatus('error');
+      return;
+    }
+    
+    // Simulate successful subscription
+    setSubscribeStatus('success');
+    setEmail('');
+    
+    // Clear success message after 5 seconds
+    setTimeout(() => {
+      setSubscribeStatus('');
+    }, 5000);
+  };
+
   const styles = {
     container: {
       minHeight: '100vh',
@@ -272,22 +293,22 @@ function Blog() {
     searchSection: {
       background: '#f1eee5',
       borderRadius: '15px',
-      padding: '3rem 1.5rem',
+      padding: '2rem 1rem',
       margin: '1rem auto',
       maxWidth: '1200px',
       border: '1px solid #de800d',
     },
     searchContainer: {
       maxWidth: '700px',
-      margin: '0 auto 2rem',
+      margin: '0 auto 1.5rem',
       position: 'relative',
     },
     searchInput: {
       width: '100%',
-      padding: '0.8rem 1.2rem',
+      padding: '0.7rem 1rem',
       borderRadius: '20px',
       border: '1px solid #de800d',
-      fontSize: '0.95rem',
+      fontSize: '0.9rem',
       background: '#f1eee5',
       color: '#0a1d51',
       outline: 'none',
@@ -304,39 +325,40 @@ function Blog() {
     categoriesContainer: {
       display: 'flex',
       flexWrap: 'wrap',
-      gap: '0.8rem',
+      gap: '0.6rem',
       justifyContent: 'center',
+      marginBottom: '1.5rem',
     },
     categoryButton: {
       background: '#f1eee5',
       color: '#0a1d51',
-      padding: '0.6rem 1.2rem',
-      borderRadius: '15px',
+      padding: '0.5rem 1rem',
+      borderRadius: '12px',
       border: '1px solid #de800d',
-      fontSize: '0.95rem',
+      fontSize: '0.85rem',
       fontWeight: '500',
       cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
-      gap: '0.5rem',
+      gap: '0.4rem',
       transition: 'all 0.3s ease',
     },
     categoryCount: {
       background: '#de800d',
       color: 'white',
-      padding: '0.2rem 0.6rem',
-      borderRadius: '12px',
-      fontSize: '0.85rem',
+      padding: '0.15rem 0.5rem',
+      borderRadius: '10px',
+      fontSize: '0.75rem',
     },
     articlesGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-      gap: '1.5rem',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(300px, 1fr))',
+      gap: '1rem',
     },
     articleCard: {
       background: '#f1eee5',
-      borderRadius: '15px',
-      padding: '1.5rem',
+      borderRadius: '12px',
+      padding: '1rem',
       border: '1px solid #de800d',
       transition: 'all 0.3s ease',
       display: 'flex',
@@ -345,36 +367,37 @@ function Blog() {
     },
     articleImage: {
       width: '100%',
-      height: '200px',
+      height: '140px',
       objectFit: 'cover',
-      borderRadius: '10px',
-      marginBottom: '1rem',
+      borderRadius: '8px',
+      marginBottom: '0.8rem',
     },
     articleMeta: {
       display: 'flex',
-      gap: '0.5rem',
-      marginBottom: '0.8rem',
+      gap: '0.4rem',
+      marginBottom: '0.6rem',
       flexWrap: 'wrap',
     },
     metaBadge: {
       background: '#de800d',
       color: 'white',
-      padding: '0.4rem 0.8rem',
-      borderRadius: '12px',
-      fontSize: '0.85rem',
+      padding: '0.3rem 0.6rem',
+      borderRadius: '10px',
+      fontSize: '0.75rem',
     },
     articleTitle: {
-      fontSize: '1.3rem',
+      fontSize: '1rem',
       fontWeight: '600',
       color: '#0a1d51',
-      marginBottom: '0.8rem',
+      marginBottom: '0.6rem',
       flexGrow: 1,
+      lineHeight: '1.3',
     },
     articleDescription: {
       color: '#0a1d51',
-      lineHeight: '1.5',
-      marginBottom: '1rem',
-      fontSize: '0.95rem',
+      lineHeight: '1.4',
+      marginBottom: '0.8rem',
+      fontSize: '0.85rem',
       flexGrow: 1,
     },
     articleFooter: {
@@ -384,16 +407,16 @@ function Blog() {
       marginTop: 'auto',
     },
     articleDate: {
-      fontSize: '0.85rem',
+      fontSize: '0.75rem',
       color: '#de800d',
     },
     readMoreButton: {
       background: '#de800d',
       color: 'white',
-      padding: '0.8rem 1.5rem',
-      borderRadius: '15px',
+      padding: '0.5rem 1rem',
+      borderRadius: '12px',
       border: 'none',
-      fontSize: '0.95rem',
+      fontSize: '0.8rem',
       fontWeight: '500',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
@@ -402,7 +425,7 @@ function Blog() {
     },
     noResults: {
       textAlign: 'center',
-      padding: '3rem',
+      padding: '2rem',
       background: '#f1eee5',
       borderRadius: '15px',
       border: '1px solid #de800d',
@@ -410,37 +433,39 @@ function Blog() {
     newsletterSection: {
       background: '#f1eee5',
       borderRadius: '15px',
-      padding: '3rem 1.5rem',
+      padding: '2rem 1rem',
       margin: '1rem auto',
       maxWidth: '1200px',
       border: '1px solid #de800d',
     },
     newsletterTitle: {
-      fontSize: '2rem',
+      fontSize: isMobile ? '1.5rem' : '1.8rem',
       fontWeight: '700',
       color: '#0a1d51',
-      marginBottom: '1rem',
+      marginBottom: '0.8rem',
+      textAlign: 'center',
     },
     newsletterDescription: {
-      fontSize: '1rem',
+      fontSize: '0.9rem',
       color: '#0a1d51',
-      marginBottom: '1.5rem',
+      marginBottom: '1.2rem',
       maxWidth: '700px',
-      margin: '0 auto 1.5rem',
+      margin: '0 auto 1.2rem',
+      textAlign: 'center',
     },
     newsletterForm: {
       display: 'flex',
-      maxWidth: '600px',
+      maxWidth: '500px',
       margin: '0 auto',
-      gap: '0.8rem',
+      gap: '0.6rem',
       flexDirection: isMobile ? 'column' : 'row',
     },
     emailInput: {
       flex: 1,
-      padding: '0.8rem 1.2rem',
-      borderRadius: '15px',
+      padding: '0.6rem 1rem',
+      borderRadius: '12px',
       border: '1px solid #de800d',
-      fontSize: '0.95rem',
+      fontSize: '0.85rem',
       background: '#f1eee5',
       color: '#0a1d51',
       outline: 'none',
@@ -448,49 +473,64 @@ function Blog() {
     subscribeButton: {
       background: '#de800d',
       color: 'white',
-      padding: '0.8rem 1.5rem',
-      borderRadius: '15px',
+      padding: '0.6rem 1.2rem',
+      borderRadius: '12px',
       border: 'none',
-      fontSize: '0.95rem',
+      fontSize: '0.85rem',
       fontWeight: '500',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
     },
+    successMessage: {
+      color: '#10b981',
+      fontSize: '0.9rem',
+      textAlign: 'center',
+      margin: '1rem 0',
+      fontWeight: '500',
+    },
+    errorMessage: {
+      color: '#ef4444',
+      fontSize: '0.9rem',
+      textAlign: 'center',
+      margin: '1rem 0',
+      fontWeight: '500',
+    },
     newsletterNote: {
-      fontSize: '0.85rem',
+      fontSize: '0.75rem',
       color: '#0a1d51',
-      marginTop: '1rem',
+      marginTop: '0.8rem',
+      textAlign: 'center',
     },
     popularTopicsSection: {
       background: '#f1eee5',
       borderRadius: '15px',
-      padding: '3rem 1.5rem',
+      padding: '2rem 1rem',
       margin: '1rem auto',
       maxWidth: '1200px',
       border: '1px solid #de800d',
     },
     topicsGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-      gap: '1rem',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+      gap: '0.8rem',
     },
     topicCard: {
       background: '#f1eee5',
-      borderRadius: '12px',
-      padding: '1.5rem',
+      borderRadius: '10px',
+      padding: '1rem',
       border: '1px solid #de800d',
       textAlign: 'center',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
     },
     topicName: {
-      fontSize: '1rem',
+      fontSize: '0.9rem',
       fontWeight: '600',
       color: '#0a1d51',
-      marginBottom: '0.5rem',
+      marginBottom: '0.4rem',
     },
     topicCount: {
-      fontSize: '0.85rem',
+      fontSize: '0.75rem',
       color: '#de800d',
     },
   };
@@ -509,11 +549,6 @@ function Blog() {
 
   const handleCategoryClick = (category) => {
     setActiveCategory(category);
-  };
-
-  const handleSubscribe = () => {
-    alert('Subscribed successfully!');
-    setEmail('');
   };
 
   const handleButtonHover = (e) => {
@@ -580,7 +615,7 @@ function Blog() {
       <section style={styles.searchSection}>
         <h2 style={{
           ...styles.newsletterTitle,
-          fontSize: isMobile ? '2.5rem' : '3rem',
+          fontSize: isMobile ? '1.8rem' : '2.2rem',
           color: '#de800d',
           textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
           textAlign: 'center'
@@ -688,23 +723,38 @@ function Blog() {
         <p style={styles.newsletterDescription}>
           Subscribe to our newsletter for the latest articles, industry insights, and language tips delivered to your inbox.
         </p>
-        <div style={styles.newsletterForm}>
+        
+        <form onSubmit={handleSubscribe} style={styles.newsletterForm}>
           <input
             type="email"
             placeholder="Enter your email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             style={styles.emailInput}
+            required
           />
           <button
-            onClick={handleSubscribe}
+            type="submit"
             style={styles.subscribeButton}
             onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
             onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
           >
             Subscribe
           </button>
-        </div>
+        </form>
+
+        {subscribeStatus === 'success' && (
+          <div style={styles.successMessage}>
+            ✅ Successfully subscribed! Thank you for joining our newsletter.
+          </div>
+        )}
+
+        {subscribeStatus === 'error' && (
+          <div style={styles.errorMessage}>
+            ❌ Please enter a valid email address.
+          </div>
+        )}
+
         <p style={styles.newsletterNote}>
           No spam, unsubscribe at any time.
         </p>

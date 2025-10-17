@@ -6,7 +6,7 @@ import visaCard from '../assets/visa card.png';
 import masterCard from '../assets/master card.png';
 import airtelMoney from '../assets/airtel.jpg';
 import whatsappIcon from '../assets/whatsapp-icon.png';
-import phoneCallIcon from '../assets/phone-call.jpg';
+import phoneCallIcon from '../assets/phone-icon.png';
 import emailIcon from '../assets/email-icon.jpg';
 
 function Contact() {
@@ -420,7 +420,7 @@ function Contact() {
       fontSize: '0.95rem',
     },
     quickActionButton: {
-      background: '#10b981',
+      background: '#de800d',
       color: 'white',
       padding: '0.6rem 1.2rem',
       borderRadius: '12px',
@@ -539,32 +539,52 @@ function Contact() {
     recaptchaContainer: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
       background: '#f9f9f9',
       border: '1px solid #ddd',
       borderRadius: '4px',
-      padding: '1rem',
+      padding: '12px',
       margin: '1.5rem 0',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
+      maxWidth: '300px',
     },
-    recaptchaCheckbox: {
-      width: '18px',
-      height: '18px',
-      marginRight: '10px',
-      cursor: 'pointer',
+    customCheckbox: {
+      width: '20px',
+      height: '20px',
+      border: '2px solid #ccc',
+      borderRadius: '2px',
+      marginRight: '12px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      transition: 'all 0.2s ease',
+      flexShrink: 0,
+    },
+    checkmark: {
+      width: '16px',
+      height: '16px',
     },
     recaptchaText: {
       fontSize: '14px',
       color: '#333',
+      fontWeight: '500',
+      lineHeight: '1.4',
     },
     recaptchaFooter: {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginTop: '8px',
+      marginTop: '4px',
       fontSize: '10px',
       color: '#555',
+    },
+    recaptchaBrand: {
+      color: '#555',
+      fontWeight: '500',
+    },
+    recaptchaLinks: {
+      color: '#1a73e8',
+      cursor: 'pointer',
     },
     termsText: {
       fontSize: '12px',
@@ -602,18 +622,33 @@ function Contact() {
 
   const handleWhatsAppButtonLeave = (e) => {
     e.target.style.transform = 'scale(1)';
-    e.target.style.backgroundColor = '#de800d';
+    e.target.style.backgroundColor = '#f1eee5';
     e.target.style.color = '#0a1d51';
   };
 
   const handleSubmitButtonHover = (e) => {
     if (!isSubmitting) {
       e.target.style.transform = 'scale(1.05)';
+      e.target.style.background = '#e5944a';
     }
   };
 
   const handleSubmitButtonLeave = (e) => {
     e.target.style.transform = 'scale(1)';
+    e.target.style.background = isSubmitting ? '#9ca3af' : '#de800d';
+  };
+
+  // New hover handlers for quick action buttons to keep them green
+  const handleQuickActionButtonHover = (e) => {
+    e.target.style.transform = 'scale(1.05)';
+    e.target.style.background = '#de800d';
+    e.target.style.color = 'white';
+  };
+
+  const handleQuickActionButtonLeave = (e) => {
+    e.target.style.transform = 'scale(1)';
+    e.target.style.background = '#de800d';
+    e.target.style.color = 'white';
   };
 
   const handleRecaptchaClick = () => {
@@ -778,7 +813,7 @@ function Contact() {
               ></textarea>
             </div>
 
-            {/* reCAPTCHA Section */}
+            {/* Updated reCAPTCHA Section */}
             <div 
               style={{
                 ...styles.recaptchaContainer,
@@ -787,34 +822,28 @@ function Contact() {
               }}
               onClick={handleRecaptchaClick}
             >
-              <input
-                type="checkbox"
-                checked={isRobotChecked}
-                onChange={handleRecaptchaClick}
-                style={styles.recaptchaCheckbox}
-                disabled={isSubmitting}
-              />
+              <div style={{
+                ...styles.customCheckbox,
+                backgroundColor: isRobotChecked ? '#4285f4' : '#fff',
+                borderColor: isRobotChecked ? '#4285f4' : '#ccc'
+              }}>
+                {isRobotChecked && (
+                  <svg style={styles.checkmark} viewBox="0 0 24 24">
+                    <path fill="white" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                  </svg>
+                )}
+              </div>
               <div style={styles.recaptchaText}>
                 I'm not a robot
                 <div style={styles.recaptchaFooter}>
-                  <span>reCAPTCHA</span>
-                  <span>Privacy - Terms</span>
+                  <span style={styles.recaptchaBrand}>reCAPTCHA</span>
+                  <span style={styles.recaptchaLinks}>Privacy - Terms</span>
                 </div>
               </div>
             </div>
 
             {error && <div style={styles.errorMessage}>{error}</div>}
             {success && <div style={styles.successMessage}>{success}</div>}
-
-            <div style={{background: '#f1eee5', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', border: '1px solid #de800d'}}>
-              <h4 style={{color: '#0a1d51', marginBottom: '0.8rem', fontSize: '0.95rem'}}>💡 Tips for Faster Quotes:</h4>
-              <ul style={{color: '#0a1d51', lineHeight: '1.5', paddingLeft: '1rem', fontSize: '0.9rem'}}>
-                <li>Mention source and target languages</li>
-                <li>Include document type and estimated word count</li>
-                <li>Specify your desired delivery date</li>
-                <li>Note any special requirements or formatting needs</li>
-              </ul>
-            </div>
 
             <button 
               type="submit" 
@@ -866,8 +895,8 @@ function Contact() {
               <a href={action.link} target="_blank" rel="noopener noreferrer">
                 <button 
                   style={styles.quickActionButton}
-                  onMouseEnter={handleButtonHover}
-                  onMouseLeave={handleButtonLeave}
+                  onMouseEnter={handleQuickActionButtonHover}
+                  onMouseLeave={handleQuickActionButtonLeave}
                 >
                   {action.action}
                 </button>
@@ -916,8 +945,8 @@ function Contact() {
                 ...styles.ctaButton,
                 marginTop: '1.5rem',
               }}
-              onMouseEnter={handleButtonHover}
-              onMouseLeave={handleButtonLeave}
+              onMouseEnter={handleSubmitButtonHover}
+              onMouseLeave={handleSubmitButtonLeave}
             >
               Access Client Portal
             </button>
@@ -997,8 +1026,8 @@ function Contact() {
             <a href="/quote" rel="noopener noreferrer">
               <button 
                 style={styles.ctaButton}
-                onMouseEnter={handleButtonHover}
-                onMouseLeave={handleButtonLeave}
+                onMouseEnter={handleSubmitButtonHover}
+                onMouseLeave={handleSubmitButtonLeave}
               >
                 Get Free Quote Now
               </button>

@@ -39,7 +39,8 @@ function Quote() {
     { id: 9, value: 'back-translation', label: 'Back-Translation & Quality Assurance', description: 'Submit drafts for back-translation validation, especially for medical, legal, and donor-funded work requiring highest accuracy standards.' },
     { id: 10, value: 'ai-translation', label: 'AI Translation Services', description: 'Request AI-powered translation with human post-editing for large volumes, rapid turnaround, and specialized African language pairs.' },
     { id: 11, value: 'social-media', label: 'Social Media Marketing', description: 'Request multilingual social media marketing services for campaigns, content creation, community management across all major platforms.' },
-    { id: 12, value: 'content-creation', label: 'Content Creation', description: 'Request original content creation: blog articles, video scripts, SEO web content, newsletters, and visual storytelling in multiple languages.' }
+    { id: 12, value: 'content-creation', label: 'Content Creation', description: 'Request original content creation: blog articles, video scripts, SEO web content, newsletters, and visual storytelling in multiple languages.' },
+    { id: 13, value: 'Any Other Document', label: 'Any Other Document', description: 'Request original Any othe document: we did not mention ' }
   ];
 
   const serviceSubTypesMap = {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import heroImage from '../assets/Who-We-Are.png';
 import whatsappIcon from '../assets/whatsapp-icon.png';
-import culturalHubImage from '../assets/culture-expert-removebg-preview.png'; // Add this import
+import culturalHubImage from '../assets/culture-expert-removebg-preview.png';
 import englishFlag from '../assets/uk flag.png';
 import americaFlag from '../assets/america flag.png';
 import frenchFlag from '../assets/french.jpg';
@@ -71,7 +71,7 @@ function About() {
     {
       title: "Cultural Expertise Hub",
       description: "A hub for cultural and linguistic insight, promoting inclusive communication that respects and celebrates diversity.",
-      image: culturalHubImage // Replaced icon with image
+      image: culturalHubImage
     }
   ];
 
@@ -341,7 +341,7 @@ function About() {
     },
     strengthsList: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+      gridTemplateColumns: isMobile ? 'repeat(1, 1fr)' : 'repeat(3, 1fr)',
       gap: '1rem',
       marginTop: '1.5rem',
     },

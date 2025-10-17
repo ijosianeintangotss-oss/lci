@@ -287,7 +287,7 @@ function Training() {
     },
     servicesGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
       gap: '1.5rem',
       marginBottom: '2rem',
     },
@@ -300,6 +300,10 @@ function Training() {
       transition: 'all 0.3s ease',
       boxShadow: '0 5px 15px rgba(255, 140, 0, 0.1)',
       position: 'relative',
+      minHeight: '250px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
     },
     serviceHeader: {
       marginBottom: '1rem',
@@ -331,6 +335,7 @@ function Training() {
       alignItems: 'center',
       marginTop: '1rem',
       gap: '1rem',
+      width: '100%',
     },
     viewMoreButton: {
       background: '#de800d',
@@ -348,7 +353,8 @@ function Training() {
       justifyContent: 'center',
       gap: '0.5rem',
       width: 'auto',
-      minWidth: '10px',
+      minWidth: '120px',
+      whiteSpace: 'nowrap',
     },
     featuresSection: {
       marginBottom: '1rem',
@@ -578,19 +584,20 @@ function Training() {
   };
 
   const handleViewMoreHover = (e) => {
-    e.target.style.textDecoration = 'none';
-    e.target.style.color = '#ffffffff';
-    e.target.style.background = '#de800d';
+    e.target.style.transform = 'scale(1.05)';
+    e.target.style.background = '#0a1d51';
+    e.target.style.color = 'white';
   };
 
   const handleViewMoreLeave = (e) => {
-    e.target.style.color = '#ffffffff';
+    e.target.style.transform = 'scale(1)';
     e.target.style.background = '#de800d';
+    e.target.style.color = '#f1eee5';
   };
 
   const handleWhatsAppButtonLeave = (e) => {
     e.target.style.transform = 'scale(1)';
-    e.target.style.backgroundColor = '#de800d';
+    e.target.style.backgroundColor = '#f1eee5';
     e.target.style.color = '#0a1d51';
   };
 
@@ -764,7 +771,7 @@ function Training() {
             <ul style={styles.requirementsList}>
               {programRequirements.map((requirement, index) => (
                 <li key={index} style={styles.requirementItem}>
-                  <span style={{ color: '#de800d', fontSize: '1.2rem' }}>•</span>
+                  <span style={{ color: '#de800d', fontSize: '1.2rem' }}>✓</span>
                   <span>{requirement}</span>
                 </li>
               ))}
@@ -827,7 +834,6 @@ function Training() {
           >
             <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               Learn More 
-              {/* <img src={whatsappIcon} alt="WhatsApp" style={{ width: '18px', height: '18px' }} /> */}
             </span>
           </a>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import ReCAPTCHA from 'react-google-recaptcha';
 import mobileMoney from '../assets/mobile money.png';
 import airtelMoney from '../assets/airtel-removebg-preview.png';
 // import visaCard from '../assets/visa card.png';
@@ -26,6 +27,9 @@ function Home() {
   const [message, setMessage] = useState('');
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [selectedTestimonial, setSelectedTestimonial] = useState(0);
+  const [captchaValue, setCaptchaValue] = useState(null);
+
+  const SITE_KEY = "6LcN1OwrAAAAABMx4cc7NV1iJebBn8GGsg83mS74";
 
   useEffect(() => {
     setIsVisible(true);
@@ -564,16 +568,6 @@ function Home() {
       marginRight: '1rem',
       color: '#0a1d51',
     },
-    checkbox: {
-      marginRight: '0.5rem',
-      verticalAlign: 'middle',
-    },
-    reCaptcha: {
-      display: 'inline-flex',
-      alignItems: 'center',
-      marginLeft: '0.5rem',
-      verticalAlign: 'middle',
-    },
     submitButton: {
       background: '#de800d',
       color: 'white',
@@ -585,6 +579,7 @@ function Home() {
       cursor: 'pointer',
       boxShadow: '0 5px 15px rgba(255, 98, 0, 0.2)',
       transition: 'all 0.3s ease',
+      marginTop: '1rem',
     },
     privacyTerms: {
       fontSize: '0.8rem',
@@ -596,6 +591,11 @@ function Home() {
       color: '#10b981',
       fontWeight: '500',
       fontSize: '0.95rem',
+    },
+    recaptchaContainer: {
+      marginTop: '1rem',
+      display: 'flex',
+      justifyContent: 'center',
     },
   };
 
@@ -620,12 +620,25 @@ function Home() {
     setMessage('');
   };
 
+  const handleCaptchaChange = (value) => {
+    console.log("Captcha value:", value);
+    setCaptchaValue(value);
+  };
+
   const handleSubscribe = (e) => {
     e.preventDefault();
+    
+    if (!captchaValue) {
+      setMessage("Please verify that you are not a robot.");
+      return;
+    }
+
     if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       console.log('Subscribed with email:', email);
+      console.log('Captcha token:', captchaValue);
       setMessage('Thank you for subscribing!');
       setEmail('');
+      setCaptchaValue(null);
     } else {
       setMessage('Please enter a valid email address.');
     }
@@ -853,27 +866,24 @@ function Home() {
 
       <section style={styles.subscribeSection}>
         <h2 style={styles.sectionTitle}>Stay updated</h2>
-        {/* <p style={styles.sectionSubtitle}>Stay updated with the latest news and offers.</p> */}
         <form onSubmit={handleSubscribe} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-            <input
-              type="email"
-              value={email}
-              onChange={handleEmailChange}
-              placeholder="Enter your email"
-              style={styles.subscribeInput}
-              required
+          <input
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+            placeholder="Enter your email"
+            style={styles.subscribeInput}
+            required
+          />
+
+          {/* ✅ Google reCAPTCHA */}
+          <div style={styles.recaptchaContainer}>
+            <ReCAPTCHA 
+              sitekey={SITE_KEY} 
+              onChange={handleCaptchaChange} 
             />
-            <label style={{ display: 'flex', alignItems: 'center', marginLeft: '1rem' }}>
-              <input
-                type="checkbox"
-                style={styles.checkbox}
-              /> I'm not a robot
-            </label>
-            <div style={styles.reCaptcha}>
-              reCAPTCHA &nbsp;&nbsp;&nbsp; <span style={{ color: '#4285f4' }}>Privacy - Terms</span>
-            </div>
           </div>
+
           <button
             type="submit"
             style={styles.submitButton}
@@ -882,7 +892,7 @@ function Home() {
               e.target.style.transform = 'scale(1.05)';
             }}
             onMouseLeave={(e) => {
-              e.target.style.background = '#ff6200';
+              e.target.style.background = '#de800d';
               e.target.style.transform = 'scale(1)';
             }}
           >
@@ -892,6 +902,7 @@ function Home() {
         {message && <p style={styles.message}>{message}</p>}
         <p style={styles.privacyTerms}>By submitting this form, you agree to the privacy policy and terms of this website.</p>
       </section>
+    
     </div>
   );
 }

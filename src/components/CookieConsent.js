@@ -26,6 +26,7 @@ function CookieConsent() {
         <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy policy</a>
       </p>
       <button style={{marginRight: 8, background: '#0a1a3c', color: '#fff', border: 'none', borderRadius: 6, padding: '8px 24px'}} onClick={() => handleConsent('accepted')}>Accept</button>
+      <button style={{marginRight: 8, background: '#0a1a3c', color: '#fff', border: 'none', borderRadius: 6, padding: '8px 24px'}} onClick={() => handleConsent('preferred')}>Preferred</button>
       <button style={{background: '#fff', color: '#0a1a3c', border: '1px solid #0a1a3c', borderRadius: 6, padding: '8px 24px'}} onClick={() => handleConsent('rejected')}>Reject all</button>
     </div>
   );
