@@ -139,7 +139,7 @@ function Contact() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('https://lci-api.onrender.com/api/messages', {
+      const response = await fetch('https://lci-backend.onrender.com/api/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -598,6 +598,67 @@ function Contact() {
       textDecoration: 'underline',
       cursor: 'pointer',
     },
+    // New FAQ Styles to match the image
+    faqHeader: {
+      textAlign: 'center',
+      marginBottom: '3rem',
+    },
+    faqMainTitle: {
+      fontSize: isMobile ? '2.5rem' : '3rem',
+      fontWeight: '700',
+      color: '#0a1d51',
+      marginBottom: '1rem',
+      textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
+    },
+    faqSubtitle: {
+      fontSize: '1.2rem',
+      color: '#0a1d51',
+      marginBottom: '2rem',
+      maxWidth: '800px',
+      margin: '0 auto',
+      lineHeight: '1.6',
+    },
+    faqContainer: {
+      maxWidth: '1000px',
+      margin: '0 auto',
+    },
+    faqItemNew: {
+      background: '#ffffff',
+      borderRadius: '12px',
+      padding: '2rem',
+      marginBottom: '1.5rem',
+      border: '2px solid #de800d',
+      boxShadow: '0 8px 25px rgba(222, 128, 13, 0.15)',
+      transition: 'all 0.3s ease',
+    },
+    faqQuestionNew: {
+      fontSize: '1.3rem',
+      fontWeight: '700',
+      color: '#0a1d51',
+      marginBottom: '1rem',
+      display: 'flex',
+      alignItems: 'flex-start',
+      gap: '1rem',
+    },
+    faqNumber: {
+      background: '#de800d',
+      color: 'white',
+      width: '32px',
+      height: '32px',
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: '1rem',
+      fontWeight: '600',
+      flexShrink: 0,
+    },
+    faqAnswerNew: {
+      color: '#0a1d51',
+      lineHeight: '1.7',
+      fontSize: '1rem',
+      paddingLeft: '3rem',
+    },
   };
 
   const handleMouseEnter = (index) => {
@@ -954,17 +1015,31 @@ function Contact() {
         </div>
       </section>
 
+      {/* Updated FAQ Section */}
       <section style={styles.section}>
         <div style={styles.faqSection}>
-          <h2 style={styles.sectionTitle}>Frequently Asked Questions</h2>
-          <p style={styles.sectionSubtitle}>
-            Get quick answers to the most common questions about our services.
-          </p>
-          <div style={styles.faqGrid}>
+          <div style={styles.faqHeader}>
+            <h2 style={styles.faqMainTitle}>Frequently Asked Questions</h2>
+            <p style={styles.faqSubtitle}>
+              Get quick answers to the most common questions about our services.
+            </p>
+          </div>
+          <div style={styles.faqContainer}>
             {faqs.map((faq, index) => (
-              <div key={index} style={styles.faqItem}>
-                <h3 style={styles.faqQuestion}>❓ {faq.question}</h3>
-                <p style={styles.faqAnswer}>{faq.answer}</p>
+              <div 
+                key={index} 
+                style={{
+                  ...styles.faqItemNew,
+                  transform: hoveredCard === `faq-${index}` ? 'translateY(-5px)' : 'translateY(0)',
+                }}
+                onMouseEnter={() => handleMouseEnter(`faq-${index}`)}
+                onMouseLeave={handleMouseLeave}
+              >
+                <div style={styles.faqQuestionNew}>
+                  <div style={styles.faqNumber}>{index + 1}</div>
+                  <div>{faq.question}</div>
+                </div>
+                <p style={styles.faqAnswerNew}>{faq.answer}</p>
               </div>
             ))}
           </div>

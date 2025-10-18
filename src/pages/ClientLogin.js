@@ -15,7 +15,7 @@ function ClientLogin() {
     setError('');
 
     try {
-      const response = await fetch('https://lci-api.onrender.com/api/auth/client-login', {
+      const response = await fetch('https://lci-backend.onrender.com/api/auth/client-login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

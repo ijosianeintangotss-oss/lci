@@ -579,7 +579,7 @@ function AdminTranslationDashboard() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('https://lci-api.onrender.com/api/quotes');
+      const response = await fetch('https://lci-backend.onrender.com/api/quotes');
       if (!response.ok) {
         throw new Error('Failed to fetch quotes');
       }
@@ -608,7 +608,7 @@ function AdminTranslationDashboard() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('https://lci-api.onrender.com/api/messages');
+      const response = await fetch('https://lci-backend.onrender.com/api/messages');
       if (!response.ok) {
         throw new Error(`Failed to fetch messages: ${response.status} ${response.statusText}`);
       }
@@ -645,7 +645,7 @@ function AdminTranslationDashboard() {
     try {
       // url link to check push status update
       const response = await fetch(
-        `https://lci-api.onrender.com/api/quotes/${id}/status`,
+        `https://lci-backend.onrender.com/api/quotes/${id}/status`,
         {
           method: 'PUT',
           headers: {

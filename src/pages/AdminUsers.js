@@ -12,7 +12,7 @@ function AdminUsers() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await fetch('https://lci-api.onrender.com/api/users');
+      const response = await fetch('https://lci-backend.onrender.com/api/users');
       
       if (!response.ok) {
         throw new Error('Failed to fetch users');

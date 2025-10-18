@@ -367,7 +367,7 @@ function AdminMessages() {
         return;
       }
 
-      const response = await fetch('https://lci-api.onrender.com/api/messages', {
+      const response = await fetch('https://lci-backend.onrender.com/api/messages', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -465,7 +465,7 @@ function AdminMessages() {
         }
       }
 
-      const response = await fetch(`https://lci-api.onrender.com/api/messages/${selectedMessage.id}/reply`, {
+      const response = await fetch(`https://lci-backend.onrender.com/api/messages/${selectedMessage.id}/reply`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`

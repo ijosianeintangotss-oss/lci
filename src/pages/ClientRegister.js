@@ -255,7 +255,7 @@ const ClientRegister = () => {
     setApiError('');
 
     try {
-      const response = await fetch('https://lci-api.onrender.com/api/auth/client-register', {
+      const response = await fetch('https://lci-backend.onrender.com/api/auth/client-register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

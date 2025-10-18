@@ -40,7 +40,8 @@ function Quote() {
     { id: 10, value: 'ai-translation', label: 'AI Translation Services', description: 'Request AI-powered translation with human post-editing for large volumes, rapid turnaround, and specialized African language pairs.' },
     { id: 11, value: 'social-media', label: 'Social Media Marketing', description: 'Request multilingual social media marketing services for campaigns, content creation, community management across all major platforms.' },
     { id: 12, value: 'content-creation', label: 'Content Creation', description: 'Request original content creation: blog articles, video scripts, SEO web content, newsletters, and visual storytelling in multiple languages.' },
-    { id: 13, value: 'Any Other Document', label: 'Any Other Document', description: 'Request original Any othe document: we did not mention ' }
+    { id: 13, value: 'interpretation', label: 'Interpretation Services', description: 'Professional interpretation services for meetings, conferences, legal proceedings, and events in multiple languages.' },
+    { id: 14, value: 'any-other-document', label: 'Any Other Document', description: 'Request translation or localization for documents not covered by other categories. We handle various file types and formats.' }
   ];
 
   const serviceSubTypesMap = {
@@ -50,6 +51,13 @@ function Quote() {
       { value: 'legal-interpreting', label: 'Legal Proceedings Interpreting' },
       { value: 'field-interviews', label: 'Field Interviews Interpreting' },
       { value: 'ngo-outreach', label: 'NGO/Community Outreach Interpreting' }
+    ],
+    interpretation: [
+      { value: 'conference-interpreting', label: 'Conference Interpreting' },
+      { value: 'legal-interpreting', label: 'Legal Proceedings Interpreting' },
+      { value: 'medical-interpreting', label: 'Medical Interpreting' },
+      { value: 'business-meetings', label: 'Business Meetings Interpreting' },
+      { value: 'community-events', label: 'Community Events Interpreting' }
     ],
     localization: [
       { value: 'cms-files', label: 'CMS Files Localization' },
@@ -127,6 +135,13 @@ function Quote() {
       { value: 'seo-content', label: 'SEO Web Content' },
       { value: 'newsletters', label: 'Newsletters' },
       { value: 'visual-storytelling', label: 'Visual Storytelling' }
+    ],
+    'any-other-document': [
+      { value: 'general-documents', label: 'General Documents' },
+      { value: 'specialized-documents', label: 'Specialized Documents' },
+      { value: 'creative-content', label: 'Creative Content' },
+      { value: 'technical-documents', label: 'Technical Documents' },
+      { value: 'personal-documents', label: 'Personal Documents' }
     ]
   };
 
@@ -146,18 +161,20 @@ function Quote() {
 
   // Service pricing information
   const servicePricing = {
-    translation: "USD25/250 words or its current equivalent in Rwandan currency",
-    proofreading: "USD15/250 words or its current equivalent in Rwandan currency",
-    mtpe: "USD15/250 words or its current equivalent in Rwandan currency or negotiable based on the raw quality",
-    'cv-support': "USD70 words or its current equivalent in Rwandan currency",
-    localization: "USD75 words or its current equivalent in Rwandan currency",
-    certified: "USD80 words or its current equivalent in Rwandan currency",
-    transcription: "USD65 words or its current equivalent in Rwandan currency",
-    glossaries: "USD 62 words or its current equivalent in Rwandan currency",
-    'back-translation': "USD50 words or its current equivalent in Rwandan currency",
-    'ai-translation': "USD55 words or its current equivalent in Rwandan currency",
-    'social-media': "USD60 words or its current equivalent in Rwandan currency",
-    'content-creation': "USD62 words or its current equivalent in Rwandan currency"
+   translation: "USD25/250 words or its current equivalent in Rwandan currency",
+  interpretation: "USD50/hour or its current equivalent in Rwandan currency",
+  proofreading: "USD15/250 words or its current equivalent in Rwandan currency",
+  mtpe: "USD15/250 words or its current equivalent in Rwandan currency or negotiable based on the raw quality",
+  'cv-support': "USD70 words or its current equivalent in Rwandan currency",
+  localization: "USD75 words or its current equivalent in Rwandan currency",
+  certified: "USD80 words or its current equivalent in Rwandan currency",
+  transcription: "USD65 words or its current equivalent in Rwandan currency",
+  glossaries: "USD 62 words or its current equivalent in Rwandan currency",
+  'back-translation': "USD50 words or its current equivalent in Rwandan currency",
+  'ai-translation': "USD55 words or its current equivalent in Rwandan currency",
+  'social-media': "USD60 words or its current equivalent in Rwandan currency",
+  'content-creation': "USD62 words or its current equivalent in Rwandan currency",
+  'any-other-document': "Custom pricing based on document type and requirements"
   };
 
   useEffect(() => {
@@ -300,7 +317,7 @@ function Quote() {
       files.forEach(file => submitData.append('files', file));
       if (paymentScreenshot) submitData.append('paymentScreenshot', paymentScreenshot);
 
-      const response = await fetch('https://lci-api.onrender.com/api/quotes', {
+      const response = await fetch('https://lci-backend.onrender.com/api/quotes', {
         method: 'POST',
         body: submitData,
       });

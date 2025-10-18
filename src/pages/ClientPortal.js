@@ -44,14 +44,14 @@ function ClientPortal() {
       }
 
       // FIXED: Fetch quotes and messages separately for the specific user
-      const quotesResponse = await fetch(`https://lci-api.onrender.com/api/quotes/client?email=${encodeURIComponent(user.email)}`, {
+      const quotesResponse = await fetch(`https://lci-backend.onrender.com/api/quotes/client?email=${encodeURIComponent(user.email)}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
 
-      const messagesResponse = await fetch(`https://lci-api.onrender.com/api/messages/client?email=${encodeURIComponent(user.email)}`, {
+      const messagesResponse = await fetch(`https://lci-backend.onrender.com/api/messages/client?email=${encodeURIComponent(user.email)}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

@@ -410,7 +410,7 @@ function AdminQuotes() {
         return;
       }
 
-      const response = await fetch('https://lci-api.onrender.com/api/quotes', {
+      const response = await fetch('https://lci-backend.onrender.com/api/quotes', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -477,7 +477,7 @@ function AdminQuotes() {
     try {
       const token = localStorage.getItem('adminToken') || localStorage.getItem('authToken');
       const response = await fetch(
-        `https://lci-api.onrender.com/api/quotes/${id}/status`,
+        `https://lci-backend.onrender.com/api/quotes/${id}/status`,
         {
           method: 'PUT',
           headers: {
@@ -529,7 +529,7 @@ function AdminQuotes() {
       }
 
       const response = await fetch(
-        `https://lci-api.onrender.com/api/quotes/${selectedQuote.id}/status`,
+        `https://lci-backend.onrender.com/api/quotes/${selectedQuote.id}/status`,
         {
           method: 'PUT',
           headers: {
